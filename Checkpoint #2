@@ -48,9 +48,11 @@ Pallavi, Archana
 database access, unoptimized queries or poor caching of existing data).
 ● Presentation (Mar 12), Final Project Paper (Mar 17) Entire
 Group
+
 Software
 All necessary software has been acquired. Current build environment is Ubuntu 12.10 with all the necessary
 dependencies installed via the system Package Manager.
+
 Timeline
 The timeline has been modified from Checkpoint #1 to reflect the delay in getting access Perftrack. Many of
 the goals intended to occur prior to this checkpoint have been moved into the subsequent weeks.
@@ -83,17 +85,16 @@ scripts then this shouldn't be too much of a problem.
 
 Group Meetings
 Group meetings will be held at minimum once per week, 30 minutes prior to the class period (subject to
-availability) as a minor facetoface
-discussion time. As many group members have unmoveable conflicts on
+availability) as a minor facetoface discussion time. As many group members have unmoveable conflicts on
 their time, most interaction will be conducted via email and online group chat. All document collaboration will
 be done via Google Docs. Source code collaboration via GitHub.
 https://github.com/organizations/CS533Winter2013Group4/
+
 Additional Information
 Description of Mini Database Exporting Method
 Based on Karavanic's PerfTrack web page, PerfTrack supports many means of exporting data. Currently
 there is an option to export to other formats such as spreadsheets or graphs but it would be possible to
 develop a way to extract a subset of the database entries into a second "minidatabase"
-so that it is less
-resource intensive to exchange complete resource information about experiments. Besides the gains in file
+so that it is less resource intensive to exchange complete resource information about experiments. Besides the gains in file
 size, this database would be able to queried faster to allow for better turnaround time for asking questions
 relevant to the subset of information.
