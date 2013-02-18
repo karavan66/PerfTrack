@@ -1,0 +1,169 @@
+RunDataBegin
+RunMachine=MCR
+RunOSName=Linux
+RunOSReleaseVersion=#1 SMP Wed Oct 6 10:09:15 PDT 2004
+RunOSReleaseType=2.4.21-p4smp-75chaos
+RunDateTime=Tue Jul  6 10:14:12 2004
+RunEnv=MALLOC_MMAP_MAX_=0@@@REMOTEHOST=65.100.34.41@@@MANPATH=/usr/local/intel/compiler80/man:/usr/local/intel/compiler80/man:/usr/man:/usr/local/man:/usr/share/man:/usr/X11R6/man:/usr/lib/mpi/man:/usr/lib/mpi/man@@@LIBELAN_GROUP_MAXSEGS=100@@@SUPPORTED=en_US.UTF-8:en_US:en@@@XLOCALEDIR=/usr/lib/X11/locale@@@HOSTNAME=mcr39@@@HOST=mcr39@@@TERM=xterm@@@SHELL=/bin/csh@@@TMPDIR=/var/tmp/mohror2@@@DSHPATH=/admin/scripts:/admin/bin:/bin:/usr/bin:/sbin:/usr/sbin@@@SSH_CLIENT=65.100.34.41 61654 922@@@PERL5LIB=/usr/local/lib/perl5/site_perl/5.6.1/i386-linux@@@CVSROOT=/usr/gapps/perf_track/repository@@@MALLOC_TRIM_THRESHOLD_=-1@@@SSH_TTY=/dev/pts/23@@@LANGVAR=C@@@LC_ALL=C@@@GROUP=mohror2@@@USER=mohror2@@@LD_LIBRARY_PATH=/usr/gapps/perf_track/oracle_instant_client/linux2/10.1.0.2/client/lib@@@LS_COLORS=no=00:fi=00:di=00;34:ln=00;36:pi=40;33:so=00;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=00;32:*.cmd=00;32:*.exe=00;32:*.com=00;32:*.btm=00;32:*.bat=00;32:*.sh=00;32:*.csh=00;32:*.tar=00;31:*.tgz=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.zip=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.bz=00;31:*.tz=00;31:*.rpm=00;31:*.cpio=00;31:*.jpg=00;35:*.gif=00;35:*.bmp=00;35:*.xbm=00;35:*.xpm=00;35:*.png=00;35:*.tif=00;35:@@@ORA_NLS10=@@@LIBELAN_GALLOC_MBASE=0xb0000000@@@PFTP_CONFIG_FILENAME=/etc/pftp_config@@@HOST_GRP=linux@@@HOSTTYPE=i386-linux@@@LIBELAN_GALLOC_SIZE=16777216@@@COLUMNS=80@@@TNS_ADMIN=/usr/gapps/perf_track/oracle_instant_client@@@MAIL=/var/spool/mail/mohror2@@@PATH=/usr/local/intel/compiler80/bin:/usr/kerberos/bin:/usr/local/intel/compiler80/bin:/usr/local/bin:/bin:/usr/bin:/usr/bin/X11:/usr/lib/mpi/bin:/usr/apps/bin:/usr/gapps/bin:.@@@INPUTRC=/etc/inputrc@@@PWD=/usr/gapps/perf_track/data/irs/mcr/omp_mpi_4p_2t/4/2@@@EDITOR=/bin/vi@@@LANG=en_US@@@GLOGIN=1@@@LINES=43@@@LM_LICENSE_FILE=/usr/local/etc/license.client:/usr/local/etc/license.client.lpr@@@ENVIRONMENT=INTERACTIVE@@@ORA_NLS_PROFILE33=@@@SHLVL=3@@@HOME=/g/g23/mohror2@@@OSTYPE=linux@@@perftrack_dir=/usr/gapps/perf_track/development/mohror2/data_collection@@@VENDOR=intel@@@PYTHONPATH=/usr/gapps/perf_track/cx_Oracle/build/lib.linux-i686-2.3:/usr/gapps/perf_track/development/mohror2/data_collection/database:/usr/gapps/perf_track/development/mohror2/data_collection/build:/usr/gapps/perf_track/development/mohror2/data_collection/run:/usr/gapps/perf_track/development/mohror2/briansparser@@@TMP=/var/tmp/mohror2@@@MACHTYPE=i386@@@LOGNAME=mohror2@@@VT_THREADS=0@@@SSH_CONNECTION=65.100.34.41 61654 134.9.38.115 922@@@SYS_TYPE=chaos_2_ia32_elan3@@@LESSOPEN=|/usr/bin/lesspipe.sh %s@@@DISPLAY=mcr39:17.0@@@LIBELAN_GALLOC_EBASE=0xb0000000@@@ORACLE_HOME=.@@@LIBELAN_WAITTYPE=POLL@@@G_BROKEN_FILENAMES=1@@@_=/bin/env
+PageSize=4096
+NumberOfProcesses=4
+ProcessesPerNode=1
+ThreadsPerProcess=2
+UsesMPI=True
+UsesOpenMP=True
+UsesPthreads=False
+LibraryBegin
+LibraryName=ld-linux.so.2
+LibraryPath=/lib/ld-linux.so.2
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=106912
+LibraryTimestamp=Mon Aug 30 15:42:38 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libpthread.so.0
+LibraryPath=/lib/tls/libpthread.so.0
+LibraryMemberObject=
+LibraryType=Thread
+LibraryVersion=
+LibrarySize=97616
+LibraryTimestamp=Mon Aug 30 15:42:40 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libdl.so.2
+LibraryPath=/lib/libdl.so.2
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=14868
+LibraryTimestamp=Mon Aug 30 15:42:39 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libelf.so.1
+LibraryPath=/usr/lib/libelf.so.1
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=63268
+LibraryTimestamp=Fri Jan 16 10:12:24 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libelanctrl.so.2
+LibraryPath=/usr/lib/libelanctrl.so.2
+LibraryMemberObject=
+LibraryType=Network
+LibraryVersion=
+LibrarySize=85245
+LibraryTimestamp=Wed Jul 21 17:26:47 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libimf.so
+LibraryPath=/usr/local/intel/compiler80/lib/libimf.so
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=1542253
+LibraryTimestamp=Wed Jun 16 11:25:36 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libunwind.so.5
+LibraryPath=/usr/local/intel/compiler80/lib/libunwind.so.5
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=27566
+LibraryTimestamp=Thu Apr 15 09:23:46 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libcxa.so.5
+LibraryPath=/usr/local/intel/compiler80/lib/libcxa.so.5
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=173589
+LibraryTimestamp=Sat Jul 17 11:24:56 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libcprts.so.5
+LibraryPath=/usr/local/intel/compiler80/lib/libcprts.so.5
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=594325
+LibraryTimestamp=Sat Jul 17 11:24:56 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libm.so.6
+LibraryPath=/lib/tls/libm.so.6
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=213484
+LibraryTimestamp=Mon Aug 30 15:42:40 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libc.so.6
+LibraryPath=/lib/tls/libc.so.6
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=1568924
+LibraryTimestamp=Mon Aug 30 15:42:40 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libguide.so
+LibraryPath=/usr/local/intel/compiler80/lib/libguide.so
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=191878
+LibraryTimestamp=Fri Jul  9 07:05:10 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=librmscall.so.1
+LibraryPath=/usr/lib/librmscall.so.1
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=13998
+LibraryTimestamp=Wed Jul 21 17:26:47 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libelan3.so.1
+LibraryPath=/usr/lib/libelan3.so.1
+LibraryMemberObject=
+LibraryType=Network
+LibraryVersion=
+LibrarySize=414648
+LibraryTimestamp=Wed Jul 21 17:26:45 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libelan.so.1
+LibraryPath=/usr/lib/libelan.so.1
+LibraryMemberObject=
+LibraryType=Network
+LibraryVersion=
+LibrarySize=920864
+LibraryTimestamp=Wed Jul 21 17:26:46 2004
+LibraryDynamic=True
+LibraryEnd
+InputDeckBegin
+InputDeckName=zrad.0008
+InputDeckModTime=Wed Jul  9 13:20:28 2003
+InputDeckEnd
+RunDataEnd

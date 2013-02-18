@@ -1,0 +1,72 @@
+BuildDataBegin
+ApplicationName=sppm
+ApplicationLanguages=['Fortran', 'C']
+ApplicationParadigms=['MPI', 'OpenMP']
+ApplicationExeName=run/sppm
+ApplicationExeSize=783611
+ApplicationExePerms=0700
+ApplicationExeUID=45528
+ApplicationExeGID=1079
+ApplicationExeTimestamp=2005-01-21T12:15:41
+ApplicationExeUsername=mohror2
+ApplicationExeTrialName=None
+BuildNode=mcr39
+BuildOSReleaseVersion=#1 SMP Thu Dec 9 16:41:45 PST 2004
+BuildOSReleaseType=2.4.21-p4smp-78chaos
+BuildEnv=MALLOC_MMAP_MAX_=0@@@REMOTEHOST=131.252.209.158@@@MANPATH=/usr/local/intel/compiler80/man:/usr/man:/usr/local/man:/usr/share/man:/usr/X11R6/man:/usr/lib/mpi/man@@@LIBELAN_GROUP_MAXSEGS=100@@@SUPPORTED=en_US.UTF-8:en_US:en@@@XLOCALEDIR=/usr/lib/X11/locale@@@HOSTNAME=mcr39@@@HOST=mcr39@@@TERM=xterm@@@SHELL=/bin/csh@@@TMPDIR=/var/tmp/mohror2@@@DSHPATH=/admin/scripts:/admin/bin:/bin:/usr/bin:/sbin:/usr/sbin@@@SSH_CLIENT=131.252.209.158 49396 922@@@PERL5LIB=/usr/local/lib/perl5/site_perl/5.6.1/i386-linux@@@CVSROOT=/usr/gapps/perf_track/repository@@@WINDOWID=50331665@@@MALLOC_TRIM_THRESHOLD_=-1@@@SSH_TTY=/dev/pts/32@@@LANGVAR=C@@@LC_ALL=C@@@GROUP=mohror2@@@USER=mohror2@@@LD_LIBRARY_PATH=/usr/gapps/perf_track/oracle_instant_client/linux2/10.1.0.2/client/lib:/usr/gapps/perf_track/oracle_instant_client/linux2/10.1.0.2/client/lib@@@LS_COLORS=no=00:fi=00:di=00;34:ln=00;36:pi=40;33:so=00;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=00;32:*.cmd=00;32:*.exe=00;32:*.com=00;32:*.btm=00;32:*.bat=00;32:*.sh=00;32:*.csh=00;32:*.tar=00;31:*.tgz=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.zip=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.bz=00;31:*.tz=00;31:*.rpm=00;31:*.cpio=00;31:*.jpg=00;35:*.gif=00;35:*.bmp=00;35:*.xbm=00;35:*.xpm=00;35:*.png=00;35:*.tif=00;35:@@@LIBELAN_GALLOC_MBASE=0xb0000000@@@PFTP_CONFIG_FILENAME=/etc/pftp_config@@@HOST_GRP=linux@@@HOSTTYPE=i386-linux@@@LIBELAN_GALLOC_SIZE=16777216@@@COLUMNS=80@@@TNS_ADMIN=/usr/gapps/perf_track/oracle_instant_client@@@MAIL=/usr/spool/mail/mohror2@@@PATH=/usr/kerberos/bin:/usr/local/intel/compiler80/bin:/usr/local/bin:/bin:/usr/bin:/usr/bin/X11:/usr/lib/mpi/bin:/usr/apps/bin:/usr/gapps/bin:.@@@INPUTRC=/etc/inputrc@@@PWD=/usr/gapps/perf_track/development/mohror2/kevins_benchmarks/sppm_mcr@@@EDITOR=/bin/vi@@@LANG=en_US@@@GLOGIN=1@@@LINES=55@@@LM_LICENSE_FILE=/usr/local/etc/license.client@@@ENVIRONMENT=INTERACTIVE@@@SHLVL=2@@@HOME=/g/g23/mohror2@@@OSTYPE=linux@@@perftrack_dir=/usr/gapps/perf_track/development/mohror2/data_collection@@@VENDOR=intel@@@PYTHONPATH=/usr/gapps/perf_track/cx_Oracle/build/lib.linux-i686-2.3:/usr/gapps/perf_track/development/mohror2/data_collection/database:/usr/gapps/perf_track/development/mohror2/data_collection/build:/usr/gapps/perf_track/development/mohror2/data_collection/run:/usr/gapps/perf_track/development/mohror2/briansparser@@@TMP=/var/tmp/mohror2@@@MACHTYPE=i386@@@LOGNAME=mohror2@@@VT_THREADS=0@@@SSH_CONNECTION=131.252.209.158 49396 134.9.38.115 922@@@SYS_TYPE=chaos_2_ia32_elan3@@@LESSOPEN=|/usr/bin/lesspipe.sh %s@@@DISPLAY=mcr39:22.0@@@LIBELAN_GALLOC_EBASE=0xb0000000@@@LIBELAN_WAITTYPE=POLL@@@G_BROKEN_FILENAMES=1@@@_=/bin/env
+BuildDateTime=2005-01-21T12:15:00
+CompilerBegin
+CompilerName=mpiicc-8.0
+CompilerPath=/usr/local/tools/compilers/intel/mpiicc-8.0
+CompilerVendor=Intel
+CompilerVersion=Version 8.0
+mpiScriptCompilerName=icc-8.0
+mpiScriptCompilerPath=/usr/local/tools/compilers/intel/icc-8.0
+mpiScriptCompilerFlags=['-DUSE_STDARG', '-DHAVE_STDLIB_H=1', '-DHAVE_STRING_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_STDARG_H=1', '-DUSE_STDARG=1', '-DMALLOC_RET_VOID=1']
+mpiScriptIncludePaths=[]
+mpiScriptLibraryPaths=['-L/usr/local/tools/mpi/default_icc80/lib', '-L/scratch/release/head/quadrics/lib/Linux_i686']
+mpiScriptLibraries=['-lmpi', '-lelan']
+CompilerCompileFlags=['-pg', '-O3', '-DF2C=1', '-DGNU', '-DSYSTEM=POSIX', '-DREAL=double', '-DTHREADED=1', '-DOPENMP=1', '-DBOBOUT=0', '-DDUMPS=0', '-DNOCHDIR=0', '-openmp', '-openmp_report', '-c']
+CompilerLibraries=[]
+CompilerIncludePaths=[]
+CompilerLibraryPaths=[]
+CompilerEnd
+CompilerBegin
+CompilerName=mpiifort-8.0
+CompilerPath=/usr/local/tools/compilers/intel/mpiifort-8.0
+CompilerVendor=Intel
+CompilerVersion=Version 8.0
+mpiScriptCompilerName=ifort-8.0
+mpiScriptCompilerPath=/usr/local/tools/compilers/intel/ifort-8.0
+mpiScriptCompilerFlags=['-Vaxlib', '-fPIC']
+mpiScriptIncludePaths=[]
+mpiScriptLibraryPaths=['-L/usr/local/tools/mpi/default_icc80/lib/shared', '-L/usr/local/tools/mpi/default_icc80/lib']
+mpiScriptLibraries=['-lmpifarg', '-lmpi', '-lelan']
+CompilerCompileFlags=['-pg', '-autodouble', '-fpconstant', '-O3', '-openmp', '-openmp_report', '-c']
+CompilerLibraries=[]
+CompilerIncludePaths=[]
+CompilerLibraryPaths=[]
+CompilerEnd
+PreprocessorBegin
+PreprocessorName=fpp
+PreprocessorPath=
+PreprocessorVersion=
+PreprocessorFlags=['-I/usr/local/lib/mpi_intel/include', '-P', '-DMPI', '-DGNU', '-DTHREADED=1', '-DOPENMP=1']
+PreprocessorEnd
+PreprocessorBegin
+PreprocessorName=m4
+PreprocessorPath=
+PreprocessorVersion=
+PreprocessorFlags=['-Uformat', '-DSYSTEM=POSIX', '-DREAL=double', '-DTHREADED=1', '-DOPENMP=1', '-DBOBOUT=0', '-DDUMPS=0', '-DNOCHDIR=0']
+PreprocessorEnd
+LibraryBegin
+LibraryName=libmpifarg.a
+LibraryPath=/usr/local/tools/mpi/default_icc80/lib/libmpifarg.a
+LibraryMemberObject=
+LibraryType=MPI
+LibraryVersion=
+LibrarySize=2890
+LibraryTimestamp=Thu Jul 15 09:23:50 2004
+LibraryDynamic=False
+LibraryEnd
+BuildDataEnd

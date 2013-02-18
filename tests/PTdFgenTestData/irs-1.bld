@@ -1,0 +1,54 @@
+BuildDataBegin
+ApplicationName=irs
+ApplicationLanguages=['C']
+ApplicationParadigms=['OpenMP', 'MPI']
+ApplicationExeName=../codes_opt/irs
+ApplicationExeSize=5527583
+ApplicationExePerms=0700
+ApplicationExeUID=45528
+ApplicationExeGID=45528
+ApplicationExeTimestamp=2004-09-21T14:49:37
+ApplicationExeUsername=mohror2
+ApplicationExeTrialName=None
+BuildOSName=Linux
+BuildOSReleaseVersion=#1 SMP Wed Sep 1 16:37:16 PDT 2004
+BuildOSReleaseType=2.4.21-p4smp-71chaos
+BuildEnv=MALLOC_MMAP_MAX_=0@@@REMOTEHOST=128.115.13.125@@@MANPATH=/usr/local/intel/compiler80/man:/usr/man:/usr/local/man:/usr/share/man:/usr/X11R6/man:/usr/lib/mpi/man@@@LIBELAN_GROUP_MAXSEGS=100@@@SUPPORTED=en_US.UTF-8:en_US:en@@@XLOCALEDIR=/usr/lib/X11/locale@@@HOSTNAME=mcr25@@@HOST=mcr25@@@TERM=xterm@@@SHELL=/bin/csh@@@DSHPATH=/admin/scripts:/admin/bin:/bin:/usr/bin:/sbin:/usr/sbin@@@TMPDIR=/var/tmp/mohror2@@@SSH_CLIENT=128.115.13.125 60143 22@@@PERL5LIB=/usr/local/lib/perl5/site_perl/5.6.1/i386-linux@@@CVSROOT=/g/g23/mohror2/CVS@@@MALLOC_TRIM_THRESHOLD_=-1@@@SSH_TTY=/dev/pts/9@@@LANGVAR=C@@@LC_ALL=C@@@GROUP=mohror2@@@USER=mohror2@@@LS_COLORS=no=00:fi=00:di=00;34:ln=00;36:pi=40;33:so=00;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=00;32:*.cmd=00;32:*.exe=00;32:*.com=00;32:*.btm=00;32:*.bat=00;32:*.sh=00;32:*.csh=00;32:*.tar=00;31:*.tgz=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.zip=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.bz=00;31:*.tz=00;31:*.rpm=00;31:*.cpio=00;31:*.jpg=00;35:*.gif=00;35:*.bmp=00;35:*.xbm=00;35:*.xpm=00;35:*.png=00;35:*.tif=00;35:@@@LIBELAN_GALLOC_MBASE=0xb0000000@@@PFTP_CONFIG_FILENAME=/etc/pftp_config@@@HOST_GRP=linux@@@HOSTTYPE=i386-linux@@@LIBELAN_GALLOC_SIZE=16777216@@@COLUMNS=80@@@MAIL=/usr/spool/mail/mohror2@@@PATH=/g/g23/mohror2/irs-1.4_snow/scripts/:/usr/kerberos/bin:/usr/local/intel/compiler80/bin:/usr/local/bin:/bin:/usr/bin:/usr/bin/X11:/usr/lib/mpi/bin:/usr/apps/bin:/usr/gapps/bin:.@@@INPUTRC=/etc/inputrc@@@PWD=/g/g23/mohror2/build.irs_pengra/build@@@EDITOR=/bin/vi@@@LANG=en_US@@@GLOGIN=1@@@LINES=63@@@LM_LICENSE_FILE=/usr/local/etc/license.client:/usr/local/etc/license.client.lpr@@@ENVIRONMENT=INTERACTIVE@@@SHLVL=2@@@HOME=/g/g23/mohror2@@@OSTYPE=linux@@@VENDOR=intel@@@TMP=/var/tmp/mohror2@@@MACHTYPE=i386@@@LOGNAME=mohror2@@@VT_THREADS=0@@@SSH_CONNECTION=128.115.13.125 60143 134.9.38.2 22@@@SYS_TYPE=chaos_2_ia32_elan3@@@LESSOPEN=|/usr/bin/lesspipe.sh %s@@@DISPLAY=mcr25:18.0@@@LIBELAN_GALLOC_EBASE=0xb0000000@@@LIBELAN_WAITTYPE=POLL@@@G_BROKEN_FILENAMES=1@@@_=/bin/env
+BuildDateTime=2004-09-21T14:46:06
+CompilerBegin
+CompilerName=icc
+CompilerPath=/usr/local/intel/compiler80/bin/icc
+CompilerVendor=Intel
+CompilerVersion=Version 8.0
+mpiScriptCompilerName=
+mpiScriptCompilerPath=
+mpiScriptCompilerFlags=[]
+mpiScriptIncludePaths=[]
+mpiScriptLibraryPaths=[]
+mpiScriptLibraries=[]
+CompilerCompileFlags=['-c', '-g', '-O2', '-xW', '-tpp7', '-Zp16', '-openmp', '-openmp_report', '-DUNIX', '-DFUNCTION_TIMERS', '-Dlinux', '-DCOMMPI', '-DOPENMP', '-Dintel_icc']
+CompilerLibraries=['-lctl', '-lgenrd', '-lhash', '-lparm', '-lreg', '-lrgst', '-lsrc', '-lsys', '-ltdiff', '-ltimers', '-llag', '-lgen', '-leos', '-lbndry', '-lblk', '-lcom', '-lcur', '-ldmp', '-lobjects', '-ledits', '-lsilo', '-lmpi', '-lelan', '-lelan3', '-lrmscall', '-lguide', '-lsvml', '-lc', '-lm']
+CompilerIncludePaths=['-I../..', '-I../../includes', '-I/usr/local/include', '-I/usr/include', '-I/usr/gapps/include/redhat_7_a', '-I/usr/gapps/silo/4.4/chaos_2_ia32_elan3/include', '-I/usr/lib/mpi/include', '-I../']
+CompilerLibraryPaths=['-L../lib_opt', '-L../libs', '-L/usr/local/intel/compiler80/lib', '-L/usr/lib', '-L/usr/gapps/silo/4.4/chaos_2_ia32_elan3/lib', '-L/usr/lib/mpi/lib']
+CompilerEnd
+LibraryBegin
+LibraryName=libsvml.a
+LibraryPath=/usr/local/intel/compiler80/lib/libsvml.a
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=523502
+LibraryTimestamp=Thu May 20 11:41:51 2004
+LibraryDynamic=False
+LibraryEnd
+LibraryBegin
+LibraryName=libsilo.a
+LibraryPath=/usr/gapps/silo/4.4/chaos_2_ia32_elan3/lib/libsilo.a
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=689764
+LibraryTimestamp=Fri Jun 11 14:17:55 2004
+LibraryDynamic=False
+LibraryEnd
+BuildDataEnd

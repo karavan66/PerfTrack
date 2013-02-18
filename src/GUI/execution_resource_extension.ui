@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0" stdsetdef="1">
+  <author></author>
+  <comment></comment>
+  <exportmacro></exportmacro>
+  <class>ExecutionResourceExtension</class>
+  <widget class="QWidget" name="ExecutionResourceExtension">
+    <property name="geometry">
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>397</width>
+        <height>364</height>
+      </rect>
+    </property>
+    <property name="windowTitle">
+      <string>Form1</string>
+    </property>
+    <layout class="QVBoxLayout">
+      <item>
+        <widget class="Q3Frame" name="frame3">
+          <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout">
+            <item>
+              <widget class="QLabel" name="textLabel1">
+                <property name="text">
+                  <string>Execution resources</string>
+                </property>
+                <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                </property>
+                <property name="wordWrap">
+                  <bool>false</bool>
+                </property>
+              </widget>
+            </item>
+          </layout>
+        </widget>
+      </item>
+      <item>
+        <widget class="Q3ListView" name="executionResourceListView">
+          <property name="selectionMode">
+            <enum>Q3ListView::NoSelection</enum>
+          </property>
+          <property name="showSortIndicator">
+            <bool>true</bool>
+          </property>
+          <property name="resizeMode">
+            <enum>Q3ListView::AllColumns</enum>
+          </property>
+          <column>
+            <property name="text">
+              <string>Resource</string>
+            </property>
+            <property name="clickable">
+              <bool>true</bool>
+            </property>
+            <property name="resizable">
+              <bool>true</bool>
+            </property>
+          </column>
+          <column>
+            <property name="text">
+              <string>Value</string>
+            </property>
+            <property name="clickable">
+              <bool>true</bool>
+            </property>
+            <property name="resizable">
+              <bool>true</bool>
+            </property>
+          </column>
+        </widget>
+      </item>
+    </layout>
+  </widget>
+  <layoutdefault spacing="6" margin="11"/>
+  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+</ui>

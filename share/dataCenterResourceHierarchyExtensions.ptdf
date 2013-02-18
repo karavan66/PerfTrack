@@ -1,0 +1,16 @@
+ResourceType metric
+ResourceType performanceTool
+
+ResourceType datacenter
+ResourceType datacenter|coolingtower
+ResourceType datacenter|chiller
+ResourceType datacenter|heatrecovery
+ResourceType datacenter|rack
+ResourceType datacenter|rack|powerunit
+ResourceType datacenter|rack|TMU
+ResourceType datacenter|airconditioner
+ResourceType datacenter|pump
+
+ResourceType grid|machine|partition|node|dimm
+ResourceType grid|machine|partition|node|ASIC
+

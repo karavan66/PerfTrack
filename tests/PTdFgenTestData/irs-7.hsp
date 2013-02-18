@@ -1,0 +1,195 @@
+      tplot deltat$
+      tplot cycle$
+      tplot rdifit$
+      tplot walltime$
+      tplot eval {rdifitsum+rdifit}$
+      tplot eval {scale * (walltime-wall0) / (rdifitsum+rdifit)}$
+   endmsg$
+      def rdifitsum {rdifitsum + rdifit}$
+      def benchmark {scale * (walltime-wall0) / (rdifitsum+0.0)}$
+   endmsg$
+{walltime > checktime}$
+     def checktime {walltime + 30}$
+     ptc$
+   endmsg$
+      ptc$
+      echo "physics time           = ",eval{time}$
+      echo "iiterations last cycle = ",eval{rdifit}$
+      echo "iterations total       = ",eval{rdifitsum}$
+   endmsg$
+      echo " "$
+      echo " "$
+      echo "BENCHMARK microseconds per zone-iteration = ",eval{benchmark}$
+      echo " "$
+      echo " "$
+      tpamp$
+   endmsg$
+NODE 1: Total time 2.380862e+02 seconds.
+NODE 1: Total physics time 2.375235e+02 seconds.
+NODE 1: Microseconds/zone/cycle = 4.524257e+01.
+NODE 1: Total zones 3.125000e+04.
+ions last cycle = ",eval{rdifit}$
+      echo "iterations total       = ",eval{rdifitsum}$
+   endmsg$
+      echo " "$
+      echo " "$
+      echo "BENCHMARK microseconds per zone-iteration = ",eval{benchmark}$
+      echo " "$
+      echo " "$
+      tpamp$
+   endmsg$
+time = 0.000000e+00 cycle = 0 subcycle = 0 dtc:0(-1,-1,-1) = 1.000000e-08
+physics time           = 0
+iiterations last cycle = 0
+iterations total       = 0
+time = 9.232369e-08 cycle = 10 subcycle = 10 dt0:0(2,40,41) = 2.042282e-08
+physics time           = 9.2323687391669e-08
+iiterations last cycle = 6
+iterations total       = 53
+time = 6.224731e-07 cycle = 20 subcycle = 20 dt0:0(2,37,30) = 1.264527e-07
+physics time           = 6.2247307709196e-07
+iiterations last cycle = 8
+iterations total       = 117
+time = 3.835714e-06 cycle = 30 subcycle = 30 dtr:0(3,21,19) = 6.274576e-07
+physics time           = 3.8357141640822e-06
+iiterations last cycle = 12
+iterations total       = 213
+time = 9.657715e-06 cycle = 37 subcycle = 37 dte:0(8,2,24) = 1.043715e-06
+time = 1.292231e-05 cycle = 40 subcycle = 40 dte:0(9,49,49) = 1.208783e-06
+physics time           = 1.2922306456312e-05
+iiterations last cycle = 20
+iterations total       = 373
+time = 2.595515e-05 cycle = 50 subcycle = 50 dte:0(12,50,50) = 1.426438e-06
+physics time           = 2.5955151951345e-05
+iiterations last cycle = 26
+iterations total       = 605
+time = 4.107725e-05 cycle = 60 subcycle = 60 dte:0(17,6,2) = 1.604032e-06
+physics time           = 4.1077251660895e-05
+iiterations last cycle = 30
+iterations total       = 886
+time = 4.591704e-05 cycle = 63 subcycle = 63 dte:0(18,25,50) = 1.600391e-06
+time = 5.755398e-05 cycle = 70 subcycle = 70 dte:0(20,49,50) = 1.702718e-06
+physics time           = 5.7553982534819e-05
+iiterations last cycle = 32
+iterations total       = 1196
+time = 7.522443e-05 cycle = 80 subcycle = 80 dte:0(25,25,50) = 1.809904e-06
+physics time           = 7.5224432221951e-05
+iiterations last cycle = 34
+iterations total       = 1526
+time = 8.630254e-05 cycle = 86 subcycle = 86 dte:0(26,50,50) = 1.854426e-06
+time = 9.393126e-05 cycle = 90 subcycle = 90 dte:0(28,49,50) = 1.936192e-06
+physics time           = 9.3931260076329e-05
+iiterations last cycle = 36
+iterations total       = 1872
+time = 1.136149e-04 cycle = 100 subcycle = 100 dte:0(32,49,50) = 1.992955e-06
+physics time           = 0.00011361487775578
+iiterations last cycle = 36
+iterations total       = 2232
+time = 1.300385e-04 cycle = 108 subcycle = 108 dte:0(37,2,35) = 2.121887e-06
+time = 1.342674e-04 cycle = 110 subcycle = 110 dte:0(37,48,3) = 2.157445e-06
+physics time           = 0.00013426738256218
+iiterations last cycle = 38
+iterations total       = 2608
+time = 1.558950e-04 cycle = 120 subcycle = 120 dte:0(42,49,38) = 2.256205e-06
+physics time           = 0.00015589498058905
+iiterations last cycle = 40
+iterations total       = 2990
+time = 1.784912e-04 cycle = 130 subcycle = 130 dte:0(44,1,1) = 2.309148e-06
+physics time           = 0.00017849115966849
+iiterations last cycle = 40
+iterations total       = 3386
+time = 1.784912e-04 cycle = 130 subcycle = 130 dte:0(44,1,1) = 2.309148e-06
+time = 2.021258e-04 cycle = 140 subcycle = 140 dte:0(49,2,2) = 2.391396e-06
+physics time           = 0.00020212581675978
+iiterations last cycle = 40
+iterations total       = 3786
+time = 2.347002e-04 cycle = 150 subcycle = 150 dt0:0(50,1,1) = 6.909559e-06
+physics time           = 0.00023470017248933
+iiterations last cycle = 60
+iterations total       = 4242
+time = 2.347002e-04 cycle = 150 subcycle = 150 dt0:0(50,1,1) = 6.909559e-06
+time = 4.140632e-04 cycle = 160 subcycle = 160 dt0:0(47,50,1) = 4.278217e-05
+physics time           = 0.00041406321978657
+iiterations last cycle = 124
+iterations total       = 5171
+time = 5.081840e-04 cycle = 162 subcycle = 162 dt0:0(47,50,1) = 6.160632e-05
+Stop time reached
+time = 1.032431e-03 cycle = 168 subcycle = 168 dt0:0(47,50,50) = 1.000000e-04
+ 
+ 
+BENCHMARK microseconds per zone-iteration = 2.3958173228346
+ 
+ 
+wall        time used: 2.384000e+02 seconds
+total   cpu time used: 2.378400e+02 seconds
+physics cpu time used: 2.371800e+02 seconds
+NODE 0: Total time 2.380934e+02 seconds.
+NODE 0: Total physics time 2.375197e+02 seconds.
+NODE 0: Microseconds/zone/cycle = 4.524184e+01.
+NODE 0: Total zones 3.125000e+04.
+
+	NODE 0 Total Communications Time: 1.448390e+01
+	NODE 0 Spent 6.083284 percent of its time in communications
+             %% of phys time   %% of total time
+       qbnd:   0.000002 %        0.000002 %
+           :   0.000000 %        0.000000 %
+     acumnm:   0.000002 %        0.000002 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+    radcom0:   0.000011 %        0.000011 %
+    radcom1:   0.000002 %        0.000002 %
+    radcom2:   0.000001 %        0.000001 %
+   vsamecom:   0.000000 %        0.000000 %
+   rbndcom0:   0.000005 %        0.000005 %
+   rbndcom1:   2.372316 %        2.366682 %
+   rbndcom2:   0.406920 %        0.405954 %
+   rbndcom3:   0.187558 %        0.187112 %
+   rbndcom4:   0.529325 %        0.528068 %
+   rbndcom5:   1.359220 %        1.355992 %
+   rbndcom6:   0.112910 %        0.112642 %
+   rbndcom7:   0.000001 %        0.000001 %
+   rbndcom8:   0.000001 %        0.000001 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+   facecom0:   0.000002 %        0.000002 %
+   facecom1:   0.000001 %        0.000001 %
+   facecom2:   0.000001 %        0.000001 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+           :   0.000000 %        0.000000 %
+     varcom:   0.000000 %        0.000000 %
+    barrier:   0.000000 %        0.000000 %
+     brdcst:   0.035798 %        0.035713 %
+     reduce:   0.964380 %        0.962089 %
+Communications  Min:  5.683% Ave:  5.968% Max:  6.098%.
+Communications averaged   5.968459% of physics time.
+Communications averaged   5.954285% of total time.
+Total zones 1.250000e+05.
+Average physics time 2.375226e+02 +/- 9.621812e-04 seconds.
+Timer resolution 1.000000e-07 seconds.
+Min physics time 2.375197e+02 seconds.
+Max physics time 2.375235e+02 seconds.
+Overall Microseconds/zone/cycle 1.131064e+01.
+Average Microseconds/zone/cycle 1.131060e+01 +/- 4.581815e-05.

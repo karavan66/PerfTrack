@@ -1,0 +1,151 @@
+********************************************************
+PTds.py bugs/limitations
+********************************************************
+1. If there are quotation marks in ptdf line that aren't intended to indicate a string with spaces (e.g. an attribute value), PTds.py does not parse them correctly. For example, the following compiler flags have quotation marks and won't be parsed correctly:
+  -optPdtCOpts="-I/g/g23/mohror1/TAU/tau-2.15.1/include"  -optPdtCOpts="-I/g/g23/mohror1/TAU/tau-2.15.1/include"
+
+
+********************************************************
+Run.py/ptrun.py bugs/limitations
+********************************************************
+The script submission.py gets needed information about the
+runtime configuration of your execution from the batch file.  Currently,
+submission.py requires that some lines exist in your batch file to get all the
+needed information. We expect to relax this requirement in the future.
+
+However for the time being, submission.py requires the following:
+
+1. For LCRM: A geometry specification line. Example:
+#PSUB -g 4@tpn4
+OR 
+#PSUB -g 4   
+OR
+#PSUB -cpn 4
+  This is needed to find out the number of processes per node in your
+execution. If you specify the total number of tasks with the -g option (a line like: "#PSUB -g 4"), you must precede it with a line that specifies the number of nodes, e.g. "#PSUB -ln 2".
+
+2. For LCRM: A constraint line that tells the name of the machine and the partition being used. Example:
+#PSUB -c frost,pbatch
+  This is needed to determine the name of the runtime machine and the
+partition on which it will execute.
+
+3. For LCRM: A specification of the number of nodes used with -ln. Example:
+#PSUB -ln 1
+It only supports an exact number of nodes, not a range or minimum number, etc.
+
+4. For LCRM: To give the execution a name in the PerfTrack database, you can use the -r option. Example:
+#PSUB -r irsMPI4p
+
+4. For mpirun: A file that contains the command arguments. This file name is
+given to the --batchFile argument to ptGo.py. Example:
+-np 2 --nodes=node1,node2 /path/to/my/program --argsForMyProgram
+
+
+Bugs/Limitations:
+1. For LCRM:  Calculation of tasks per node when using the -cpn option currently depends on the script knowing how many processors per node there are on the machine
+you are using.  This is currently done assuming that the machine you run the run data collection script is the same as the machines that the job will run on. It parses /proc/cpuinfo.
+
+2. For LCRM and PBS: In order to parse the constraints line,  we need to know information about machines, namely their names and partition names. We rely on a file in your homedir called: .ptconfig. In this file, specify machines with a line that says:
+machine <machine name>
+
+Example:
+machine MCR
+machine jacquard
+
+Specify partition names with lines that say:
+partition <machine name> <partition name>
+
+
+Example:
+partition MCR pbatch
+partition jacquard interactive
+
+
+3. In order to get the dynamic libraries used by the application, the run data collection script must be run in the environment that the application will run in. This is because the dynamic library information is gathered with ldd.
+
+4.  Currently, on Linux we use the "df" command to get filesystem information, and on AIX we parse /etc/filesystems as well as use "df". If this command (or file for AIX) does not exist on your system, we need to know some basic information written to a file in your homedir called .ptconfig. In this file, specify filesystems with a line that says:
+filesystem <filesystem name>
+
+Example:
+filesystem gpfs
+
+To get version information about the filesystem, provide a command with a line that says:
+versionCommand <filesystem name> <command> <args>
+
+The <args> portion can contain the word $device. If you specify devices in the .ptconfig file, $device will be replaced with the name of a device.
+
+Example:
+filesystem gpfs
+versionCommand gpfs /usr/lpp/mmfs/bin/mmlsfs $device -V
+device gpfs /dev/scratch
+device gpfs /dev/common
+device gpfs /dev/tlproject
+
+5. Sometimes we can't figure out the name of the run machine. In these cases, this can be remedied by specifying the name of the machine during the PTdf-generation step with the -M option. For example:
+PTdFgen.py -d datadir -e -v -M jacquard
+
+6. For PBS and LCRM: PerfTrack doesn't currently get any arguments given to qsub or
+psub on the command line. It only sees what is in the batchfile.
+
+
+********************************************************
+ptbuild.py bugs/limitations
+********************************************************
+
+1. May have problems with makefiles that define environment variables,
+  export them, and then use them in the make commands.  It currently
+  works for makefiles that define the variables in this format:
+  var1=somevalue
+  var2=somevalue
+  But, there is probably some other format that will make it fail...
+
+2. Has problems getting version of KAI compiler (newmpguidec)
+  installation - says 0.0_not_set - perhaps it's a KAI installation
+  problem?
+
+3. May get incomplete information for mpxlf when it tries to determine
+  the libraries used by the MPI script.
+
+4. Does not get library versions.
+
+5. The compiler flags for each compiler are a concatenation of all the
+flags seen for that compiler during the build. This is not a problem if all of
+the source files that use the same compiler also use all the same flags.
+However, if some source files use different flags for the compiler than others
+do, the flags attribute of the compiler will be a concatenation of the two
+sets of flags.
+
+********************************************************
+parsePurple.py bugs/limitations
+********************************************************
+
+1. ASCI Purple Benchmark IRS
+        Functions that begin with "MPI_" are assumed to be found in a library
+that starts with "libmpi".
+
+
+
+********************************************************
+GUI bugs/limitations
+********************************************************
+
+1. The file src/GUI/gui.pro contains some machine-specific  (rita/ruby) information, namely a hard-coded path to python includes and libraries. The reason for this is that we are not using the default installation of python, but a version in /pperfdb/packages. In order to find the needed files for the build, we have to specify where they are. It might be better to have an easier way for a user to specify this information, instead of having to edit this file.
+
+2. In the query window (implemented in selection_dialog_base.ui), the list box that contains performance result labels ("Performance Result Label") does not resize with the window.
+
+3. In the PT main window (a.k.a. the data window, implemented in pt_main_window_base.ui), the "Selection Parameters" list box does not resize with the window (to see this, try shrinking the window).
+
+4. In the PT main window (a.k.a. the data window, implemented in pt_main_window_base.ui), the "Selection Parameters" list box does not contain the performance result labels that were added to the query.
+
+5. The select operator dialog (implemented in select_operator_dialog_base.ui), does not resize properly.
+
+6. The combined performance results window (implemented in combine_perfReses_dialog_base.ui) , does not resize properly.
+
+7. The file .ptoperators needs to be in your PYTHONPATH. This file describes the available operators and tells what file implements them. The idea for this file was to have it work sort of like Paradyn's specification file, where you can have multiple .ptoperators files, they are all read, and there is a precedence order (e.g. if the same thing is defined in two files, the one in your homedir takes precedence). However, this doesn't work that way now. There is just one .ptoperators file that is read, and it will be the first one found in   your PYTHONPATH.
+
+********************************************************
+systemScan.py bugs/limitations  (machine data collection scripts)
+********************************************************
+The machine data collection scripts are in prototype status. They currently collect a limited amount of information for Linux and AIX machines. They have been primarily tested on Linux.
+
+

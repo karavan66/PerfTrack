@@ -1,0 +1,489 @@
+Application sppm
+ResourceType build
+ResourceType build/module
+ResourceType build/module/function
+ResourceType compiler
+ResourceType environment
+ResourceType execution
+ResourceType execution/process
+ResourceType execution/process/thread
+ResourceType grid/machine
+ResourceType grid/machine/partition
+ResourceType grid/machine/partition/node
+ResourceType metric
+ResourceType operatingSystem
+ResourceType performanceTool
+ResourceType preprocessor
+ResourceType time
+ResourceType time/interval
+Execution sppm-11 sppm
+ResourceAttribute sppm-11 ApplicationLanguages "Fortran C"
+ResourceAttribute sppm-11 ApplicationParadigms "MPI OpenMP"
+ResourceAttribute sppm-11 ApplicationExeName run/sppm
+ResourceAttribute sppm-11 ApplicationExeSize 783611
+ResourceAttribute sppm-11 ApplicationExePerms 0700
+ResourceAttribute sppm-11 ApplicationExeUID 45528
+ResourceAttribute sppm-11 ApplicationExeGID 1079
+ResourceAttribute sppm-11 ApplicationExeTimestamp 2005-01-21T12:15:41
+ResourceAttribute sppm-11 ApplicationExeUsername mohror2
+ResourceAttribute sppm-11 RunDateTime "Mon Sep 13 20:32:28 2004"
+ResourceAttribute sppm-11 RunEnvMALLOC_MMAP_MAX_ 0
+ResourceAttribute sppm-11 RunEnvREMOTEHOST 131.252.209.158
+ResourceAttribute sppm-11 RunEnvMANPATH /usr/local/intel/compiler80/man:/usr/local/intel/compiler80/man:/usr/man:/usr/local/man:/usr/share/man:/usr/X11R6/man:/usr/lib/mpi/man:/usr/lib/mpi/man
+ResourceAttribute sppm-11 RunEnvLIBELAN_GROUP_MAXSEGS 100
+ResourceAttribute sppm-11 RunEnvSUPPORTED en_US.UTF-8:en_US:en
+ResourceAttribute sppm-11 RunEnvXLOCALEDIR /usr/lib/X11/locale
+ResourceAttribute sppm-11 RunEnvHOSTNAME mcr38
+ResourceAttribute sppm-11 RunEnvHOST mcr38
+ResourceAttribute sppm-11 RunEnvTERM dtterm
+ResourceAttribute sppm-11 RunEnvSHELL /bin/csh
+ResourceAttribute sppm-11 RunEnvTMPDIR /var/tmp/mohror2
+ResourceAttribute sppm-11 RunEnvDSHPATH /admin/scripts:/admin/bin:/bin:/usr/bin:/sbin:/usr/sbin
+ResourceAttribute sppm-11 RunEnvSSH_CLIENT "131.252.209.158 58878 922"
+ResourceAttribute sppm-11 RunEnvPERL5LIB /usr/local/lib/perl5/site_perl/5.6.1/i386-linux
+ResourceAttribute sppm-11 RunEnvCVSROOT /usr/gapps/perf_track/repository
+ResourceAttribute sppm-11 RunEnvMALLOC_TRIM_THRESHOLD_ -1
+ResourceAttribute sppm-11 RunEnvSSH_TTY /dev/pts/28
+ResourceAttribute sppm-11 RunEnvLANGVAR C
+ResourceAttribute sppm-11 RunEnvLC_ALL C
+ResourceAttribute sppm-11 RunEnvGROUP mohror2
+ResourceAttribute sppm-11 RunEnvUSER mohror2
+ResourceAttribute sppm-11 RunEnvLD_LIBRARY_PATH /usr/gapps/perf_track/oracle_instant_client/linux2/10.1.0.2/client/lib:/usr/gapps/perf_track/oracle_instant_client/linux2/10.1.0.2/client/lib
+ResourceAttribute sppm-11 RunEnvLS_COLORS no
+ResourceAttribute sppm-11 RunEnvLIBELAN_GALLOC_MBASE 0xb0000000
+ResourceAttribute sppm-11 RunEnvPFTP_CONFIG_FILENAME /etc/pftp_config
+ResourceAttribute sppm-11 RunEnvHOST_GRP linux
+ResourceAttribute sppm-11 RunEnvHOSTTYPE i386-linux
+ResourceAttribute sppm-11 RunEnvLIBELAN_GALLOC_SIZE 16777216
+ResourceAttribute sppm-11 RunEnvTNS_ADMIN /usr/gapps/perf_track/oracle_instant_client
+ResourceAttribute sppm-11 RunEnvMAIL /var/spool/mail/mohror2
+ResourceAttribute sppm-11 RunEnvPATH /usr/local/intel/compiler80/bin:/usr/kerberos/bin:/usr/local/intel/compiler80/bin:/usr/local/bin:/bin:/usr/bin:/usr/bin/X11:/usr/lib/mpi/bin:/usr/apps/bin:/usr/gapps/bin:.
+ResourceAttribute sppm-11 RunEnvINPUTRC /etc/inputrc
+ResourceAttribute sppm-11 RunEnvPWD /usr/gapps/perf_track/data/sppm_data/mcr/run_mpi_openmp/2/2
+ResourceAttribute sppm-11 RunEnvEDITOR /bin/vi
+ResourceAttribute sppm-11 RunEnvLANG en_US
+ResourceAttribute sppm-11 RunEnvGLOGIN 1
+ResourceAttribute sppm-11 RunEnvLM_LICENSE_FILE /usr/local/etc/license.client:/usr/local/etc/license.client.lpr
+ResourceAttribute sppm-11 RunEnvENVIRONMENT INTERACTIVE
+ResourceAttribute sppm-11 RunEnvSHLVL 3
+ResourceAttribute sppm-11 RunEnvHOME /g/g23/mohror2
+ResourceAttribute sppm-11 RunEnvOSTYPE linux
+ResourceAttribute sppm-11 RunEnvperftrack_dir /usr/gapps/perf_track/development/mohror2/data_collection
+ResourceAttribute sppm-11 RunEnvVENDOR intel
+ResourceAttribute sppm-11 RunEnvPYTHONPATH /usr/gapps/perf_track/cx_Oracle/build/lib.linux-i686-2.3:/usr/gapps/perf_track/development/mohror2/data_collection/database:/usr/gapps/perf_track/development/mohror2/data_collection/build:/usr/gapps/perf_track/development/mohror2/data_collection/run:/usr/gapps/perf_track/development/mohror2/briansparser
+ResourceAttribute sppm-11 RunEnvTMP /var/tmp/mohror2
+ResourceAttribute sppm-11 RunEnvMACHTYPE i386
+ResourceAttribute sppm-11 RunEnvLOGNAME mohror2
+ResourceAttribute sppm-11 RunEnvVT_THREADS 0
+ResourceAttribute sppm-11 RunEnvSSH_CONNECTION "131.252.209.158 58878 134.9.38.109 922"
+ResourceAttribute sppm-11 RunEnvSYS_TYPE chaos_2_ia32_elan3
+ResourceAttribute sppm-11 RunEnvLESSOPEN "|/usr/bin/lesspipe.sh %s"
+ResourceAttribute sppm-11 RunEnvDISPLAY mcr38:29.0
+ResourceAttribute sppm-11 RunEnvLIBELAN_GALLOC_EBASE 0xb0000000
+ResourceAttribute sppm-11 RunEnvORACLE_HOME .
+ResourceAttribute sppm-11 RunEnvLIBELAN_WAITTYPE POLL
+ResourceAttribute sppm-11 RunEnvG_BROKEN_FILENAMES 1
+ResourceAttribute sppm-11 RunEnv_ /bin/env
+ResourceAttribute sppm-11 PageSize 4096
+ResourceAttribute sppm-11 NumberOfProcesses 2
+ResourceAttribute sppm-11 ProcessesPerNode 1
+ResourceAttribute sppm-11 ThreadsPerProcess 2
+ResourceAttribute sppm-11 UsesMPI True
+ResourceAttribute sppm-11 UsesOpenMP True
+ResourceAttribute sppm-11 UsesPthreads False
+Resource sppm-11 build sppm-11
+ResourceAttribute sppm-11 BuildNode mcr39
+ResourceAttribute sppm-11 BuildEnvMALLOC_MMAP_MAX_ 0
+ResourceAttribute sppm-11 BuildEnvREMOTEHOST 131.252.209.158
+ResourceAttribute sppm-11 BuildEnvMANPATH /usr/local/intel/compiler80/man:/usr/man:/usr/local/man:/usr/share/man:/usr/X11R6/man:/usr/lib/mpi/man
+ResourceAttribute sppm-11 BuildEnvLIBELAN_GROUP_MAXSEGS 100
+ResourceAttribute sppm-11 BuildEnvSUPPORTED en_US.UTF-8:en_US:en
+ResourceAttribute sppm-11 BuildEnvXLOCALEDIR /usr/lib/X11/locale
+ResourceAttribute sppm-11 BuildEnvHOSTNAME mcr39
+ResourceAttribute sppm-11 BuildEnvHOST mcr39
+ResourceAttribute sppm-11 BuildEnvTERM xterm
+ResourceAttribute sppm-11 BuildEnvSHELL /bin/csh
+ResourceAttribute sppm-11 BuildEnvTMPDIR /var/tmp/mohror2
+ResourceAttribute sppm-11 BuildEnvDSHPATH /admin/scripts:/admin/bin:/bin:/usr/bin:/sbin:/usr/sbin
+ResourceAttribute sppm-11 BuildEnvSSH_CLIENT "131.252.209.158 49396 922"
+ResourceAttribute sppm-11 BuildEnvPERL5LIB /usr/local/lib/perl5/site_perl/5.6.1/i386-linux
+ResourceAttribute sppm-11 BuildEnvCVSROOT /usr/gapps/perf_track/repository
+ResourceAttribute sppm-11 BuildEnvWINDOWID 50331665
+ResourceAttribute sppm-11 BuildEnvMALLOC_TRIM_THRESHOLD_ -1
+ResourceAttribute sppm-11 BuildEnvSSH_TTY /dev/pts/32
+ResourceAttribute sppm-11 BuildEnvLANGVAR C
+ResourceAttribute sppm-11 BuildEnvLC_ALL C
+ResourceAttribute sppm-11 BuildEnvGROUP mohror2
+ResourceAttribute sppm-11 BuildEnvUSER mohror2
+ResourceAttribute sppm-11 BuildEnvLD_LIBRARY_PATH /usr/gapps/perf_track/oracle_instant_client/linux2/10.1.0.2/client/lib:/usr/gapps/perf_track/oracle_instant_client/linux2/10.1.0.2/client/lib
+ResourceAttribute sppm-11 BuildEnvLS_COLORS no
+ResourceAttribute sppm-11 BuildEnvLIBELAN_GALLOC_MBASE 0xb0000000
+ResourceAttribute sppm-11 BuildEnvPFTP_CONFIG_FILENAME /etc/pftp_config
+ResourceAttribute sppm-11 BuildEnvHOST_GRP linux
+ResourceAttribute sppm-11 BuildEnvHOSTTYPE i386-linux
+ResourceAttribute sppm-11 BuildEnvLIBELAN_GALLOC_SIZE 16777216
+ResourceAttribute sppm-11 BuildEnvCOLUMNS 80
+ResourceAttribute sppm-11 BuildEnvTNS_ADMIN /usr/gapps/perf_track/oracle_instant_client
+ResourceAttribute sppm-11 BuildEnvMAIL /usr/spool/mail/mohror2
+ResourceAttribute sppm-11 BuildEnvPATH /usr/kerberos/bin:/usr/local/intel/compiler80/bin:/usr/local/bin:/bin:/usr/bin:/usr/bin/X11:/usr/lib/mpi/bin:/usr/apps/bin:/usr/gapps/bin:.
+ResourceAttribute sppm-11 BuildEnvINPUTRC /etc/inputrc
+ResourceAttribute sppm-11 BuildEnvPWD /usr/gapps/perf_track/development/mohror2/kevins_benchmarks/sppm_mcr
+ResourceAttribute sppm-11 BuildEnvEDITOR /bin/vi
+ResourceAttribute sppm-11 BuildEnvLANG en_US
+ResourceAttribute sppm-11 BuildEnvGLOGIN 1
+ResourceAttribute sppm-11 BuildEnvLINES 55
+ResourceAttribute sppm-11 BuildEnvLM_LICENSE_FILE /usr/local/etc/license.client
+ResourceAttribute sppm-11 BuildEnvENVIRONMENT INTERACTIVE
+ResourceAttribute sppm-11 BuildEnvSHLVL 2
+ResourceAttribute sppm-11 BuildEnvHOME /g/g23/mohror2
+ResourceAttribute sppm-11 BuildEnvOSTYPE linux
+ResourceAttribute sppm-11 BuildEnvperftrack_dir /usr/gapps/perf_track/development/mohror2/data_collection
+ResourceAttribute sppm-11 BuildEnvVENDOR intel
+ResourceAttribute sppm-11 BuildEnvPYTHONPATH /usr/gapps/perf_track/cx_Oracle/build/lib.linux-i686-2.3:/usr/gapps/perf_track/development/mohror2/data_collection/database:/usr/gapps/perf_track/development/mohror2/data_collection/build:/usr/gapps/perf_track/development/mohror2/data_collection/run:/usr/gapps/perf_track/development/mohror2/briansparser
+ResourceAttribute sppm-11 BuildEnvTMP /var/tmp/mohror2
+ResourceAttribute sppm-11 BuildEnvMACHTYPE i386
+ResourceAttribute sppm-11 BuildEnvLOGNAME mohror2
+ResourceAttribute sppm-11 BuildEnvVT_THREADS 0
+ResourceAttribute sppm-11 BuildEnvSSH_CONNECTION "131.252.209.158 49396 134.9.38.115 922"
+ResourceAttribute sppm-11 BuildEnvSYS_TYPE chaos_2_ia32_elan3
+ResourceAttribute sppm-11 BuildEnvLESSOPEN "|/usr/bin/lesspipe.sh %s"
+ResourceAttribute sppm-11 BuildEnvDISPLAY mcr39:22.0
+ResourceAttribute sppm-11 BuildEnvLIBELAN_GALLOC_EBASE 0xb0000000
+ResourceAttribute sppm-11 BuildEnvLIBELAN_WAITTYPE POLL
+ResourceAttribute sppm-11 BuildEnvG_BROKEN_FILENAMES 1
+ResourceAttribute sppm-11 BuildEnv_ /bin/env
+ResourceAttribute sppm-11 BuildDateTime 2005-01-21T12:15:00
+Resource /SingleMachineMCR/MCR/interactive/mcr39 grid/machine/partition/node sppm-11
+ResourceConstraint sppm-11 /SingleMachineMCR/MCR/interactive/mcr39
+Resource "Linux #1 SMP Thu Dec 9 16:41:45 PST 2004 2.4.21-p4smp-78chaos" operatingSystem sppm-11
+ResourceConstraint sppm-11 "Linux #1 SMP Thu Dec 9 16:41:45 PST 2004 2.4.21-p4smp-78chaos"
+Resource "mpiicc-8.0 Version 8.0" compiler sppm-11
+ResourceAttribute "mpiicc-8.0 Version 8.0" CompilerPath /usr/local/tools/compilers/intel/mpiicc-8.0
+ResourceAttribute "mpiicc-8.0 Version 8.0" CompilerVendor Intel
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptCompilerName icc-8.0
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptCompilerPath /usr/local/tools/compilers/intel/icc-8.0
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptCompilerFlags "-DUSE_STDARG -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDARG_H=1 -DUSE_STDARG=1 -DMALLOC_RET_VOID=1"
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptLibraryPaths "-L/usr/local/tools/mpi/default_icc80/lib -L/scratch/release/head/quadrics/lib/Linux_i686"
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptLibraries "-lmpi -lelan"
+ResourceAttribute "mpiicc-8.0 Version 8.0" CompilerCompileFlags "-pg -O3 -DF2C=1 -DGNU -DSYSTEM=POSIX -DREAL=double -DTHREADED=1 -DOPENMP=1 -DBOBOUT=0 -DDUMPS=0 -DNOCHDIR=0 -openmp -openmp_report -c"
+ResourceConstraint sppm-11 "mpiicc-8.0 Version 8.0"
+Resource "mpiifort-8.0 Version 8.0" compiler sppm-11
+ResourceAttribute "mpiifort-8.0 Version 8.0" CompilerPath /usr/local/tools/compilers/intel/mpiifort-8.0
+ResourceAttribute "mpiifort-8.0 Version 8.0" CompilerVendor Intel
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptCompilerName ifort-8.0
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptCompilerPath /usr/local/tools/compilers/intel/ifort-8.0
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptCompilerFlags "-Vaxlib -fPIC"
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptLibraryPaths "-L/usr/local/tools/mpi/default_icc80/lib/shared -L/usr/local/tools/mpi/default_icc80/lib"
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptLibraries "-lmpifarg -lmpi -lelan"
+ResourceAttribute "mpiifort-8.0 Version 8.0" CompilerCompileFlags "-pg -autodouble -fpconstant -O3 -openmp -openmp_report -c"
+ResourceConstraint sppm-11 "mpiifort-8.0 Version 8.0"
+Resource fpp preprocessor sppm-11
+ResourceAttribute fpp PreprocessorFlags "-I/usr/local/lib/mpi_intel/include -P -DMPI -DGNU -DTHREADED=1 -DOPENMP=1"
+ResourceConstraint sppm-11 fpp
+Resource m4 preprocessor sppm-11
+ResourceAttribute m4 PreprocessorFlags "-Uformat -DSYSTEM=POSIX -DREAL=double -DTHREADED=1 -DOPENMP=1 -DBOBOUT=0 -DDUMPS=0 -DNOCHDIR=0"
+ResourceConstraint sppm-11 m4
+Resource sppm-11/libmpifarg.a build/module sppm-11
+ResourceAttribute sppm-11/libmpifarg.a LibraryPath /usr/local/tools/mpi/default_icc80/lib/libmpifarg.a
+ResourceAttribute sppm-11/libmpifarg.a LibraryType MPI
+ResourceAttribute sppm-11/libmpifarg.a LibrarySize 2890
+ResourceAttribute sppm-11/libmpifarg.a LibraryTimestamp "Thu Jul 15 09:23:50 2004"
+ResourceConstraint sppm-11 sppm-11
+Resource sppm-11 environment sppm-11
+ResourceConstraint sppm-11 sppm-11
+Resource "whole execution" time sppm-11
+Resource "whole execution/10" time/interval sppm-11
+Resource "whole execution/12" time/interval sppm-11
+Resource "whole execution/20" time/interval sppm-11
+Resource "whole execution/14" time/interval sppm-11
+Resource "whole execution/16" time/interval sppm-11
+Resource "whole execution/18" time/interval sppm-11
+Resource "whole execution/2" time/interval sppm-11
+Resource "whole execution/4" time/interval sppm-11
+Resource "whole execution/6" time/interval sppm-11
+Resource "whole execution/8" time/interval sppm-11
+ResourceConstraint sppm-11 "whole execution"
+Resource sppm-11/Process-0 execution/process sppm-11
+Resource sppm-11 environment sppm-11
+ResourceConstraint sppm-11/Process-0 sppm-11
+Resource sppm-11 build sppm-11
+ResourceAttribute sppm-11 BuildNode mcr39
+ResourceAttribute sppm-11 BuildEnvMALLOC_MMAP_MAX_ 0
+ResourceAttribute sppm-11 BuildEnvREMOTEHOST 131.252.209.158
+ResourceAttribute sppm-11 BuildEnvMANPATH /usr/local/intel/compiler80/man:/usr/man:/usr/local/man:/usr/share/man:/usr/X11R6/man:/usr/lib/mpi/man
+ResourceAttribute sppm-11 BuildEnvLIBELAN_GROUP_MAXSEGS 100
+ResourceAttribute sppm-11 BuildEnvSUPPORTED en_US.UTF-8:en_US:en
+ResourceAttribute sppm-11 BuildEnvXLOCALEDIR /usr/lib/X11/locale
+ResourceAttribute sppm-11 BuildEnvHOSTNAME mcr39
+ResourceAttribute sppm-11 BuildEnvHOST mcr39
+ResourceAttribute sppm-11 BuildEnvTERM xterm
+ResourceAttribute sppm-11 BuildEnvSHELL /bin/csh
+ResourceAttribute sppm-11 BuildEnvTMPDIR /var/tmp/mohror2
+ResourceAttribute sppm-11 BuildEnvDSHPATH /admin/scripts:/admin/bin:/bin:/usr/bin:/sbin:/usr/sbin
+ResourceAttribute sppm-11 BuildEnvSSH_CLIENT "131.252.209.158 49396 922"
+ResourceAttribute sppm-11 BuildEnvPERL5LIB /usr/local/lib/perl5/site_perl/5.6.1/i386-linux
+ResourceAttribute sppm-11 BuildEnvCVSROOT /usr/gapps/perf_track/repository
+ResourceAttribute sppm-11 BuildEnvWINDOWID 50331665
+ResourceAttribute sppm-11 BuildEnvMALLOC_TRIM_THRESHOLD_ -1
+ResourceAttribute sppm-11 BuildEnvSSH_TTY /dev/pts/32
+ResourceAttribute sppm-11 BuildEnvLANGVAR C
+ResourceAttribute sppm-11 BuildEnvLC_ALL C
+ResourceAttribute sppm-11 BuildEnvGROUP mohror2
+ResourceAttribute sppm-11 BuildEnvUSER mohror2
+ResourceAttribute sppm-11 BuildEnvLD_LIBRARY_PATH /usr/gapps/perf_track/oracle_instant_client/linux2/10.1.0.2/client/lib:/usr/gapps/perf_track/oracle_instant_client/linux2/10.1.0.2/client/lib
+ResourceAttribute sppm-11 BuildEnvLS_COLORS no
+ResourceAttribute sppm-11 BuildEnvLIBELAN_GALLOC_MBASE 0xb0000000
+ResourceAttribute sppm-11 BuildEnvPFTP_CONFIG_FILENAME /etc/pftp_config
+ResourceAttribute sppm-11 BuildEnvHOST_GRP linux
+ResourceAttribute sppm-11 BuildEnvHOSTTYPE i386-linux
+ResourceAttribute sppm-11 BuildEnvLIBELAN_GALLOC_SIZE 16777216
+ResourceAttribute sppm-11 BuildEnvCOLUMNS 80
+ResourceAttribute sppm-11 BuildEnvTNS_ADMIN /usr/gapps/perf_track/oracle_instant_client
+ResourceAttribute sppm-11 BuildEnvMAIL /usr/spool/mail/mohror2
+ResourceAttribute sppm-11 BuildEnvPATH /usr/kerberos/bin:/usr/local/intel/compiler80/bin:/usr/local/bin:/bin:/usr/bin:/usr/bin/X11:/usr/lib/mpi/bin:/usr/apps/bin:/usr/gapps/bin:.
+ResourceAttribute sppm-11 BuildEnvINPUTRC /etc/inputrc
+ResourceAttribute sppm-11 BuildEnvPWD /usr/gapps/perf_track/development/mohror2/kevins_benchmarks/sppm_mcr
+ResourceAttribute sppm-11 BuildEnvEDITOR /bin/vi
+ResourceAttribute sppm-11 BuildEnvLANG en_US
+ResourceAttribute sppm-11 BuildEnvGLOGIN 1
+ResourceAttribute sppm-11 BuildEnvLINES 55
+ResourceAttribute sppm-11 BuildEnvLM_LICENSE_FILE /usr/local/etc/license.client
+ResourceAttribute sppm-11 BuildEnvENVIRONMENT INTERACTIVE
+ResourceAttribute sppm-11 BuildEnvSHLVL 2
+ResourceAttribute sppm-11 BuildEnvHOME /g/g23/mohror2
+ResourceAttribute sppm-11 BuildEnvOSTYPE linux
+ResourceAttribute sppm-11 BuildEnvperftrack_dir /usr/gapps/perf_track/development/mohror2/data_collection
+ResourceAttribute sppm-11 BuildEnvVENDOR intel
+ResourceAttribute sppm-11 BuildEnvPYTHONPATH /usr/gapps/perf_track/cx_Oracle/build/lib.linux-i686-2.3:/usr/gapps/perf_track/development/mohror2/data_collection/database:/usr/gapps/perf_track/development/mohror2/data_collection/build:/usr/gapps/perf_track/development/mohror2/data_collection/run:/usr/gapps/perf_track/development/mohror2/briansparser
+ResourceAttribute sppm-11 BuildEnvTMP /var/tmp/mohror2
+ResourceAttribute sppm-11 BuildEnvMACHTYPE i386
+ResourceAttribute sppm-11 BuildEnvLOGNAME mohror2
+ResourceAttribute sppm-11 BuildEnvVT_THREADS 0
+ResourceAttribute sppm-11 BuildEnvSSH_CONNECTION "131.252.209.158 49396 134.9.38.115 922"
+ResourceAttribute sppm-11 BuildEnvSYS_TYPE chaos_2_ia32_elan3
+ResourceAttribute sppm-11 BuildEnvLESSOPEN "|/usr/bin/lesspipe.sh %s"
+ResourceAttribute sppm-11 BuildEnvDISPLAY mcr39:22.0
+ResourceAttribute sppm-11 BuildEnvLIBELAN_GALLOC_EBASE 0xb0000000
+ResourceAttribute sppm-11 BuildEnvLIBELAN_WAITTYPE POLL
+ResourceAttribute sppm-11 BuildEnvG_BROKEN_FILENAMES 1
+ResourceAttribute sppm-11 BuildEnv_ /bin/env
+ResourceAttribute sppm-11 BuildDateTime 2005-01-21T12:15:00
+Resource /SingleMachineMCR/MCR/interactive/mcr39 grid/machine/partition/node sppm-11
+ResourceConstraint sppm-11 /SingleMachineMCR/MCR/interactive/mcr39
+Resource "Linux #1 SMP Thu Dec 9 16:41:45 PST 2004 2.4.21-p4smp-78chaos" operatingSystem sppm-11
+ResourceConstraint sppm-11 "Linux #1 SMP Thu Dec 9 16:41:45 PST 2004 2.4.21-p4smp-78chaos"
+Resource "mpiicc-8.0 Version 8.0" compiler sppm-11
+ResourceAttribute "mpiicc-8.0 Version 8.0" CompilerPath /usr/local/tools/compilers/intel/mpiicc-8.0
+ResourceAttribute "mpiicc-8.0 Version 8.0" CompilerVendor Intel
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptCompilerName icc-8.0
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptCompilerPath /usr/local/tools/compilers/intel/icc-8.0
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptCompilerFlags "-DUSE_STDARG -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDARG_H=1 -DUSE_STDARG=1 -DMALLOC_RET_VOID=1"
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptLibraryPaths "-L/usr/local/tools/mpi/default_icc80/lib -L/scratch/release/head/quadrics/lib/Linux_i686"
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptLibraries "-lmpi -lelan"
+ResourceAttribute "mpiicc-8.0 Version 8.0" CompilerCompileFlags "-pg -O3 -DF2C=1 -DGNU -DSYSTEM=POSIX -DREAL=double -DTHREADED=1 -DOPENMP=1 -DBOBOUT=0 -DDUMPS=0 -DNOCHDIR=0 -openmp -openmp_report -c"
+ResourceConstraint sppm-11 "mpiicc-8.0 Version 8.0"
+Resource "mpiifort-8.0 Version 8.0" compiler sppm-11
+ResourceAttribute "mpiifort-8.0 Version 8.0" CompilerPath /usr/local/tools/compilers/intel/mpiifort-8.0
+ResourceAttribute "mpiifort-8.0 Version 8.0" CompilerVendor Intel
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptCompilerName ifort-8.0
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptCompilerPath /usr/local/tools/compilers/intel/ifort-8.0
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptCompilerFlags "-Vaxlib -fPIC"
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptLibraryPaths "-L/usr/local/tools/mpi/default_icc80/lib/shared -L/usr/local/tools/mpi/default_icc80/lib"
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptLibraries "-lmpifarg -lmpi -lelan"
+ResourceAttribute "mpiifort-8.0 Version 8.0" CompilerCompileFlags "-pg -autodouble -fpconstant -O3 -openmp -openmp_report -c"
+ResourceConstraint sppm-11 "mpiifort-8.0 Version 8.0"
+Resource fpp preprocessor sppm-11
+ResourceAttribute fpp PreprocessorFlags "-I/usr/local/lib/mpi_intel/include -P -DMPI -DGNU -DTHREADED=1 -DOPENMP=1"
+ResourceConstraint sppm-11 fpp
+Resource m4 preprocessor sppm-11
+ResourceAttribute m4 PreprocessorFlags "-Uformat -DSYSTEM=POSIX -DREAL=double -DTHREADED=1 -DOPENMP=1 -DBOBOUT=0 -DDUMPS=0 -DNOCHDIR=0"
+ResourceConstraint sppm-11 m4
+Resource sppm-11/libmpifarg.a build/module sppm-11
+ResourceAttribute sppm-11/libmpifarg.a LibraryPath /usr/local/tools/mpi/default_icc80/lib/libmpifarg.a
+ResourceAttribute sppm-11/libmpifarg.a LibraryType MPI
+ResourceAttribute sppm-11/libmpifarg.a LibrarySize 2890
+ResourceAttribute sppm-11/libmpifarg.a LibraryTimestamp "Thu Jul 15 09:23:50 2004"
+ResourceConstraint sppm-11/Process-0 sppm-11
+Resource "Linux #1 SMP Wed Oct 6 10:09:15 PDT 2004 2.4.21-p4smp-75chaos" operatingSystem sppm-11
+ResourceConstraint sppm-11/Process-0 "Linux #1 SMP Wed Oct 6 10:09:15 PDT 2004 2.4.21-p4smp-75chaos"
+Resource /SingleMachineMCR/MCR grid/machine sppm-11
+Resource /SingleMachineMCR/MCR/batch grid/machine/partition sppm-11
+Resource /SingleMachineMCR/MCR/batch grid/machine/partition sppm-11
+ResourceConstraint sppm-11/Process-0 /SingleMachineMCR/MCR
+Resource sppm-11/Process-0/Thread-0 execution/process/thread sppm-11
+Resource sppm-11/Process-0/Thread-1 execution/process/thread sppm-11
+Resource sppm-11/Process-1 execution/process sppm-11
+Resource sppm-11 environment sppm-11
+ResourceConstraint sppm-11/Process-1 sppm-11
+Resource sppm-11 build sppm-11
+ResourceAttribute sppm-11 BuildNode mcr39
+ResourceAttribute sppm-11 BuildEnvMALLOC_MMAP_MAX_ 0
+ResourceAttribute sppm-11 BuildEnvREMOTEHOST 131.252.209.158
+ResourceAttribute sppm-11 BuildEnvMANPATH /usr/local/intel/compiler80/man:/usr/man:/usr/local/man:/usr/share/man:/usr/X11R6/man:/usr/lib/mpi/man
+ResourceAttribute sppm-11 BuildEnvLIBELAN_GROUP_MAXSEGS 100
+ResourceAttribute sppm-11 BuildEnvSUPPORTED en_US.UTF-8:en_US:en
+ResourceAttribute sppm-11 BuildEnvXLOCALEDIR /usr/lib/X11/locale
+ResourceAttribute sppm-11 BuildEnvHOSTNAME mcr39
+ResourceAttribute sppm-11 BuildEnvHOST mcr39
+ResourceAttribute sppm-11 BuildEnvTERM xterm
+ResourceAttribute sppm-11 BuildEnvSHELL /bin/csh
+ResourceAttribute sppm-11 BuildEnvTMPDIR /var/tmp/mohror2
+ResourceAttribute sppm-11 BuildEnvDSHPATH /admin/scripts:/admin/bin:/bin:/usr/bin:/sbin:/usr/sbin
+ResourceAttribute sppm-11 BuildEnvSSH_CLIENT "131.252.209.158 49396 922"
+ResourceAttribute sppm-11 BuildEnvPERL5LIB /usr/local/lib/perl5/site_perl/5.6.1/i386-linux
+ResourceAttribute sppm-11 BuildEnvCVSROOT /usr/gapps/perf_track/repository
+ResourceAttribute sppm-11 BuildEnvWINDOWID 50331665
+ResourceAttribute sppm-11 BuildEnvMALLOC_TRIM_THRESHOLD_ -1
+ResourceAttribute sppm-11 BuildEnvSSH_TTY /dev/pts/32
+ResourceAttribute sppm-11 BuildEnvLANGVAR C
+ResourceAttribute sppm-11 BuildEnvLC_ALL C
+ResourceAttribute sppm-11 BuildEnvGROUP mohror2
+ResourceAttribute sppm-11 BuildEnvUSER mohror2
+ResourceAttribute sppm-11 BuildEnvLD_LIBRARY_PATH /usr/gapps/perf_track/oracle_instant_client/linux2/10.1.0.2/client/lib:/usr/gapps/perf_track/oracle_instant_client/linux2/10.1.0.2/client/lib
+ResourceAttribute sppm-11 BuildEnvLS_COLORS no
+ResourceAttribute sppm-11 BuildEnvLIBELAN_GALLOC_MBASE 0xb0000000
+ResourceAttribute sppm-11 BuildEnvPFTP_CONFIG_FILENAME /etc/pftp_config
+ResourceAttribute sppm-11 BuildEnvHOST_GRP linux
+ResourceAttribute sppm-11 BuildEnvHOSTTYPE i386-linux
+ResourceAttribute sppm-11 BuildEnvLIBELAN_GALLOC_SIZE 16777216
+ResourceAttribute sppm-11 BuildEnvCOLUMNS 80
+ResourceAttribute sppm-11 BuildEnvTNS_ADMIN /usr/gapps/perf_track/oracle_instant_client
+ResourceAttribute sppm-11 BuildEnvMAIL /usr/spool/mail/mohror2
+ResourceAttribute sppm-11 BuildEnvPATH /usr/kerberos/bin:/usr/local/intel/compiler80/bin:/usr/local/bin:/bin:/usr/bin:/usr/bin/X11:/usr/lib/mpi/bin:/usr/apps/bin:/usr/gapps/bin:.
+ResourceAttribute sppm-11 BuildEnvINPUTRC /etc/inputrc
+ResourceAttribute sppm-11 BuildEnvPWD /usr/gapps/perf_track/development/mohror2/kevins_benchmarks/sppm_mcr
+ResourceAttribute sppm-11 BuildEnvEDITOR /bin/vi
+ResourceAttribute sppm-11 BuildEnvLANG en_US
+ResourceAttribute sppm-11 BuildEnvGLOGIN 1
+ResourceAttribute sppm-11 BuildEnvLINES 55
+ResourceAttribute sppm-11 BuildEnvLM_LICENSE_FILE /usr/local/etc/license.client
+ResourceAttribute sppm-11 BuildEnvENVIRONMENT INTERACTIVE
+ResourceAttribute sppm-11 BuildEnvSHLVL 2
+ResourceAttribute sppm-11 BuildEnvHOME /g/g23/mohror2
+ResourceAttribute sppm-11 BuildEnvOSTYPE linux
+ResourceAttribute sppm-11 BuildEnvperftrack_dir /usr/gapps/perf_track/development/mohror2/data_collection
+ResourceAttribute sppm-11 BuildEnvVENDOR intel
+ResourceAttribute sppm-11 BuildEnvPYTHONPATH /usr/gapps/perf_track/cx_Oracle/build/lib.linux-i686-2.3:/usr/gapps/perf_track/development/mohror2/data_collection/database:/usr/gapps/perf_track/development/mohror2/data_collection/build:/usr/gapps/perf_track/development/mohror2/data_collection/run:/usr/gapps/perf_track/development/mohror2/briansparser
+ResourceAttribute sppm-11 BuildEnvTMP /var/tmp/mohror2
+ResourceAttribute sppm-11 BuildEnvMACHTYPE i386
+ResourceAttribute sppm-11 BuildEnvLOGNAME mohror2
+ResourceAttribute sppm-11 BuildEnvVT_THREADS 0
+ResourceAttribute sppm-11 BuildEnvSSH_CONNECTION "131.252.209.158 49396 134.9.38.115 922"
+ResourceAttribute sppm-11 BuildEnvSYS_TYPE chaos_2_ia32_elan3
+ResourceAttribute sppm-11 BuildEnvLESSOPEN "|/usr/bin/lesspipe.sh %s"
+ResourceAttribute sppm-11 BuildEnvDISPLAY mcr39:22.0
+ResourceAttribute sppm-11 BuildEnvLIBELAN_GALLOC_EBASE 0xb0000000
+ResourceAttribute sppm-11 BuildEnvLIBELAN_WAITTYPE POLL
+ResourceAttribute sppm-11 BuildEnvG_BROKEN_FILENAMES 1
+ResourceAttribute sppm-11 BuildEnv_ /bin/env
+ResourceAttribute sppm-11 BuildDateTime 2005-01-21T12:15:00
+Resource /SingleMachineMCR/MCR/interactive/mcr39 grid/machine/partition/node sppm-11
+ResourceConstraint sppm-11 /SingleMachineMCR/MCR/interactive/mcr39
+Resource "Linux #1 SMP Thu Dec 9 16:41:45 PST 2004 2.4.21-p4smp-78chaos" operatingSystem sppm-11
+ResourceConstraint sppm-11 "Linux #1 SMP Thu Dec 9 16:41:45 PST 2004 2.4.21-p4smp-78chaos"
+Resource "mpiicc-8.0 Version 8.0" compiler sppm-11
+ResourceAttribute "mpiicc-8.0 Version 8.0" CompilerPath /usr/local/tools/compilers/intel/mpiicc-8.0
+ResourceAttribute "mpiicc-8.0 Version 8.0" CompilerVendor Intel
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptCompilerName icc-8.0
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptCompilerPath /usr/local/tools/compilers/intel/icc-8.0
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptCompilerFlags "-DUSE_STDARG -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDARG_H=1 -DUSE_STDARG=1 -DMALLOC_RET_VOID=1"
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptLibraryPaths "-L/usr/local/tools/mpi/default_icc80/lib -L/scratch/release/head/quadrics/lib/Linux_i686"
+ResourceAttribute "mpiicc-8.0 Version 8.0" mpiScriptLibraries "-lmpi -lelan"
+ResourceAttribute "mpiicc-8.0 Version 8.0" CompilerCompileFlags "-pg -O3 -DF2C=1 -DGNU -DSYSTEM=POSIX -DREAL=double -DTHREADED=1 -DOPENMP=1 -DBOBOUT=0 -DDUMPS=0 -DNOCHDIR=0 -openmp -openmp_report -c"
+ResourceConstraint sppm-11 "mpiicc-8.0 Version 8.0"
+Resource "mpiifort-8.0 Version 8.0" compiler sppm-11
+ResourceAttribute "mpiifort-8.0 Version 8.0" CompilerPath /usr/local/tools/compilers/intel/mpiifort-8.0
+ResourceAttribute "mpiifort-8.0 Version 8.0" CompilerVendor Intel
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptCompilerName ifort-8.0
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptCompilerPath /usr/local/tools/compilers/intel/ifort-8.0
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptCompilerFlags "-Vaxlib -fPIC"
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptLibraryPaths "-L/usr/local/tools/mpi/default_icc80/lib/shared -L/usr/local/tools/mpi/default_icc80/lib"
+ResourceAttribute "mpiifort-8.0 Version 8.0" mpiScriptLibraries "-lmpifarg -lmpi -lelan"
+ResourceAttribute "mpiifort-8.0 Version 8.0" CompilerCompileFlags "-pg -autodouble -fpconstant -O3 -openmp -openmp_report -c"
+ResourceConstraint sppm-11 "mpiifort-8.0 Version 8.0"
+Resource fpp preprocessor sppm-11
+ResourceAttribute fpp PreprocessorFlags "-I/usr/local/lib/mpi_intel/include -P -DMPI -DGNU -DTHREADED=1 -DOPENMP=1"
+ResourceConstraint sppm-11 fpp
+Resource m4 preprocessor sppm-11
+ResourceAttribute m4 PreprocessorFlags "-Uformat -DSYSTEM=POSIX -DREAL=double -DTHREADED=1 -DOPENMP=1 -DBOBOUT=0 -DDUMPS=0 -DNOCHDIR=0"
+ResourceConstraint sppm-11 m4
+Resource sppm-11/libmpifarg.a build/module sppm-11
+ResourceAttribute sppm-11/libmpifarg.a LibraryPath /usr/local/tools/mpi/default_icc80/lib/libmpifarg.a
+ResourceAttribute sppm-11/libmpifarg.a LibraryType MPI
+ResourceAttribute sppm-11/libmpifarg.a LibrarySize 2890
+ResourceAttribute sppm-11/libmpifarg.a LibraryTimestamp "Thu Jul 15 09:23:50 2004"
+ResourceConstraint sppm-11/Process-1 sppm-11
+Resource "Linux #1 SMP Wed Oct 6 10:09:15 PDT 2004 2.4.21-p4smp-75chaos" operatingSystem sppm-11
+ResourceConstraint sppm-11/Process-1 "Linux #1 SMP Wed Oct 6 10:09:15 PDT 2004 2.4.21-p4smp-75chaos"
+Resource /SingleMachineMCR/MCR grid/machine sppm-11
+Resource /SingleMachineMCR/MCR/batch grid/machine/partition sppm-11
+Resource /SingleMachineMCR/MCR/batch grid/machine/partition sppm-11
+ResourceConstraint sppm-11/Process-1 /SingleMachineMCR/MCR
+Resource sppm-11/Process-1/Thread-0 execution/process/thread sppm-11
+Resource sppm-11/Process-1/Thread-1 execution/process/thread sppm-11
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/10" "self instrumentation" "TSTEP-HYD cpu time" 59.880 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/10" "self instrumentation" "TSTEP-HYD wall time" 30.209 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/10" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.982 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/12" "self instrumentation" "TSTEP-HYD cpu time" 60.440 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/12" "self instrumentation" "TSTEP-HYD wall time" 30.328 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/12" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.993 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/20" "self instrumentation" "TSTEP-HYD cpu time" 61.890 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/20" "self instrumentation" "TSTEP-HYD wall time" 30.986 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/20" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.997 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/14" "self instrumentation" "TSTEP-HYD cpu time" 60.290 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/14" "self instrumentation" "TSTEP-HYD wall time" 30.426 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/14" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.982 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/16" "self instrumentation" "TSTEP-HYD cpu time" 61.000 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/16" "self instrumentation" "TSTEP-HYD wall time" 30.544 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/16" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.997 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/18" "self instrumentation" "TSTEP-HYD cpu time" 61.260 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/18" "self instrumentation" "TSTEP-HYD wall time" 30.693 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/18" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.996 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/2" "self instrumentation" "TSTEP-HYD cpu time" 59.780 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/2" "self instrumentation" "TSTEP-HYD wall time" 30.135 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/2" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.984 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/4" "self instrumentation" "TSTEP-HYD cpu time" 59.880 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/4" "self instrumentation" "TSTEP-HYD wall time" 29.981 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/4" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.997 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/6" "self instrumentation" "TSTEP-HYD cpu time" 60.060 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/6" "self instrumentation" "TSTEP-HYD wall time" 30.095 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/6" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.996 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/8" "self instrumentation" "TSTEP-HYD cpu time" 60.220 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/8" "self instrumentation" "TSTEP-HYD wall time" 30.183 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution/8" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.995 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution" "self instrumentation" "TSTEP-HYD cpu time" 604.700 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution" "self instrumentation" "TSTEP-HYD wall time" 303.581 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-0,whole execution" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.992 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/10" "self instrumentation" "TSTEP-HYD cpu time" 60.180 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/10" "self instrumentation" "TSTEP-HYD wall time" 30.209 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/10" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.992 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/12" "self instrumentation" "TSTEP-HYD cpu time" 60.300 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/12" "self instrumentation" "TSTEP-HYD wall time" 30.328 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/12" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.988 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/20" "self instrumentation" "TSTEP-HYD cpu time" 61.610 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/20" "self instrumentation" "TSTEP-HYD wall time" 30.986 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/20" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.988 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/14" "self instrumentation" "TSTEP-HYD cpu time" 60.590 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/14" "self instrumentation" "TSTEP-HYD wall time" 30.426 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/14" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.991 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/16" "self instrumentation" "TSTEP-HYD cpu time" 60.820 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/16" "self instrumentation" "TSTEP-HYD wall time" 30.544 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/16" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.991 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/18" "self instrumentation" "TSTEP-HYD cpu time" 61.170 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/18" "self instrumentation" "TSTEP-HYD wall time" 30.693 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/18" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.993 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/2" "self instrumentation" "TSTEP-HYD cpu time" 59.640 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/2" "self instrumentation" "TSTEP-HYD wall time" 30.134 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/2" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.979 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/4" "self instrumentation" "TSTEP-HYD cpu time" 59.750 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/4" "self instrumentation" "TSTEP-HYD wall time" 29.981 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/4" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.993 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/6" "self instrumentation" "TSTEP-HYD cpu time" 59.930 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/6" "self instrumentation" "TSTEP-HYD wall time" 30.095 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/6" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.991 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/8" "self instrumentation" "TSTEP-HYD cpu time" 60.140 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/8" "self instrumentation" "TSTEP-HYD wall time" 30.184 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution/8" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.992 noValue noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution" "self instrumentation" "TSTEP-HYD cpu time" 604.130 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution" "self instrumentation" "TSTEP-HYD wall time" 303.581 seconds noValue noValue
+PerfResult sppm-11 "sppm-11/main/main.o,/SingleMachineMCR/MCR/batch,sppm-11/Process-1,whole execution" "self instrumentation" "TSTEP-HYD cpu/wall time ratio" 1.990 noValue noValue noValue

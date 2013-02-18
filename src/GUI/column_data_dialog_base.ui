@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0" stdsetdef="1">
+  <author></author>
+  <comment></comment>
+  <exportmacro></exportmacro>
+  <class>ColumnDataDialogBase</class>
+  <widget class="QDialog" name="ColumnDataDialogBase">
+    <property name="geometry">
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>685</width>
+        <height>573</height>
+      </rect>
+    </property>
+    <property name="windowTitle">
+      <string>Add Data Columns</string>
+    </property>
+    <layout class="QVBoxLayout">
+      <item>
+        <layout class="QHBoxLayout">
+          <item>
+            <widget class="QLabel" name="pixmapLabel1">
+              <property name="sizePolicy">
+                <sizepolicy>
+                  <hsizetype>0</hsizetype>
+                  <vsizetype>0</vsizetype>
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                </sizepolicy>
+              </property>
+              <property name="text">
+                <string/>
+              </property>
+              <property name="pixmap">
+                <pixmap>image0</pixmap>
+              </property>
+              <property name="scaledContents">
+                <bool>true</bool>
+              </property>
+              <property name="wordWrap">
+                <bool>false</bool>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <widget class="QLabel" name="textLabel1">
+              <property name="text">
+                <string>Add data columns to table by highlighting resources and attributes, then pressing Add... buttons to select them.  Press Get Data to retrieve results.</string>
+              </property>
+              <property name="alignment">
+                <set>Qt::AlignVCenter</set>
+              </property>
+              <property name="wordWrap">
+                <bool>true</bool>
+              </property>
+            </widget>
+          </item>
+        </layout>
+      </item>
+      <item>
+        <layout class="QHBoxLayout">
+          <item>
+            <widget class="Q3GroupBox" name="groupBox1">
+              <property name="title">
+                <string>Available Display Columns</string>
+              </property>
+              <layout class="QVBoxLayout">
+                <item>
+                  <widget class="QLabel" name="textLabel2">
+                    <property name="text">
+                      <string>Resources</string>
+                    </property>
+                    <property name="wordWrap">
+                      <bool>false</bool>
+                    </property>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="Q3ListBox" name="resourceListBox">
+                    <property name="selectionMode">
+                      <enum>Q3ListBox::Extended</enum>
+                    </property>
+                  </widget>
+                </item>
+                <item>
+                  <layout class="QHBoxLayout">
+                    <item>
+                      <spacer name="spacer7">
+                        <property name="sizeHint">
+                          <size>
+                            <width>40</width>
+                            <height>20</height>
+                          </size>
+                        </property>
+                        <property name="sizeType">
+                          <enum>QSizePolicy::Expanding</enum>
+                        </property>
+                        <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                        </property>
+                      </spacer>
+                    </item>
+                    <item>
+                      <widget class="QPushButton" name="addResourcesPushButton">
+                        <property name="text">
+                          <string>Add Highlighted Resources</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item>
+                      <spacer name="spacer8">
+                        <property name="sizeHint">
+                          <size>
+                            <width>40</width>
+                            <height>20</height>
+                          </size>
+                        </property>
+                        <property name="sizeType">
+                          <enum>QSizePolicy::Expanding</enum>
+                        </property>
+                        <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                        </property>
+                      </spacer>
+                    </item>
+                  </layout>
+                </item>
+                <item>
+                  <widget class="Line" name="line1">
+                    <property name="frameShape">
+                      <enum>QFrame::HLine</enum>
+                    </property>
+                    <property name="frameShadow">
+                      <enum>QFrame::Sunken</enum>
+                    </property>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="QLabel" name="textLabel3">
+                    <property name="text">
+                      <string>Attributes</string>
+                    </property>
+                    <property name="wordWrap">
+                      <bool>false</bool>
+                    </property>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="Q3ListBox" name="attributeListBox">
+                    <property name="selectionMode">
+                      <enum>Q3ListBox::Extended</enum>
+                    </property>
+                  </widget>
+                </item>
+                <item>
+                  <layout class="QHBoxLayout">
+                    <item>
+                      <spacer name="spacer3">
+                        <property name="sizeHint">
+                          <size>
+                            <width>40</width>
+                            <height>20</height>
+                          </size>
+                        </property>
+                        <property name="sizeType">
+                          <enum>QSizePolicy::Expanding</enum>
+                        </property>
+                        <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                        </property>
+                      </spacer>
+                    </item>
+                    <item>
+                      <widget class="QPushButton" name="addAttributesPushButton">
+                        <property name="text">
+                          <string>Add Highlighted Attributes</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item>
+                      <spacer name="spacer4">
+                        <property name="sizeHint">
+                          <size>
+                            <width>40</width>
+                            <height>20</height>
+                          </size>
+                        </property>
+                        <property name="sizeType">
+                          <enum>QSizePolicy::Expanding</enum>
+                        </property>
+                        <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                        </property>
+                      </spacer>
+                    </item>
+                  </layout>
+                </item>
+              </layout>
+            </widget>
+          </item>
+          <item>
+            <widget class="Q3GroupBox" name="groupBox2">
+              <property name="title">
+                <string>Selected Display Columns</string>
+              </property>
+              <layout class="QVBoxLayout">
+                <item>
+                  <widget class="QLabel" name="textLabel4">
+                    <property name="text">
+                      <string>Selected Resources</string>
+                    </property>
+                    <property name="wordWrap">
+                      <bool>false</bool>
+                    </property>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="Q3ListView" name="selectedResourceListView">
+                    <property name="selectionMode">
+                      <enum>Q3ListView::Extended</enum>
+                    </property>
+                    <property name="allColumnsShowFocus">
+                      <bool>true</bool>
+                    </property>
+                    <property name="resizeMode">
+                      <enum>Q3ListView::LastColumn</enum>
+                    </property>
+                    <column>
+                      <property name="text">
+                        <string>Retrieved</string>
+                      </property>
+                      <property name="clickable">
+                        <bool>true</bool>
+                      </property>
+                      <property name="resizable">
+                        <bool>true</bool>
+                      </property>
+                    </column>
+                    <column>
+                      <property name="text">
+                        <string>Resource</string>
+                      </property>
+                      <property name="clickable">
+                        <bool>true</bool>
+                      </property>
+                      <property name="resizable">
+                        <bool>true</bool>
+                      </property>
+                    </column>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="Line" name="line2">
+                    <property name="frameShape">
+                      <enum>QFrame::HLine</enum>
+                    </property>
+                    <property name="frameShadow">
+                      <enum>QFrame::Sunken</enum>
+                    </property>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="QLabel" name="textLabel5">
+                    <property name="text">
+                      <string>Selected Attributes</string>
+                    </property>
+                    <property name="wordWrap">
+                      <bool>false</bool>
+                    </property>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="Q3ListView" name="selectedAttributeListView">
+                    <property name="selectionMode">
+                      <enum>Q3ListView::Extended</enum>
+                    </property>
+                    <property name="allColumnsShowFocus">
+                      <bool>true</bool>
+                    </property>
+                    <property name="resizeMode">
+                      <enum>Q3ListView::LastColumn</enum>
+                    </property>
+                    <column>
+                      <property name="text">
+                        <string>Retrieved</string>
+                      </property>
+                      <property name="clickable">
+                        <bool>true</bool>
+                      </property>
+                      <property name="resizable">
+                        <bool>true</bool>
+                      </property>
+                    </column>
+                    <column>
+                      <property name="text">
+                        <string>Attribute</string>
+                      </property>
+                      <property name="clickable">
+                        <bool>true</bool>
+                      </property>
+                      <property name="resizable">
+                        <bool>true</bool>
+                      </property>
+                    </column>
+                  </widget>
+                </item>
+                <item>
+                  <layout class="QHBoxLayout">
+                    <item>
+                      <spacer name="spacer5">
+                        <property name="sizeHint">
+                          <size>
+                            <width>40</width>
+                            <height>20</height>
+                          </size>
+                        </property>
+                        <property name="sizeType">
+                          <enum>QSizePolicy::Expanding</enum>
+                        </property>
+                        <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                        </property>
+                      </spacer>
+                    </item>
+                    <item>
+                      <widget class="QPushButton" name="clearPushButton">
+                        <property name="text">
+                          <string>Remove Highlighted Columns</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item>
+                      <spacer name="spacer6">
+                        <property name="sizeHint">
+                          <size>
+                            <width>40</width>
+                            <height>20</height>
+                          </size>
+                        </property>
+                        <property name="sizeType">
+                          <enum>QSizePolicy::Expanding</enum>
+                        </property>
+                        <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                        </property>
+                      </spacer>
+                    </item>
+                  </layout>
+                </item>
+              </layout>
+            </widget>
+          </item>
+        </layout>
+      </item>
+      <item>
+        <layout class="QHBoxLayout">
+          <item>
+            <spacer name="spacer2">
+              <property name="sizeHint">
+                <size>
+                  <width>40</width>
+                  <height>20</height>
+                </size>
+              </property>
+              <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+          <item>
+            <widget class="QPushButton" name="getDataPushButton">
+              <property name="text">
+                <string>Get Data</string>
+              </property>
+            </widget>
+          </item>
+        </layout>
+      </item>
+    </layout>
+  </widget>
+  <layoutdefault spacing="6" margin="11"/>
+  <images>
+    <image name="image0">
+      <data format="PNG" length="277">89504e470d0a1a0a0000000d4948445200000020000000200806000000737a7af4000000dc49444154789ced97b111c3200c454dce9bb0858aacc0680c42a51552a8cb080c4095ca35a9f0c51c1861ee0271fc2bce96c4137cc35910d1d453b7aeb38f0030870100f86f4e4c44620360ad65254a29d9b17b35825600e79c60e6fb8ad86c8d3018c7038858f480526aed9c135faab101885fd4163aaa71b6406bcd5ed29a58368031869d5413cb060807434988e85bf7ffd3c0dd3d703e0058c0c3837faf9c6f057e0e602e87ec0b96f47ec73ea07bfa336f06989e89672f7e7a3340dc59e89c14ef60ebee810ba0dd8491726ecfa9fb0a5c00dd01c4dfff1dbf01ac1c4774554c17100000000049454e44ae426082</data>
+    </image>
+  </images>
+</ui>

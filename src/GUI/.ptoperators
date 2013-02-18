@@ -1,0 +1,33 @@
+
+
+ operator sum {
+    file baseOps.py
+    retType float
+ }
+
+   operator mean {
+    file baseOps.py
+    arg  type  string
+    retType float
+  }
+
+#   operator std_dev {
+#     file baseOps.py
+#    retType float
+#
+#  }
+ 
+  operator min {
+      file baseOps.py
+      retType float
+  }
+
+  operator max {
+       file baseOps.py
+       retType float
+  }
+
+ operator count {
+      file baseOps.py
+      retType int
+  }

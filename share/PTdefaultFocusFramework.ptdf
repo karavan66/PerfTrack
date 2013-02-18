@@ -1,0 +1,48 @@
+
+ResourceType grid
+ResourceType grid|machine
+ResourceType grid|machine|partition
+ResourceType grid|machine|partition|node
+ResourceType grid|machine|partition|node|processor
+
+ResourceType build
+ResourceType build|module
+ResourceType build|module|function
+ResourceType build|module|function|codeBlock
+
+ResourceType environment
+ResourceType environment|module
+ResourceType environment|module|function
+ResourceType environment|module|function|codeBlock
+
+ResourceType execution
+ResourceType execution|process
+ResourceType execution|process|thread
+
+ResourceType time
+ResourceType time|interval
+ResourceType time|interval|subinterval
+
+ResourceType application
+
+ResourceType compiler
+ResourceType preprocessor 
+ResourceType operatingSystem
+ResourceType inputDeck 
+ResourceType performanceTool 
+ResourceType metric 
+ResourceType submission 
+
+
+ResourceType fileSystem
+ResourceType fileSystem|device
+ 
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+see PTdFgenTester.py comments to see what is "wrong" with the different sets of
+execution files.
+
+the files sppm-good.* and irs-good.* are "good" data files.
+the files sppm-good-reference.PTdF and irs-good-reference.PTdF are intended to
+be used as reference files for newly generated sppm-good.PTdF and irs-good.PTdF files. In other words, a :
+diff sppm-good.PTdF sppm-good-reference.PTdF
+should tell you whether or not the scripts are still producing expected PTdF files.
+
+
+The script copyDataFiles is provided for your convenience for creating new test cases.

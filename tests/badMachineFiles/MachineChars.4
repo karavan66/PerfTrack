@@ -1,0 +1,68 @@
+BEGIN FROST
+MachName		Frost
+MachConfigStart		8/27/2004
+MachConfigEnd		
+MachType		cluster of smp
+MachVendor		IBM
+MachArchName		IBM SP RS/6000
+MachTOPS		1.6
+MachNumOfNodes		68
+MachHomoNodes		Yes
+MachNodeInterConnect	IBM SP Switch2
+MachNodeInterConAdapter	Colony double-single
+MachNodeInterConGB/sec	2
+MachParIOSizeTB		20.6
+PartitionNames		batch debug interactive
+PartitionSizes		64 1 3
+NodeNames		{frost000, frost001, ..., frost067}
+NodeMainMemGB		16
+NodeMainMemGB/sec
+NodeMainMemType		SDRAM	
+NodeL1DataKB		64
+NodeL1DataAssoc		128
+NodeL1InstrKB		32
+NodeL1InstrAssoc	128
+NodeL1LineSizeBytes	128
+NodeL2MB		8	
+ProcType		RS/6000 Power 3 Nighthawk 2
+ProcBits		64
+ProcMHz			375
+NodeLocalDiskSizeGB	946
+NodeLocalDiskMb/sec	40
+END FROST
+
+
+BEGIN MCR
+MachName		MCR
+MachConfigStart		8/27/2004
+MachConfigEnd		
+MachType		cluster of smp
+MachVendor		Linux NetworX
+MachArchName		Intel Xeon
+MachTOPS		11.06
+MachNumOfNodes		1152
+MachHomoNodes		Yes
+MachNodeInterConnect	Quadrics QsNet Elan 3
+MachNodeInterConAdapter	Elan Adapter Card
+MachNodeInterConGB/sec	.332
+MachParIOSizeTB		90
+PartitionNames		interactive debug batch
+PartitionSizes		40 64 1048
+NodeNames		{mcr0, mcr1, ..., mcr1151}
+NodeNumProcs		2
+NodeMainMemGB		4
+NodeMainMemGB/sec
+NodeMainMemType		SDRAM	
+NodeL1DataKB		8
+NodeL1DataAssoc		
+NodeL1InstrKB		12
+NodeL1InstrAssoc		
+NodeL1LineSizeBytes	
+NodeL2MB		.5
+ProcType		Intel Pentium 4 Xeon
+ProcBits		32
+ProcMHz			2457.6
+NodeLocalDiskSizeGB	85
+NodeLocalDiskMb/sec
+END MCR
+

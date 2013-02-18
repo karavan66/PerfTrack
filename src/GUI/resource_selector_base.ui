@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0" stdsetdef="1">
+  <author></author>
+  <comment></comment>
+  <exportmacro></exportmacro>
+  <class>ResourceSelectorBase</class>
+  <widget class="QWidget" name="ResourceSelectorBase">
+    <property name="geometry">
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>465</width>
+        <height>533</height>
+      </rect>
+    </property>
+    <property name="windowTitle">
+      <string>Form1</string>
+    </property>
+    <layout class="QVBoxLayout">
+      <item>
+        <layout class="QHBoxLayout">
+          <item>
+            <spacer name="spacer2">
+              <property name="sizeHint">
+                <size>
+                  <width>40</width>
+                  <height>20</height>
+                </size>
+              </property>
+              <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+          <item>
+            <widget class="QPushButton" name="menuPushButton">
+              <property name="text">
+                <string>Select Resource Type</string>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <spacer name="spacer1">
+              <property name="sizeHint">
+                <size>
+                  <width>40</width>
+                  <height>20</height>
+                </size>
+              </property>
+              <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+        </layout>
+      </item>
+      <item>
+        <layout class="QHBoxLayout">
+          <item>
+            <widget class="QToolButton" name="showInfoButton">
+              <property name="text">
+                <string/>
+              </property>
+              <property name="checkable">
+                <bool>true</bool>
+              </property>
+              <property name="icon">
+                <iconset>image0</iconset>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <widget class="QLabel" name="textLabel1">
+              <property name="text">
+                <string>Show resource information</string>
+              </property>
+              <property name="wordWrap">
+                <bool>false</bool>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <spacer name="spacer8">
+              <property name="sizeHint">
+                <size>
+                  <width>170</width>
+                  <height>20</height>
+                </size>
+              </property>
+              <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+        </layout>
+      </item>
+      <item>
+        <widget class="Q3ListView" name="resourceListView">
+          <property name="selectionMode">
+            <enum>Q3ListView::Extended</enum>
+          </property>
+          <property name="allColumnsShowFocus">
+            <bool>true</bool>
+          </property>
+          <property name="showSortIndicator">
+            <bool>true</bool>
+          </property>
+          <property name="rootIsDecorated">
+            <bool>true</bool>
+          </property>
+          <property name="resizeMode">
+            <enum>Q3ListView::AllColumns</enum>
+          </property>
+          <column>
+            <property name="text">
+              <string>Name</string>
+            </property>
+            <property name="clickable">
+              <bool>true</bool>
+            </property>
+            <property name="resizable">
+              <bool>true</bool>
+            </property>
+          </column>
+          <column>
+            <property name="text">
+              <string>Type</string>
+            </property>
+            <property name="clickable">
+              <bool>true</bool>
+            </property>
+            <property name="resizable">
+              <bool>true</bool>
+            </property>
+          </column>
+        </widget>
+      </item>
+      <item>
+        <widget class="Q3ListView" name="attributeListView">
+          <property name="selectionMode">
+            <enum>Q3ListView::Extended</enum>
+          </property>
+          <property name="allColumnsShowFocus">
+            <bool>true</bool>
+          </property>
+          <property name="showSortIndicator">
+            <bool>true</bool>
+          </property>
+          <property name="rootIsDecorated">
+            <bool>true</bool>
+          </property>
+          <property name="resizeMode">
+            <enum>Q3ListView::AllColumns</enum>
+          </property>
+          <column>
+            <property name="text">
+              <string>Attribute</string>
+            </property>
+            <property name="clickable">
+              <bool>true</bool>
+            </property>
+            <property name="resizable">
+              <bool>true</bool>
+            </property>
+          </column>
+          <column>
+            <property name="text">
+              <string>Value</string>
+            </property>
+            <property name="clickable">
+              <bool>true</bool>
+            </property>
+            <property name="resizable">
+              <bool>true</bool>
+            </property>
+          </column>
+        </widget>
+      </item>
+      <item>
+        <layout class="QHBoxLayout">
+          <item>
+            <spacer name="spacer3">
+              <property name="sizeHint">
+                <size>
+                  <width>40</width>
+                  <height>20</height>
+                </size>
+              </property>
+              <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+          <item>
+            <widget class="QPushButton" name="selectButton">
+              <property name="text">
+                <string>Add to Selection Parameters</string>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <spacer name="spacer4">
+              <property name="sizeHint">
+                <size>
+                  <width>40</width>
+                  <height>20</height>
+                </size>
+              </property>
+              <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+        </layout>
+      </item>
+      <item>
+        <layout class="QHBoxLayout">
+          <item>
+            <spacer name="spacer9">
+              <property name="sizeHint">
+                <size>
+                  <width>40</width>
+                  <height>20</height>
+                </size>
+              </property>
+              <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+          <item>
+            <widget class="QPushButton" name="selectTypeButton">
+              <property name="text">
+                <string>Add Resource Type</string>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <spacer name="spacer10">
+              <property name="sizeHint">
+                <size>
+                  <width>40</width>
+                  <height>20</height>
+                </size>
+              </property>
+              <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+        </layout>
+      </item>
+    </layout>
+  </widget>
+  <layoutdefault spacing="6" margin="11"/>
+  <images>
+    <image name="image0">
+      <data format="PNG" length="198">89504e470d0a1a0a0000000d49484452000000100000001008060000001ff3ff610000008d49444154789c9552c111c020080b9e53394087ee0059cb3e7a5544509b97428201140095a4608152ee6a63e42500905e4299089ef813e9b8005084d1c94edc1cf484ef448bed3d59f2aa1d0f53015dc4bedcf3bd85610616de76ec5c5c07d64924068216bc22d146f2a9f5086d0624455b3e2d924fc9510b498bf5f9f43fb833f010fd89690b7f5d6cd7b8c30305d254458f2bdb910000000049454e44ae426082</data>
+    </image>
+  </images>
+</ui>

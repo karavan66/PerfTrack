@@ -1,0 +1,252 @@
+Filename: GUItest-instructions.txt
+Date Created: July 15, 2008
+Purpose: Instructions for manual test of PerfTrack GUI
+Last Updated: July 15, 2008
+
+IMPORTANT FILES
+1.   GUItest-slides.pdf        -- This file shows screenshots of the GUI tests.
+
+2.   GUItest-instructions.txt  -- The file you are reading.
+
+3.   The database files used in these tests are located in the
+/perftrack/trunk/tests/GUI/data directory. The data directory contains a sub-
+directory for each database that PerfTrack supports:
+    Database Directory:   Files:
+    Oracle                The test files have not been created
+
+    PostgreSQL            SC07_milcdemodata_partialCPRs.dmp
+                          SC07_milcdemodata.dmp
+
+    MySQL                 SC07_milcdemodata_partialCPRs.sql
+ 
+
+INSTRUCTIONS
+1.   Create an empty database.
+
+2.   Restore the database using the partialCPRs data file:
+
+     Oracle Restore:
+        *** Not completed ***
+
+     PostgreSQL Restore:
+        pg_restore -d databaseName --clean -v restoreFileName
+        example: 
+           pg_restore -d ptrac_test --clean -v SC07_milcdemodata_partialCPRs.dmp 
+     MySQL Restore:    
+        mysql -D databaseName < SC07_milcdemodata_partialCPRs.sql
+		example:
+			mysql -D ptrac_test < SC07_milcdemodata_partialCPRs.sql
+
+3.   Start the  PerfTrack  GUI: type 'perftrack' in a terminal session (make
+     sure your PATH and other environment settings are configured for 
+     PerfTrack).
+
+4.   The following instructions correspond to pages in GUItest-Slides.pdf:
+PAGE  1
+     Enter appropriate login information into the Open Database Connection
+     form.  If you are running the GUI locally and connecting to a remote
+     database, you will need to click on the "Remote host settings" button and
+     enter the appropriate remote connection data.
+
+PAGE  2 
+     Select the grid|machine|node resource type from the "Select Resource Type"
+     drop down list.
+
+PAGE  3
+     Click on the Question Mark icon labeled "Show resource information".
+     Highlight the first resource - jacn001.
+     The attribute/value data should appear in the upper section of the 
+     "Resource Information" form.
+     Verify that the attributes and values match those shown.
+     Close the "Resource Information" form. 
+
+PAGE  4 
+     Select the fileSystem|device resource type from the "Select Resource Type"
+     drop down list.
+
+PAGE  5 
+     Highlight the resource named "scratch".
+     The attribute/value data should appear in the upper section of the
+     "Resource Information" form.
+     Verify that the attributes and values match those shown.       
+     Close the "Resource Information" form.
+
+PAGE  6 
+     Select the submission resource type from the "Select Resource Type"
+     drop down list.
+
+PAGE  7 
+     Highlight the resource named "submission-159".
+     The attribute/value data should appear in the upper section of the 
+     "Resource Information" form.
+     Verify
+     Close the "Resource Information" form.
+
+PAGE  8 
+     Select the execution resource type from the "Select Resource Type"
+     drop down list.
+
+PAGE  9 
+     Highlight the resource named "PT.su3_rmd-158".
+     The attribute/value data should appear in the upper section of the 
+     "Resource Information" form.
+     Verify that the attributes and values match those shown.
+     Below the attribute/value data, the execution resources should appear.
+     Verify that the Resource/Value data matches those shown.
+
+PAGE 10
+     Use the vertical scroll bar in the Attribute/Value window to scroll to
+     bottom of the listing.
+     Verify that the attributes and values match those shown.
+     Close the "Resource Information" form.
+
+PAGE 11
+     Click the Question Mark icon labeled "Show resource information"
+     Highlight the execution resource named "PT.su3_rmd-158".
+     Click the "Add to Selection Parameters" button.
+     The execution resource should appear in the "Selection Parameters" window.
+     Verify that the Relatives, Type, Value, and Count match those shown.
+     Verify that the count of "Items matching all parameters:" matches
+     the count shown.
+     Click the "Get Data" button.
+     
+PAGE 12
+     The "PerfTrack" data sheet form should appear.
+     Verify that the resource in the "Selection Parameters" window matches the
+     one shown.
+     Verify that the rows, columns, and values match those shown.
+     Click on the "Add display parameters" icon.
+ 
+PAGE 13
+     Select the time|interval resource from the "Resources" window, and Click
+     on the "Add Highlighted Resources" button.
+     The resource should appear in the "Selected Resources" window.  The
+     "Retrieved" check box should be unchecked.
+     Click on the "Get Data" button.
+     The "Retrieved" check box should now be checked.
+     Close the "Add Data Columns" form.
+    
+PAGE 14
+     The new column "time|interval" should appear in the data table on the 
+     "PerfTrack" data sheet form.
+     Verify that the values in the new column match those shown.
+
+PAGE 15
+     In the "PerfTrack" data sheet form, select the two fields in the "values" 
+     column that have a "metric" value of "Time".  To select the second value, 
+     use the ctrl keyboard key while clicking on the second value.
+
+PAGE 16
+     Click on the "Combine performance results" icon.
+     In the "Select Operator" dialog box, select "sum" from the drop-down list.
+     Click the "OK" button.
+
+PAGE 17
+     The "Combined Performance Results" form should appear.
+     Verify that the Operator Name, the Value, the Metrics Combined, and the 
+     Number of Values Combined match those shown.
+     Enter (or select from the drop-down list if listed) the Metric Name and 
+     Units as shown.
+     Enter the label as shown.
+     Click the "Add to Data Sheet" button.
+     Close the "Combined Performance Results" form by clicking the X in the
+     upper right corner.
+
+PAGE 18
+     In the "PerfTrack" data sheet form, verify that the new row appears as
+     shown. The new row should have a value in its "label" field.
+     Click on the "saved" field of the new row (the value should be 0).
+     Click the "Save to Database" button.
+     The value in the "saved" field should now be 1.
+     Click the "New query" icon.
+
+PAGE 19
+     In the "Select Data" form, highlight the resource that appears in the 
+     "Selection Parameters" window.
+     Click the "Clear Highlighted Parameters" button.
+     The "Selection Parameters" window should now be empty.
+     Highlight the second execution resource, as shown.
+     Click the "Add to Selection Parameters" button.
+
+PAGE 20
+     Select the metric resource type from the from the "Select Resource Type"
+     drop down list.
+
+PAGE 21
+     Select the resource named "Time" of type "metric" as shown.
+     Click the "Add to Selection Parameters" button.
+     Verify that the new resource appears in the "Selection Parameters" window
+     and that Relatives, Type, Value, and Count match those shown.
+     Verify that the count of "Items matching all parameters:" matches 
+     the count shown. 
+     Click the "Combine Data" button.
+
+PAGE 22
+     In the "Select Operator" dialog box, select "sum" from the drop-down list.
+     Click the "OK" button. 
+
+PAGE 23 
+     A second tab, labeled "Result 2" should appear in the "Combined 
+     Performance Results" form.
+     Verify that the Operator Name, the Value, the Metrics Combined, and the
+     Number of Values Combined match those shown.
+     Enter (or select from the drop-down list if listed) the Metric Name and
+     Units as shown.
+     Enter the label as shown.
+     Click the "Add to Data Sheet" button.
+     Close the "Combined Performance Results" form by clicking the X in the
+     upper right corner.     
+
+PAGE 24
+     In the "PerfTrack" data sheet form, verify that the new row appears as
+     shown. The new row should have a value in its "label" field.
+
+PAGE 25
+     Click on the "saved" field of the new row (the value should be 0).
+     Click the "Save to Database" button.
+     The value in the "saved" field should now be 1.
+     Click the "New query" icon.
+
+PAGE 26
+     In the "Select Data" form, remove the two resources that appear in the 
+     "Selection Parameters" window by highlighting each resource and then 
+     clicking the "Clear Highlighted Parameters" button.
+     In the Performance Result Label window, select all 8 labels. To continue 
+     to select labels, use the ctrl keyboard key while clicking each label.
+     Click the "Get Data" button.
+
+PAGE 27
+     Select the "value" column in the table that appears in the "PerfTrack"
+     data sheet form.
+
+PAGE 28
+     Click on the "Plot data" icon.
+     Select "label" from the "X Axis column" drop-down list.
+     Select "metric" from the "Data label column" drop-down list.
+     Click on the "Create Plot" button.
+
+PAGE 29
+     A bar chart should appear.
+     Verify that the bars, values, and labels match those shown.
+
+
+UNIT TESTING
+The GUI also includes a unit test framework for the DataAccess class.
+To run the unit tests a new build of the GUI needs to be done.
+
+BUILD INSTRUCTIONS
+In the project's trunk directory execute the following commands:
+1. make clean
+2. make test
+
+RUN INSTRUCTIONS
+Run the unit tests by:
+1. Execute the following command:
+	perftrack
+2. In the Open Database Connection window enter the necessary database information.
+3. Click on the CSonnect button.
+4. At the end of the unit test output verify that all the tests passed.
+
+
+
+                           ---- END OF GUI TEST ----

@@ -1,0 +1,13 @@
+Use Qwt for graphing
+
+select_operator_dialog_base.ui should use stanadard QDialog
+
+chart_viewer_base uses Q3MainWindow
+pt_main_window_base uses Q3MainWindow
+	This really needs to be redone using QMainWindow
+select_operator_dialog_base is named Dialog
+
+reorder db connection GUI
+	Should be in order host, user, pass, database
+create recent connections or at least save last connection
+

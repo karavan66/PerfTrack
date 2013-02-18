@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0" stdsetdef="1">
+  <author></author>
+  <comment></comment>
+  <exportmacro></exportmacro>
+  <class>SelectionDialogBase</class>
+  <widget class="QDialog" name="SelectionDialogBase">
+    <property name="enabled">
+      <bool>true</bool>
+    </property>
+    <property name="geometry">
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>621</width>
+        <height>683</height>
+      </rect>
+    </property>
+    <property name="sizePolicy">
+      <sizepolicy>
+        <hsizetype>7</hsizetype>
+        <vsizetype>7</vsizetype>
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+      </sizepolicy>
+    </property>
+    <property name="windowTitle">
+      <string>Select Data</string>
+    </property>
+    <layout class="QGridLayout">
+      <item row="0" column="0">
+        <layout class="QHBoxLayout">
+          <item>
+            <widget class="QLabel" name="pixmapLabel3">
+              <property name="sizePolicy">
+                <sizepolicy>
+                  <hsizetype>0</hsizetype>
+                  <vsizetype>0</vsizetype>
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                </sizepolicy>
+              </property>
+              <property name="pixmap">
+                <pixmap>image0</pixmap>
+              </property>
+              <property name="scaledContents">
+                <bool>false</bool>
+              </property>
+              <property name="wordWrap">
+                <bool>false</bool>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <widget class="QLabel" name="textLabel7">
+              <property name="text">
+                <string>Choose resource names and attributes to search for in the left panel.  Add them to the Selection Parameters, then press Get Data to retrieve results.</string>
+              </property>
+              <property name="alignment">
+                <set>Qt::AlignVCenter</set>
+              </property>
+              <property name="wordWrap">
+                <bool>true</bool>
+              </property>
+            </widget>
+          </item>
+        </layout>
+      </item>
+      <item row="1" column="0">
+        <layout class="QHBoxLayout">
+          <item>
+            <widget class="Q3GroupBox" name="selectorGroupBox">
+              <property name="sizePolicy">
+                <sizepolicy>
+                  <hsizetype>5</hsizetype>
+                  <vsizetype>5</vsizetype>
+                  <horstretch>1</horstretch>
+                  <verstretch>0</verstretch>
+                </sizepolicy>
+              </property>
+              <property name="title">
+                <string>Resources</string>
+              </property>
+              <layout class="QVBoxLayout">
+                <item>
+                  <widget class="ResourceSelector" name="resourceSelector">
+                    <property name="minimumSize">
+                      <size>
+                        <width>0</width>
+                        <height>400</height>
+                      </size>
+                    </property>
+                  </widget>
+                </item>
+              </layout>
+            </widget>
+          </item>
+          <item>
+            <widget class="Q3GroupBox" name="groupBox2">
+              <property name="sizePolicy">
+                <sizepolicy>
+                  <hsizetype>5</hsizetype>
+                  <vsizetype>5</vsizetype>
+                  <horstretch>1</horstretch>
+                  <verstretch>0</verstretch>
+                </sizepolicy>
+              </property>
+              <property name="title">
+                <string>Selection Parameters</string>
+              </property>
+              <layout class="QVBoxLayout">
+                <item>
+                  <widget class="Q3ListView" name="constraintListView">
+                    <property name="frameShape">
+                      <enum>QFrame::Box</enum>
+                    </property>
+                    <property name="frameShadow">
+                      <enum>QFrame::Plain</enum>
+                    </property>
+                    <property name="selectionMode">
+                      <enum>Q3ListView::Extended</enum>
+                    </property>
+                    <property name="allColumnsShowFocus">
+                      <bool>true</bool>
+                    </property>
+                    <property name="resizeMode">
+                      <enum>Q3ListView::AllColumns</enum>
+                    </property>
+                    <property name="defaultRenameAction">
+                      <enum>Q3ListView::Accept</enum>
+                    </property>
+                    <column>
+                      <property name="text">
+                        <string>Relatives</string>
+                      </property>
+                      <property name="clickable">
+                        <bool>true</bool>
+                      </property>
+                      <property name="resizable">
+                        <bool>true</bool>
+                      </property>
+                    </column>
+                    <column>
+                      <property name="text">
+                        <string>Type</string>
+                      </property>
+                      <property name="clickable">
+                        <bool>true</bool>
+                      </property>
+                      <property name="resizable">
+                        <bool>true</bool>
+                      </property>
+                    </column>
+                    <column>
+                      <property name="text">
+                        <string>Value</string>
+                      </property>
+                      <property name="clickable">
+                        <bool>true</bool>
+                      </property>
+                      <property name="resizable">
+                        <bool>true</bool>
+                      </property>
+                    </column>
+                    <column>
+                      <property name="text">
+                        <string>Count</string>
+                      </property>
+                      <property name="clickable">
+                        <bool>true</bool>
+                      </property>
+                      <property name="resizable">
+                        <bool>true</bool>
+                      </property>
+                    </column>
+                  </widget>
+                </item>
+                <item>
+                  <layout class="QHBoxLayout">
+                    <item>
+                      <widget class="QLabel" name="textLabel4">
+                        <property name="text">
+                          <string>Items matching all parameters:</string>
+                        </property>
+                        <property name="wordWrap">
+                          <bool>false</bool>
+                        </property>
+                      </widget>
+                    </item>
+                    <item>
+                      <widget class="QLabel" name="matchCountLabel">
+                        <property name="frameShape">
+                          <enum>QFrame::Box</enum>
+                        </property>
+                        <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                        </property>
+                        <property name="text">
+                          <string/>
+                        </property>
+                        <property name="wordWrap">
+                          <bool>false</bool>
+                        </property>
+                      </widget>
+                    </item>
+                  </layout>
+                </item>
+                <item>
+                  <layout class="QHBoxLayout">
+                    <item>
+                      <spacer name="spacer8">
+                        <property name="sizeHint">
+                          <size>
+                            <width>106</width>
+                            <height>20</height>
+                          </size>
+                        </property>
+                        <property name="sizeType">
+                          <enum>QSizePolicy::Expanding</enum>
+                        </property>
+                        <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                        </property>
+                      </spacer>
+                    </item>
+                    <item>
+                      <widget class="QPushButton" name="clearSelectionPushButton">
+                        <property name="text">
+                          <string>Clear Highlighted Parameters</string>
+                        </property>
+                        <property name="autoDefault">
+                          <bool>false</bool>
+                        </property>
+                      </widget>
+                    </item>
+                    <item>
+                      <spacer name="spacer9">
+                        <property name="sizeHint">
+                          <size>
+                            <width>115</width>
+                            <height>20</height>
+                          </size>
+                        </property>
+                        <property name="sizeType">
+                          <enum>QSizePolicy::Expanding</enum>
+                        </property>
+                        <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                        </property>
+                      </spacer>
+                    </item>
+                  </layout>
+                </item>
+              </layout>
+            </widget>
+          </item>
+        </layout>
+      </item>
+      <item row="2" column="0">
+        <layout class="QHBoxLayout">
+          <item>
+            <widget class="Q3GroupBox" name="labelGroupBox">
+              <property name="sizePolicy">
+                <sizepolicy>
+                  <hsizetype>3</hsizetype>
+                  <vsizetype>1</vsizetype>
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                </sizepolicy>
+              </property>
+              <property name="minimumSize">
+                <size>
+                  <width>0</width>
+                  <height>100</height>
+                </size>
+              </property>
+              <property name="title">
+                <string>Performance Result Label</string>
+              </property>
+              <widget class="Q3ListBox" name="labelListBox">
+                <property name="geometry">
+                  <rect>
+                    <x>10</x>
+                    <y>25</y>
+                    <width>275</width>
+                    <height>68</height>
+                  </rect>
+                </property>
+                <property name="sizePolicy">
+                  <sizepolicy>
+                    <hsizetype>3</hsizetype>
+                    <vsizetype>1</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                  </sizepolicy>
+                </property>
+                <property name="selectionMode">
+                  <enum>Q3ListBox::Multi</enum>
+                </property>
+                <item>
+                  <property name="text">
+                    <string>New Item</string>
+                  </property>
+                </item>
+              </widget>
+            </widget>
+          </item>
+          <item>
+            <spacer name="spacer9_2">
+              <property name="sizeHint">
+                <size>
+                  <width>300</width>
+                  <height>10</height>
+                </size>
+              </property>
+              <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+        </layout>
+      </item>
+      <item row="3" column="0">
+        <layout class="QHBoxLayout">
+          <item>
+            <spacer name="spacer8_2">
+              <property name="sizeHint">
+                <size>
+                  <width>189</width>
+                  <height>20</height>
+                </size>
+              </property>
+              <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+          <item>
+            <widget class="QPushButton" name="resetPushButton">
+              <property name="text">
+                <string>Clear All Entries</string>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <spacer name="spacer35">
+              <property name="sizeHint">
+                <size>
+                  <width>16</width>
+                  <height>20</height>
+                </size>
+              </property>
+              <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+          <item>
+            <widget class="QPushButton" name="combinePushButton">
+              <property name="text">
+                <string>Combine Data</string>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <widget class="QPushButton" name="cancelPushButton">
+              <property name="text">
+                <string>Cancel</string>
+              </property>
+              <property name="shortcut">
+                <string>Esc</string>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <widget class="QPushButton" name="selectPushButton">
+              <property name="text">
+                <string>Get Data</string>
+              </property>
+              <property name="shortcut">
+                <string/>
+              </property>
+              <property name="default">
+                <bool>false</bool>
+              </property>
+            </widget>
+          </item>
+        </layout>
+      </item>
+    </layout>
+  </widget>
+  <layoutdefault spacing="6" margin="11"/>
+  <customwidgets>
+    <customwidget>
+      <class>ResourceSelector</class>
+      <extends>QWidget</extends>
+      <header location="local">resource_selector.h</header>
+      <sizehint>
+        <width>-1</width>
+        <height>-1</height>
+      </sizehint>
+      <container>0</container>
+      <sizepolicy>
+        <hordata>3</hordata>
+        <verdata>3</verdata>
+      </sizepolicy>
+      <pixmap>image1</pixmap>
+    </customwidget>
+  </customwidgets>
+  <images>
+    <image name="image0">
+      <data format="PNG" length="546">89504e470d0a1a0a0000000d4948445200000020000000200806000000737a7af4000001e949444154789ced562b72c330145c753ae1be42af902203a3141ba94788b151820c8c2c246c5f41c838460242f5157c0571131564eca4fe4b49a7a43b23f2e4f776adb74f36514a618824494c9aa664b4e180b55a2f53c1344d499224e6b7c967053c43c4d65324532d582b24a5345a6b344dd3c7e238264b39ce028690529ae6d0a0d0451f3b7a4734e7062ebe996dc15672002874019d69b8b4cc4a80d6fa46fe71b700d4bab6e5b617108621a105053e00a514514a114a69bf5f55d5ef0a00ae66534a1100e09c1b71140080fc905b933b09e8c03937cde93a05b9972322113a6136781d06a68c34e7eeaeefd1fb34f9965ad663780fceb9114238bd7907e7164829affdbf00beef3bdf98ce029e056701411090033bf423e95ae7210f3c03a329b8c7d60f5187fb0fd25cfe10b32730975c96a56134fb198c6aa07e9f1d45eb1f92a5a4300c09659f408deb5a2007d6ff2b4602b61c5b1cc784569f40b14cbe45c44326f47ddf3c32010f0b780616a700b8b9def33c9ccfe74d45b32c4397130481fd14ec763b13451128a57da1466c23eff0466f228410c8f31c6ddb8ec44c0af07ddf1cf7567cab28eae91b73b20597cb058c31ecf77b789e07ad3574c5ac088727f0f595a36ddbd173ab262ccbd2742218db26e2743af5c2c330fcf700807f0fcce3cf6fc26f7ce976b96ecfbe310000000049454e44ae426082</data>
+    </image>
+    <image name="image1">
+      <data format="PNG" length="1002">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b000003b149444154789cad945f4c5b551cc73fe7dc4b7b4bcba0762d45c43114323599ee6192609c51d883892ce083f1718b3ebb185f8dc91e972cf39d2d2a2f1af664b6f1e0fe3863a0718969700eb0c52142da0242a1bd6d696f7bcff101585203ceb8fd9ece39f99dcff9fe7edf939f88c562ec465f5f9fe609442c161362173c3e3eae7b7a7ac8e7f36432196cdbfe4f907c3e4f2291201e8fe338cec3737357e9e8e828aded1e229d650e1f2d51754b082110124c13a4dc5ea341eb9dc284c0558a853f3ce8cb0677ef500fde7d39d2596679e326597b8e9abb85d7a770ab16ab6983ec5a05b487a70e36f0f4e10afe408d6a558310980108478dba4a1e8233990c5d474b64ed39aa3a8fe5f3317fbf81dbd70bccfeb205947632fd74f6589c1c6ea2f70d03a58ba0c1f2c9bdc1b66de3b8256a6e11cbe7e3ee1d181b590124fe2693aeee08d223c82c3a2c24b7b874bec8f26288774f7bd054504aef0dde6e99c0eb83f9fb266323cb80a27fb0958141836044605a2ee5523393371cc646fee2da37195aa35d0c0c5b4859ac03d7e91712dcaac5adab3650a3ff9d08ef7dd8404bb48869e5d958b5b87dadc4c9a1464e9f0d0326df7ebd86bd2e310cb1bf62d384d59441f2d70a070e1c60e09489929b988681bdd9cc97170bcc4c65595f71f8e0e3301337fc24a7732467831875a47f289652b0be5e4151e6d07316c1b0c0340d8ab92023e76d66a6b2840e36d2fb7a13fee632475e6edc367ea98a90fb98b7dd6310ca0328a44761582e1bab41befabcc0ec940d28bc5e93b68e064cab84e1d9beaeb48934eac1f53b01c1b000fca496aa54b61a99fcde61662a4b4b4b23d1680be9d426173e4df3602a48ea411989a4fd590f52a8fd156b05ed9d350e3defe3cfdf4b4c7ce770ea7d3fb9f520afbe1620daeee5c26735d20b9b9cfb6811a754a439e4e5c5639a4caa1e5caf586bfc0197b78702005cb9b4cae4cd3267ce8638fe964bd72b393e39d74928d242617303a756a37f284447770dcdbffc6384a05a85de1306e9a52057c7527c7131c3c42d3f475eb2303c82d4fc3276d6811db37efeb148723082d9b08f79f97c1e5729109a9a28307cc622d2d6cdf52b2b24efe548dedb00142009862cfa879ee1a71f6cec928353511472fbf4389148b0b0e0c108081412458dfe21c9f11351e67e7358595468246d1d1e5e38a6e9e851bc39d84ab502a669331dafec0d8ec7e3e8cb06e1a881d727d1ae40180a434a8c9db129a54126ad48a7358c2b4c5352c8c374bcccdab2bb37d8719cba79fab8211f9df218e0582c261e95f8bfc04f1a1e8bc5c4dfe0a19017a725d8c60000000049454e44ae426082</data>
+    </image>
+  </images>
+  <includes>
+    <include location="local">resource_selector.h</include>
+  </includes>
+  <connections>
+    <connection>
+      <sender>cancelPushButton</sender>
+      <signal>clicked()</signal>
+      <receiver>SelectionDialogBase</receiver>
+      <slot>reject()</slot>
+    </connection>
+    <connection>
+      <sender>selectPushButton</sender>
+      <signal>clicked()</signal>
+      <receiver>SelectionDialogBase</receiver>
+      <slot>accept()</slot>
+    </connection>
+    <connection>
+      <sender>labelListBox</sender>
+      <signal>selectionChanged()</signal>
+      <receiver>SelectionDialogBase</receiver>
+      <slot>labelSelected()</slot>
+    </connection>
+    <connection>
+      <sender>combinePushButton</sender>
+      <signal>clicked()</signal>
+      <receiver>SelectionDialogBase</receiver>
+      <slot>combineResultsSelected()</slot>
+    </connection>
+  </connections>
+</ui>
