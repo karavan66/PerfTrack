@@ -45,3 +45,6 @@ echo "user: $USER"
 echo "host: localhost"
 
 echo "You now need to populate the DB with actual data via ptdf_entry.py"
+echo "It's in src/dataStore/, recommend running it on the file:"
+echo "$REPO/tests/PTdFgenTestData/irs-good-reference.ptdf"
+echo " to see something interesting in the GUI"
