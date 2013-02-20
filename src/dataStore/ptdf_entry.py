@@ -7,8 +7,7 @@ PTDF data files into a PerfTrack database.
 import os, sys
 import stat
 from glob import glob
-#from PTds import PTdataStore
-import PTds
+from PTds import PTdataStore
 from getpass import getpass
 
 def main():

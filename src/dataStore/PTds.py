@@ -9,8 +9,6 @@
 
 import sys, string, re, array
 from ptPyDBAPI import *             #class to support Python DB API 2.0
-from Resource import Resource
-from ResourceIndex import ResourceIndex
 
 class PTdataStore:
     """ Access methods for storing, querying, and retrieving PerfTrack data from a database.
