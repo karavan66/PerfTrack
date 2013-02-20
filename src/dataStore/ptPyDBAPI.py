@@ -1,6 +1,9 @@
 # ptPyDBAPI.py
 # Contains class definition for ptPyDBAPI
 
+import logging;
+import pickle
+import readline
 import sys, os, string, re
 from getpass import getpass
 
@@ -8,35 +11,34 @@ class PTpyDBAPI:
    """ methods for interfacing with python DB API for specific interfaces
        supported by PerfTrack
    """
-   # smithm 2008-7-10
-   # Added MySQL to dictionary
-   pyDBmap = {"PG_PYGRESQL":"pgdb",
-              "ORA_CXORACLE":"cx_Oracle",
-			  "MYSQL":"MySQLdb"}
-   
    def __init__(self):
+      self.pyDBmap = {"PG_PYGRESQL":"psycopg2",
+                      "ORA_CXORACLE":"cx_Oracle",
+                      "MYSQL":"MySQLdb"}
+
       self.dbenv = self.__getDBenv()
       self.dbMod = self.importDBapi()
       
-      # Constants
+      # Constants*
       self.paramstyle = self.dbMod.paramstyle
       
       # user defined exceptions
       self.dbapiError = "PTpyDBAPI error"
-      
-   
+         
    
    # Private Methods
    def __getDBenv (self):
-      self.dbEnv = os.environ.get ("PTDB")
-      return self.dbEnv
-   
-   def __getPyDbMod (self, var):
-      if self.pyDBmap.has_key(var):
-         value = self.pyDBmap[var]
-         return value
+      if (os.environ.get("PTDB")):
+         db = os.environ.get("PTDB")
+         if (db in self.pyDBmap):
+            self.dbEnv = db
+         else:
+            raise Exception("PTDB value \"%s\" is not one of the possible database types\n%s" % 
+                            (os.environ.get("PTDB"), self.pyDBmap.keys()))
       else:
-         return None
+         raise Exception("PTDB Environment Variable not set")
+
+      return self.dbEnv
    
    # Method: __getConnectionParameters
    # Input:  None
@@ -44,7 +46,7 @@ class PTpyDBAPI:
    #
    def __getConnParams (self):
       if self.dbenv == "PG_PYGRESQL":
-         if len(os.environ.get ("DBPASS")) > 0:
+         if os.environ.get ("DBPASS") != None:
             data = os.environ.get ("DBPASS")
             splitted = data.split(",")
             dbname = splitted[0]
@@ -58,7 +60,7 @@ class PTpyDBAPI:
             dbuser = raw_input("Please enter your database user name: ")
             dbpwd = getpass("Please enter your database password: ")
             dbdsn = None
-         
+
          paramDict = {"DSN":None,
                       "USER":dbuser,
                       "PASSWORD":dbpwd,
@@ -66,7 +68,7 @@ class PTpyDBAPI:
                       "DATABASE":dbname }
          
          return paramDict
-      if self.dbenv == "ORA_CXORACLE":
+      elif self.dbenv == "ORA_CXORACLE":
          dbdsn = raw_input("Please enter the TNS entry for the database: ")
          dbuser = raw_input("Please enter your database user name: ")
          dbpwd = getpass("Please enter your database password: ")
@@ -84,9 +86,8 @@ class PTpyDBAPI:
                       "THREAD":dbthread,
                       "TWOPHASE":dbphase }
          return paramDict
-      # smithm 2008-7-10
-	  # Added connection parameters for MySQL
-      if self.dbenv == "MYSQL":
+ 
+      elif self.dbenv == "MYSQL":
          dbname = raw_input("Please enter the name of the database: ")
          dbhost = raw_input("Please enter the hostname for the database: ")
          dbuser = raw_input("Please enter your database user name: ")
@@ -100,7 +101,9 @@ class PTpyDBAPI:
          
          return paramDict
    
-   
+      else:
+         raise Exception("Unknown Database Type")
+
    # Method: __opToParamFormat
    # Description: Converts sql operation with parameter variables
    #              into correct format expected by the Python db interface
@@ -132,39 +135,28 @@ class PTpyDBAPI:
    #
    #   NOTE: only does named, pyformat, and format right now
    def __opToParamFormat (self, sqlOpToConvert, paramList):
-      #print "Param Style: " + self.paramstyle
-      #print "Original: " + sqlOpToConvert
-
-      if self.paramstyle == "named":
-         #print "Converted: " + sqlOpToConvert
-         return sqlOpToConvert
-      elif self.paramstyle == "pyformat":
-         slist = []
-         slist.append(sqlOpToConvert)
-         #klist = paramDict.keys()
-         #print paramList
-         for x in paramList:
-            tmp = slist[0]
-            count = string.count (tmp, ":"+x)
-            #print x + " %d" %(count)
-            if count < 1:
-               return None
-            else:
-               newstr = string.replace (tmp, ":"+x, "%("+x+")s")
-               slist[0] = newstr
-         #print slist
-         convertedOp = slist[0]
-         #print "Converted: " + convertedOp
-         return convertedOp
-      # smithm 2008-7-11
-      # Added format parameter style
-      elif self.paramstyle == "format":
-         formatRe = re.compile(r"[^,]+")
-         val_index = sqlOpToConvert.index("values")
-         convertedOp = sqlOpToConvert[:val_index] + "values (" + formatRe.sub(" %s", sqlOpToConvert[val_index:]) + ")"
-         return convertedOp
-      else:
-         return None
+     if self.paramstyle == "named":
+          return sqlOpToConvert
+     elif self.paramstyle == "pyformat":
+        slist = []
+        slist.append(sqlOpToConvert)
+        for x in paramList:
+           tmp = slist[0]
+           count = tmp.count(":"+x)
+           if count < 1:
+              return None
+           else:
+              newstr = tmp.replace(":"+x, "%("+x+")s")
+              slist[0] = newstr
+        convertedOp = slist[0]
+        return convertedOp
+     elif self.paramstyle == "format":
+        formatRe = re.compile(r"[^,]+")
+        val_index = sqlOpToConvert.index("values")
+        convertedOp = sqlOpToConvert[:val_index] + "values (" + formatRe.sub(" %s", sqlOpToConvert[val_index:]) + ")"
+        return convertedOp
+     else:
+        return None
    
    # Public Methods
             
@@ -216,12 +208,9 @@ class PTpyDBAPI:
       return list
 
    def importDBapi(self):
-      name = self.__getPyDbMod (self.dbenv)
-      if name != None:
-         self.moduleName = __import__(name)
-         return self.moduleName
-      else:
-         raise KeyError
+      name = self.pyDBmap[self.dbenv]
+      self.moduleName = __import__(name)
+      return self.moduleName
    
    # -- Connection Object and Methods
    # Method: connect
@@ -245,53 +234,44 @@ class PTpyDBAPI:
    def connect (self, pt_db=None, pt_dsn=None, pt_host=None, pt_pwd=None,
 				pt_user=None):
       if pt_db == None or pt_host == None or pt_pwd == None or pt_user == None:
-      	paramDict = self.__getConnParams()
-      	#for x in paramDict.keys():
-      	#   print x, '\t', paramDict[x]
-      	# The PyGreSQL connect method will accept a single argument as a
-      	# connection string of format 'host:database:user:password:opt:tty'.
-		# This is supplied as the DSN parameter. Or it will accept keyword
-		# parameters, all of which are optional.  The PerfTrack interface
-		# supports the keyword method.
-      	if self.dbenv == "PG_PYGRESQL":
-      	   self.connection = self.dbMod.connect(dsn=paramDict["DSN"],
-      	                                        host=paramDict["HOST"],
-      	                                        database=paramDict["DATABASE"],
-      	                                        user=paramDict["USER"],
-      	                                        password=paramDict["PASSWORD"])
-      	   return self.connection
-      	
-      	# The cx_Oracle connect method will accept a single argument as a
-      	# connection string of the format accepted by SQLPLUS.  Generally, this
-      	# is user/password@dsn'.  The dsn is the TNS entry and looks like a host
-      	# name.  The cx_Oracle connect method will also accept optional
-        # arguments as keyword parameters.  The Perftrack interface supports
-        # the keyword method.
-      	if self.dbenv == "ORA_CXORACLE":
-      	   self.connection = self.dbMod.connect(user=paramDict["USER"],
-      	                                        password=paramDict["PASSWORD"],
-      	                                        dsn=paramDict["DSN"])
-      	   
-      	   return self.connection
-
-      	# 2008-7-10 smithm
-      	# Added connection parameters for MySQL.  MySQLdb accepts the following
-      	# name parameters; host, db, user, and passwd.
-      	# The MySQLdb connect method
-      	if self.dbenv == "MYSQL":
-      	   self.connection = self.dbMod.connect(host=paramDict["HOST"],
-      	                                        db=paramDict["DATABASE"],
-      	                                        user=paramDict["USER"],
-      	                                        passwd=paramDict["PASSWORD"])
-      	   return self.connection
-      else:
-		# all of the optional parameters (except dsn) have been entered
-		# so use them
-		self.connection = self.dbMod.connect(database = pt_db, host = pt_host,
-										  password = pt_pwd, user = pt_user,
-										  dsn = pt_dsn)
-		return self.connection
-   
+         paramDict = self.__getConnParams()
+         # The PyGreSQL connect method will accept a single argument as a
+         # connection string of format 'host:database:user:password:opt:tty'.
+         # This is supplied as the DSN parameter. Or it will accept keyword
+         # parameters, all of which are optional.  The PerfTrack interface
+         # supports the keyword method.
+         if self.dbenv == "PG_PYGRESQL":
+            self.connection = self.dbMod.connect(dsn=paramDict["DSN"],
+                                                 host=paramDict["HOST"],
+                                                 database=paramDict["DATABASE"],
+                                                 user=paramDict["USER"],
+                                                 password=paramDict["PASSWORD"])      	
+         # The cx_Oracle connect method will accept a single argument as a
+         # connection string of the format accepted by SQLPLUS.  Generally, this
+         # is user/password@dsn'.  The dsn is the TNS entry and looks like a host
+         # name.  The cx_Oracle connect method will also accept optional
+         # arguments as keyword parameters.  The Perftrack interface supports
+         # the keyword method.
+         elif self.dbenv == "ORA_CXORACLE":
+            self.connection = self.dbMod.connect(user=paramDict["USER"],
+                                                 password=paramDict["PASSWORD"],
+                                                 dsn=paramDict["DSN"])
+            
+         # MySQLdb accepts the following name parameters; host, db, user, and passwd.
+         elif self.dbenv == "MYSQL":
+            self.connection = self.dbMod.connect(host=paramDict["HOST"],
+                                                 db=paramDict["DATABASE"],
+                                                 user=paramDict["USER"],
+                                                 passwd=paramDict["PASSWORD"])
+         else:
+            # all of the optional parameters (except dsn) have been entered
+            # so use them
+            self.connection = self.dbMod.connect(database = pt_db, host = pt_host,
+                                                 password = pt_pwd, user = pt_user,
+                                                 dsn = pt_dsn)
+      
+      return self.connection
+      
    # Method: closeCnx
    # Description: close database connection
    # Input:  Connection object
@@ -346,26 +326,28 @@ class PTpyDBAPI:
    # Output: not defined by DB API 2.0
    # not completely finished. only does simple ops right now
    def execute (self, crs, operation, parameters = None):
-      #print "ptPyDBAPI: execute"
+#      f = open("pickle.log", "a")
+      #f = None
+#      sql = operation
+#      if (parameters != None):
+#         sql = self.__opToParamFormat(operation, parameters.keys())
+         
+# f.write("%s" % pickle.dumps((sql, parameters)))
+
       if parameters == None:
-         #print "execute: no dictionary parameters"
          crs.execute (operation)
       else:
-         #print "execute: dictionary parameters"
          plist = parameters.keys()
-         #sql = self.__opToParamFormat(operation, parameters)
          sql = self.__opToParamFormat(operation, plist)
          if sql != None:
-            #print parameters.values()
-            #print "Formatted Op: " + sql
             if self.dbenv == "MYSQL":
-                crs.execute (sql, self.orderParams(operation, parameters))
+               crs.execute (sql, self.orderParams(operation, parameters))
             else:
-                crs.execute (sql, parameters)
+               crs.execute (sql, parameters)
          else:
             raise self.dbapiError
-
-   
+      f = open("sql.log", "a")
+      f.write("%s :: %s :: %s\n" % (operation.strip(), parameters, crs.rowcount > 0))
    
    # Method: executemany
    # Descrtiption: Prepare a database operation and then execute it
@@ -403,8 +385,7 @@ class PTpyDBAPI:
       #print "ptPyDBAPI: fetchone"
       sequence = crs.fetchone()
       return sequence
-   
-   
+
    # Method: fetchmany
    # Description: Fetch the next set of rows of a query result, returning
    #         a sequence of sequences (list of tuples). An empty sequence
@@ -446,30 +427,11 @@ class PTpyDBAPI:
          sql = "SELECT tablename FROM pg_tables where tablename not like 'pg_%%'"
       elif self.dbenv == "ORA_CXORACLE":
          sql = "select table_name from tabs"
-      # smithm 2008-7-10
-      # Added query to get tables in MySQL
       elif self.dbenv == "MYSQL":
          sql = "show tables"
+      else:
+         raise Exception("Unknown Database Type")
+
       crs.execute(sql)
       tables = crs.fetchall()
       return [t.upper() for t, in tables]
-
-
-
-   
-   
-   # -- Exported Type Objects and Constructors
-   
-   
-   # -- Optional DB API Extensions --
-   # Connection Attributes
-   
-   # Cursor Attributes
-   
-   # Connection Methods
-   
-   # Cursor Methods
-   
-   # -- Helper Methods for this Class --
-
-
