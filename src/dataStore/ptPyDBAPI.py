@@ -46,7 +46,7 @@ class PTpyDBAPI:
    #
    def __getConnParams (self):
       if self.dbenv == "PG_PYGRESQL":
-         if os.environ.get ("DBPASS") != None:
+         if os.environ.get ("DBPASS"):
             data = os.environ.get ("DBPASS")
             splitted = data.split(",")
             dbname = splitted[0]
