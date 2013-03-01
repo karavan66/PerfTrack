@@ -7,8 +7,7 @@ import os,sys
 from PTexception import PTexception
 
 def getMachineName(ptds, machine, type):
-    build_machine_id = ptds.findResourceByShortNameAndShortType(\
-                            type, machine)
+    build_machine_id = ptds.findResourceByShortNameAndShortType(type, machine)
     #print "machine_id: %s, machine: %s, type:%s" %(build_machine_id,machine,type)
     if build_machine_id == -1:
        raise PTexception("getMachineName found multiple matches for %s with type %s" % (machine,type))

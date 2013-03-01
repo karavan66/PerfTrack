@@ -521,11 +521,9 @@ def process(resIdx, arg, eInfo, ptds):
         line = f.readline()
 
     if attrs.getFirst()[0] != "RunDataBegin":
-       raise PTexception("Missing RunDataBegin in run data file for "\
-                   " execution:%s"  % exe.name)
+       raise PTexception("Missing RunDataBegin in run data file %s" % arg)
     if attrs.getLast()[0] != "RunDataEnd":
-       raise PTexception("Missing RunDataEnd in run data file for execution:%s"\
-                   % exe.name)
+       raise PTexception("Missing RunDataEnd in run data file %s" % arg)
 
     get_initial_run_info(resIdx, attrs, eInfo, ptds)
 

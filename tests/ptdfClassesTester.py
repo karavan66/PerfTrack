@@ -10,18 +10,18 @@ from Execution import Execution
 from Resource import Resource
 from PerfResult import PerfResult
 from AttrVal import AttrVal
+from PassFail import PassFail
 
-
-def resourceBasicTests():
+def resourceBasicTests(pf):
     try:
        # try giving Resource name=None
        app = Resource (None)
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Resource name=None"
+       pf.failed("non-PTexception when try giving Resource name=None")
     else:
-       print "FAIL: try giving Resource name=None"
+       pf.failed("try giving Resource name=None")
 
     try:
        # try giving Resource name=""
@@ -29,9 +29,9 @@ def resourceBasicTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Resource name=''"
+       pf.failed("non-PTexception when try giving Resource name=''")
     else:
-       print "FAIL: try giving Resource name=''"
+       pf.failed("try giving Resource name=''")
 
     try:
        # try giving Resource name with illegal char '::'
@@ -39,9 +39,9 @@ def resourceBasicTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Resource name=MFLOP::sec"
+       pf.failed("non-PTexception when try giving Resource name=MFLOP::sec")
     else:
-       print "FAIL: try giving Resource name=MFLOP::sec"
+       pf.failed("try giving Resource name=MFLOP::sec")
 
     try:
        # try giving Resource name with illegal char ','
@@ -49,9 +49,9 @@ def resourceBasicTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Resource name=MFLOP,sec"
+       pf.failed("non-PTexception when try giving Resource name=MFLOP,sec")
     else:
-       print "FAIL: try giving Resource name=MFLOP,sec"
+       pf.failed("try giving Resource name=MFLOP,sec")
 
     try:
        # try giving Resource name with illegal char '('
@@ -59,9 +59,9 @@ def resourceBasicTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Resource name=MFLOP(sec"
+       pf.failed("non-PTexception when try giving Resource name=MFLOP(sec")
     else:
-       print "FAIL: try giving Resource name=MFLOP(sec"
+       pf.failed("try giving Resource name=MFLOP(sec")
 
     try:
        # try giving Resource name with illegal char ')'
@@ -69,9 +69,9 @@ def resourceBasicTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Resource name=MFLOP)sec"
+       pf.failed("non-PTexception when try giving Resource name=MFLOP)sec")
     else:
-       print "FAIL: try giving Resource name=MFLOP)sec"
+       pf.failed("try giving Resource name=MFLOP)sec")
 
     try:
        # try giving Resource name with illegal char '####'
@@ -79,9 +79,9 @@ def resourceBasicTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Appl name=MFLOP####sec"
+       pf.failed("non-PTexception when try giving Appl name=MFLOP####sec")
     else:
-       print "FAIL: try giving Resource name=MFLOP####sec"
+       pf.failed("try giving Resource name=MFLOP####sec")
 
     try:
        # try giving Resource bad attr name
@@ -91,9 +91,9 @@ def resourceBasicTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Resource attr name=''"
+       pf.failed("non-PTexception when try giving Resource attr name=''")
     else:
-       print "FAIL: try giving Resource attr name=''"
+       pf.failed("try giving Resource attr name=''")
 
     try:
        # try giving Resource bad attr value 
@@ -103,9 +103,9 @@ def resourceBasicTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Resource attr value=''"
+       pf.failed("non-PTexception when try giving Resource attr value=''")
     else:
-       print "FAIL: try giving Resource attr value=''"
+       pf.failed("try giving Resource attr value=''")
       
     try:
        # try giving Resource non-list attr value 
@@ -115,9 +115,9 @@ def resourceBasicTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception raised when try giving Resource non-list attrvalue"
+       pf.failed("non-PTexception raised when try giving Resource non-list attrvalue")
     else:
-       print "FAIL: try giving Resource non-list attrvalue"
+       pf.failed("try giving Resource non-list attrvalue")
 
     try:
        # try giving Resource non-pair attr value 
@@ -126,9 +126,9 @@ def resourceBasicTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception raised when try giving Resource non-pair attrvalue"
+       pf.failed("non-PTexception raised when try giving Resource non-pair attrvalue")
     else:
-       print "FAIL: try giving Resource non-pair attrvalue"
+       pf.failed("try giving Resource non-pair attrvalue")
 
     try:
        # try giving Resource good list attr value 
@@ -138,23 +138,23 @@ def resourceBasicTests():
     except PTexception, a:
        print "FAIL:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Resource good list attrvalue"
+       pf.failed("non-PTexception when try giving Resource good list attrvalue")
     else:
-       print "PASS: try giving Resource good list attrvalue"
+       pf.passed("try giving Resource good list attrvalue")
 
     try:
        # try giving Resource bad resource types
        b = "superduper"
        c = "extra"
        d = ""
-       app = Resource("frank", "type", [(b,c)],[d])
+       app = Resource("frank", "type", [(b,c),d])
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Resource bad resource type"
+       pf.failed("non-PTexception when try giving Resource bad resource type")
        raise
     else:
-       print "FAIL: try giving Resource bad resource type"
+       pf.failed("try giving Resource bad resource type")
 
     try:
        # try giving Resource non-list resource type
@@ -165,9 +165,9 @@ def resourceBasicTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Resource non-list resource type"
+       pf.failed("non-PTexception when try giving Resource non-list resource type")
     else:
-       print "FAIL: try giving Resource non-list resource type"
+       pf.failed("try giving Resource non-list resource type")
 
     try:
        # try giving Resource good resource type
@@ -179,11 +179,11 @@ def resourceBasicTests():
     except PTexception, a:
        print "FAIL:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Resource good resource type"
+       pf.failed("non-PTexception when try giving Resource good resource type")
     else:
-       print "PASS: try giving Resource good resource type"
+       pf.passed("try giving Resource good resource type")
 
-def resourceSearchTests():
+def resourceSearchTests(pf):
     try:
        # try out isChild with a non-child resource
        p = Resource("eddie","atype")
@@ -192,12 +192,12 @@ def resourceSearchTests():
     except PTexception, a:
        print "FAIL:" + a.value
     except:
-       print "FAIL: non-PTexception when try isChild non-child resource"
+       pf.failed("non-PTexception when try isChild non-child resource")
     else:
        if theVerdict == True:
-          print "FAIL: isChild fail with non-child resource"
+          pf.failed("isChild fail with non-child resource")
        else:
-          print "PASS: isChild pass with non-child resource"
+          pf.passed("isChild pass with non-child resource")
 
     try:
        # try out isChild
@@ -207,12 +207,12 @@ def resourceSearchTests():
     except PTexception, a:
        print "FAIL:" + a.value
     except:
-       print "FAIL: non-PTexception when try isChild same name resource"
+       pf.failed("non-PTexception when try isChild same name resource")
     else:
        if theVerdict == True:
-          print "FAIL: isChild fail same name resource"
+          pf.failed("isChild fail same name resource")
        else:
-          print "PASS: isChild pass same name resource"
+          pf.passed("isChild pass same name resource")
 
     try:
        # try out isChild
@@ -222,12 +222,12 @@ def resourceSearchTests():
     except PTexception, a:
        print "FAIL:" + a.value
     except:
-       print "FAIL: non-PTexception when try isChild actual child"
+       pf.failed("non-PTexception when try isChild actual child")
     else:
        if theVerdict == True:
-          print "PASS: isChild pass actual child"
+          pf.passed("isChild pass actual child")
        else: 
-          print "FAIL: isChild fail actual child"
+          pf.failed("isChild fail actual child")
 
     try:
        # try finding a static library
@@ -244,17 +244,17 @@ def resourceSearchTests():
               libname = r.name 
               break
     except PTexception, a:
-       print "FAIL: PTexception raised when trying to find good static lib with findResourceByShortType: " + a.value
+       pf.failed("PTexception raised when trying to find good static lib with findResourceByShortType: " + a.value)
     except:
-       print "FAIL: non-PTexception raised when trying to find good static lib with findResourceByShortType"
+       pf.failed("non-PTexception raised when trying to find good static lib with findResourceByShortType")
        raise
     else:
        if libname == "":
-           print "FAIL: found empty library name  when trying to find good static lib with findResourceByShortType"
+           pf.failed("found empty library name  when trying to find good static lib with findResourceByShortType")
        elif not libname.endswith("/libmpi.a"):
-           print "FAIL: found wrong library trying to find good static lib with findResourceByShortType"
+           pf.failed("found wrong library trying to find good static lib with findResourceByShortType")
        else:
-           print "PASS: found libmpi.a with findResourceByShortType"
+           pf.passed("found libmpi.a with findResourceByShortType")
 
     try:
        # try finding a dynamic library
@@ -271,17 +271,17 @@ def resourceSearchTests():
               libname = r.name
               break
     except PTexception, a:
-       print "FAIL: PTexception raised when trying to find good dynamic lib with findResourceByShortType: " + a.value
+       pf.failed("PTexception raised when trying to find good dynamic lib with findResourceByShortType: " + a.value)
     except:
-       print "FAIL: non-PTexception raised when trying to find good dynamic lib with findResourceByShortType"
+       pf.failed("non-PTexception raised when trying to find good dynamic lib with findResourceByShortType")
        raise
     else:
        if libname == "":
-           print "FAIL: found empty library name  when trying to find good dynamic lib with findResourceByShortType"
+           pf.failed("found empty library name  when trying to find good dynamic lib with findResourceByShortType")
        elif not libname.endswith("/libmpi.so"):
-           print "FAIL: found wrong library trying to find good dynamic lib with findResourceByShortType"
+           pf.failed("found wrong library trying to find good dynamic lib with findResourceByShortType")
        else:
-           print "PASS: found libmpi.so with findResourceByShortType"
+           pf.passed("found libmpi.so with findResourceByShortType")
 
     try:
        # try finding a resource with findResourceByType 
@@ -298,17 +298,17 @@ def resourceSearchTests():
               libname = r.name
               break
     except PTexception, a:
-       print "FAIL: PTexception raised when trying to find good dynamic lib with findResourceByType: " + a.value
+       pf.failed("PTexception raised when trying to find good dynamic lib with findResourceByType: " + a.value)
     except:
-       print "FAIL: non-PTexception raised when trying to find good dynamic lib with findResourceByType"
+       pf.failed("non-PTexception raised when trying to find good dynamic lib with findResourceByType")
        raise
     else:
        if libname == "":
-           print "FAIL: found empty library name  when trying to find good dynamic lib with findResourceByType"
+           pf.failed("found empty library name  when trying to find good dynamic lib with findResourceByType")
        elif not libname.endswith("/libmpi.so"):
-           print "FAIL: found wrong library trying to find good dynamic lib with findResourceByType"
+           pf.failed("found wrong library trying to find good dynamic lib with findResourceByType")
        else:
-           print "PASS: found libmpi.so with findResourceByType"
+           pf.passed("found libmpi.so with findResourceByType")
 
     try:
        # try finding a resource with findResource
@@ -324,17 +324,17 @@ def resourceSearchTests():
        else:
           libname = ""
     except PTexception, a:
-       print "FAIL: PTexception raised when trying to find good dynamic lib with findResource: " + a.value
+       pf.failed("PTexception raised when trying to find good dynamic lib with findResource: " + a.value)
     except:
-       print "FAIL: non-PTexception raised when trying to find good dynamic lib with findResource"
+       pf.failed("non-PTexception raised when trying to find good dynamic lib with findResource")
        raise
     else:
        if libname == "":
-           print "FAIL: found empty library name  when trying to find good dynamic lib with findResource"
+           pf.failed("found empty library name  when trying to find good dynamic lib with findResource")
        elif not libname.endswith("/libmpi.so"):
-           print "FAIL: found wrong library trying to find good dynamic lib with findResource"
+           pf.failed("found wrong library trying to find good dynamic lib with findResource")
        else:
-           print "PASS: found libmpi.so with findResource"
+           pf.passed("found libmpi.so with findResource")
 
     try:
        # try finding a non-existent resource with findResource
@@ -350,15 +350,15 @@ def resourceSearchTests():
        else:
           libname = ""
     except PTexception, a:
-       print "FAIL: PTexception raised when trying to find non-existent lib with findResource: " + a.value
+       pf.failed("PTexception raised when trying to find non-existent lib with findResource: " + a.value)
     except:
-       print "FAIL: non-PTexception raised when trying to find non-existent lib with findResource"
+       pf.failed("non-PTexception raised when trying to find non-existent lib with findResource")
        raise
     else:
        if libname == "":
-           print "PASS: found '' library name when trying to find non-existent lib with findResource"
+           pf.passed("found '' library name when trying to find non-existent lib with findResource")
        else:
-           print "FAIL: found non-existent lib with findResource"
+           pf.failed("found non-existent lib with findResource")
 
     try:
        # try finding a non-existent resource with findResourceByType
@@ -374,15 +374,15 @@ def resourceSearchTests():
        else:
           libname = ""
     except PTexception, a:
-       print "FAIL: PTexception raised when trying to find non-existent lib with findResourceByType: " + a.value
+       pf.failed("PTexception raised when trying to find non-existent lib with findResourceByType: " + a.value)
     except:
-       print "FAIL: non-PTexception raised when trying to find non-existent lib with findResourceByType"
+       pf.failed("non-PTexception raised when trying to find non-existent lib with findResourceByType")
        raise
     else:
        if libname == "":
-           print "PASS: found '' library name when trying to find non-existent lib with findResourceByType"
+           pf.passed("found '' library name when trying to find non-existent lib with findResourceByType")
        else:
-           print "FAIL: found non-existent lib with findResourceByType"
+           pf.failed("found non-existent lib with findResourceByType")
 
     try:
        # try finding a non-existent resource with findResourceByType
@@ -398,18 +398,18 @@ def resourceSearchTests():
        else:
           libname = ""
     except PTexception, a:
-       print "FAIL: PTexception raised when trying to find non-existent lib with findResourceByShortType: " + a.value
+       pf.failed("PTexception raised when trying to find non-existent lib with findResourceByShortType: " + a.value)
     except:
-       print "FAIL: non-PTexception raised when trying to find non-existent lib with findResourceByShortType"
+       pf.failed("non-PTexception raised when trying to find non-existent lib with findResourceByShortType")
        raise
     else:
        if libname == "":
-           print "PASS: found '' library name when trying to find non-existent lib with findResourceByShortType"
+           pf.passed("found '' library name when trying to find non-existent lib with findResourceByShortType")
        else:
-           print "FAIL: found non-existent lib with findResourceByShortType"
+           pf.failed("found non-existent lib with findResourceByShortType")
 
 
-def execTests():
+def execTests(pf):
 
     try:
        # try giving Application  non-list execution
@@ -421,9 +421,9 @@ def execTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Application non-list execution"
+       pf.failed("non-PTexception when try giving Application non-list execution")
     else:
-       print "FAIL: try giving Application non-list execution"
+       pf.failed("try giving Application non-list execution")
 
     try:
        # try giving Application  good execution list 
@@ -435,18 +435,18 @@ def execTests():
     except PTexception, a:
        print "FAIL:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Application good execution list"
+       pf.failed("non-PTexception when try giving Application good execution list")
     else:
-       print "PASS: try giving Application good execution list"
+       pf.passed("try giving Application good execution list")
 
     try:
        exe = Execution()
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Execution no name" 
+       pf.failed("non-PTexception when try giving Execution no name" )
     else:
-       print "FAIL: try giving Execution no name"
+       pf.failed("try giving Execution no name")
 
     try:
        a = ""
@@ -454,9 +454,9 @@ def execTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Execution name ''" 
+       pf.failed("non-PTexception when try giving Execution name ''" )
     else:
-       print "FAIL: try giving Execution name ''"
+       pf.failed("try giving Execution name ''")
 
 
     try: 
@@ -468,9 +468,9 @@ def execTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Execution attr value=''"
+       pf.failed("non-PTexception when try giving Execution attr value=''")
     else:
-       print "FAIL: try giving Execution attr value=''"
+       pf.failed("try giving Execution attr value=''")
       
     try:
        # try giving Execution non-list attr value 
@@ -481,9 +481,9 @@ def execTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception raised when try giving Execution non-list attrvalue"
+       pf.failed("non-PTexception raised when try giving Execution non-list attrvalue")
     else:
-       print "FAIL: try giving Execution non-list attrvalue"
+       pf.failed("try giving Execution non-list attrvalue")
 
     try:
        # try giving Execution non-pair attr value 
@@ -494,9 +494,9 @@ def execTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception raised when try giving Execution non-pair attrvalue"
+       pf.failed("non-PTexception raised when try giving Execution non-pair attrvalue")
     else:
-       print "FAIL: try giving Execution non-pair attrvalue"
+       pf.failed("try giving Execution non-pair attrvalue")
 
     try:
        # try giving Execution good list attr value 
@@ -507,9 +507,9 @@ def execTests():
     except PTexception, a:
        print "FAIL:" + a.value
     except:
-       print "FAIL: non-PTexception when try giving Execution good list attrvalue"
+       pf.failed("non-PTexception when try giving Execution good list attrvalue")
     else:
-       print "PASS: try giving Execution good list attrvalue"
+       pf.passed("try giving Execution good list attrvalue")
 
     try:
        # try giving Execution  None resource list
@@ -521,9 +521,9 @@ def execTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception raised when try giving Execution None resource list"
+       pf.failed("non-PTexception raised when try giving Execution None resource list")
     else:
-       print "FAIL: try giving Execution None list"
+       pf.failed("try giving Execution None list")
 
     try:
        # try giving Execution  non-list resource list 
@@ -535,9 +535,9 @@ def execTests():
     except PTexception, a:
        print "PASS:" + a.value
     except:
-       print "FAIL: non-PTexception raised when try giving Execution non-list resource list"
+       pf.failed("non-PTexception raised when try giving Execution non-list resource list")
     else:
-       print "FAIL: try giving Execution non-list resource list"
+       pf.failed("try giving Execution non-list resource list")
 
     try:
        # try giving Execution  good resource list 
@@ -549,12 +549,12 @@ def execTests():
     except PTexception, a:
        print "FAIL:" + a.value
     except:
-       print "FAIL: non-PTexception raised when try giving Execution good resource list"
+       pf.failed("non-PTexception raised when try giving Execution good resource list")
        raise
     else:
-       print "PASS: try giving Execution good resource list"
+       pf.passed("try giving Execution good resource list")
 
-def focusTests():
+def focusTests(pf):
     try:
        # try  getting a focus template
        build = Resource("mybuild","build")
@@ -574,13 +574,13 @@ def focusTests():
        #for f in fl:
        #    print f.getName()
     except:
-       print "FAIL: non-PTexception raised when getting focusTemplate"
+       pf.failed("non-PTexception raised when getting focusTemplate")
        raise
     else:
        if len(fl) != 4:
-          print "FAIL: wrong number of resources. %d" % len(fl)
+          pf.failed("wrong number of resources. %d" % len(fl))
        else:
-          print "PASS: got focus template successfully"
+          pf.passed("got focus template successfully")
 
     try:
        # try getting a focus template with two top-level resources withthe 
@@ -603,13 +603,13 @@ def focusTests():
        #for f in fl:
        #    print f.getName()
     except:
-       print "FAIL: non-PTexception raised when getting focusTemplate same types"
+       pf.failed("non-PTexception raised when getting focusTemplate same types")
        raise
     else:
        if len(fl) != 5:
-          print "FAIL: wrong number of resources same types. %d" % len(fl)
+          pf.failed("wrong number of resources same types. %d" % len(fl))
        else:
-          print "PASS: got focus template successfully same types"
+          pf.passed("got focus template successfully same types")
 
 
     try:
@@ -633,13 +633,13 @@ def focusTests():
        #for f in fl:
        #    print f.getName()
     except:
-       print "FAIL: non-PTexception raised when adding specific focus child"
+       pf.failed("non-PTexception raised when adding specific focus child")
        raise
     else:
        if len(newfl) != 4:
-          print "FAIL: wrong number of resources when adding specific focus child. %d" % len(newfl)
+          pf.failed("wrong number of resources when adding specific focus child. %d" % len(newfl))
        else:
-          print "PASS: got focus template successfully when adding specific focus child"
+          pf.passed("got focus template successfully when adding specific focus child")
 
     try:
        # try adding a list of specific focus resources that is a child of 
@@ -664,16 +664,16 @@ def focusTests():
        #for f in fl:
            #print f.getName()
     except:
-       print "FAIL: non-PTexception raised when adding specific focus child list"
+       pf.failed("non-PTexception raised when adding specific focus child list")
        raise
     else:
        if len(newfl) != 5:
-          print "FAIL: wrong number of resources when adding specific focus child list. %d" % len(newfl)
+          pf.failed("wrong number of resources when adding specific focus child list. %d" % len(newfl))
        else:
-          print "PASS: got focus template successfully when adding specific focus child list"
+          pf.passed("got focus template successfully when adding specific focus child list")
 
 
-def attrValTests():
+def attrValTests(pf):
 
     try:
         # test AttrVal class. nothing bad should happen
@@ -711,12 +711,12 @@ def attrValTests():
            raise PTexception("getNext not working")
             
     except PTexception, a:
-        print "FAIL: PTexception raised for good AttrVal test: " + a.value
+        pf.failed("PTexception raised for good AttrVal test: " + a.value)
     except:
-        print "FAIL: non-PTexception raised AttrVal good test"
+        pf.failed("non-PTexception raised AttrVal good test")
         raise
     else:
-        print "PASS: good AttrVal test"
+        pf.passed("good AttrVal test")
 
 
     try:
@@ -724,12 +724,12 @@ def attrValTests():
         av = AttrVal()
         av.addPair("","frank") 
     except PTexception, a:
-        print "PASS: PTexception raised for missing 'name' value: " + a.value
+        pf.passed("PTexception raised for missing 'name' value: " + a.value)
     except:
-        print "FAIL: non-PTexception raised AttrVal missing 'name'"
+        pf.failed("non-PTexception raised AttrVal missing 'name'")
         raise
     else:
-        print "FAIL: no exception raised AttrVal 'missing name'"
+        pf.failed("no exception raised AttrVal 'missing name'")
     
 
     try:
@@ -737,12 +737,12 @@ def attrValTests():
         av = AttrVal()
         av.addPairs("frank")
     except PTexception, a:
-        print "PASS: PTexception raised for non-list to addPairs: " + a.value
+        pf.passed("PTexception raised for non-list to addPairs: " + a.value)
     except:
-        print "FAIL: non-PTexception raised AttrVal non-list to addPairs"
+        pf.failed("non-PTexception raised AttrVal non-list to addPairs")
         raise
     else:
-        print "FAIL: no exception raised AttrVal non-list to addPairs"
+        pf.failed("no exception raised AttrVal non-list to addPairs")
 
 
     try:
@@ -751,21 +751,22 @@ def attrValTests():
         a = ["frank","allice","steve"]
         av.addPairs(a)
     except PTexception, a:
-        print "PASS: PTexception raised for non-pair list to addPairs: " + a.value
+        pf.passed("PTexception raised for non-pair list to addPairs: " + a.value)
     except:
-        print "FAIL: non-PTexception raised AttrVal non-pair list to addPairs"
+        pf.failed("non-PTexception raised AttrVal non-pair list to addPairs")
         raise
     else:
-        print "FAIL: no exception raised AttrVal non-pair list to addPairs"
+        pf.failed("no exception raised AttrVal non-pair list to addPairs")
 
 
 def main():
- 
-   tests = [resourceBasicTests,resourceSearchTests,execTests, attrValTests,\
-            focusTests]
-   for test in tests:
-       test()
-
+    pf = PassFail()
+    tests = [resourceBasicTests,resourceSearchTests,execTests, attrValTests,\
+                 focusTests]
+    for test in tests:
+        test(pf)
+        
+    return pf.failed_count > 0
 
 if __name__ == "__main__":
    sys.exit(main())

@@ -3,6 +3,16 @@
 # C extensions
 *.so
 
+#Lib QT
+*.moc
+
+#Merge Files
+*.BACKUP.*
+*.REMOTE.*
+*.BASE.*
+*.LOCAL.*
+*.orig
+
 # Packages
 *.egg
 *.egg-info

@@ -24,8 +24,8 @@ class PTpyDBAPI:
       
       # user defined exceptions
       self.dbapiError = "PTpyDBAPI error"
-         
-   
+      self.connection = None
+
    # Private Methods
    def __getDBenv (self):
       if (os.environ.get("PTDB")):
@@ -104,7 +104,7 @@ class PTpyDBAPI:
       else:
          raise Exception("Unknown Database Type")
 
-   # Method: __opToParamFormat
+   # Method: opToParamFormat
    # Description: Converts sql operation with parameter variables
    #              into correct format expected by the Python db interface
    #              module.
@@ -134,7 +134,7 @@ class PTpyDBAPI:
    #             values (%(tname)s, %(tgrade)s, %(tsize)s)"
    #
    #   NOTE: only does named, pyformat, and format right now
-   def __opToParamFormat (self, sqlOpToConvert, paramList):
+   def opToParamFormat (self, sqlOpToConvert, paramList):
      if self.paramstyle == "named":
           return sqlOpToConvert
      elif self.paramstyle == "pyformat":
@@ -233,6 +233,7 @@ class PTpyDBAPI:
    #				  with DBAPI 2.0
    def connect (self, pt_db=None, pt_dsn=None, pt_host=None, pt_pwd=None,
 				pt_user=None):
+
       if pt_db == None or pt_host == None or pt_pwd == None or pt_user == None:
          paramDict = self.__getConnParams()
          # The PyGreSQL connect method will accept a single argument as a
@@ -240,6 +241,7 @@ class PTpyDBAPI:
          # This is supplied as the DSN parameter. Or it will accept keyword
          # parameters, all of which are optional.  The PerfTrack interface
          # supports the keyword method.
+
          if self.dbenv == "PG_PYGRESQL":
             self.connection = self.dbMod.connect(dsn=paramDict["DSN"],
                                                  host=paramDict["HOST"],
@@ -263,12 +265,12 @@ class PTpyDBAPI:
                                                  db=paramDict["DATABASE"],
                                                  user=paramDict["USER"],
                                                  passwd=paramDict["PASSWORD"])
-         else:
-            # all of the optional parameters (except dsn) have been entered
-            # so use them
-            self.connection = self.dbMod.connect(database = pt_db, host = pt_host,
-                                                 password = pt_pwd, user = pt_user,
-                                                 dsn = pt_dsn)
+      else:
+         # all of the optional parameters (except dsn) have been entered
+         # so use them
+         self.connection = self.dbMod.connect(database = pt_db, host = pt_host,
+                                              password = pt_pwd, user = pt_user,
+                                              dsn = pt_dsn)
       
       return self.connection
       
@@ -326,28 +328,27 @@ class PTpyDBAPI:
    # Output: not defined by DB API 2.0
    # not completely finished. only does simple ops right now
    def execute (self, crs, operation, parameters = None):
-#      f = open("pickle.log", "a")
+      #f = open("pickle.log", "a")
       #f = None
-#      sql = operation
-#      if (parameters != None):
-#         sql = self.__opToParamFormat(operation, parameters.keys())
-         
-# f.write("%s" % pickle.dumps((sql, parameters)))
-
+      #sql = operation
+      #if (parameters != None):
+      #   sql = self.opToParamFormat(operation, parameters.keys())
+      #  
+      #f.write("%s" % pickle.dumps((sql, parameters)))
       if parameters == None:
          crs.execute (operation)
       else:
          plist = parameters.keys()
-         sql = self.__opToParamFormat(operation, plist)
+         sql = self.opToParamFormat(operation, plist)
          if sql != None:
             if self.dbenv == "MYSQL":
                crs.execute (sql, self.orderParams(operation, parameters))
             else:
                crs.execute (sql, parameters)
          else:
-            raise self.dbapiError
-      f = open("sql.log", "a")
-      f.write("%s :: %s :: %s\n" % (operation.strip(), parameters, crs.rowcount > 0))
+            raise Exception(self.dbapiError)
+      #f = open("sql.log", "a")
+      #f.write("%s # %s # %s\n" % (operation.strip(), parameters, crs.rowcount > 0))
    
    # Method: executemany
    # Descrtiption: Prepare a database operation and then execute it
@@ -367,12 +368,12 @@ class PTpyDBAPI:
       try:
          plist = seqOfParameters[0].keys()
       except:
-         raise self.dbapiError
-      sql = self.__opToParamFormat(operation, plist)
+         raise Exception(self.dbapiError)
+      sql = self.opToParamFormat(operation, plist)
       if sql != None:
          crs.executemany(sql, seqOfParameters)
       else:
-         raise self.dbapiError
+         raise Exception(self.dbapiError)
    
    # Method: fetchone
    # Descrtiption: fetch next row of a query and return a single sequence

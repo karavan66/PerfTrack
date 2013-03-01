@@ -5,6 +5,7 @@
 
 import sys
 from PTds import PTdataStore
+from PassFail import PassFail
 #from getpass import getpass
 
 # connect/close
@@ -18,39 +19,39 @@ from PTds import PTdataStore
 #    """
 #    testConnection = testStore.connectToDB(testStore.NO_WRITE, dbh, dbn, dbu, dbp)
 #    if testConnection:
-#        print "PASS:  connectToDB passed using DB"
+#        pf.passed(" connectToDB passed using DB")
 #        testStore.closeDB()
 #    else:
-#        print "FAIL:  connectToDB failed using DB"
+#        pf.failed(" connectToDB failed using DB")
     #testConnection = testStore.connectToDB(testStore.NO_WRITE, "", "", "", "")
     #if testConnection:
     #    print "connectToDB passed using debug"
     #    testStore.closeDB()
     #else:
-    #    print "FAIL:  connectToDB failed using debug"
+    #    pf.failed(" connectToDB failed using debug")
 
-def test1_2 (testStore):
+def test1_2 (testStore, pf):
     """Tests connectToDB with only one arguments
     """
     testConnection = testStore.connectToDB(testStore.NO_WRITE)
     if testConnection:
-        print "PASS:  connectToDB passed using DB"
+        pf.passed(" connectToDB passed using DB")
         testStore.closeDB()
     else:
-        print "FAIL:  connectToDB failed using DB"
+        pf.failed(" connectToDB failed using DB")
 
-def test1_3 (testStore):
+def test1_3 (testStore, pf):
     """Tests connectToDB with five arguments, the last 4 are ignored 
     """
     testConnection = testStore.connectToDB(testStore.NO_WRITE, "blah", "blah", 
                                            "blah", "blah")
     if testConnection:
-        print "PASS:  connectToDB passed using DB"
+        pf.passed(" connectToDB passed using DB")
         testStore.closeDB()
     else:
-        print "FAIL:  connectToDB failed using DB"
+        pf.failed(" connectToDB failed using DB")
 
-def test2(testStore):
+def test2(testStore, pf):
     """Tests findOrCreateResource/createResource/findResource/findResourcebyShortNameAndType/
        findResourceByName
 
@@ -66,24 +67,24 @@ def test2(testStore):
     testConnection = testStore.connectToDB(testStore.NO_COMMIT)
     # for now, can't continue with testing if no DB connection
     if testConnection == False:
-        print "FAIL: test2:  unable to connect."
+        pf.failed("test2:  unable to connect.")
         return False
     else:
         improbableResource = testStore.findResourceByName("test1999")
         if improbableResource != 0:
             print "improbableResource set to %d" % (improbableResource)
-            print "FAIL:  improbableResource:  resource name test1999 in use"
+            pf.failed(" improbableResource:  resource name test1999 in use")
             return False
         else:
-            print "PASS:  improbableResource not found"
+            pf.passed(" improbableResource not found")
             
         improbableResource2 = testStore.findResourceByName("test2000")
         if improbableResource2 != 0:
             print "improbableResource2 set to %d" % (improbableResource2)
-            print "FAIL:  improbableResource2: resource name test2000 in use"
+            pf.failed(" improbableResource2: resource name test2000 in use")
             return False
         else:
-            print "PASS: improbableResource2 not found"
+            pf.passed("improbableResource2 not found")
 
         newResID = 0
         newResID = testStore.createResource(14, 0, "testerA", "execution")
@@ -101,11 +102,11 @@ def test2(testStore):
         sname = "mcr999999"
         id = testStore.findResourceByShortNameAndType(type, sname)
         if id == None:
-            print "PASS: looking for non-existent short name"
+            pf.passed("looking for non-existent short name")
         elif id == -1:
-            print "FAIL: found multiple entries for non-existent resource"
+            pf.failed("found multiple entries for non-existent resource")
         else:
-            print "FAIL: looking for non-existent short name. Got " + str(id)
+            pf.failed("looking for non-existent short name. Got " + str(id))
 
         # existing resource shortname that could partially overlap another name
         # mcr9 is contained in mcr99
@@ -115,49 +116,49 @@ def test2(testStore):
         sname = "jaccn115"
         id = testStore.findResourceByShortNameAndType(type, sname)
         if id == None:
-            print "FAIL: did not find existing resource " + sname
+            pf.failed("did not find existing resource " + sname)
         elif id == -1:
-            print "FAIL: found multiple entries for existing resource " + sname
+            pf.failed("found multiple entries for existing resource " + sname)
         else:
-            print "PASS: found one id for existing resource " + sname
+            pf.passed("found one id for existing resource " + sname)
 
         # non-existent type name
         type = "grid/machine/partition/mode"
         sname = "mcr9"
         id = testStore.findResourceByShortNameAndType(type, sname)
         if id == None:
-            print "PASS: looking for non-existent type name"
+            pf.passed("looking for non-existent type name")
         elif id == -1:
-            print "FAIL: found multiple entries for non-existent type"
+            pf.failed("found multiple entries for non-existent type")
         else:
-            print "FAIL: looking for non-existent type name. Got " + str(id)
+            pf.failed("looking for non-existent type name. Got " + str(id))
 
         # missing type argument
         type = None
         sname = "mcr9"
         id = testStore.findResourceByShortNameAndType(type, sname)
         if id == None:
-            print "PASS: looking for None type name"
+            pf.passed("looking for None type name")
         elif id == -1:
-            print "FAIL: found multiple entries for None type name "
+            pf.failed("found multiple entries for None type name ")
         else:
-            print "FAIL: looking for None type name. Got " + str(id)
+            pf.failed("looking for None type name. Got " + str(id))
 
         # missing sname argument
         type = "grid/machine/partition/mode"
         sname = None
         id = testStore.findResourceByShortNameAndType(type, sname)
         if id == None:
-            print "PASS: looking for None short name"
+            pf.passed("looking for None short name")
         elif id == -1:
-            print "FAIL: found multiple entries for None short name "
+            pf.failed("found multiple entries for None short name ")
         else:
-            print "FAIL: looking for None short name. Got " + str(id)
+            pf.failed("looking for None short name. Got " + str(id))
         #better safe than...
         testStore.abortTransaction()
 
     
-def test3(db):
+def test3(db, pf):
     """Tests getResourceId, getResourceName, getResourceType, getParentResource
        Returns True if all tests pass, False if any fail
 
@@ -176,7 +177,7 @@ def test3(db):
     #testConnection = testStore.connectToDB(testStore.NO_COMMIT, dbhost, dbname, dbuser, dbpwd) #old Postgres
     testConnection = testStore.connectToDB(testStore.NO_COMMIT) 
     if testConnection == False:
-        print "FAIL: test3: getResource: unable to connect."
+        pf.failed("test3: getResource: unable to connect.")
         return False
     else:
         # add some data to db using PTdataStore methods (this will not be committed to db)
@@ -189,51 +190,51 @@ def test3(db):
         noParentId = testStore.createResource(None, None, "test3A", "execution")
         print "id of resource without a parent_id: " + str(noParentId)  
         if (noParentId == None): 
-            print "FAIL: createResource returned invalid resource_item id"
+            pf.failed("createResource returned invalid resource_item id")
             returnFlag = False
         else:
-            print "PASS: resource id returned from createResource: %d" % (noParentId)
+            pf.passed("resource id returned from createResource: %d" % (noParentId))
             #find resource just added
             #use getResourceName, getResourceType
             resourcename = testStore.getResourceName(noParentId)
             print "name of resource: %s" % (resourcename)
             if (resourcename != "test3A"):
-                print "FAIL: getResourceName: name is not expected"
+                pf.failed("getResourceName: name is not expected")
                 returnFlag = False
             else:
-                print "PASS: getResourceName: name is expected" 
+                pf.passed("getResourceName: name is expected" )
                 parentname = resourcename
                 restype = testStore.getResourceType(noParentId)
                 print "type of resource: %s" % (restype)
                 if (restype != "execution"):
-                    print "FAIL: getResourceType: type is not expected"
+                    pf.failed("getResourceType: type is not expected")
                     returnFlag = False
                 else:
-                    print "PASS: getResourceType: type is expected" 
+                    pf.passed("getResourceType: type is expected" )
                     parenttype = restype
                     parId = testStore.getParentResource (noParentId)
                     print "parent_id of resource: " + str(parId)
                     if (parId != None):
-                        print "FAIL: getResourceParent: parent_id of resource without parent is not expected"
+                        pf.failed("getResourceParent: parent_id of resource without parent is not expected")
                         returnFlag = False
                     else:
-                        print "PASS: getResourceParent: parent_id of resource without parent is expected"
+                        pf.passed("getResourceParent: parent_id of resource without parent is expected")
                         parentparentid = parId
                         parent_res_id = testStore.findResourceByName (resourcename)
                         if (parent_res_id != noParentId):
-                            print "FAIL: findResourceByName did not return expected id of resource"
+                            pf.failed("findResourceByName did not return expected id of resource")
                             print "      expected: %d" % (noParentId)
                             print "      returned: " + str(parent_res_id)
                             returnFlag = False
                         else:
-                            print "PASS: findResourceByName returned correct id of resource"
+                            pf.passed("findResourceByName returned correct id of resource")
  
         #Add a resource who is a child of a known parent
         print "\n3.2: add a resource who is a child of known parent."
         print "     Test createResource() with getResourceName, getResourceType,"
         print "     and getParentResource"
         if (parent_res_id == -1):    #create child of resource created above
-            print "FAIL: problem with parent resource created earlier"
+            pf.failed("problem with parent resource created earlier")
             returnFlag = False
         else:
             child1Id = testStore.createResource(None, parent_res_id, "test3A/test3A-child1", "execution/process")
@@ -250,34 +251,34 @@ def test3(db):
             pname = testStore.getResourceName(parent_res_id)
             print "name of child1Id: %s name of parent: %s" % (cname, pname)
             if (cname != pname + "/test3A-child1"):
-                print "FAIL: getResourceName: child name is not expected: %s" % cname
+                pf.failed("getResourceName: child name is not expected: %s" % cname)
                 returnFlag = False
             else:
-                print "PASS: getResourceName: child name is expected"
+                pf.passed("getResourceName: child name is expected")
                 childname = cname
                 ctype = testStore.getResourceType(child1Id)
                 print "type of child1Id: %s" % (ctype)
                 if (ctype != "execution/process"):
-                    print "FAIL: getResourceType: child type is not expected"
+                    pf.failed("getResourceType: child type is not expected")
                     returnFlag = False
                 else:
-                    print "PASS: getResourceType: child type is expected"
+                    pf.passed("getResourceType: child type is expected")
                     childtype = ctype
                     cparId = testStore.getParentResource (child1Id)
                     print "parent_id of child1Id: %d" % (cparId)
                     if (cparId != parent_res_id):
-                        print "FAIL: getParentResource: parent_id of child1Id is not expected"
+                        pf.failed("getParentResource: parent_id of child1Id is not expected")
                         returnFlag = False
                     else:
-                        print "PASS: getParentResource: parent_id of child1Id is expected"
+                        pf.passed("getParentResource: parent_id of child1Id is expected")
                         childparentid = cparId
                         res_id = testStore.findResourceByName (cname)
                         if (res_id != child1Id):
-                            print "FAIL: findResourceByName did not return expected id of child resource"
+                            pf.failed("findResourceByName did not return expected id of child resource")
                             print "      expected: %d returned: %d" % (child1Id, res_id)
                             returnFlag = False
                         else:
-                            print "PASS: findResourceByName returned correct id of child resource"
+                            pf.passed("findResourceByName returned correct id of child resource")
 
 
         # Test getResourceName, getResourceType, getParentResource with bad parameters.  Use
@@ -289,41 +290,41 @@ def test3(db):
         ## getResourceId -- bad type
         #bad1 = testStore.getResourceId ("badtype", childname, childparentid) 
         #if (bad1 != 0):
-        #    print "FAIL: getResourceId: invalid type should cause failure"
+        #    pf.failed("getResourceId: invalid type should cause failure")
         #    returnFlag = False
         #else:
-        #    print "PASS: getResourceId: invalid type caused failure"
+        #    pf.passed("getResourceId: invalid type caused failure")
         ## getResourceId -- bad name 
         #bad2 = testStore.getResourceId (childtype, "badname", childparentid)
         #if (bad2 != 0):
-        #    print "FAIL: getResourceId: invalid name should cause failure"
+        #    pf.failed("getResourceId: invalid name should cause failure")
         #    returnFlag = False
         #else:
-        #    print "PASS: getResourceId: invalid name caused failure"
+        #    pf.passed("getResourceId: invalid name caused failure")
         ## getResourceId -- bad parentid 
         #bad3 = testStore.getResourceId (childtype, childname, 0)
         #if (bad3 != 0):
-        #    print "FAIL: getResourceId: invalid parent_id should cause failure"
+        #    pf.failed("getResourceId: invalid parent_id should cause failure")
         #    returnFlag = False
         #else:
-        #    print "PASS: getResourceId: invalid parent_id caused failure"
+        #    pf.passed("getResourceId: invalid parent_id caused failure")
 
 
         # getResourceName -- bad id 0 
         bad4 = testStore.getResourceName (0)
         if (bad4 != ""):
-            print "FAIL: getResourceName: invalid id of 0 should cause failure"
+            pf.failed("getResourceName: invalid id of 0 should cause failure")
             returnFlag = False
         else:
-            print "PASS: getResourceName: invalid id of 0 caused failure"
+            pf.passed("getResourceName: invalid id of 0 caused failure")
 
         # getResourceName -- bad id None 
         bad5 = testStore.getResourceName (None)
         if (bad5 != ""):
-            print "FAIL: getResourceName: invalid id of None should return empty string"
+            pf.failed("getResourceName: invalid id of None should return empty string")
             returnFlag = False
         else:
-            print "PASS: getResourceName: invalid id of None returned empty string"
+            pf.passed("getResourceName: invalid id of None returned empty string")
 
 
         # getResourceName -- Id does not exist in resource_item
@@ -337,38 +338,38 @@ def test3(db):
         try: 
             bad10 = testStore.getResourceName (maxid + 100)
             if (bad10 != ""):
-                print "FAIL: getResourceName: id %d does not exist; should cause exception" %(maxid+100)
+                pf.failed("getResourceName: id %d does not exist; should cause exception" %(maxid+100))
                 returnFlag = False
             else:
-                print "FAIL: getResourceName: id %d does not exist; should cause exception," %(maxid+100)
+                pf.failed("getResourceName: id %d does not exist; should cause exception," %(maxid+100))
                 print "      but the empty string was returned"
         except:
-            print "PASS: EXCEPTION CAUGHT: getResourceName: id %d does not exist" %(maxid+100) 
+            pf.passed("EXCEPTION CAUGHT: getResourceName: id %d does not exist" %(maxid+100) )
 
         # getResourceType 
         bad6 = testStore.getResourceType (0)
         if (bad6 != ""):
-            print "FAIL: getResourceType: invalid id of 0 should cause failure"
+            pf.failed("getResourceType: invalid id of 0 should cause failure")
             returnFlag = False
         else:
-            print "PASS: getResourceType: invalid id of 0 caused failure"
+            pf.passed("getResourceType: invalid id of 0 caused failure")
 
         # getResourceType -- bad id None 
         bad7 = testStore.getResourceType (None)
         if (bad7 != ""):
-            print "FAIL: getResourceType: invalid id of None should cause failure"
+            pf.failed("getResourceType: invalid id of None should cause failure")
             returnFlag = False
         else:
-            print "PASS: getResourceType: invalid id of None caused failure"
+            pf.passed("getResourceType: invalid id of None caused failure")
 
         # getParentResource -- bad id 0
         try:   
             bad8 = testStore.getParentResource (0)
             if (bad8 != None):
-                print "FAIL: getParentResource: invalid childId of 0 should cause failure"
+                pf.failed("getParentResource: invalid childId of 0 should cause failure")
                 returnFlag = False
             else:
-                print "PASS: getParentResource: invalid childId of 0 caused failure"
+                pf.passed("getParentResource: invalid childId of 0 caused failure")
         except:
             print "EXCEPTION CAUGHT: getParentResource: invalid childId of O raised an exception" 
         
@@ -376,10 +377,10 @@ def test3(db):
         try:
             bad9 = testStore.getParentResource (None)
             if (bad9 != None):
-                print "FAIL: getParentResource: invalid childId of None should cause failure"
+                pf.failed("getParentResource: invalid childId of None should cause failure")
                 returnFlag = False
             else:
-                print "PASS: getParentResource: invalid childId of None caused failure"
+                pf.passed("getParentResource: invalid childId of None caused failure")
         except:
             print "EXCEPTION CAUGHT: getParentResource: invalid childId of None raised an exception"
 
@@ -389,7 +390,7 @@ def test3(db):
 
     
 
-def test4(db):
+def test4(db, pf):
     """ Tests findFocusByName and findFocusByID, createFocus, findorCreateFocus
 
     """
@@ -403,7 +404,7 @@ def test4(db):
     testConnection = testStore.connectToDB(testStore.NO_COMMIT)
     # for now, can't continue with testing if no DB connection
     if testConnection == False:
-        print "FAIL: test4: findResource:  unable to connect."
+        pf.failed("test4: findResource:  unable to connect.")
         return False
     else:
         #create some resources
@@ -416,13 +417,13 @@ def test4(db):
         try:
             focusId = testStore.createFocus(reslist)
             if (focusId == 0):
-                print "FAIL: createFocus: returned 0 with resource list:"
+                pf.failed("createFocus: returned 0 with resource list:")
                 print reslist
                 testStore.abortTransaction()
                 testStore.closeDB()
                 return False
             else:
-                print "PASS: createFocus: returned %d with resource list:" % (focusId)
+                pf.passed("createFocus: returned %d with resource list:" % (focusId))
                 print reslist
         except:
             print "EXCEPTION CAUGHT: createFocus: with resource list:"
@@ -434,29 +435,29 @@ def test4(db):
         # Then find the focus created by name and by id
         fid = testStore.findFocusByID(reslist)
         if fid == 0:
-            print "FAIL: findFocusByID: could not find focus with resource ids:"
+            pf.failed("findFocusByID: could not find focus with resource ids:")
             print reslist
         else:
-            print "PASS: findFocusByID: found focus %d using resource list" % (fid)
+            pf.passed("findFocusByID: found focus %d using resource list" % (fid))
  
         fid2 = testStore.findFocusByName("funcB,execA,metricC")
         if fid2 == 0:
-            print "FAIL: findFocusByName: could not find focus with name: funcB,execA,metricC"
+            pf.failed("findFocusByName: could not find focus with name: funcB,execA,metricC")
         else:
-            print "PASS: findFocusByName: found focus %d using focus name" % (fid2) 
+            pf.passed("findFocusByName: found focus %d using focus name" % (fid2) )
         if fid != fid2:
-            print "FAIL: IDs returned by findFocusByName and findFocusByID are different"
+            pf.failed("IDs returned by findFocusByName and findFocusByID are different")
         else:
-            print "PASS: IDs returned by findFocusByName and findFocusByID are the same" 
+            pf.passed("IDs returned by findFocusByName and findFocusByID are the same" )
 
         # Test findOrCreateFocus
         fid3 = testStore.findOrCreateFocus(reslist)
         if fid3 == fid:
-            print "PASS: findOrCreateFocus: found existing focus"
+            pf.passed("findOrCreateFocus: found existing focus")
         elif fid3 == 0:
-            print "FAIL: findOrCreateFocus: returned 0 with resource list of existing focus"
+            pf.failed("findOrCreateFocus: returned 0 with resource list of existing focus")
         else:
-            print "FAIL: findOrCreateFocus: returned incorrect focus id for existing focus"
+            pf.failed("findOrCreateFocus: returned incorrect focus id for existing focus")
         reslist2 = []
         reslist2.append(testStore.createResource(14, 0, "execAA", "execution"))
         reslist2.append(testStore.createResource(12, 0, "funcBB", "environment/module/function"))
@@ -467,27 +468,27 @@ def test4(db):
         print "Max focus id before creating new focus is %d" % maxid
         fid4 = testStore.findOrCreateFocus(reslist2)
         if fid4 > maxid:
-            print "PASS: findOrCreateFocus: created new focus with resource list"
+            pf.passed("findOrCreateFocus: created new focus with resource list")
         else:
-            print "FAIL: findOrCreateFocus: did not create new focus with resource list"
+            pf.failed("findOrCreateFocus: did not create new focus with resource list")
         
 
         answer3 = testStore.findFocusByName(no1)
         if answer3 == 0:
-            print "PASS: findFocusByName can't find no1"
+            pf.passed("findFocusByName can't find no1")
         else:
-            print "FAIL: findFocusByName returns " + str(answer3) + "for no1"
+            pf.failed("findFocusByName returns " + str(answer3) + "for no1")
         answer4 = testStore.findFocusByName(no2)
         if answer4 == 0:
-            print "PASS: findFocusByName can't find no2"
+            pf.passed("findFocusByName can't find no2")
         else:
-            print "FAIL: findFocusByName returns " + str(answer4) + "for no2"
+            pf.failed("findFocusByName returns " + str(answer4) + "for no2")
 
         # better safe than...    
         testStore.abortTransaction()
         testStore.closeDB()        
 
-def test5(db):
+def test5(db, pf):
     """ Tests enterResourceConstraints, lookupConstraints, lookupConstraint
         Returns True if all tests pass; False if some fail
         9-1-05 -- enterResourceConstraints deprecated
@@ -507,10 +508,10 @@ def test5(db):
     #testConnection = testStore.connectToDB(testStore.NO_COMMIT) 
     ## for now, can't continue with testing if no DB connection
     #if testConnection == False:
-    #    print "FAIL: test5:  unable to connect."
+    #    pf.failed("test5:  unable to connect.")
     #    return False
     #else:
-    #    print "PASS: test5: able to connect."
+    #    pf.passed("test5: able to connect.")
     #    #add resources to db, then build the constraints 
     #    p1 = testStore.createResource (None, None, "ParentA", "ParentA-type")
     #    p2 = testStore.createResource (None, None, "ParentB", "ParentB-type")
@@ -541,31 +542,31 @@ def test5(db):
         #try:
         #    testStore.enterResourceConstraints (p1, [p2, c4, c5])
         #except:
-        #    print "FAIL: enterResourceConstraints: valid resource_item ids should pass test"
+        #    pf.failed("enterResourceConstraints: valid resource_item ids should pass test")
         #else:
-        #    print "PASS: enterResourceConstraints: valid resource_item ids entered as constraints"
+        #    pf.passed("enterResourceConstraints: valid resource_item ids entered as constraints")
         #    #look up the contstraints just built with lookupConstraint()
         #    if not testStore.lookupConstraint(p1,p2):
-        #        print "FAIL: lookupConstraint (%d, %d)" % (p1, p2)
+        #        pf.failed("lookupConstraint (%d, %d)" % (p1, p2))
         #        returnFlag = False
         #    else:
-        #        print "PASS: lookupConstraint (%d, %d)" % (p1, p2)
+        #        pf.passed("lookupConstraint (%d, %d)" % (p1, p2))
         #    if not testStore.lookupConstraint(p1,c4):
-        #        print "FAIL: lookupConstraint (%d, %d)" % (p1, c4)
+        #        pf.failed("lookupConstraint (%d, %d)" % (p1, c4))
         #        returnFlag = False
         #    else:
-        #        print "PASS: lookupConstraint (%d, %d)" % (p1, c4)
+        #        pf.passed("lookupConstraint (%d, %d)" % (p1, c4))
         #    if not testStore.lookupConstraint(p1,c5):
-        #        print "FAIL: lookupConstraint (%d, %d)" % (p1, c5)
+        #        pf.failed("lookupConstraint (%d, %d)" % (p1, c5))
         #        returnFlag = False
         #    else:
-        #        print "PASS: lookupConstraint (%d, %d)" % (p1, c5)
+        #        pf.passed("lookupConstraint (%d, %d)" % (p1, c5))
         #    #look up all constraints using lookupConstraints()
         #    if not testStore.lookupConstraints(p1,[p2,c4,c5]):
-        #        print "FAIL: lookupConstraints (%d, [%d, %d, %d])" % (p1,p2,c4,c5)
+        #        pf.failed("lookupConstraints (%d, [%d, %d, %d])" % (p1,p2,c4,c5))
         #        returnFlag = False
         #    else:
-        #        print "PASS: lookupConstraints (%d, [%d, %d, %d])" % (p1,p2,c4,c5)
+        #        pf.passed("lookupConstraints (%d, [%d, %d, %d])" % (p1,p2,c4,c5))
 
 
         #print "\n5.2: Test enterResourceConstraints, lookupConstraint, lookupConstraints "
@@ -577,7 +578,7 @@ def test5(db):
         #try:
         #    testStore.enterResourceConstraints (p1, [c1, c2, c3])
         #except:
-        #    print "PASS: enterResourceConstraints: parent-child relationships are not allowed as from-to"
+        #    pf.passed("enterResourceConstraints: parent-child relationships are not allowed as from-to")
         #    print "      relationships in resource_constraint"
         #else:
         #    # Technically a failure of the description of resource_constraints table, 
@@ -585,11 +586,11 @@ def test5(db):
         #    # parent/child relationships.
         #    #look up all constraints using lookupConstraints()
         #    if testStore.lookupConstraints(p1,[c1,c2,c3]):
-        #        print "FAIL: lookupConstraints (%d, [%d, %d, %d])" % (p1,c1,c2,c3)
+        #        pf.failed("lookupConstraints (%d, [%d, %d, %d])" % (p1,c1,c2,c3))
         #        print "      %d is parent of %d, %d, and %d" % (p1,c1,c2,c3)
         #        returnFlag = False 
         #    else:
-        #        print "PASS: lookupConstraints (%d, [%d, %d, %d])" % (p1,c1,c2,c3)
+        #        pf.passed("lookupConstraints (%d, [%d, %d, %d])" % (p1,c1,c2,c3))
         #        print "      The constraints were not added because %d is parent of" % (p1)
         #        print "      %d, %d, and %d" % (c1, c2, c3)   
 
@@ -623,12 +624,12 @@ def test5(db):
         #try:
         #    testStore.enterResourceConstraints (notAnId1, [notAnId2, notAnId3, notAnId4])
         #except:
-        #    print "PASS: enterResourceConstraints (%d, [%d, %d, %d])" % (notAnId1,notAnId2,notAnId3,notAnId4)
+        #    pf.passed("enterResourceConstraints (%d, [%d, %d, %d])" % (notAnId1,notAnId2,notAnId3,notAnId4))
         #    print "      the resources do not exist in resource_item." 
         #    # Passing means the resource constraint has not been entered and also that these resource ids
         #    # should not be found in resource_item
         #else:
-        #    print "FAIL: enterResourceConstraints (%d, [%d, %d, %d])" % (notAnId1,notAnId2,notAnId3,notAnId4)
+        #    pf.failed("enterResourceConstraints (%d, [%d, %d, %d])" % (notAnId1,notAnId2,notAnId3,notAnId4))
         #    print "      %d, %d, %d, and %d do not exist in resource_item." % (notAnId1,notAnId2,notAnId3,notAnId4) 
         #    returnFlag = False
 
@@ -636,10 +637,10 @@ def test5(db):
         #try:
         #    testStore.enterResourceConstraints (notAnId1, [c4, c5, c6])
         #except:
-        #    print "PASS: enterResourceConstraints (%d, [%d, %d, %d])" % (notAnId1,c4,c5,c6)
+        #    pf.passed("enterResourceConstraints (%d, [%d, %d, %d])" % (notAnId1,c4,c5,c6))
         #    print "      the from_resource does not exist in resource_item."
         #else:
-        #    print "FAIL: enterResourceConstraints (%d, [%d, %d, %d])" % (notAnId1,c4,c5,c6)
+        #    pf.failed("enterResourceConstraints (%d, [%d, %d, %d])" % (notAnId1,c4,c5,c6))
         #    print "      %d does not exist in resource_item." % (notAnId1)
         #    returnFlag = False
 
@@ -647,10 +648,10 @@ def test5(db):
         #try:
         #    testStore.enterResourceConstraints (p2, [notAnId1,notAnId2,notAnId3])
         #except:
-        #    print "PASS: enterResourceConstraints (%d, [%d, %d, %d])" % (p2,notAnId1,notAnId2,notAnId3)
+        #    pf.passed("enterResourceConstraints (%d, [%d, %d, %d])" % (p2,notAnId1,notAnId2,notAnId3))
         #    print "      the to_resources do not exist in resource_item."
         #else:
-        #    print "FAIL: enterResourceConstraints (%d, [%d, %d, %d])" % (p2,notAnId1,notAnId2,notAnId3)
+        #    pf.failed("enterResourceConstraints (%d, [%d, %d, %d])" % (p2,notAnId1,notAnId2,notAnId3))
         #    print "      %d, %d, and %d do not exist in resource_item." % (notAnId1,notAnId2,notAnId3)
         #    returnFlag = False
 
@@ -658,7 +659,7 @@ def test5(db):
     #testStore.closeDB()
     #return returnFlag
 
-def test6(db):
+def test6(db, pf):
     """ Tests addResourceAttribute, lookupAttributes, lookupAttribute
         Returns true if all tests pass; false if some fail
         9-1-05 -- lookupAttribute, lookupAttributes deprecated
@@ -675,9 +676,9 @@ def test6(db):
 
     # for now, can't continue with testing if no DB connection
     if testConnection == False:
-        print "FAIL: test6:  unable to connect."
+        pf.failed("test6:  unable to connect.")
         return False
-    print "PASS: test6: able to connect."
+    pf.passed("test6: able to connect.")
 
     #add resources to db, then enter attribute-value pairs in resource_attribute 
     p1 = testStore.createResource (None, None, "ParentA", "ParentA-type")
@@ -732,105 +733,92 @@ def test6(db):
         rv = testStore.addResourceAttribute("ParentA", a5name, a5val, type)
     except:
         if not rv:
-            print "FAIL-EXCEPTION RAISED: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource," %(a5name, a5val, type)
-            print "    but attribute not added"
+            pf.failed("EXCEPTION RAISED: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource,\n but attribute added" %(a5name, a5val, type))
         else:
-            print "PASS-EXCEPTION RAISED: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource;" %(a5name, a5val, type)
-            print "    attribute added"
+            pf.passed("EXCEPTION RAISED: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource;\n attribute added" %(a5name, a5val, type))
     else:
         if not rv:
-            print "FAIL: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource," %(a5name, a5val, type)
-            print "    but attribute not added"
+            pf.failed("addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource,\nbut attribute not added" %(a5name, a5val, type))
         else:
-            print "PASS: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource;" %(a5name, a5val, type)
-            print "    attribute added"
+            pf.passed("addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource;\nattribute added" %(a5name, a5val, type))
     rv = 0
     try:
         rv = testStore.addResourceAttribute("ParentA", a6name, a6val, type)
     except:
         if not rv:
-            print "FAIL-EXCEPTION RAISED: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource," %(a6name, a6val, type) 
-            print "    but attribute not added"
+            pf.failed("EXCEPTION RAISED: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource,\nbut attribute not added" %(a6name, a6val, type))
         else:
-            print "PASS-EXCEPTION RAISED: addResource Attribute: (ParentA, %s, %s, %s): ParentA is valid resource;" %(a6name, a6val, type)
-            print "    attribute added"
+            pf.passed("EXCEPTION RAISED: addResource Attribute: (ParentA, %s, %s, %s): ParentA is valid resource;\n attribute added" %(a6name, a6val, type))
     else:
         if not rv:
-            print "FAIL: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource," %(a6name, a6val, type)
-            print "    but attribute not added"
+            pf.failed("addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource,\nbut attribute not added" %(a6name, a6val, type))
         else:
-            print "PASS: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource;" %(a6name, a6val, type)
-            print "    attribute added"
+            pf.passed("addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource;\nattribute added" %(a6name, a6val, type))
 
     rv = 0
     try:
         rv = testStore.addResourceAttribute("ParentB", a7name, a7val, type)
     except:
         if not rv:
-            print "FAIL-EXCEPTION RAISED: addResourceAttribute: (ParentB , %s, %s, %s): ParentB is valid resource," %(a7name, a7val, type)  
-            print "    but attribute not added"
+            pf.failed("EXCEPTION RAISED: addResourceAttribute: (ParentB , %s, %s, %s): ParentB is valid resource,\nbut attribute not added" %(a7name, a7val, type))
         else:
-            print "PASS-EXCEPTION RASISE: addResource Attribute: (ParentB, %s, %s, %s): ParentB is valid resource;" %(a7name, a7val, type)
-            print "    attribute added"
+            pf.passed("EXCEPTION RASISE: addResource Attribute: (ParentB, %s, %s, %s): ParentB is valid resource;\nattribute added" %(a7name, a7val, type))
     else:
         if not rv:
-            print "FAIL: addResourceAttribute: (ParentB, %s, %s, %s): ParentB is valid resource," %(a7name, a7val, type)
-            print "    but attribute not added"
+            pf.failed("addResourceAttribute: (ParentB, %s, %s, %s): ParentB is valid resource,\nbut attribute not added" %(a7name, a7val, type))
         else:
-            print "PASS: addResourceAttribute: (ParentB, %s, %s, %s): ParentB is valid resource;" %(a7name, a7val, type)
-            print "    attribute added"
-
+            pf.passed("addResourceAttribute: (ParentB, %s, %s, %s): ParentB is valid resource;\nattribute added" %(a7name, a7val, type))
 
     ##test: lookup attributes created in above test with lookupAttribute()
     #if not testStore.lookupAttribute (p1, a5name, a5val):
-    #    print "FAIL: lookupAttribute: valid (%s, %s) entered for resource %d" % (a5name, a5val, p1)
+    #    pf.failed("lookupAttribute: valid (%s, %s) entered for resource %d" % (a5name, a5val, p1))
     #    print "      not found"
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttribute: found (%s, %s) entered for resource %d" % (a5name, a5val, p1)
+    #    pf.passed("lookupAttribute: found (%s, %s) entered for resource %d" % (a5name, a5val, p1))
 
     #if not testStore.lookupAttribute (p1, a6name, a6val):
-    #    print "FAIL: lookupAttribute: valid (%s, %s) entered for resource %d" % (a6name, a6val, p1)
+    #    pf.failed("lookupAttribute: valid (%s, %s) entered for resource %d" % (a6name, a6val, p1))
     #    print "      not found"
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttribute: found (%s, %s) entered for resource %d" % (a6name, a6val, p1)
+    #    pf.passed("lookupAttribute: found (%s, %s) entered for resource %d" % (a6name, a6val, p1))
 
     #if not testStore.lookupAttribute (p2, a7name, a7val):
-    #    print "FAIL: lookupAttribute: valid (%s, %s) entered for resource %d" % (a7name, a7val, p2)
+    #    pf.failed("lookupAttribute: valid (%s, %s) entered for resource %d" % (a7name, a7val, p2))
     #    print "      not found"
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttribute: found (%s, %s) entered for resource %d" % (a7name, a7val, p2)
+    #    pf.passed("lookupAttribute: found (%s, %s) entered for resource %d" % (a7name, a7val, p2))
 
 
     ##test: lookup attributes created above with lookupAttributes()
     #if not testStore.lookupAttributes (p1, [(d5["name"],d5["value"])]):
-    #    print "FAIL: lookupAttributes: valid (%s, %s) entered for resource %d" % (d5["name"], d5["value"], p1)
+    #    pf.failed("lookupAttributes: valid (%s, %s) entered for resource %d" % (d5["name"], d5["value"], p1))
     #    print "      not found"
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttributes: found (%s, %s) entered for resource %d" % (d5["name"], d5["value"], p1)
+    #    pf.passed("lookupAttributes: found (%s, %s) entered for resource %d" % (d5["name"], d5["value"], p1))
 
     #if not testStore.lookupAttributes (p1, [(d5["name"],d5["value"]),(d6["name"],d6["value"])]):
-    #    print "FAIL: lookupAttributes: valid (%s, %s), (%s, %s) list entered for resource %d" %  (d5["name"], d5["value"], d6["name"], d6["value"], p1)
+    #    pf.failed("lookupAttributes: valid (%s, %s), (%s, %s) list entered for resource %d" %  (d5["name"], d5["value"], d6["name"], d6["value"], p1))
     #    print "      not found"
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttributes: found (%s, %s), (%s, %s) entered for resource %d" % (d5["name"], d5["value"], d6["name"], d6["value"], p1)
+    #    pf.passed("lookupAttributes: found (%s, %s), (%s, %s) entered for resource %d" % (d5["name"], d5["value"], d6["name"], d6["value"], p1))
 
     #if not testStore.lookupAttributes (p1, [(a5name,a5val),(a6name,a6val)]):
-    #    print "FAIL: lookupAttributes: valid (%s, %s), (%s, %s) list entered for resource %d" % (a5name, a5val, a6name, a6val, p1)
+    #    pf.failed("lookupAttributes: valid (%s, %s), (%s, %s) list entered for resource %d" % (a5name, a5val, a6name, a6val, p1))
     #    print "      not found"
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttributes: found (%s, %s), (%s,%s) entered for resource %d" % (a5name,a5val, a6name, a6val,p1)
+    #    pf.passed("lookupAttributes: found (%s, %s), (%s,%s) entered for resource %d" % (a5name,a5val, a6name, a6val,p1))
 
     #if not testStore.lookupAttributes (p2, [(d7["name"],d7["value"])]):
-    #    print "FAIL: lookupAttributes: valid (%s, %s) list entered for resource %d not found" % (d7["name"], d7["value"],p2)
+    #    pf.failed("lookupAttributes: valid (%s, %s) list entered for resource %d not found" % (d7["name"], d7["value"],p2))
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttributes: found list (%s,%s) entered for resource %d" % (d7["name"], d7["value"], p2)
+    #    pf.passed("lookupAttributes: found list (%s,%s) entered for resource %d" % (d7["name"], d7["value"], p2))
 
 
     #test: enter some invalid resource_attibute (name,value) pairs for invalid resources
@@ -857,19 +845,19 @@ def test6(db):
         rv = testStore.addResourceAttribute(badName1, a5name, a5val, type)
     except:
         if not rv:
-            print "PASS-EXCEPTION RAISED: addResourceAttribute: resource does not exist; attribute not added"
+            pf.passed("EXCEPTION RAISED: addResourceAttribute: resource does not exist; attribute not added")
         else:
-            print "FAIL-EXCEPTION RAISED: addResourceAttribute: resource does not exist, but attribue was added"
+            pf.failed("EXCEPTION RAISED: addResourceAttribute: resource does not exist, but attribue was added")
     else:
         if not rv:
-            print "PASS: addResourceAttribute: resource does not exist; attribute not added"
+            pf.passed("addResourceAttribute: resource does not exist; attribute not added")
         else:
-            print "FAIL: addResourceAttribute: resource does not exist, but attribue was added"
+            pf.failed("addResourceAttribute: resource does not exist, but attribue was added")
         returnFlag = False 
 
     ## test: lookupAttribute with invalid resource_id
     #if testStore.lookupAttribute (maxid+300, d4["name"], d4["value"] ):
-    #    print "FAIL: lookupAttribute: invalid resource_id of %d should cause lookupAttribute to fail" % (maxid+300)
+    #    pf.failed("lookupAttribute: invalid resource_id of %d should cause lookupAttribute to fail" % (maxid+300))
     #    sql = "select count(*) from resource_attribute where resource_id = " + str(maxid+300)
     #    print "    Execute following query: " + sql
     #    #testStore.cursor.execute(sql)
@@ -882,7 +870,7 @@ def test6(db):
     #       print "the query says count = " + str(cnt) 
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttribute: invalid resource_id caused lookupAttribute to fail"
+    #    pf.passed("lookupAttribute: invalid resource_id caused lookupAttribute to fail")
 
     ##test: lookupAttribute with valid resource_item id that is not a resource_attribute resource_id
     #rangelist = range(1,maxid+1)
@@ -897,47 +885,47 @@ def test6(db):
     #        doesNotExist = x
     #        break    
     #if testStore.lookupAttribute (doesNotExist, d4["name"], d4["value"] ):
-    #    print "FAIL: lookupAttribute: resource_id %d does not exist in resource_attribute." % (doesNotExist)
+    #    pf.failed("lookupAttribute: resource_id %d does not exist in resource_attribute." % (doesNotExist))
     #    print "      This should cause lookupAttribute to fail"
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttribute: valid resource_item id %d which is an invalid" % (doesNotExist)
+    #    pf.passed("lookupAttribute: valid resource_item id %d which is an invalid" % (doesNotExist))
     #    print "      resource_attribute resource_id caused lookupAttribute to fail"
 
     ##test: lookup attribute with invalid name or value
     #if testStore.lookupAttribute (p1, "Not a Name", "Not a Value"):
-    #    print "FAIL: (name,value) of (Not a Name, Not a Value) is not a valid"
+    #    pf.failed("(name,value) of (Not a Name, Not a Value) is not a valid")
     #    print "      name,value pair and should cause lookupAttribute to fail"
     #    returnFlag = False
     #else:
-    #    print "PASS: (name,value) of (Not a Name, Not a Value) caused lookupAttribute to fail"
+    #    pf.passed("(name,value) of (Not a Name, Not a Value) caused lookupAttribute to fail")
     #if testStore.lookupAttribute (p1, "Not a Name", d1["value"]):
-    #    print "FAIL: (name,value) of (Not a Name, " + str(d1["value"]) + ") has invalid name"
+    #    pf.failed("(name,value) of (Not a Name, " + str(d1["value"]) + ") has invalid name")
     #    print "      and should cause lookupAttribute to fail"
     #    returnFlag = False
     #else:
-    #    print "PASS: (name,value) of (Not a Name, " + str(d1["value"]) + ") caused lookupAttribute to fail"
+    #    pf.passed("(name,value) of (Not a Name, " + str(d1["value"]) + ") caused lookupAttribute to fail")
     #if testStore.lookupAttribute (p1, d1["name"], "Not a Value"):
-    #    print "FAIL: (name,value) of (" + str(d1["name"]) + ", Not a Value) has invalid value"
+    #    pf.failed("(name,value) of (" + str(d1["name"]) + ", Not a Value) has invalid value")
     #    print "      and should cause lookupAttribute to fail"
     #    returnFlag = False
     #else:
-    #    print "PASS: (name,value) of (" + str(d1["name"]) + ", Not a Value) caused lookupAttribute to fail"
+    #    pf.passed("(name,value) of (" + str(d1["name"]) + ", Not a Value) caused lookupAttribute to fail")
 
     ##test: lookupAttributes with invalid resource_id
     #if testStore.lookupAttributes (maxid+400, [(d1["name"],d1["value"])]):
-    #    print "FAIL: lookupAttributes: resource_id %d does not exist in resource_attribute" % (maxid+400)
+    #    pf.failed("lookupAttributes: resource_id %d does not exist in resource_attribute" % (maxid+400))
     #    print "      and should cause lookup attributes to fail"
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttributes: resource_id %d does not exist in resource_attribute" % (maxid+400)
+    #    pf.passed("lookupAttributes: resource_id %d does not exist in resource_attribute" % (maxid+400))
     #    print "      and caused lookupAttributes to fail"
     #if testStore.lookupAttributes (doesNotExist, [(d1["name"],d1["value"])]):   
-    #    print "FAIL: lookupAttributes: resource_id %d does not exist in resource_attribute." % (doesNotExist)
+    #    pf.failed("lookupAttributes: resource_id %d does not exist in resource_attribute." % (doesNotExist))
     #    print "      This should cause lookupAttributes to fail"
 
     #else:
-    #    print "PASS: lookupAttributes: valid resource_item id %d which is an invalid" % (doesNotExist)
+    #    pf.passed("lookupAttributes: valid resource_item id %d which is an invalid" % (doesNotExist))
     #    print "      resource_attribute resource_id caused lookupAttributes to fail"
  
 
@@ -948,7 +936,7 @@ def test6(db):
     return returnFlag
 
 
-def test6b(testStore):
+def test6b(testStore, pf):
     """ Tests enterResourceAVs
         Returns true if all tests pass; false if some fail
         9-1-05: enterResourceAVs is deprecated; test no longer necessary
@@ -963,9 +951,9 @@ def test6b(testStore):
     #testConnection = testStore.connectToDB(testStore.NO_COMMIT)
     ## for now, can't continue with testing if no DB connection
     #if testConnection == False:
-    #    print "FAIL: test6b:  unable to connect."
+    #    pf.failed("test6b:  unable to connect.")
     #    return False
-    #print "PASS: test6b: able to connect."
+    #pf.passed("test6b: able to connect.")
 
     ##add resources to db, then enter attribute-value pairs in resource_attribute
     #p1 = testStore.createResource (None, None, "ParentA", "ParentA-type")
@@ -1003,57 +991,57 @@ def test6b(testStore):
     #    print "FAIL-EXCEPTION RAISED: enterResourceAVs: valid (name,value) pair for a valid resource_id"
     #    returnFlag = False
     #else:
-    #    print "PASS: enterResourceAVs: valid (name,value) pair for a valid resource_id"
+    #    pf.passed("enterResourceAVs: valid (name,value) pair for a valid resource_id")
     #try:
     #    testStore.enterResourceAVs(p2, [d1,d2,d3,d4]) # a list of several
     #except:
-    #    print "FAIL: enterResourceAVs: a list of valid (name,value) pairs for a valid resource_id"
+    #    pf.failed("enterResourceAVs: a list of valid (name,value) pairs for a valid resource_id")
     #    returnFlag = False
     #else:
-    #    print "PASS: enterResourceAVs: a list of valid (name,value) pairs for a valid resource_id"
+    #    pf.passed("enterResourceAVs: a list of valid (name,value) pairs for a valid resource_id")
 
     ##test: lookup attributes created in above test with lookupAttribute()
     #if not testStore.lookupAttribute (p1, d1["name"], d1["value"] ):
-    #    print "FAIL: lookupAttribute: valid (%s, %s) entered for resource %d" % (d1["name"],d1["value"], p1)
+    #    pf.failed("lookupAttribute: valid (%s, %s) entered for resource %d" % (d1["name"],d1["value"], p1))
     #    print "      not found"
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttribute: found (%s, %s) entered for resource %d" % (d1["name"],d1["value"], p1)
+    #    pf.passed("lookupAttribute: found (%s, %s) entered for resource %d" % (d1["name"],d1["value"], p1))
 
     #if not testStore.lookupAttribute (p2, d1["name"], d1["value"]):
-    #    print "FAIL: lookupAttribute: valid (%s, %s) entered for resource %d" % (d1["name"],d1["value"], p2)
+    #    pf.failed("lookupAttribute: valid (%s, %s) entered for resource %d" % (d1["name"],d1["value"], p2))
     #    print "      not found"
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttribute: found (%s, %s) entered for resource %d" % (d1["name"],d1["value"], p2)
+    #    pf.passed("lookupAttribute: found (%s, %s) entered for resource %d" % (d1["name"],d1["value"], p2))
 
     #if not testStore.lookupAttribute (p2, d4["name"], d4["value"] ):
-    #    print "FAIL: lookupAttribute: valid (%s, %s) entered for resource %d" % (d4["name"],d4["value"], p2)
+    #    pf.failed("lookupAttribute: valid (%s, %s) entered for resource %d" % (d4["name"],d4["value"], p2))
     #    print "      not found"
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttribute: found (%s, %s) entered for resource %d" % (d4["name"],d4["value"], p2)
+    #    pf.passed("lookupAttribute: found (%s, %s) entered for resource %d" % (d4["name"],d4["value"], p2))
 
     ##test: lookup attributes created above with lookupAttributes()
     #if not testStore.lookupAttributes (p1, [(d1["name"],d1["value"])]):
-    #    print "FAIL: lookupAttributes: valid (%s, %s) entered for resource %d" % (d1["name"],d1["value"], p1)
+    #    pf.failed("lookupAttributes: valid (%s, %s) entered for resource %d" % (d1["name"],d1["value"], p1))
     #    print "      not found"
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttributes: found (%s, %s) entered for resource %d" % (d1["name"],d1["value"], p1)
+    #    pf.passed("lookupAttributes: found (%s, %s) entered for resource %d" % (d1["name"],d1["value"], p1))
     #if not testStore.lookupAttributes (p2, [(d1["name"],d1["value"]),(d2["name"],d2["value"]),
     #                                        (d3["name"],d3["value"]),(d4["name"],d4["value"])]):
-    #    print "FAIL: lookupAttributes: valid (name, value) list entered for resource %d not found" % (p2)
+    #    pf.failed("lookupAttributes: valid (name, value) list entered for resource %d not found" % (p2))
     #    returnFlag = False
     #else:
-    #    print "PASS: lookupAttributes: found list of (name,value) pairs entered for resource %d" % (p2)
+    #    pf.passed("lookupAttributes: found list of (name,value) pairs entered for resource %d" % (p2))
 
     #testStore.abortTransaction()
     #testStore.closeDB()
     #return returnFlag
 
 
-def test7(db):
+def test7(db, pf):
     """ Tests getHardwareId, getBuildName, getExecutionName
         9-1-05 -- getHardwareId deprecated
                   getBuildName deprecated
@@ -1061,7 +1049,7 @@ def test7(db):
     """
     print "test7 is just a placeholder right now."
 
-def test8(testStore):
+def test8(testStore, pf):
     """ Tests getChildResources, getAncestors, addAncestors, addDescendants
         9-1-05 -- getChildResources deprecated 
     """
@@ -1086,11 +1074,10 @@ def test8(testStore):
     testConnection = testStore.connectToDB(testStore.NO_COMMIT)
     # for now, can't continue with testing if no DB connection
     if testConnection == False:
-        print "FAIL: test8: ancestors/descendants:  unable to connect."
+        pf.failed("test8: ancestors/descendants:  unable to connect.")
         return False
     else:
-        good1 = int(testStore.findResourceByShortNameAndType("grid/machine",\
-                   "Frost"))
+        good1 = testStore.findResourceByShortNameAndType("grid/machine", "Frost")
         if good1 == None:
             print "findResourceByShortNameAndType: No match found for Frost, grid/machine"
         elif good1 == -1:
@@ -1104,8 +1091,8 @@ def test8(testStore):
         #           "iq.h-33"))
         #This good2 exists in Postgresql database
 
-        good2 = int(testStore.findResourceByShortNameAndType("inputDeck", \
-                   "iq.h-22"))
+        good2 = testStore.findResourceByShortNameAndType("inputDeck", \
+                   "iq.h-22")
         
         if good2 == None:
             print "findResourceByShortNameAndType: No match found for iq.h-22, inputDeck"
@@ -1131,7 +1118,7 @@ def test8(testStore):
             print "findResourceByName: Did not find resource with name /irs-2-503"
 
         #This is for the Oracle db 
-        good5 = int(testStore.findResourceByName("/irs-8-545/Process-38"))
+        good5 = testStore.findResourceByName("/irs-8-545/Process-38")
         #This is for the postgresql db
         #good5 = int(testStore.findResourceByName("/irs-2-503/Process-3"))
         if good5:
@@ -1141,131 +1128,128 @@ def test8(testStore):
 
         #answer1 = testStore.getChildResources(good1)
         #if answer1 == []:
-        #    print "FAIL: getChildResources can't find children of %d" % good1
+        #    pf.failed("getChildResources can't find children of %d" % good1)
         #else:
-        #    print "PASS: ans/desc find a child " + str(answer1) + " for " +\
+        #    pf.passed("ans/desc find a child " + str(answer1) + " for " +\)
         #          str(good1)
 
         #answer2 = testStore.getChildResources(good2)
         #if answer2 != []:
-        #    print "FAIL: getChildResources found children of %d" % good3
+        #    pf.failed("getChildResources found children of %d" % good3)
         #else:
-        #    print "PASS: ans/desc did not find a child "+str(answer2)+" for " +\
+        #    pf.passed("ans/desc did not find a child "+str(answer2)+" for " +\)
         #          str(good2)
 
         #answer3 = testStore.getChildResources(bad1)
         #if answer3 != []:
-        #    print "FAIL: getChildResources found children of %d" % bad1
+        #    pf.failed("getChildResources found children of %d" % bad1)
         #else:
-        #    print "PASS: ans/desc did not find a child "+str(answer3)+" for " +\
+        #    pf.passed("ans/desc did not find a child "+str(answer3)+" for " +\)
         #          str(bad1)
 
         #answer4 = testStore.getChildResources(bad2)
         #if answer4 != []:
-        #    print "FAIL: getChildResources found children of %d" % bad2
+        #    pf.failed("getChildResources found children of %d" % bad2)
         #else:
-        #    print "PASS: ans/desc did not find a child "+str(answer4)+" for " +\
+        #    pf.passed("ans/desc did not find a child "+str(answer4)+" for " +\)
         #          str(bad2)
 
         answer5 = testStore.getAncestors(good1)
 
         if answer5 == []:
-            print "FAIL: getAncestors can't find ans of %d" % good1
+            pf.failed("getAncestors can't find ans of %s" % good1)
         else:
-            print "PASS: ans/desc finds ancestors " + str(answer5) + " for " +\
-                  str(good1)
+            pf.passed("ans/desc finds ancestors " + str(answer5) + " for " + str(good1))
 
         #Oracle only 
         #answer5a = testStore.getAncestors(good3)
         #if answer5a == []:
-        #    print "FAIL: getAncestors can't find ans of %d" % good3
+        #    pf.failed("getAncestors can't find ans of %d" % good3)
         #else:
-        #    print "PASS: ans/desc finds ancestors " + str(answer5a) + " for " +\
+        #    pf.passed("ans/desc finds ancestors " + str(answer5a) + " for " +\)
         #          str(good3)
         #print "N/A for Posrgresql at this time -- need more data"
 
         answer6 = testStore.getAncestors(good2)
         if answer6 != []:
-            print "FAIL: getAncestors found ans of %d" % good2
+            pf.failed("getAncestors found ans of %d" % good2)
         else:
-            print "PASS: ans/desc did not find ancestors " + str(answer6) +\
-                  " for " + str(good2) #the oracle test has this as bad1, which is wrong
+            pf.passed("ans/desc did not find ancestors " + str(answer6) + " for " + str(good2))
+                      #the oracle test has this as bad1, which is wrong
 
         answer7 = testStore.getAncestors(bad1)
         if answer7 != []:
-            print "FAIL: getAncestors found ans of %d" % bad1
+            pf.failed("getAncestors found ans of %d" % bad1)
         else:
-            print "PASS: ans/desc did not find ancestors " + str(answer7) +\
-                  " for " + str(bad1)
+            pf.passed("ans/desc did not find ancestors " + str(answer7) + " for " + str(bad1))
 
         answer8 = testStore.getAncestors(bad2)
         if answer8 != []:
-            print "FAIL: getAncestors found ans of %d" % bad2
+            pf.failed("getAncestors found ans of %d" % bad2)
         else:
-            print "PASS: ans/desc did not find ancestors " + str(answer8) +\
-                  " for " + str(bad2)
+            pf.passed("ans/desc did not find ancestors " + str(answer8) +" for " + str(bad2))
 
         try: 
            testStore.addAncestors(good1)
         except:
-            print "FAIL: addAncestors failed for ans list of %s" % good1
+            pf.failed("addAncestors failed for ans list of %s" % good1)
         else:
-            print "PASS: addAncestors passed for ans list of %s" % good1
+            pf.passed("addAncestors passed for ans list of %s" % good1)
 
         try:
            testStore.addAncestors(good2) # no anc but shouldn't except   
         except:
-            print "FAIL: addAncestors failed for ans list of %s" % good2
+            pf.failed("addAncestors failed for ans list of %s" % good2)
         else:
-            print "PASS: addAncestors passed for ans list of %s" % good2
+            pf.passed("addAncestors passed for ans list of %s" % good2)
 
         try:
            testStore.addAncestors(bad1) # no anc but shouldn't except   
         except:
-            print "FAIL: addAncestors failed for ans list of %s" % bad1
+            pf.failed("addAncestors failed for ans list of %s" % bad1)
         else:
-            print "PASS: addAncestors passed for ans list of %s" % bad1
+            pf.passed("addAncestors passed for ans list of %s" % bad1)
 
         try:
            testStore.addAncestors(bad2) # no anc but shouldn't except   
         except:
-            print "FAIL: addAncestors failed for ans list of %s" % bad2
+            pf.failed("addAncestors failed for ans list of %s" % bad2)
             raise
         else:
-            print "PASS: addAncestors passed for ans list of %s" % bad2
+            pf.passed("addAncestors passed for ans list of %s" % bad2)
 
         try:
            testStore.addDescendants(good4)
         except:
-           print "FAIL: addDescendants failed for des list of %s" % good4
+           pf.failed("addDescendants failed for des list of %s" % good4)
         else:
-           print "PASS: addDescendants passed for des list of %s" % good4
+           pf.passed("addDescendants passed for des list of %s" % good4)
 
         try:
            testStore.addDescendants(good5)
         except:
-           print "FAIL: addDescendants failed for des list of %s" % good5
+           pf.failed("addDescendants failed for des list of %s" % good5)
         else:
-           print "PASS: addDescendants passed for des list of %s" % good5
+           pf.passed("addDescendants passed for des list of %s" % good5)
 
         try:
            testStore.addDescendants(bad1)
         except:
-           print "FAIL: addDescendants failed for des list of %s" % bad1
+           pf.failed("addDescendants failed for des list of %s" % bad1)
         else:
-           print "PASS: addDescendants passed for des list of %s" % bad1
+           pf.passed("addDescendants passed for des list of %s" % bad1)
 
         try:
            testStore.addDescendants(bad2)
         except:
-           print "FAIL: addDescendants failed for des list of %s" % bad2
+           pf.failed("addDescendants failed for des list of %s" % bad2)
         else:
-           print "PASS: addDescendants passed for des list of %s" % bad2
+           pf.passed("addDescendants passed for des list of %s" % bad2)
 
         testStore.abortTransaction() 
         testStore.closeDB()
 
-def test9(testStore):
+def test9(testStore, pf):
     """ Tests addResource, getNewResourceName
     """
     #testConnection = testStore.connectToDB(testStore.NO_WRITE, dbname, dbpwd, dbfullname)
@@ -1273,72 +1257,71 @@ def test9(testStore):
     testConnection = testStore.connectToDB(testStore.NO_COMMIT)
     # for now, can't continue with testing if no DB connection
     if testConnection == False:
-        print "FAIL: test9: addResource/getNewResourceName:  unable to connect."
+        pf.failed("test9: addResource/getNewResourceName:  unable to connect.")
         return False
 
     result = testStore.addResource("/testName", "execution")
     if result == 0:
-        print "FAIL: addResource: did not add resource with name /testName and type /execution"
+        pf.failed("addResource: did not add resource with name /testName and type /execution")
     else:
-        print "PASS: addResource: returned id  %d for adding name /testName and type /execution"  % result
+        pf.passed("addResource: returned id  %d for adding name /testName and type /execution"  % result)
 
     result = testStore.addResource("/testName", "execution")
     if result != 0:
-        print "FAIL: addResource: returned %d for adding resource name and type that exist"  % result
+        pf.failed("addResource: returned %d for adding resource name and type that exist"  % result)
     else:
-        print "PASS: addResource: returned 0 for trying to add resource name and type that exist"
+        pf.passed("addResource: returned 0 for trying to add resource name and type that exist")
 
     result = testStore.addResource("/testName-12", "execution")
     if result == 0:
-        print "FAIL: addResource: did not add resource with name /testName-12 and type /execution"
+        pf.failed("addResource: did not add resource with name /testName-12 and type /execution")
     else:
-        print "PASS: addResource: returned id  %d for adding name /testName-12 and type /execution"  % result
+        pf.passed("addResource: returned id  %d for adding name /testName-12 and type /execution"  % result)
 
     result = testStore.addResource("/testName-12", "execution")
     if result != 0:
-        print "FAIL: addResource: returned %d for adding resource name and type that exist"  % result
+        pf.failed("addResource: returned %d for adding resource name and type that exist"  % result)
     else:
-        print "PASS: addResource: returned 0 for trying to add resource name and type that exist"
-
-
+        pf.passed("addResource: returned 0 for trying to add resource name and type that exist")
 
     result = testStore.getNewResourceName("/testName")
     if result == "/testName":
-        print "FAIL: getNewResourceName returned the givenName -- check debug level"
+        pf.failed("getNewResourceName returned the givenName -- check debug level")
     else:
-        print "PASS: getNewResourceName returned new name: %s for adding /testName" % result 
+        pf.passed("getNewResourceName returned new name: %s for adding /testName" % result )
 
     result2 = testStore.getNewResourceName("/testName")
     if result2 == "/testName":
-        print "FAIL: getNewResourceName returned the givenName -- check debug level"
+        pf.failed("getNewResourceName returned the givenName -- check debug level")
     elif result2 == result:
-        print "FAIL: getNewResourceName returned name: %s, which is already assigned" % result2 
+        pf.failed("getNewResourceName returned name: %s, which is already assigned" % result2 )
     else:
-        print "PASS: getNewResourceName returned new name: %s for adding /testName , which is different from %s" %(result2, result)
+        pf.passed("getNewResourceName returned new name: %s for adding /testName , which is different from %s" %(result2, result))
 
     result3 = testStore.getNewResourceName("/aNameThatDoesNotExist")
     if result3 == "/aNameThatDoesNotExist":
-        print "FAIL: getNewResourceName returned the givenName -- check debug level"
+        pf.failed("getNewResourceName returned the givenName -- check debug level")
     else:
-        print "PASS: getNewResourceName returned %s for adding /aNameThatDoesNotExist" % result3 
+        pf.passed("getNewResourceName returned %s for adding /aNameThatDoesNotExist" % result3 )
 
     testStore.abortTransaction() 
     testStore.closeDB()
 
-def test10(testStore):
+def test10(testStore, pf):
     """ Tests createPerformanceResult
 
     """
     testConnection = testStore.connectToDB(testStore.NO_COMMIT)
     # for now, can't continue with testing if no DB connection
     if testConnection == False:
-        print "FAIL: test10: createPerformanceResult:  unable to connect."
+        pf.failed("test10: createPerformanceResult:  unable to connect.")
         return False
 
 
     testStore.abortTransaction()
 
 testStore = PTdataStore()
+pf = PassFail()
 
 #TEST 1 -- connection test
 #print "test1.2 - connect, no optional parameters"
@@ -1370,9 +1353,10 @@ testStore = PTdataStore()
 #test6b(testStore)
 
 print "test8"
-test8(testStore)
+test8(testStore, pf)
 
 print "test9"
-test9(testStore)
+test9(testStore, pf)
 
-
+pf.test_info()
+sys.exit(pf.failed_count > 0)

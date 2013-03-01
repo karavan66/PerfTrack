@@ -3,15 +3,32 @@
 # PerfTrack Version 1.0     September 1, 2005
 # See PTLICENSE for distribution information. 
 
-import sys
+import sys,os
 from glob import glob
 from optparse import OptionParser
 from getpass import getpass
 from PTexception import PTexception
+from PassFail import PassFail
 import PTdFgen
 
 class testData:
-   pass
+   def __init__(self, dataDir, username, password, dbname, hostname):
+      self.tests = PassFail()
+      self.args = {"--data_dir":dataDir,
+                   "--dbname":dbname, 
+                   "--password":password, 
+                   "--username":username,
+                   "--host":hostname,
+                   "--testMode":''}
+
+   def genArgs(self, more_args):
+      #NOTE THAT MORE_ARGS OVERRIDES VALUES IN ARGS
+      all_args = dict(list(self.args.items()) + list(more_args.items()))
+      arg_list = [""]
+      for key, value in all_args.iteritems():
+         arg_list.append(key)
+         arg_list.append(value)
+      return arg_list
 
 
 def test1(td):
@@ -24,59 +41,57 @@ def test1(td):
    # PTrunIndex.txt.21 good build data file, but no compilers or preprocs def'ed
    # PTrunIndex.txt.22 good build data file, but no comps,preprocs,or libs def'd
    testName = "test1"
-   TIs = ["PTrunIndex.txt", "PTrunIndex.txt.13", "PTrunIndex.txt.14", \
-          "PTrunIndex.txt.15", "PTrunIndex.txt.19", "PTrunIndex.txt.20",\
+   TIs = ["PTrunIndex.txt", "PTrunIndex.txt.13", "PTrunIndex.txt.14", 
+          "PTrunIndex.txt.15", "PTrunIndex.txt.19", "PTrunIndex.txt.20",
           "PTrunIndex.txt.21", "PTrunIndex.txt.22"]
+
    for testIndex in TIs:
-      td.testRunIndex = testIndex
       try:
-         PTdFgen.processData(td.username, td.password, td.tnsname, td, None, \
-                             td, False )
+         PTdFgen.main(td.genArgs({
+                  "--exec_data":"", 
+                  "--testRunIndex":testIndex
+                  }))
       except PTexception,a:
-         print "%s FAIL: good input files given. PTexception raised: %s"\
-               %(testName,a.value)
-      except: 
-         print "%s FAIL: good input files given. other exception raised" \
-                % testName
+         td.tests.failed("%s : good input files given. PTexception raised: %s" % (testName,a.value))
+      except:
+         td.tests.failed("%s : good input files given. other exception raised" % testName)
          raise
       else:
-         print "%s PASS: good input files given." % testName
+         td.tests.passed("%s : good input files given." % testName)
 
 def test2(td):
    # bad password 
    testName = "test2"
-   td.testRunIndex = "PTrunIndex.txt"
-   testPasswd = "badPassword"
    try:
-      PTdFgen.processData(td.username, testPasswd, td.tnsname, td, None, \
-                          td, False )
+      PTdFgen.main(td.genArgs({
+               "--exec_data":"", 
+               "--testRunIndex":'PTrunIndex.txt', 
+               '--password':'badPassword'
+               }))
    except PTexception,a:
-      print "%s PASS: bad database password given. PTexception "\
-            "raised:%s" % (testName,a.value)
+      td.tests.passed("%s : bad database password given. PTexception raised:%s" % (testName,a.value))
    except:
-      print "%s FAIL: bad database password given. other exception "\
-            "raised." % testName
+      td.tests.failed("%s : bad database password given. other exception raised." % testName)
       raise
    else:
-      print "%s FAIL: bad database password given." % testName
+      td.tests.failed("%s : bad database password given." % testName)
     
 def test3(td):
    # bad username
    testName = "test3"
-   td.testRunIndex = "PTrunIndex.txt"
-   testUname = "badUsername"
    try:
-      PTdFgen.processData(testUname, td.password, td.tnsname, td, None, \
-                          td, False )
+      PTdFgen.main(td.genArgs({
+               "--exec_data":"", 
+               "--testRunIndex":'PTrunIndex.txt', 
+               '--username':'badUsername'
+               }))
    except PTexception,a:
-      print "%s PASS: bad database username given. PTexception "\
-            "raised:%s" % (testName,a.value)
+      td.tests.passed("%s : bad database username given. PTexception raised:%s" % (testName,a.value))
    except:
-      print "%s FAIL: bad database username given. other exception "\
-            "raised." % testName
+      td.tests.failed("%s : bad database username given. other exception raised." % testName)
       raise
    else:
-      print "%s FAIL: bad database username given." % testName
+      td.tests.failed("%s : bad database username given." % testName)
 
 def test4(td):
    # bad PTrunIndex files. 
@@ -86,19 +101,20 @@ def test4(td):
    testName = "test4"
    TIs = ["PTrunIndex.txt.1","PTrunIndex.txt.2","PTrunIndex.txt.3"]
    for testIndex in TIs:
-      td.testRunIndex = testIndex
       try:
-         PTdFgen.processData(td.username, td.password, td.tnsname, td, None, \
-                          td, False )
+         PTdFgen.main(td.genArgs({
+                  "--exec_data":"", 
+                  "--testRunIndex":testIndex
+                  }))
       except PTexception,a:
-         print "%s PASS: bad PTrunIndex.txt given:%s. PTexception "\
-               "raised:%s" % (testName,testIndex, a.value)
+         td.tests.passed("%s : bad PTrunIndex.txt given:%s. PTexception raised:%s"
+                         % (testName,testIndex, a.value))
       except:
-         print "%s FAIL: bad PTrunIndex.txt given:%s. other exception "\
-               "raised." % (testName,testIndex)
+         td.tests.failed("%s : bad PTrunIndex.txt given:%s. other exception raised."
+                         % (testName,testIndex))
          raise
       else:
-         print "%s FAIL: bad PTrunIndex.txt given:%s." % (testName,testIndex)
+         td.tests.failed("%s : bad PTrunIndex.txt given:%s." % (testName,testIndex))
    
 def test5(td):
    # PTrunIndex.txt.5 build data file missing build machine information
@@ -113,19 +129,18 @@ def test5(td):
           "PTrunIndex.txt.26", "PTrunIndex.txt.27", "PTrunIndex.txt.28",\
           "PTrunIndex.txt.29"]
    for testIndex in TIs:
-      td.testRunIndex = testIndex
       try:
-         PTdFgen.processData(td.username, td.password, td.tnsname, td, None, \
-                             td, False )
+         PTdFgen.main(td.genArgs({
+                  "--exec_data":"", 
+                  "--testRunIndex":testIndex
+                  }))
       except PTexception,a:
-         print "%s PASS: bad build data file. PTexception "\
-               "raised:%s" % (testName,a.value)
+         td.tests.passed("%s : bad build data file. PTexception raised:%s" % (testName,a.value))
       except:
-         print "%s FAIL: bad build data file. other exception "\
-               "raised." % testName
+         td.tests.failed("%s : bad build data file. other exception raised. %s" % (testName, testIndex))
          raise
       else:
-         print "%s FAIL: bad build data file." % testName
+         td.tests.failed("%s : bad build data file. %s" % (testName, testIndex))
 
 
 def test6(td):
@@ -149,17 +164,19 @@ def test6(td):
    for testIndex in TIs:
       td.testRunIndex = testIndex
       try:
-         PTdFgen.processData(td.username, td.password, td.tnsname, td, None, \
-                          td, False )
+         PTdFgen.main(td.genArgs({
+                  "--exec_data":"", 
+                  "--testRunIndex":testIndex
+                  }))
       except PTexception,a:
-         print "%s PASS: bad run data file given:%s. PTexception "\
-               "raised:%s" % (testName,testIndex, a.value)
+         td.tests.passed("%s : bad run data file given:%s. PTexception raised:%s" 
+                         % (testName,testIndex, a.value))
       except:
-         print "%s FAIL: bad run data file given:%s. other exception "\
-               "raised." % (testName,testIndex)
+         td.tests.failed("%s : bad run data file given:%s. other exception raised."
+                         % (testName,testIndex))
          raise
       else:
-         print "%s FAIL: bad run data file given:%s." % (testName,testIndex)
+         td.tests.failed("%s : bad run data file given:%s." % (testName,testIndex))
 
 def test7(td):  
    # bad sppm data files - detect incomplete run
@@ -167,19 +184,19 @@ def test7(td):
    testName = "test7"
    TIs = ["PTrunIndex.txt.23"]
    for testIndex in TIs:
-      td.testRunIndex = testIndex
       try:
-         PTdFgen.processData(td.username, td.password, td.tnsname, td, None, \
-                          td, False )
+         PTdFgen.main(td.genArgs({
+                  "--exec_data":"", 
+                  "--testRunIndex":testIndex
+                  }))
       except PTexception,a:
-         print "%s PASS: bad sppm data file given:%s. PTexception "\
-               "raised:%s" % (testName,testIndex, a.value)
+         td.tests.passed("%s : bad sppm data file given:%s. PTexception raised:%s" 
+                         % (testName,testIndex, a.value))
       except:
-         print "%s FAIL: bad sppm data file given:%s. other exception "\
-               "raised." % (testName,testIndex)
+         td.tests.failed("%s : bad sppm data file given:%s. other exception raised." % (testName,testIndex))
          raise
       else:
-         print "%s FAIL: bad sppm data file given:%s." % (testName,testIndex)
+         td.tests.failed("%s : bad sppm data file given:%s." % (testName,testIndex))
 
 def test8(td):
    # bad irs data files - detect incomplete run
@@ -188,45 +205,55 @@ def test8(td):
    testName = "test8"
    TIs = ["PTrunIndex.txt.24", "PTrunIndex.txt.25"]
    for testIndex in TIs:
-      td.testRunIndex = testIndex
       try:
-         PTdFgen.processData(td.username, td.password, td.tnsname, td, None, \
-                          td, False )
+         PTdFgen.main(td.genArgs({
+                  "--exec_data":"", 
+                  "--testRunIndex":testIndex
+                  }))
       except PTexception,a:
-         print "%s PASS: bad irs data file given:%s. PTexception "\
-               "raised:%s" % (testName,testIndex, a.value)
+         td.tests.passed("%s : bad irs data file given:%s. PTexception raised:%s"
+                         % (testName,testIndex, a.value))
       except:
-         print "%s FAIL: bad irs data file given:%s. other exception "\
-               "raised." % (testName,testIndex)
+         td.tests.failed("%s : bad irs data file given:%s. other exception raised." % (testName,testIndex))
          raise
       else:
-         print "%s FAIL: bad irs data file given:%s." % (testName,testIndex)
-
+         td.tests.failed("%s : bad irs data file given:%s." % (testName,testIndex))
 
 def main(argv=sys.argv):
 
    options = parseOptions(argv)
-   td = testData()
-
+                      
    if options.dataDir:
-      td.dataDir = options.dataDir
+      dataDir = options.dataDir
    else:
-      td.dataDir = "PTdFgenTestData"
+      dataDir = "PTdFgenTestData"
 
-   if options.username == None:
-      td.username = raw_input("Please enter your database username: ")
+   if os.environ.get("DBPASS"):
+      splitted = os.environ.get("DBPASS").split(",")
+      username = splitted[2]
+      password = splitted[3]
+      tnsname = splitted[0]
+      options.hostname = splitted[1]
    else:
-      td.username = options.username
-   if options.tnsname == None:
-      td.tnsname = raw_input("Please enter the tnsname for the database: ")
-   else:
-      td.tnsname = options.tnsname
-   td.password = getpass("Please enter your database password: ")
+      if options.username == None:
+         username = raw_input("Please enter your database username: ")
+      else:
+         username = options.username
+      if options.tnsname == None:
+         tnsname = raw_input("Please enter the tnsname for the database: ")
+      else:
+         tnsname = options.tnsname
+      password = getpass("Please enter your database password: ")
+
+   td = testData(dataDir, username, password, tnsname, options.hostname)
 
    tests = [test1,test2,test3,test4,test5,test6,test7,test8]
    for test in tests:
        test(td)
 
+   td.tests.test_info()
+
+   return (td.tests.failed_count > 0)
 
 def parseOptions(argv):
     """Parses command line arguments and returns their values"""
@@ -234,6 +261,8 @@ def parseOptions(argv):
     usage = "usage: %prog [options]\nexecute '%prog --help' to see options"
     version = "%prog 1.0"
     parser = OptionParser(usage=usage,version=version)
+    parser.add_option("-H", "--hostname", dest="hostname", default="localhost",
+                      help="the hostname of the machine for the database")
     parser.add_option("-u","--username", dest="username",
                       help="the username for accessing the database")
     parser.add_option("-t","--tnsname", dest="tnsname", 

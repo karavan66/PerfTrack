@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # test_orderParams.py
 # Michael Smith
 # 2008-7-12
@@ -5,9 +6,9 @@
 # This module test the __orderParams method provide by the ptPyDBAPI module
 
 import unittest
-from ptPyDBAPI import PTpyDBAPI
+from ptPyDBAPI import *
 
-class OderParamTest(unittest.TestCase):
+class OrderParamTest(unittest.TestCase):
 
 # dict that is in correct order
 # dict that is not in correct order

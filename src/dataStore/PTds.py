@@ -11,48 +11,90 @@ import sys, string, re, array
 from ptPyDBAPI import *             #class to support Python DB API 2.0
 from ptdfParser import PTDFParser
 from lru_cache import lru_cache, lru_method
+from ResourceIndex import ResourceIndex
 import logging
 
 class NoDBResultException(Exception):
     def __init__(self, error):
         self.err = error
 
-class CachedQuery:
-    def __init__(self, sql, default, enabled=True):
-        self.cached = dict()
+class BaseQuery(object):
+    query_count = 0
+
+    #formatRe = re.compile('(\%s|\%\([\w\.]+\)', re.DOTALL)
+    formatRe = re.compile(':[a-zA-Z_]+')
+
+    def __init__(self, sql, default, dbapi, prepare=True, insert=False):
+        self.dbapi = dbapi
+        self.original_sql = sql
         self.sql = sql
-        self.default = default
-        self.cache_enabled = enabled
-
-    def query(self, dbapi, cursor, keys):
-        frozen = frozenset(keys.items())
-        logging.debug("cached %s :: %s", self.sql, frozen)
-        if (self.cache_enabled and frozen in self.cached):
-            logging.debug("found key result for %s :: %s", frozen, self.cached[frozen])
-            return self.cached[frozen]
+        self.prepared = False
+        if (self.dbapi.dbenv == "PG_PYGRESQL"):
+            self.prepare_enable = prepare
         else:
-            try:
-                dbapi.execute(cursor, self.sql, keys)
-            except:
-                return self.default
+            self.prepare_enable = False
+        self.default = default
+        self.query_id = BaseQuery.query_count
+        self.insert = insert
+        BaseQuery.query_count += 1
 
-            result = dbapi.fetchone(cursor) 
+    def prepare(self):
+        self.sql = self.original_sql
+        self.prepared = False
+        if (self.prepare_enable == False or self.dbapi.cursor == None or self.prepared == True):
+            return
+        self.prepared = True
+
+        specifiers = []
+        cmd = self.sql
+        cmdId = "ps_%s" % self.query_id
+
+        def replaceSpec(mo):
+            specifiers.append(mo.group())
+            return '$%d' % len(specifiers)
+        
+        param_re = re.compile(':([a-zA-Z_]+)', re.DOTALL)
+        params = param_re.findall(self.sql)
+        actual = dict()
+        for p in params:
+            actual[p] = ''
+        
+        replacedCmd = self.formatRe.sub(replaceSpec, cmd)
+        prepCmd = 'prepare %s as %s' % (cmdId, replacedCmd)
+
+        if len(params) == 0:    # no variable arguments
+            execCmd = 'execute %s' % cmdId
+        else:       # set up argument slots in prep statement
+            execCmd = 'execute %s(%s)' % (cmdId, ', '.join([':' + elem for elem in params]))
+
+        #print prepCmd, execCmd, actual, len(params)
+        self.dbapi.execute(self.dbapi.cursor, prepCmd)
+        self.sql = execCmd
+
+    def query(self, keys):
+        logging.debug("Getting query result %s", keys)
+        self.dbapi.execute(self.dbapi.cursor, self.sql, keys)
+        if (not self.insert):
+            result = self.dbapi.fetchone(self.dbapi.cursor)
             if result == None:
                 return self.default
             else:
-                self.cached[frozen] = result[0]
                 return result[0]
+        return None
 
-class LRUQuery:
-    def __init__(self, sql, default, size = 64):
-        self.sql = sql
-        self.default = default
+    def cache_info(self):
+        return "NoCache"
+
+class LRUQuery(BaseQuery):
+    def __init__(self, sql, default, dbapi, prepare=True, size = 128, insert=False):
+        super(LRUQuery, self).__init__(sql, default, dbapi, prepare=prepare, insert=insert)
+        assert(not insert)
         self.cached_method = lru_cache(maxsize=size)(self.__lru_query)
 
-    def __lru_query(self, dbapi, cursor, frozen_keys):
+    def __lru_query(self, frozen_keys):
         logging.debug("Getting cacheable result %s", frozen_keys)
-        dbapi.execute(cursor, self.sql, dict(frozen_keys))
-        result = dbapi.fetchone(cursor)
+        self.dbapi.execute(self.dbapi.cursor, self.sql, dict(frozen_keys))
+        result = self.dbapi.fetchone(self.dbapi.cursor)
         if result == None:
             logging.debug("Skipping out of cache to prevent caching of null results")
             raise NoDBResultException("") #Prevents caching of result
@@ -63,11 +105,11 @@ class LRUQuery:
     def cache_info(self):
         return self.cached_method.cache_info()
 
-    def query(self, dbapi, cursor, keys):
+    def query(self, keys):
         frozen = frozenset(keys.items())
         try:
             logging.debug("Attempting to get cached item %s", frozen)
-            return self.cached_method(dbapi, cursor, frozen)
+            return self.cached_method(frozen)
         except NoDBResultException:
             pass
 
@@ -94,39 +136,59 @@ class PTdataStore:
         self.tempTablesCreated = False     # keep a record of whether we have 
                                            # created the temporary tables for
                                            # retrieving performance results
+        
+        #logging.basicConfig(level=logging.INFO)
+        #logging.basicConfig(level=logging.DEBUG)
+        logging.basicConfig()
+        self.log = logging.getLogger(__name__)
+        self.dataDelim = data_delim
+        self.dbDelim = "|"
+        self.filename = ""
+
         self.resid = LRUQuery(
-            "select id from resource_item where name=:name and type=:type", 0)
+            "select id from resource_item where name=:name and type=:type", 0, self.dbapi)
         self.resource_type = LRUQuery(
-            "select type from resource_item where id=:id", "")
+            "select type from resource_item where id=:id", "", self.dbapi)
         self.resource_by_name = LRUQuery(
-            "select id from resource_item where name=:name", 0)
+            "select id from resource_item where name=:name", 0, self.dbapi)
         self.resource_name_by_id = LRUQuery(
-            "select name from resource_item where id=:id", "")
+            "select name from resource_item where id=:id", "", self.dbapi)
         self.focus_by_id = LRUQuery(
-            "select id from focus where focusName=:focusname", 0, 0)
+            "select id from focus where focusName=:focusname", 0, self.dbapi, size=0)
         self.descendent_id = LRUQuery(
-            "select rid from resource_has_descendant where rid=:rid", 0, 0)
+            "select rid from resource_has_descendant where rid=:rid", 0, self.dbapi, size=0)
         self.parent_id = LRUQuery(
-            "select parent_id from resource_item where id=:id", 0)
+            "select parent_id from resource_item where id=:id", 0, self.dbapi)
         self.framework_id = LRUQuery(
-            "select id from focus_framework where type_string=:type", 0)
+            "select id from focus_framework where type_string=:type", 0, self.dbapi)
+        self.performance_result = BaseQuery(
+            "insert into performance_result (id, metric_id, value, start_time, end_time, units, "
+            "focus_id, label, combined, complex_result_id) values (:rid, :mid, :val, :stime, "
+            ":etime, :units, :fid, :lbl, :comb, :rsid)", 0, self.dbapi, insert=True)
+        self.performance_result_has_focus = BaseQuery(
+            "insert into performance_result_has_focus (performance_result_id, focus_id, focus_type)" \
+                " values (:prid, :fcid, :fctype)", 0, self.dbapi, insert=True)
+        self.focus_resource_name = BaseQuery(
+            "insert into focus_has_resource_name (focus_id,resource_name) values (:focus_id, :resname)",
+            0, self.dbapi, insert=True)
+        self.focus_has_resource = BaseQuery(
+             "insert into focus_has_resource (focus_id, resource_id) values (:fid, :rid)",
+             0, self.dbapi, insert=True)
 
         self.cached = [self.resid, self.resource_type, \
                            self.resource_by_name, self.resource_name_by_id, \
                            self.focus_by_id, \
                            self.descendent_id, \
                            self.parent_id, \
-                           self.framework_id ]
+                           self.framework_id, \
+                           self.performance_result, \
+                           self.focus_resource_name, \
+                           self.focus_has_resource, \
+                           self.performance_result_has_focus ]
 
-        #logging.basicConfig(level=logging.DEBUG)
-        logging.basicConfig()
-        self.log = logging.getLogger(__name__)
-        self.dataDelim = data_delim
-        self.dbDelim = "|"
-        
     def cache_info(self):
         for x in self.cached:
-            print ("%s : %s" % (x.cache_info(), x.sql))
+            self.log.debug("%s : %s", x.cache_info(), x.original_sql)
 
     def connectToDB(self, debugFlag, ctb_db = None, ctb_dsn = None,
                     ctb_host = None, ctb_pwd = None, ctb_user = None):
@@ -146,15 +208,22 @@ class PTdataStore:
         """
 
         if debugFlag:     
-            self.debug("Debugging Enabled")
+            self.log.debug("Debugging Enabled")
             self.debug = debugFlag
         if debugFlag < self.NO_CONNECT:
-            self.connection = self.dbapi.connect(pt_db = ctb_db,
-                                                 pt_dsn = ctb_dsn,
-                                                 pt_host = ctb_host,
-                                                 pt_pwd = ctb_pwd,
-                                                 pt_user = ctb_user)
-            self.cursor = self.dbapi.getCursor(self.connection)
+            try:
+                self.connection = self.dbapi.connect(pt_db = ctb_db,
+                                                     pt_dsn = ctb_dsn,
+                                                     pt_host = ctb_host,
+                                                     pt_pwd = ctb_pwd,
+                                                     pt_user = ctb_user)
+
+                self.cursor = self.dbapi.getCursor(self.connection)
+                for x in self.cached:
+                    x.prepare()
+            except:
+                print "ERROR: Cannot connect to database."
+                return False
             return True
         return False 
 
@@ -188,15 +257,15 @@ class PTdataStore:
         Returns ID if found, 0 if not.
         """
         query = "select resource_item.id from resource_item "
-        query += "where upper(resource_item.name)=\'" + Name.upper() + "\' "
-        query += " and resource_item.type=\'" + type + "\' "
+        query += "where upper(resource_item.name)=:name_upper"
+        query += " and resource_item.type=:type"
 
         self.log.debug(query)
 
         if self.debug >= self.NO_CONNECT:
             return
         try:
-            self.dbapi.execute(self.cursor, query)
+            self.dbapi.execute(self.cursor, query, {'name_upper':Name.upper(), 'type':type})
             temp = self.dbapi.fetchone(self.cursor)
             if (temp != None):
                 res_id = temp[0]
@@ -228,6 +297,7 @@ class PTdataStore:
 				
             res_id, = self.dbapi.fetchone(self.cursor)
             res_id = self.__convertToInt(res_id)
+            assert(res_id != 0)
 
             # get focus framework id
             if (focus_frame_id):
@@ -255,12 +325,12 @@ class PTdataStore:
         #  we only need to do the update if an ancestor of the new resource is in the table
         ancestors = self.getAncestors(res_id)
         for aid in ancestors:
-            thisid = self.descendent_id.query(self.dbapi, self.cursor, {'rid':aid})
+            thisid = self.descendent_id.query({'rid':aid})
             if thisid > 0:
                 try:
                     sql = "insert into resource_has_descendant (rid,did) values " +\
-                          "(" + str(aid) + "," + str(res_id) + ")"
-                    self.dbapi.execute(self.cursor, sql)
+                          "(:aid, :res_id)"
+                    self.dbapi.execute(self.cursor, sql, {'aid':aid, 'res_id':res_id})
                 except:
                     raise
 
@@ -317,7 +387,7 @@ class PTdataStore:
         if self.debug >= self.NO_CONNECT:
            return 0
         
-        return self.resource_by_name.query(self.dbapi, self.cursor, {'name':fullName})
+        return self.resource_by_name.query({'name':fullName})
 
     # May be Deprecated 
     def findResource(self, parent_id, type, name, attributeList=[]):
@@ -353,17 +423,12 @@ class PTdataStore:
                  -1 if more than one resource matches.
         """
         query = "select resource_item.id from resource_item where "
-        query += "upper(resource_item.name) like \'%"
-        query += str(shortname).upper()
-        query += "\' and resource_item.type=\'"
-        query += str(type) + "\' "
+        query += "upper(resource_item.name) like '%%' || :short_upper and resource_item.type=:type"
    
         if self.debug >= self.NO_CONNECT:
            return None
         try:
-            #self.cursor.execute(query)
-            self.dbapi.execute(self.cursor, query)
-            #temp = self.cursor.fetchall()
+            self.dbapi.execute(self.cursor, query, {'short_upper':str(shortname).upper(), 'type':type})
             temp = self.dbapi.fetchall(self.cursor)
             if len(temp) == 0:
                 # no matches found
@@ -387,15 +452,13 @@ class PTdataStore:
                  -1 if more than one resource matches.
         """
         query = "select resource_item.id from resource_item where "
-        query += "upper(resource_item.name) like \'%"
-        query += str(shortname).upper()
-        query += "\' and resource_item.type like \'%"
-        query += str(shorttype) + "\' "
+        query += "upper(resource_item.name) like '%%' || :short_upper"
+        query += " and resource_item.type like '%%' || :shorttype"
 
         if self.debug >= self.NO_CONNECT:
            return None
         try:
-            self.dbapi.execute(self.cursor, query)
+            self.dbapi.execute(self.cursor, query, {'short_upper':str(shortname).upper(), 'shorttype':shorttype})
             temp = self.dbapi.fetchall(self.cursor)
             if len(temp) == 0:
                 # no matches found
@@ -417,7 +480,7 @@ class PTdataStore:
         if self.debug >= self.NO_CONNECT:
            return ""
 
-        return self.resource_name_by_id.query(self.dbapi, self.cursor, {'id':id})
+        return self.resource_name_by_id.query({'id':id})
 
     def getResourceType(self, id):
         """ Takes a resource id and returns the resource's type.
@@ -426,7 +489,7 @@ class PTdataStore:
         """
         if self.debug >= self.NO_CONNECT:
             return ""
-        return self.resource_type.query(self.dbapi, self.cursor, {'id':id})
+        return self.resource_type.query({'id':id})
 
     # -- constraints --
     # May be Deprecated
@@ -452,12 +515,10 @@ class PTdataStore:
 
         if self.debug >= self.NO_CONNECT:
            return False
-        sql = "select count(*) from resource_constraint where from_resource='" + \
-              str(from_resource) + "' and to_resource='" + str(to_resource) + "'"
+        sql = "select count(*) from resource_constraint where from_resource=:from_resource "\
+            " and to_resource=:to_resource"
 
-        #self.cursor.execute(sql)
-        self.dbapi.execute(self.cursor, sql)
-        #number = self.cursor.fetchone()
+        self.dbapi.execute(self.cursor, sql, {'from_resource':from_resource, 'to_resource':to_resource})
         number = self.dbapi.fetchone(self.cursor)
         if number > 0 :
             return True
@@ -475,7 +536,6 @@ class PTdataStore:
        if self.debug >= self.NO_CONNECT:
           return False
        for a in attrList:
-           #if not self.lookupAttribute(resource, a['name'], a['value']):
            if not self.lookupAttribute(resource, a[0], a[1]):
                return False
        return True
@@ -487,12 +547,9 @@ class PTdataStore:
         """
        if self.debug >= self.NO_CONNECT:
           return False
-       sql = "select count(*) from resource_attribute where resource_id='" + \
-          str(resource) + "' and name='" + str(attr) + "' and value='" + \
-          str(value) + "' and attr_type='" + str(type) + "'"
-       #self.cursor.execute(sql)
-       self.dbapi.execute(self.cursor, sql)
-       #number, = self.cursor.fetchone()
+       sql = "select count(*) from resource_attribute where resource_id=:resource" \
+           " and name=:name and value=:value and attr_type=:type"
+       self.dbapi.execute(self.cursor, sql, {'resource':resource, 'name':attr, 'value':value, 'type':type})
        number, = self.dbapi.fetchone(self.cursor)
        if number > 0:
            return True
@@ -523,7 +580,7 @@ class PTdataStore:
             else:
                 raise Exception("Unknown database type")
 
-            perfRes_id, = self.cursor.fetchone()
+            perfRes_id, = self.dbapi.fetchone(self.cursor)
             perfRes_id = self.__convertToInt(perfRes_id)
             
             perfResParams = {"rid":perfRes_id, 
@@ -536,24 +593,14 @@ class PTdataStore:
                              "rsid":result_id,
                              "lbl":label,
                              "comb":combined}
-            sql = "insert into performance_result " +\
-                  "(id, metric_id, " +\
-                  "value, start_time, end_time, units, " +\
-                  "focus_id, label, combined, complex_result_id) " +\
-                  "values (:rid, :mid, :val, :stime, " +\
-                  ":etime, :units, :fid, :lbl, :comb, :rsid)"
 
-
-            self.dbapi.execute(self.cursor, sql, perfResParams)
+            self.performance_result.query(perfResParams)
 
             for fid,ftype in foci:
                 perfFocusParams = {"prid":perfRes_id, 
                                    "fcid":fid, 
                                    "fctype":ftype}
-                sql = "insert into performance_result_has_focus " +\
-                      "(performance_result_id, focus_id, focus_type) " +\
-                      "values(:prid, :fcid, :fctype)"
-                self.dbapi.execute(self.cursor, sql, perfFocusParams)                
+                self.performance_result_has_focus.query(perfFocusParams)
         except:
             raise
 
@@ -582,7 +629,7 @@ class PTdataStore:
                 self.dbapi.execute (self.cursor, "SELECT @pr_value")
 
 
-            result_id, = self.cursor.fetchone()
+            result_id, = self.dbapi.fetchone(self.cursor)
             result_id = self.__convertToInt(result_id)
             
 
@@ -695,7 +742,7 @@ class PTdataStore:
            focusname += res[1]
            first = False
 
-        result = self.focus_by_id.query(self.dbapi, self.cursor, {'focusname':focusname})
+        result = self.focus_by_id.query({'focusname':focusname})
         self.log.debug("result is %s", result)
         return result
 
@@ -710,13 +757,10 @@ class PTdataStore:
         """
         if resName == None or focusId == 0:
            return 0
-        sql = "insert into focus_has_resource_name (focus_id,resource_name)"\
-              " values (%d, '%s')" % (focusId, resName)
-        self.log.debug("%s", sql)
         if self.debug >= self.NO_WRITE:
            return 0
-
-        self.dbapi.execute (self.cursor, sql)
+        
+        self.focus_resource_name.query({'focus_id':focusId, 'resname':resName})
         return focusId
 
     def findFocusByName (self, focusName):
@@ -724,30 +768,21 @@ class PTdataStore:
 
         returns [number] 0 if focus name not found in the DB.
         """
-
         if focusName == None:
             return 0
-        sql = "select id from focus where focusName = '" + focusName + "'"
-        """ lookup and return the focus ID that matches the string name provided.
-
-        returns [number] 0 if focus name not found in the DB.
-        """
-
-        if focusName == None:
-            return 0
-        sql = "select id from focus where focusName = '" + focusName + "'"
+        sql = "select id from focus where focusName=:focusName"
 
         if self.debug >= self.NO_CONNECT:
            return 0
         try:
-          self.dbapi.execute(self.cursor, sql)
+          self.dbapi.execute(self.cursor, sql, {'focusName':focusName})
           result = self.dbapi.fetchone (self.cursor)
         except:
            raise
         if result == None:
            return 0
 
-        self.debug("result is %s", result)
+        self.log.debug("result is %s", result)
         return result[0]
 
     def findOrCreateFocus(self, resource_id_list):
@@ -799,7 +834,7 @@ class PTdataStore:
 
            if self.debug >= self.NO_WRITE:
                return 0
-           # create focus
+           #Create Focus
            if self.dbapi.dbenv == "ORA_CXORACLE":
                sql = "select seq_focus.nextval from dual"
                self.dbapi.execute (self.cursor, sql)
@@ -828,10 +863,7 @@ class PTdataStore:
                                   # list to deal with missing information
                    focResParams = {"fid":focus_id, 
                                    "rid":resource[2]}
-                   sql = "insert into focus_has_resource " +\
-                         "(focus_id, resource_id) " +\
-                         "values (:fid, :rid)"
-                   self.dbapi.execute (self.cursor, sql, focResParams)
+                   self.focus_has_resource.query(focResParams)
                    self.addAncestors(resource[2])
                    self.addDescendants(resource[2])
        except:
@@ -849,8 +881,8 @@ class PTdataStore:
           return
        # first, check if resource already entered into table -- if so, we're done
        try:
-           sql = "select rid from resource_has_ancestor where rid = '" + str(rid) + "'"
-           self.dbapi.execute (self.cursor, sql)
+           sql = "select rid from resource_has_ancestor where rid=:rid"
+           self.dbapi.execute (self.cursor, sql, {'rid':rid})
            result = self.dbapi.fetchone (self.cursor)
        except:
            raise
@@ -860,14 +892,13 @@ class PTdataStore:
        #  step up the hierarchy of resources, adding each ancestor
        currResource = rid
        while 1:
-           parentID = self.parent_id.query(self.dbapi, self.cursor, {'id':currResource})
+           parentID = self.parent_id.query({'id':currResource})
            if parentID == None:
                break
            else:
                try:
-                   sql = "insert into resource_has_ancestor (rid,aid) values "+\
-                             "(" + str(rid) + "," + str(parentID) + ")"
-                   self.dbapi.execute(self.cursor, sql)
+                   sql = "insert into resource_has_ancestor (rid,aid) values (:rid, :parentId)"
+                   self.dbapi.execute(self.cursor, sql, {'rid':rid, 'parentId':parentID})
                except:
                    raise
                currResource = parentID
@@ -882,7 +913,7 @@ class PTdataStore:
         if rid == None:
            return
         # first, check if resource already entered into table -- if so, we're done
-        if (self.descendent_id.query(self.dbapi, self.cursor, {'rid':rid}) > 0):
+        if (self.descendent_id.query({'rid':rid}) > 0):
             return
 
         # here if entry not already in the table
@@ -893,9 +924,8 @@ class PTdataStore:
             # get kids
             for currParent in kidList:
                 try:
-                    query = "select id from resource_item where parent_id = '"+\
-                               str(currParent) + "'"
-                    self.dbapi.execute (self.cursor,query)
+                    query = "select id from resource_item where parent_id = :parent_id"
+                    self.dbapi.execute (self.cursor,query, {'parent_id':currParent})
                     children = self.dbapi.fetchall (self.cursor)
                 except:
                     raise
@@ -957,12 +987,11 @@ class PTdataStore:
           return
        try:
            for rid in resources:
-               sql = "select type from resource_item where id='" + str(rid) + "'"         
-               self.cursor.execute(sql)
-               has_type, = self.cursor.fetchone()
-               sql = "insert into execution_has_resource values ('" + str(eid) + "', '" + \
-                  str(rid) + "', '" + str(has_type) + "') "
-               self.cursor.execute(sql)
+               sql = "select type from resource_item where id=:rid"
+               self.dbapi.execute(self.cursor, sql, {'rid':rid})
+               has_type, = self.dbapi.fetchone()
+               sql = "insert into execution_has_resource values (:eid, :rid, :has_type)"
+               self.dbapi.execute(sql, {'eid':eid, 'rid':rid,'has_type':has_type})
                self.log.debug(sql)
        except:
            raise
@@ -972,11 +1001,9 @@ class PTdataStore:
        """
        if self.debug >= self.NO_CONNECT:
           return False
-       sql = "select eid from execution_has_resource where eid='" + \
-             str(eid) + "' and rid='" + str(rid) + "'"
-       #self.cursor.execute(sql)
-       self.dbapi.execute(self.cursor,sql)
-       #result = self.cursor.fetchone()
+       sql = "select eid from execution_has_resource where eid=:eid and rid=:rid"
+       self.dbapi.execute(self.cursor,sql, {'eid':eid, 'rid':rid})
+
        result = self.dbapi.fetchone(self.cursor)
        if self.debug >= self.NO_WRITE:
           if not result:
@@ -984,9 +1011,8 @@ class PTdataStore:
           else:
              return True
        if not result:
-           sql = "insert into execution_has_resource values ('" + str(eid)
-           sql += "', '" + str(rid) + "', '" + str(rType) + "')"
-           self.dbapi.execute(self.cursor, sql)
+           sql = "insert into execution_has_resource values (:eid, :rid, :has_type)"
+           self.dbapi.execute(self.cursor, sql,{'eid':eid, 'rid':rid,'has_type':rType})
            self.log.debug(sql)
            return True
        else:
@@ -1002,9 +1028,9 @@ class PTdataStore:
           return
        try:
            ahrParams = {"aid":app_id, "rid":res_id}
-           self.cursor.execute("insert into application_has_resource \
+           self.dbapi.execute("insert into application_has_resource \
                       (application_id, resource_id) values \
-                      (%(aid)s, %(res_id)s)", ahrParams)
+                      (:aid, :rid)", ahrParams)
        except:
            raise
 
@@ -1038,7 +1064,7 @@ class PTdataStore:
         """
         if self.debug >= self.NO_CONNECT:
            return 0
-        return self.framework_id.query(self.dbapi, self.cursor, {'type':type_string})
+        return self.framework_id.query({'type':type_string})
 
     def getParentResource(self, childId):
         """Returns the parentId of childId, if one exists. If childId is
@@ -1051,7 +1077,7 @@ class PTdataStore:
         if childId == None:
            return parentId
         
-        result = self.parent_id.query(self.dbapi, self.cursor, {'id':childId})
+        result = self.parent_id.query({'id':childId})
         if result == 0:
             return None
         else:
@@ -1068,11 +1094,8 @@ class PTdataStore:
         if parentId == None:
            return kids
         try:
-           query = "select id from resource_item where parent_id='" +\
-                   str(parentId) + "'"
-           #self.cursor.execute(query)
-           self.dbapi.execute (self.cursor, query)
-           #children = self.cursor.fetchall()
+           query = "select id from resource_item where parent_id=:parentId"
+           self.dbapi.execute (self.cursor, query, {'parentId':parentId})
            children = self.dbapi.fetchall(self.cursor)
            for c, in children:
               kids.append(c)
@@ -1106,9 +1129,9 @@ class PTdataStore:
         if self.debug >= self.NO_CONNECT:
            return 0
         if trialName and trialName != "None":
-           sql = "select count(*) from resource_item where name like '" + self.dbDelim + trialName + "-%' and type='execution'"
-           self.cursor.execute(sql)
-           execs, = self.cursor.fetchone()
+           sql = "select count(*) from resource_item where name like :search + '-%' and type='execution'"
+           self.dbapi.execute(self.cursor, sql, {'search':self.dbDelim + trialName})
+           execs, = self.dbapi.fetchone(self.cursor)
            if execs:
               new = execs + 1
            else:
@@ -1122,10 +1145,9 @@ class PTdataStore:
                self.log.error("need to give application name if not giving trial name")
                raise
            else:
-               sql = "select count(*) from resource_item where name like '" +\
-                   appName + "-%' and type='execution'"
-               self.cursor.execute(sql)
-               execs, = self.cursor.fetchone()
+               sql = "select count(*) from resource_item where name like :appName + '-%' and type='execution'"
+               self.dbapi.execute(self.cursor, sql, {'appName':appName})
+               execs, = self.dbapi.fetchone(self.cursor)
                if execs:
                    new = execs + 1
                else:
@@ -1167,10 +1189,9 @@ class PTdataStore:
         if self.debug >= self.NO_WRITE:
            return 0
           
-        #sql = "select seq_build_name.nextval from dual"
         sql = "select nextval('seq_build_name')"
-        self.cursor.execute(sql)
-        name, = self.cursor.fetchone()
+        self.dbapi.execute(self.cursor, sql)
+        name, = self.dbapi.fetchone(self.cursor)
         return str(int(name))
 
     # May be Deprecated
@@ -1203,21 +1224,21 @@ class PTdataStore:
 
         for to_id in constraintList:
             query = "insert into resource_constraint (from_resource, to_resource) "
-            query += "values (%d, %d)" % (from_id, to_id)
-            self.dbapi.execute (self.cursor, query)
+            query += "values (:from_id, :to_id)"
+            self.dbapi.execute (self.cursor, query, {'from_id':from_id, 'to_id':to_id})
 
     def findResTypeHierarchy(self, hierName):
         """ checks for an existing hierarchy with a matching name
 
         returns FocusFramework id  if found, 0 if not found
         """
-        query = "   select id from focus_framework where type_string = '" + hierName + "'"
+        query = "select id from focus_framework where type_string = :hierName"
 
         self.log.debug(query)
         if self.debug >= self.NO_CONNECT:
             return 0
         try:
-            self.dbapi.execute(self.cursor, query)
+            self.dbapi.execute(self.cursor, query, {'hierName':hierName})
             result = self.dbapi.fetchone (self.cursor)
             self.log.debug("check for existing: %s", str(result))
         except:
@@ -1232,14 +1253,13 @@ class PTdataStore:
 
     def insertResTypeHierarchy(self, hierName):
         """ adds a new resource hierarchy to the focus framework
-
         returns True if added, False if error
         """
         self.log.debug("insertResTypeHierarchy")
         if self.debug >= self.NO_WRITE:
             return False
         # first check if type hierarchy has been initialized
-        query = "  select id from focus_framework where id = 0"
+        query = "select id from focus_framework where id = 0"
         try:
             self.dbapi.execute (self.cursor, query)
         except:
@@ -1252,7 +1272,7 @@ class PTdataStore:
         if result == None:
             # initialize type hierarchy
             # 06-29-05: This is failing for pperfdb
-            query = "  insert into focus_framework  values (0, '', NULL)"
+            query = "insert into focus_framework  values (0, '', NULL)"
             try:
                 self.dbapi.execute(self.cursor, query)
             except:
@@ -1264,20 +1284,19 @@ class PTdataStore:
         # add the new type to the hierarchy
         query = " insert into focus_framework values "
         if self.dbapi.dbenv == "ORA_CXORACLE":
-            query += "(seq_focus_framework.nextval, '"
+            query += "(seq_focus_framework.nextval, "
         elif self.dbapi.dbenv == "PG_PYGRESQL":
-            query += "(nextval('seq_focus_framework'), '"
+            query += "(nextval('seq_focus_framework'), "
         elif self.dbapi.dbenv == "MYSQL":
             self.dbapi.execute (self.cursor, "UPDATE sequence SET prev_value = @ff_value := prev_value + 1 where name = 'seq_focus_framework'")
-            query += "((SELECT @ff_value), '"
+            query += "((SELECT @ff_value), "
         else:
             raise Exception("Unknown Database Type")
 
-        query += hierName
-        query += "', 0)"
+        query += ":hierName, 0)"
         self.log.debug("insertResTypeHierarchy: %s", query)
         try:
-            self.dbapi.execute(self.cursor, query)
+            self.dbapi.execute(self.cursor, query, {'hierName':hierName})
         except:
             self.log.error("insertResTypeHierarchy: insertion failed")
             return False
@@ -1292,11 +1311,10 @@ class PTdataStore:
         if self.debug >= self.NO_CONNECT:
            return 0
 
-        query = "select id from focus_framework where type_string = '" + resTypeName + "'"
+        query = "select id from focus_framework where type_string =:typeString"
         self.log.debug("findResType: %s",query)
-
         try:
-            self.dbapi.execute(self.cursor, query)
+            self.dbapi.execute(self.cursor, query, {'typeString':resTypeName})
             result = self.dbapi.fetchone(self.cursor)
         except:
             self.log.error("findResType query failed")
@@ -1319,21 +1337,20 @@ class PTdataStore:
         # add the new type to the hierarchy
         query = " insert into focus_framework values "
         if self.dbapi.dbenv == "ORA_CXORACLE":
-            query += "(seq_focus_framework.nextval, '"
+            query += "(seq_focus_framework.nextval, "
         elif self.dbapi.dbenv == "PG_PYGRESQL":
-            query += "(nextval('seq_focus_framework'), '"
+            query += "(nextval('seq_focus_framework'), "
         elif self.dbapi.dbenv == "MYSQL":
             self.dbapi.execute (self.cursor, "UPDATE sequence SET prev_value = @ff_value := prev_value + 1 where name = 'seq_focus_framework'")
-            query += "((SELECT @ff_value), '"
+            query += "((SELECT @ff_value), "
         else:
             raise Exception("Unknown Database Type")
 
-        query += resTypeName
-        query += "', " + str(parentID) + ")"
+        query += ":resTypeName, :parentId)"
 
         self.log.debug("insertResType: %s", query)
         try:
-            self.dbapi.execute (self.cursor, query)
+            self.dbapi.execute (self.cursor, query, {'resTypeName':resTypeName, 'parentId':parentID})
         except:
             self.log.error("insertResType: insertion failed")
             return False
@@ -1438,7 +1455,7 @@ class PTdataStore:
         if self.debug >= self.NO_CONNECT:
            return 0
         
-        return self.resid.query(self.dbapi, self.cursor, {'name':resName, 'type':resType})
+        return self.resid.query({'name':resName, 'type':resType})
 
     def addExecution (self, execName, appName):
         """ adds a new execution resource called execName
@@ -1459,7 +1476,7 @@ class PTdataStore:
         # add resource for execution
         newbie = self.addResource(execName, "execution")
         if newbie == 0:
-            self.log.error("error adding new resource")
+            self.log.warning("unable to add new resource %s", execName)
             return 0
         # add execution to its application
         result = self.applicationHasExecution(appExists, newbie)
@@ -1467,7 +1484,6 @@ class PTdataStore:
 
     def addResourceAttribute(self, resName, attName, value, type):
         """ add an attribute-value pair to an existing resource
-
         returns 1 if added, 0 if nothing changed
         """
         if self.debug >= self.NO_WRITE:
@@ -1478,16 +1494,14 @@ class PTdataStore:
             self.log.error("resource not found %s", resName)
             return 0
         query = "select resource_id,name from resource_attribute where "+\
-                "name='" + attName + "' and resource_id='" + str(rid) + "'"\
-                + " and attr_type='" + str(type) + "'"
-        self.dbapi.execute(self.cursor,query)
+                "name=:name and resource_id=:resource_id and attr_type=:attr_type"
+        self.dbapi.execute(self.cursor,query, {'name':attName, 'resource_id':rid, 'attr_type':type})
         result = self.dbapi.fetchone(self.cursor)
         if result:
            return 0  # attribute already exists in db
         query = "insert into resource_attribute (resource_id, name, value,"\
-                + "attr_type) values ('" + str(rid) + "','" + attName \
-                + "','" + str(value) + "','" + str(type) + "')"
-        self.dbapi.execute(self.cursor, query) 
+                + "attr_type) values (:rid, :attName, :value, :type)"
+        self.dbapi.execute(self.cursor, query, {'rid':rid, 'attName':attName, 'value':value, 'type':type}) 
         return 1
 
     def addApplication (self, appName):
@@ -1528,7 +1542,7 @@ class PTdataStore:
         resId = self.findResourceByNameAndType(resName, resType)
         eId = self.findResourceByNameAndType(execName, "execution")
         if eId == 0:
-            self.log.error("addExecResource fails: execution not found")
+            self.log.error("addExecResource fails: execution not found '%s'", execName)
             return 0
         if resId == 0: # resource does not already exist
             # add the new resource record
@@ -1543,7 +1557,6 @@ class PTdataStore:
 
     def addResourceConstraint (self, from_Name, to_Name):
         """add an entry in the resource_constraint table containing the two resource id's
-
         If either resource id is not valid, does nothing
         returns True if successfully added, False otherwise
         """
@@ -1558,10 +1571,9 @@ class PTdataStore:
         if to_id == 0:
             return False
         query = "select from_resource,to_resource from resource_constraint "+\
-                "where from_resource='" +str(from_id)+ "' and to_resource ='" +\
-                str(to_id) + "'"
+                "where from_resource=:from_id and to_resource =:to_id"
 
-        self.dbapi.execute(self.cursor,query)
+        self.dbapi.execute(self.cursor,query, {'from_id':from_id, 'to_id':to_id})
 
         result = self.dbapi.fetchone(self.cursor)
 
@@ -1569,9 +1581,9 @@ class PTdataStore:
            return False   # constraint already exists
         # add constraint
         query = "insert into resource_constraint (from_resource, to_resource) "
-        query += "values (%d, %d)" % (from_id, to_id)
+        query += "values (:from_id, :to_id)"
         try:
-            self.dbapi.execute(self.cursor, query)
+            self.dbapi.execute(self.cursor, query, {'from_id':from_id, 'to_id':to_id})
         except:
             self.log.error("query failure")
             raise
@@ -1580,14 +1592,14 @@ class PTdataStore:
 
     def findExecutionApplication (self, eid):
         """ Returns the valid application id for the given execution
-
         Returns 0 if not found
         """
+
         if self.debug >= self.NO_CONNECT:
              return 0
-        query = "select aid from application_has_execution where eid = " + str(eid)
+        query = "select aid from application_has_execution where eid=:eid"
         try:
-            self.dbapi.execute(self.cursor, query)
+            self.dbapi.execute(self.cursor, query, {'eid':eid})
         except:
             raise
         else:
@@ -1694,13 +1706,16 @@ class PTdataStore:
         # get metric_id
         metric_id = self.findResourceByName(metricName)
         if metric_id == 0:
+            self.log.error("Metric Id Not Found '%s', Did you forget a ResourceAttribute line?", metricName)
             return 0
+
         if fNames in self.contextCache:
            (fullName,foci) = self.contextCache[fNames]
         else:
            foci = self.parseAndCreateContext(fNames)
            if foci == 0:
-              return 0
+               self.log.debug("Foci Not Found for %s", fNames)
+               return 0
            self.contextCache[fNames] = (fNames,foci)
 
         # add the new performance result
@@ -1716,15 +1731,12 @@ class PTdataStore:
 
     def addResult(self, rName, fNames, perfToolName, metricName, value, units, startTime, endTime, label=None):
         """ Adds a new result to the database
-
         This method is for the PTDF type RESULT.  RESULT is very close 
         to PERFRESULT, but RESULT can take any resource as its second
         parameter, while performance_result assumes the second parameter is an
         execution resource. 
-
         Returns 0 if fName, perfToolName, metricName are not already defined in DB
         Returns resultID if new record added, or 0 if nothing changed in the DB
-
         NOTE: the rName is not used. This is because this function mimics
         addPerfResult, and in that function the corresponding eName is not used.
         """
@@ -1804,7 +1816,7 @@ class PTdataStore:
         """
         # what the GUI would do, with slight changes for selecting based on 'combined' argument
 
-        sql = "SELECT pr.id, riA.name, pr.value, pr.units, pr.start_time, pr.end_time, pr.focus_id, pr.label, pr.combined FROM performance_result pr, resource_item riA, performance_result_has_focus cprhf WHERE pr.id = cprhf.performance_result_id AND riA.id = pr.metric_id and label='%s'"% label
+        sql = "SELECT pr.id, riA.name, pr.value, pr.units, pr.start_time, pr.end_time, pr.focus_id, pr.label, pr.combined FROM performance_result pr, resource_item riA, performance_result_has_focus cprhf WHERE pr.id = cprhf.performance_result_id AND riA.id = pr.metric_id and label=:label"
         if combined == False:
            sql += " and pr.combined=0"
         elif combined == True:
@@ -1815,8 +1827,8 @@ class PTdataStore:
             self.log.error("unknown value for 'combined' in PTdataStore:getPerfResultsByLabel: %s", combined)
             return []
     
-        self.cursor.execute(sql)
-        prs = self.cursor.fetchall()
+        self.dbapi.execute(self.cursor, sql, {'label':label})
+        prs = self.dbapi.fetchall(self.cursor)
         return prs
 
     def getPerfResultsByContext(self,resNameList,anc=False,desc=False,combined=None):
@@ -1859,8 +1871,8 @@ class PTdataStore:
             self.log.error("unknown value for 'combined' in PTdataStore:getPerfResultsByContext: %s", combined)
             return []
 
-        self.cursor.execute(sql)
-        prs = self.cursor.fetchall()
+        self.dbapi.execute(self.cursor, sql)
+        prs = self.dbapi.fetchall(self.cursor)
         return prs
 
     
@@ -1879,9 +1891,9 @@ class PTdataStore:
         # go through the list of prs and get their resources
         resIdx = ResourceIndex()
         for focus_id in contextList:
-            sql = "select name,type from focus_has_resource inner join resource_item on resource_id=resource_item.id where focus_id=%s" % focus_id
-            self.cursor.execute(sql)
-            reses = self.cursor.fetchall()
+            sql = "select name,type from focus_has_resource inner join resource_item on resource_id=resource_item.id where focus_id=:focus_id"
+            self.dbapi.execute(self.cursor, sql, {'focus_id':focus_id})
+            reses = self.dbapi.fetchall(self.cursor)
             # add each resource to a resourceIndex
             for name,type in reses:
                 res = Resource(name,type)
@@ -1890,6 +1902,7 @@ class PTdataStore:
         contextReses = resIdx.createContextTemplate()
         # build up the focusname string in PTdf format
         first = True
+        focusName = ""
         for c in contextReses:
             if not first:
                focusName += "," + c.name
@@ -1937,9 +1950,9 @@ class PTdataStore:
         """Returns a list of performance result ids that were combined to make 
            the combined performance result 'prid'.
         """ 
-        sql = "select pr_id from combined_perf_result_members where c_pr_id=%s" %prid
-        self.cursor.execute(sql)
-        ret = self.cursor.fetchall()
+        sql = "select pr_id from combined_perf_result_members where c_pr_id=:prid"
+        self.dbapi.execute(self.cursor, sql, {'prid':prid})
+        ret = self.dbapi.fetchall(self.cursor)
         return [p for p, in ret] 
  
 
@@ -1947,7 +1960,7 @@ class PTdataStore:
         """Deletes a single combined performance result from the database that
            has id equal to the argument prId. If this pr was used to make 
            another combined performance result, then it will not be deleted. 
-           Checks to see if any other performance results are using the pr's 
+           Checks to see if any other performance results are using the prs 
            context.  If so, the context is left in the database.
            If there are no other references to the context, it is deleted.
            returns (1,[]) on success
@@ -1963,53 +1976,55 @@ class PTdataStore:
  
         # first check to see if any other combined performance result depends
         # on this pr
-        sql = "select c_pr_id from combined_perf_result_members where pr_id=%s" %prId
-        self.cursor.execute(sql)
-        ret = self.cursor.fetchall()
+        sql = "select c_pr_id from combined_perf_result_members where pr_id=:prid"
+        self.dbapi.execute(self.cursor, sql, {'prid':prId})
+        ret = self.dbapi.fetchall(self.cursor)
         if ret:
            return (0, [p for p, in ret])
 
         # now get the context ids for this pr
-        sql = "select focus_id from performance_result_has_focus where performance_result_id=%s" % prId
-        self.cursor.execute(sql)
-        fids = self.cursor.fetchall()
+        sql = "select focus_id from performance_result_has_focus where performance_result_id=:prid"
+        self.dbapi.execute(self.cursor, sql, {'prid':prId})
+        fids = self.dbapi.fetchall(self.cursor)
 
         #  delete from   performance_result_has_focus
-        sql = "delete from performance_result_has_focus where performance_result_id=%s" % prId
-        self.cursor.execute(sql)
+        sql = "delete from performance_result_has_focus where performance_result_id=:prid"
+        self.dbapi.execute(self.cursor, sql, {'prid':prId})
 
         # delete from combined_perf_result_members
-        sql = "delete from combined_perf_result_members where c_pr_id=%s" % prId
-        self.cursor.execute(sql)
+        sql = "delete from combined_perf_result_members where c_pr_id=:prid"
+        self.dbapi.execute(self.cursor, sql, {'prid':prId})
 
         # delete from performance_result
-        sql = "delete from performance_result where id=%s" % prId
-        self.cursor.execute(sql)
+        sql = "delete from performance_result where id=:prid"
+        self.dbapi.execute(self.cursor, sql, {'prid':prId})
 
         # delete focus only if no one else is using it
         # select count from performance_result has focus for each
         # if it's in there, then some other pr is using it
 
         for fid, in fids:
-           sql = "select performance_result_id from performance_result_has_focus where focus_id=%s" % fid 
-           self.cursor.execute(sql)
-           prs = self.cursor.fetchall()
+           sql = "select performance_result_id from performance_result_has_focus where focus_id=:fid"
+           self.dbapi.execute(self.cursor, sql, {'fid':fid})
+           prs = self.dbapi.fetchall()
 
            # if there's no refs, then delete
            if len(prs) == 0:
               # delete focus_has_resource
-              sql = "delete from focus_has_resource where focus_id=%s" % fid
-              self.cursor.execute(sql)
+              sql = "delete from focus_has_resource where focus_id=:fid"
+              self.dbapi.execute(self.cursor, sql, {'fid':fid})
            
               # delete focus_has_resource_name
-              sql = "delete from focus_has_resource_name where focus_id=%s" %fid
-              self.cursor.execute(sql)
+              sql = "delete from focus_has_resource_name where focus_id=:fid"
+              self.dbapi.cursor.execute(self.cursor, sql, {'fid':fid})
              
               # delete from focus
-              sql = "delete from focus where id=%s" % fid
-              self.cursor.execute(sql)
+              sql = "delete from focus where id=:fid"
+              self.dbapi.execute(self.cursor, sql, {'fid':fid})
         return (1,[])
- 
+
+    def __res_type_name(self, name):
+        return name.replace(self.dataDelim, self.dbDelim)
 
     def storePTDFdata (self, filename):
         """ opens <filename> and reads in contents one line at a time.
@@ -2018,14 +2033,19 @@ class PTdataStore:
         Returns True if file could be opened for reading, False if not.
         Outputs messages to stdout.
         """
+        self.filename = filename
         try:
             pfile = open(filename, 'r')
         except:
             self.log.error("readPTDFfile failed: unable to open %s for read.", filename)
             return False
+
+        print ("Loading %s ..." % filename)
         parser = PTDFParser(self)
         parser.parse(pfile.read())
         pfile.close()
+        self.commitTransaction() #Transaction committed after every file
+        print("Loaded %s" % (filename))
         return True
 
     def __createTempTables(self):
@@ -2043,62 +2063,62 @@ class PTdataStore:
           tables = self.dbapi.getTables(self.cursor)
           if not findTable(tables,"resources_temp"):
              sql = "CREATE  GLOBAL TEMPORARY  TABLE resources_temp (name VARCHAR(255) PRIMARY KEY) ON COMMIT PRESERVE ROWS "
-             self.cursor.execute(sql)
+             self.dbapi.execute(self.cursor, sql)
           if not findTable(tables,"adds_temp"):
              sql = "CREATE  GLOBAL TEMPORARY  TABLE adds_temp (name VARCHAR(255) PRIMARY KEY) ON COMMIT PRESERVE ROWS "
-             self.cursor.execute(sql)
+             self.dbapi.execute(self.cursor, sql)
           if not findTable(tables,"contexts_temp"):
              sql = "CREATE  GLOBAL TEMPORARY  TABLE contexts_temp (focus_id INTEGER PRIMARY KEY) ON COMMIT PRESERVE ROWS "
-             self.cursor.execute(sql)
+             self.dbapi.execute(self.cursor, sql)
           self.tempTablesCreated = True
 
     def __clearAllTempTables(self):
        # clears data from the temp tables
        sql = "DELETE FROM resources_temp "
-       self.cursor.execute(sql)
+       self.dbapi.execute(self.cursor, sql)
        sql = "DELETE FROM adds_temp "
-       self.cursor.execute(sql)
+       self.dbapi.execute(self.cursor, sql)
        sql = "DELETE FROM contexts_temp"
-       self.cursor.execute(sql)
+       self.dbapi.execute(self.cursor, sql)
 
     def __clearAddTable(self):
        # clears data from the adds table
        sql = "DELETE FROM adds_temp "
-       self.cursor.execute(sql)
+       self.dbapi.execute(self.cursor, sql)
 
     def __clearContextTable(self):
        # clears data from the temporary contexts table
        sql = "DELETE FROM contexts_temp "
-       self.cursor.execute(sql)
+       self.dbapi.execute(self.cursor, sql)
 
     def __addResourceToTempTable(self, resName, resType):
        # adds resources to the resources_temp table. 
        # resource must match type and contain resName. 
        sql = "INSERT INTO adds_temp SELECT name FROM resource_item WHERE "
-       sql += "type = '%s' AND name = '%s'" %(resType,resName)
-       self.cursor.execute(sql)
+       sql += "type = :resType AND name = :resName" 
+       self.dbapi.execute(self.cursor, sql, {'resType':resType, 'resName':resName})
        sql = "INSERT INTO resources_temp SELECT * FROM adds_temp"
-       self.cursor.execute(sql)
+       self.dbapi.execute(self.cursor, sql)
        self.__clearAddTable()
 
     def __addResourceDescendantsToTempTable(self, resName, resType):
        # adds resources that are descendants of resName to the resources_temp
        # table
        sql = "INSERT INTO adds_temp SELECT rid.name FROM resource_item rid, resource_item ria, resource_has_ancestor rha WHERE ria.id = rha.aid AND rid.id = rha.rid AND ria.name IN  (SELECT name FROM resource_item WHERE "
-       sql += "type='%s' AND name LIKE '%%%s')" % (resType, resName)
-       self.cursor.execute(sql)
+       sql += "type=:resType AND name LIKE '%%' || :resName)"
+       self.dbapi.execute(self.cursor, sql, {'resType':resType, 'resName':resName})
        sql = "INSERT INTO resources_temp SELECT * FROM adds_temp"
-       self.cursor.execute(sql)
+       self.dbapi.execute(self.cursor, sql)
        self.__clearAddTable()
 
     def __addResourceAncestorsToTempTable(self, resName, resType):
        # adds resources that are ancestors of resName to the resources_temp
        # table
        sql = "INSERT INTO adds_temp SELECT ria.name FROM resource_item ria, resource_item rid, resource_has_descendant rhd WHERE rid.id = rhd.did AND ria.id = rhd.rid AND rid.name IN  (SELECT name FROM resource_item WHERE "
-       sql += "type='%s' AND name LIKE '%%%s')" % (resType, resName)
-       self.cursor.execute(sql)
+       sql += "type=:resType AND name LIKE '%%' || :resName)"
+       self.dbapi.execute(self.cursor, sql, {'resType':resType, 'resName':resName})
        sql = "INSERT INTO resources_temp SELECT * FROM adds_temp"
-       self.cursor.execute(sql)
+       self.dbapi.execute(self.cursor, sql)
        self.__clearAddTable()
 
     def __addContextToTempTable(self):
@@ -2106,7 +2126,7 @@ class PTdataStore:
        # adds them to the contexts_temp table
        self.__clearContextTable()
        sql = "INSERT INTO contexts_temp SELECT focus_id FROM resources_temp t, focus_has_resource_name fhrn WHERE t.name = fhrn.resource_name GROUP BY fhrn.focus_id HAVING COUNT(resource_name) = 1"
-       self.cursor.execute(sql)
+       self.dbapi.execute(self.cursor, sql)
        
     # Converts str to an integer.  Returns an int.  If str can't be converted
     # returns str

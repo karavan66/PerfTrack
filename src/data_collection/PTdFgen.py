@@ -95,6 +95,7 @@ def processData(eInfo, mInfo, sInfo, testMode, verbose, opt = None):
          f.close()
          print "PTDF machine data generation complete."
        except PTexception, a:
+           raise
            if testMode:
               print a
               raise PTexception(a)
@@ -208,6 +209,7 @@ def connectToDB(testMode, opt = None):
                                      ctb_host = opt.host,
                                      ctb_pwd = opt.password,
                                      ctb_user = opt.user)
+
     if not connected:
         raise PTexception("Build.process: could not connect to database")
 
@@ -237,8 +239,8 @@ def getRuns(eInfo, testMode):
            temp =  {}
            parts = line.split()
            if len(parts) > 7:
-                 raise PTexception("getRuns: Problem parsing %s. Offending "\
-                              "line: %d" % (fname, lineno))
+               raise PTexception("getRuns: Problem parsing %s. Offending "\
+                                     "line: %d" % (fname, lineno))
            temp['execName'] = parts[0]         
            temp['appName'] = parts[1]         
            apps['appName'] = None

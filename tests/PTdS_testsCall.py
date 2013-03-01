@@ -14,8 +14,10 @@ from PTdS_test7 import PTdS_t7
 from PTdS_test8 import *
 from PTds import PTdataStore
 from mx.DateTime import *
+from PassFail import PassFail
 #from getpass import getpass
 
+pf = PassFail()
 out = open('results', 'a')
 out.write('\n' + ARPA.str(now()) + '\n')
 
@@ -74,7 +76,7 @@ ptds = PTdataStore()
 connected = ptds.connectToDB(False)
 if not connected:
 	print "could not connect to DB"
-	sys.exit(0)
+	sys.exit(1)
 
 tests = [test8.test1,test8.test2,test8.test3,test8.test4,test8.test5,test8.test6,test8.test7,test8.test8]
 

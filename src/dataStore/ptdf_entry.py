@@ -40,7 +40,6 @@ def main():
           ptds.storePTDFdata(ptdfname)
 
     #Transaction is commited at the end of access
-    ptds.commitTransaction()
     ptds.cache_info()
     ptds.closeDB()
 

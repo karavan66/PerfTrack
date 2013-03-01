@@ -276,7 +276,7 @@ def processIRS(resIdx, hspFile, tmrFile, hostFile, threaded):
     f.close()
 
     if not figureOfMerit:
-       raise PTexception("Incomplete .hsp file for execution:%s" % exe.name)
+       raise PTexception("Incomplete .hsp file %s" % hspFile)
     # see if there is process/host information
     processMap = {}
     if (hostFile):

@@ -16,6 +16,7 @@ sudo apt-get install \
     python-ply \
     python-psycopg2 \
     python-pygresql \
+    python-unittest2 \
 
 #Python 3.x series dependencies
 sudo apt-get install \
@@ -45,6 +46,5 @@ echo "user: $USER"
 echo "host: localhost"
 
 echo "You now need to populate the DB with actual data via ptdf_entry.py"
-echo "It's in src/dataStore/, recommend running it on the file:"
-echo "$REPO/tests/PTdFgenTestData/irs-good-reference.ptdf"
+echo "PYTHONPATH=\"src/dataStore:src/data_collection\" src/dataStore/ptdf_entry.py $REPO/tests/PTdFgenTestData/irs-good-reference.ptdf"
 echo " to see something interesting in the GUI"

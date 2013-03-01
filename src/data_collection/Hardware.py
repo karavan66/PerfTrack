@@ -10,10 +10,11 @@ from PTexception import PTexception
 import PTcommon
 import sys
 
-def main():
+def main(argv=sys.argv):
    try:
-      options = checkInputs()
-      grids = getHardwareInfo(options.dataFile)
+      options = checkInputs(argv)
+      resIdx = ResourceIndex()
+      grids = getHardwareInfo(resIdx, options.dataFile)
 
       ptdfname = options.ptdfFile
       f = open(ptdfname,'w')
@@ -321,7 +322,7 @@ def process(resIdx, filename):
 
     f.close()
 
-def checkInputs():
+def checkInputs(argv):
     """Parses command line arguments and returns their values"""
 
     usage = "usage: %prog [options]"
@@ -331,7 +332,7 @@ def checkInputs():
     parser.add_option("-o","--out_file", dest="ptdfFile", 
                       help="the name for the PTdF file")
 
-    (options, args) = parser.parse_args()
+    (options, args) = parser.parse_args(argv[1:])
 
     if not options.dataFile:
        parser.print_help()

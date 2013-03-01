@@ -210,7 +210,12 @@ class PTdS_t8:
 	        fids.append(fid)
 	        prIds.append(id)
 	        totVal += val
+	    if (len(ts_cpu) == 0):
+		    print "FAIL: len(ts_cpu) is zero"
+		    return
+
 	    newVal = totVal/len(ts_cpu)
+
 	    newCntxt = ptds.createCombinedContext(fids)
 	    ret = ptds.addResource("/Average TSTEP-HYD cpu time", "metric")
 	    if ret == 0:
@@ -347,6 +352,9 @@ class PTdS_t8:
 	    #we'll delete one, and make sure the context is still there, and then
 	    # delete the other and make sure the context is gone
 	    expectedContext = "/sppm,/build,/mpiicc-8.0 Version 8.0,/mpiifort-8.0 Version 8.0,/env,/sppm-2/Process-0,/SingleMachineMCR/MCR,/inputdeck,/iq.h,/Linux #1 SMP Mon Sep 27 13:51:13 PDT 2004 2.4.21-p4smp-71.3chaos,/Linux #1 SMP Wed Sep 1 16:37:16 PDT 2004 2.4.21-p4smp-71chaos,/fpp,/m4,/whole execution/10,/whole execution/12,/whole execution/14,/whole execution/16,/whole execution/18,/whole execution/2,/whole execution/20,/whole execution/4,/whole execution/6,/whole execution/8"
+	    if (len(idsNotDeleted) == 0):
+		    print "FAIL: idsNotDeleted is zero length"
+		    return
 	    id,fid = idsNotDeleted[0]
 	    ret,list = ptds.deleteCombinedPerfResult(id) 
 	    if ret!=0 and len(list) != 0:

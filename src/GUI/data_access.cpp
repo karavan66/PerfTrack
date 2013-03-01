@@ -468,7 +468,7 @@ Q3ValueList<QStringList> DataAccess::getResourceTypes()
 // result.  This hack needs to be carried through resource selection
 // result counting, and result acquisition.
 	resourceTypes += "metric";
-
+	resourceTypes.removeDuplicates(); //Annoys me seeing metric twice
 	return parseResourceTypes( resourceTypes );
 }
 	

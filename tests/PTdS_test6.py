@@ -41,8 +41,8 @@ class PTdS_t6:
 		self.out.write('Test 6.0 - FAIL - Unable to connect.\n')
 	        return False
 	    else:
-	        good1 = int(testStore.findResourceByShortNameAndType("grid/machine",\
-       	            "Frost"))
+	        good1 = testStore.findResourceByShortNameAndType("grid/machine",\
+       	            "Frost")
 	        if good1 == None:
 	            print "findResourceByShortNameAndType: No match found for Frost, grid/machine"
 	        elif good1 == -1:
@@ -53,8 +53,8 @@ class PTdS_t6:
 	        #This good2 is specific to data in oracle database
 	        #good2 = int(testStore.findResourceByShortNameAndType("inputDeck", "iq.h-33"))
 	        #This good2 exists in Postgresql database
-	        good2 = int(testStore.findResourceByShortNameAndType("inputDeck", \
-	                   "iq.h-22"))
+	        good2 = testStore.findResourceByShortNameAndType("inputDeck", \
+	                   "iq.h-22")
 	        if good2 == None:
 	            print "findResourceByShortNameAndType: No match found for iq.h-22, inputDeck"
 	        elif good2 == -1:
@@ -117,8 +117,8 @@ class PTdS_t6:
 	
 	        answer5 = testStore.getAncestors(good1)
 	        if answer5 == []:
-	            print "FAIL: getAncestors can't find ans of %d" % good1
-		    self.out.write("Test 6.1 - FAIL - getAncestors can not find any ans of " + good1 + '\n')
+	            print "FAIL: getAncestors can't find ans of %s" % good1
+		    self.out.write("Test 6.1 - FAIL - getAncestors can not find any ans of " + str(good1) + '\n')
 	        else:
 	            print "PASS: ans/desc finds ancestors " + str(answer5) + " for " +\
 	                  str(good1)
