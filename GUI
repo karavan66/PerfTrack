@@ -1,0 +1,28 @@
+THE PERFTRACK GUI
+ 
+Icons
+1.New Query:
+
+2.Open data file:
+
+3.Add display parameters:
+
+4.Filter result:
+
+Presently we can define filters on number fields using relations. We cannot keep filters on character fields.
+
+
+5.Plot data:
+
+Working fine but when we select field which have duplicate values then showing error message like 
+"the data set can't be plotted A dupliate item was found in the  X Axis column".
+ 
+6.Combine performance result:
+
+When we select Combine performance result icon then getting popup Select an operator window and
+able to select an operator but Ok and Cancel buttons are not working on pop up window
+
+7.Print or Data as text:
+
+Trying to get PDF format using printer options as Print to File (PDF), but getting PDF with messed up data.
+
