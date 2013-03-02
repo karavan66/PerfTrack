@@ -1,6 +1,7 @@
 #!/bin/bash
 REPO=`dirname $(readlink -f $0)`
-DBNAME=$USER
+echo -n "Enter the Database Name You Want: "
+read DBNAME
 
 sudo apt-get install \
     postgresql-client \
@@ -40,11 +41,23 @@ createdb $DBNAME
 psql -d $DBNAME < $REPO/db_admin/postgres/pdropall.sql
 psql -d $DBNAME < $REPO/db_admin/postgres/pcreate.sql
 
-echo "A database has been built (default dbname is your username) and the perftrack GUI"
+echo "A database has been built and the perftrack GUI"
 echo "dbname: $DBNAME"
-echo "user: $USER"
 echo "host: localhost"
+echo "user: $USER"
 
-echo "You now need to populate the DB with actual data via ptdf_entry.py"
-echo "PYTHONPATH=\"src/dataStore:src/data_collection\" src/dataStore/ptdf_entry.py $REPO/tests/PTdFgenTestData/irs-good-reference.ptdf"
-echo " to see something interesting in the GUI"
+echo "Populating some data into database"
+PTDF=$REPO/src/dataStore/ptdf_entry.py
+export PTDB="PG_PYGRESQL"
+export PYTHONPATH="$REPO/src/dataStore:$REPO/src/data_collection" 
+$PTDF $REPO/share/PTdefaultFocusFramework.ptdf $REPO/share/dataCenterResourceHierarchyExtensions.ptdf $REPO/tests/PTdFgenTestData/irs-good-reference.ptdf
+
+if [ $? -eq 0 ]
+then
+    echo "You now have a fully functional perftrack, with some data populated."
+    cd $REPO/src/GUI
+    PYTHONPATH="." ./perftrack
+else
+    echo "Something went wrong"
+fi
+

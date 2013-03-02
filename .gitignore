@@ -5,6 +5,7 @@
 
 #Lib QT
 *.moc
+ui_*.h
 
 #Merge Files
 *.BACKUP.*
