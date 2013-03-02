@@ -26,7 +26,7 @@ sudo apt-get install \
 #    python3-pygresql \ #does not exist?
 
 
-cd $REPO/src/GUI
+cd "$REPO/src/GUI"
 echo "Building perftrack GUI"
 cmake -DPYTHON_LIBRARY=/usr/lib/python2.7/config/libpython2.7.so .
 make
@@ -50,12 +50,12 @@ echo "Populating some data into database"
 PTDF=$REPO/src/dataStore/ptdf_entry.py
 export PTDB="PG_PYGRESQL"
 export PYTHONPATH="$REPO/src/dataStore:$REPO/src/data_collection" 
-$PTDF $REPO/share/PTdefaultFocusFramework.ptdf $REPO/share/dataCenterResourceHierarchyExtensions.ptdf $REPO/tests/PTdFgenTestData/irs-good-reference.ptdf
+"$PTDF" "$REPO"/share/PTdefaultFocusFramework.ptdf "$REPO"/share/dataCenterResourceHierarchyExtensions.ptdf "$REPO"/tests/PTdFgenTestData/irs-good-reference.ptdf
 
 if [ $? -eq 0 ]
 then
     echo "You now have a fully functional perftrack, with some data populated."
-    cd $REPO/src/GUI
+    cd "$REPO/src/GUI"
     PYTHONPATH="." ./perftrack
 else
     echo "Something went wrong"
