@@ -64,7 +64,9 @@ def cws(theString):
     """If theString contains whitespace, theString is returned enclosed in\"\"
        Else, theString is returned."""
     if re.search("\s+",theString):
-       theString = "\"" + theString + "\""
+        theString = theString.replace("\\", "\\\\")
+        theString = theString.replace("\"", "\\\"")
+        theString = "\"" + theString + "\""
     return theString
 
 def appendListUnique(element,list):

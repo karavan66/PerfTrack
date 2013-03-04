@@ -1,0 +1,259 @@
+RunDataBegin
+RunMachine=FROST
+RunOSName=AIX
+RunOSReleaseVersion=5
+RunOSReleaseType=2
+RunDateTime=Fri Jul  2 11:06:45 2004
+RunEnv=_=/usr/bin/env@@@TMPDIR=/usr/tmp@@@MANPATH=/usr/share/man:/usr/local/man:/usr/local/totalview/man:/usr/lpp/LoadL/full/man:/usr/lpp/ssp/man:/usr/lpp/ssp/perl5/man@@@CSS_ESCALATE_SOFT_SNAP=YES@@@LANG=en_US@@@LOGIN=mohror2@@@MP_RESD=yes@@@ORA_NLS_PROFILE33=@@@PAGER=more@@@MP_SHARED_MEMORY=yes@@@SSH_TTY=/dev/pts/2@@@MP_EUIDEVICE=csss@@@PATH=/usr/local/bin:/usr/bin:/usr/sbin:/usr/ucb:/usr/bin/X11:/usr/local/totalview/bin:/usr/local/gnu/bin:/usr/local/scripts:/usr/apps/bin:/usr/lpp/ZeroFault/bin:/usr/gapps/bin:/g/g23/mohror2:.@@@DCE_SEC_KEYMGMT_WAKEUP_INTERVAL=7200@@@COLUMNS=80@@@AIXTHREAD_MUTEX_DEBUG=OFF@@@perftrack_dir=/usr/gapps/perf_track/development/mohror2/data_collection@@@GROUP=perftrak@@@RPC_UNSUPPORTED_NETIFS=en0:en1:en2:en3:en4:en5:en6:css0:css1@@@GLOGIN=1@@@MP_COREFILE_FORMAT=core.light@@@AIXTHREAD_RWLOCK_DEBUG=OFF@@@LM_LICENSE_FILE=/usr/local/etc/license.client:/usr/local/etc/license.client.lpr@@@AIXTHREAD_COND_DEBUG=OFF@@@MP_INFOLEVEL=1@@@EDITOR=/usr/bin/vi@@@LOGNAME=mohror2@@@PYTHONPATH=/usr/gapps/perf_track/cx_Oracle/build/lib.aix-5.1-2.3:/usr/gapps/perf_track/development/mohror2/data_collection/database:/usr/gapps/perf_track/development/mohror2/data_collection/build:/usr/gapps/perf_track/development/mohror2/data_collection/run:/usr/gapps/perf_track/development/mohror2/briansparser@@@MAIL=/var/spool/mail/mohror2@@@LOCPATH=/usr/lib/nls/loc@@@HOST=frost068.pacific.llnl.gov@@@TKG_LMHOST=@blue-dns2.llnl.gov@@@KRB5CCNAME=FILE:/opt/dcelocal/var/security/creds/dcecred_61ad12b4@@@USER=mohror2@@@MP_EUILIB=us@@@AUTHSTATE=compat@@@SHLVL=1@@@TNS_ADMIN=/usr/gapps/perf_track/oracle_instant_client@@@MP_LABELIO=yes@@@ORA_NLS10=@@@RPC_RESTRICTED_PORTS=ncadg_ip_udp[10100-12100]:ncacn_ip_tcp[10100-12100]@@@DISPLAY=frost068.pacific.llnl.gov:15.0@@@LC_FASTMSG=true@@@CVSROOT=/usr/gapps/perf_track/repository@@@SHELL=/bin/csh@@@CVSUMASK=007@@@ODMDIR=/etc/objrepos@@@HOSTTYPE=rs6000@@@HOST_GRP=blue@@@TMOUT=86400@@@OSTYPE=aix@@@VENDOR=ibm@@@HOME=/g/g23/mohror2@@@LLAPIERRORMSGS=yes@@@PFTP_CONFIG_FILENAME=/etc/pftp_config@@@MP_SYNC_ON_CONNECT=no@@@SSH_CONNECTION=65.100.34.41 61766 134.9.45.1 922@@@SSH_CLIENT=65.100.34.41 61766 922@@@TERM=xterm@@@MAILMSG=You have new mail@@@ORACLE_HOME=.@@@K5MUTE=1@@@PWD=/usr/gapps/perf_track/data/irs/frost/omp_mpi_8p_8t/8/8@@@MP_CPU_USE=unique@@@MACHTYPE=rs6000@@@MP_HOSTFILE=NULL@@@TZ=PST8PDT@@@TRY_PE_SITE=1@@@MP_COREFILE_SIGTERM=NO@@@AIXTHREAD_SCOPE=S@@@LINES=44@@@ENVIRONMENT=INTERACTIVE@@@SYS_TYPE=aix_5_ll@@@A__z="*TMOUT@@@LIBPATH=/usr/gapps/perf_track/oracle_instant_client/aix5/:/usr/gapps/perf_track/oracle_instant_client/aix5/@@@NLSPATH=/usr/lib/nls/msg/%L/%N:/usr/lib/nls/msg/%L/%N.cat
+PageSize=4096
+NumberOfProcesses=8
+ProcessesPerNode=2
+ThreadsPerProcess=8
+UsesMPI=True
+UsesOpenMP=True
+UsesPthreads=False
+LibraryBegin
+LibraryName=libpthreads.a
+LibraryPath=/usr/lib/libpthreads.a
+LibraryMemberObject=shr_comm.o
+LibraryType=Thread
+LibraryVersion=
+LibrarySize=948229
+LibraryTimestamp=Wed Sep 22 14:02:36 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libc.a
+LibraryPath=/usr/lib/libc.a
+LibraryMemberObject=shr.o
+LibraryType=
+LibraryVersion=
+LibrarySize=7123771
+LibraryTimestamp=Wed Sep 22 19:09:46 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libcrypt.a
+LibraryPath=/usr/lib/libcrypt.a
+LibraryMemberObject=shr.o
+LibraryType=
+LibraryVersion=
+LibrarySize=10969
+LibraryTimestamp=Wed Sep 22 13:36:04 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libpthreads.a
+LibraryPath=/usr/lib/libpthreads.a
+LibraryMemberObject=shr_xpg5.o
+LibraryType=Thread
+LibraryVersion=
+LibrarySize=948229
+LibraryTimestamp=Wed Sep 22 14:02:36 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libmpi_r.a
+LibraryPath=/usr/lpp/ppe.poe/lib/libmpi_r.a
+LibraryMemberObject=mpicore_r.o
+LibraryType=MPI
+LibraryVersion=
+LibrarySize=6482521
+LibraryTimestamp=Tue Oct  5 08:41:36 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libcfg.a
+LibraryPath=/usr/lib/libcfg.a
+LibraryMemberObject=shr.o
+LibraryType=
+LibraryVersion=
+LibrarySize=228676
+LibraryTimestamp=Wed Sep 22 13:36:06 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libodm.a
+LibraryPath=/usr/lib/libodm.a
+LibraryMemberObject=shr.o
+LibraryType=
+LibraryVersion=
+LibrarySize=260980
+LibraryTimestamp=Wed Sep 22 13:36:07 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libmpi_r.a
+LibraryPath=/usr/lpp/ppe.poe/lib/libmpi_r.a
+LibraryMemberObject=mpci_r.o
+LibraryType=MPI
+LibraryVersion=
+LibrarySize=6482521
+LibraryTimestamp=Tue Oct  5 08:41:36 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=liblapi_r.a
+LibraryPath=/usr/lib/liblapi_r.a
+LibraryMemberObject=liblapi_r.o
+LibraryType=
+LibraryVersion=
+LibrarySize=1465275
+LibraryTimestamp=Thu Jul 15 12:57:13 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libppe_r.a
+LibraryPath=/usr/lpp/ppe.poe/lib/libppe_r.a
+LibraryMemberObject=dynamic.o
+LibraryType=
+LibraryVersion=
+LibrarySize=82303
+LibraryTimestamp=Tue Oct  5 08:44:56 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libmpi_r.a
+LibraryPath=/usr/lpp/ppe.poe/lib/libmpi_r.a
+LibraryMemberObject=mpipoe_r.o
+LibraryType=MPI
+LibraryVersion=
+LibrarySize=6482521
+LibraryTimestamp=Tue Oct  5 08:41:36 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libptools_ptr.a
+LibraryPath=/usr/lib/libptools_ptr.a
+LibraryMemberObject=shr.o
+LibraryType=
+LibraryVersion=
+LibrarySize=61664
+LibraryTimestamp=Wed Sep 22 19:11:35 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libvtd_r.a
+LibraryPath=/usr/lpp/ppe.poe/lib/libvtd_r.a
+LibraryMemberObject=dynamic.o
+LibraryType=
+LibraryVersion=
+LibrarySize=6482521
+LibraryTimestamp=Tue Oct  5 08:41:36 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libmpi_r.a
+LibraryPath=/usr/lpp/ppe.poe/lib/libmpi_r.a
+LibraryMemberObject=mpicpp_r.o
+LibraryType=MPI
+LibraryVersion=
+LibrarySize=6482521
+LibraryTimestamp=Tue Oct  5 08:41:36 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libC.a
+LibraryPath=/usr/lib/libC.a
+LibraryMemberObject=shr.o
+LibraryType=
+LibraryVersion=
+LibrarySize=6970460
+LibraryTimestamp=Sat Jul 17 18:03:32 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libC.a
+LibraryPath=/usr/lib/libC.a
+LibraryMemberObject=ansicore_32.o
+LibraryType=
+LibraryVersion=
+LibrarySize=6970460
+LibraryTimestamp=Sat Jul 17 18:03:32 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libC.a
+LibraryPath=/usr/lib/libC.a
+LibraryMemberObject=shrcore.o
+LibraryType=
+LibraryVersion=
+LibrarySize=6970460
+LibraryTimestamp=Sat Jul 17 18:03:32 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libC.a
+LibraryPath=/usr/lib/libC.a
+LibraryMemberObject=shr2.o
+LibraryType=
+LibraryVersion=
+LibrarySize=6970460
+LibraryTimestamp=Sat Jul 17 18:03:32 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libC.a
+LibraryPath=/usr/lib/libC.a
+LibraryMemberObject=ansi_32.o
+LibraryType=
+LibraryVersion=
+LibrarySize=6970460
+LibraryTimestamp=Sat Jul 17 18:03:32 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libC.a
+LibraryPath=/usr/lib/libC.a
+LibraryMemberObject=shr3.o
+LibraryType=
+LibraryVersion=
+LibrarySize=6970460
+LibraryTimestamp=Sat Jul 17 18:03:32 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libmpi_r.a
+LibraryPath=/usr/lpp/ppe.poe/lib/libmpi_r.a
+LibraryMemberObject=pm_chkrst_r.o
+LibraryType=MPI
+LibraryVersion=
+LibrarySize=6482521
+LibraryTimestamp=Tue Oct  5 08:41:36 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=en_US
+LibraryPath=/usr/lib/nls/loc/en_US
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=14384
+LibraryTimestamp=Sun Sep 15 18:45:52 2002
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libi18n.a
+LibraryPath=/usr/lib/libi18n.a
+LibraryMemberObject=shr.o
+LibraryType=
+LibraryVersion=
+LibrarySize=148011
+LibraryTimestamp=Wed Sep 22 13:36:04 2004
+LibraryDynamic=True
+LibraryEnd
+LibraryBegin
+LibraryName=libiconv.a
+LibraryPath=/usr/lib/libiconv.a
+LibraryMemberObject=shr4.o
+LibraryType=
+LibraryVersion=
+LibrarySize=381407
+LibraryTimestamp=Wed Sep 22 13:36:06 2004
+LibraryDynamic=True
+LibraryEnd
+InputDeckBegin
+InputDeckName=zrad.0064
+InputDeckModTime=Wed Jul  9 13:20:28 2003
+InputDeckEnd
+RunDataEnd

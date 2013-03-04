@@ -122,12 +122,10 @@ def test5(td):
    # PTrunIndex.txt.26 build data file missing build os version 
    # PTrunIndex.txt.27 build data file missing build os release type
    # PTrunIndex.txt.28 build data file missing compiler name 
-   # PTrunIndex.txt.29 build data file missing compiler version 
    # PTrunIndex.txt.18 build data file missing BuildDataEnd 
    testName = "test5"
    TIs = ["PTrunIndex.txt.5","PTrunIndex.txt.6","PTrunIndex.txt.18",\
-          "PTrunIndex.txt.26", "PTrunIndex.txt.27", "PTrunIndex.txt.28",\
-          "PTrunIndex.txt.29"]
+          "PTrunIndex.txt.26", "PTrunIndex.txt.27", "PTrunIndex.txt.28"]
    for testIndex in TIs:
       try:
          PTdFgen.main(td.genArgs({
@@ -140,7 +138,7 @@ def test5(td):
          td.tests.failed("%s : bad build data file. other exception raised. %s" % (testName, testIndex))
          raise
       else:
-         td.tests.failed("%s : bad build data file. %s" % (testName, testIndex))
+         td.tests.failed("%s : no notification bad build data file. %s" % (testName, testIndex))
 
 
 def test6(td):
@@ -162,7 +160,6 @@ def test6(td):
           "PTrunIndex.txt.16", "PTrunIndex.txt.17", "PTrunIndex.txt.30",\
           "PTrunIndex.txt.31", "PTrunIndex.txt.32"]
    for testIndex in TIs:
-      td.testRunIndex = testIndex
       try:
          PTdFgen.main(td.genArgs({
                   "--exec_data":"", 

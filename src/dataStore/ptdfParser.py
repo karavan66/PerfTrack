@@ -3,6 +3,7 @@ import ply.lex as lex
 import ply.yacc as yacc
 from PTds import *
 
+parser_optimize = 1
 class PTDFLexer:   
     def __init__(self):
         self.reserved = {
@@ -19,12 +20,14 @@ class PTDFLexer:
             'ComplexResult': 'COMPLEXRESULT'
             }
         self.tokens = ['QUOTED', 'NAME', 'NEWLINE'] + list(self.reserved.values())
-        self.lexer = lex.lex(module=self,debug=False)
+        self.lexer = lex.lex(module=self,debug=False, optimize=parser_optimize)
 
     # Tokens
     def t_QUOTED(self, t):
-        r'"([^"]+)"'
+        r'"(?:[^\\"]|\\.)+"'
         t.value = t.value[1:-1]
+        t.value = t.value.replace('\\"', '"')
+        t.value = t.value.replace('\\\\', '\\')
         return t;
 
     # Ignored characters
@@ -50,12 +53,13 @@ class PTDFParser:
         self.ptds = ptds
         self.lexer = PTDFLexer()
         self.tokens = self.lexer.tokens
-        self.parser = yacc.yacc(module=self,write_tables=0,debug=False,start='ptdf')
+        self.parser = yacc.yacc(module=self,write_tables=0,debug=False,start='ptdf',optimize=parser_optimize)
+        self.statements = 0
 
     def __error(self, p, syntax):
         self.ptds.log.error("Syntax Error %s:%s -> %s", self.ptds.filename, p.lineno(1), syntax)
         raise Exception("PTDF Syntax Error %s:%s" % (self.ptds.filename, p.lineno(1)))
-
+    
     def parse(self,data):
         if data:
             # useful for just dumping lexer tokens
@@ -92,6 +96,9 @@ class PTDFParser:
                      | result
                      | complexresult
                      | NEWLINE'''
+        self.statements += 1
+        if (self.statements % 1000) == 0:
+            print ("Processed %s statements" % self.statements)
 
     def p_lambda(self, p):
         'lambda : '

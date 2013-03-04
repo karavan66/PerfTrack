@@ -12,6 +12,7 @@ from ptPyDBAPI import *             #class to support Python DB API 2.0
 from ptdfParser import PTDFParser
 from lru_cache import lru_cache, lru_method
 from ResourceIndex import ResourceIndex
+from Resource import Resource
 import logging
 
 class NoDBResultException(Exception):
@@ -67,7 +68,6 @@ class BaseQuery(object):
         else:       # set up argument slots in prep statement
             execCmd = 'execute %s(%s)' % (cmdId, ', '.join([':' + elem for elem in params]))
 
-        #print prepCmd, execCmd, actual, len(params)
         self.dbapi.execute(self.dbapi.cursor, prepCmd)
         self.sql = execCmd
 
@@ -84,6 +84,9 @@ class BaseQuery(object):
 
     def cache_info(self):
         return "NoCache"
+
+    def cache_clear(self):
+        pass
 
 class LRUQuery(BaseQuery):
     def __init__(self, sql, default, dbapi, prepare=True, size = 128, insert=False):
@@ -104,6 +107,9 @@ class LRUQuery(BaseQuery):
 
     def cache_info(self):
         return self.cached_method.cache_info()
+
+    def cache_clear(self):
+        self.cached_method.cache_clear()
 
     def query(self, keys):
         frozen = frozenset(keys.items())
@@ -132,7 +138,6 @@ class PTdataStore:
         self.connection = None      # object for db connection
         self.debug = self.NO_DEBUG  
         self.dbapi = PTpyDBAPI()    # instantiate PTpyDBAPI class 
-        self.contextCache = {}      # cache contexts for easy lookup
         self.tempTablesCreated = False     # keep a record of whether we have 
                                            # created the temporary tables for
                                            # retrieving performance results
@@ -153,10 +158,12 @@ class PTdataStore:
             "select id from resource_item where name=:name", 0, self.dbapi)
         self.resource_name_by_id = LRUQuery(
             "select name from resource_item where id=:id", "", self.dbapi)
-        self.focus_by_id = LRUQuery(
-            "select id from focus where focusName=:focusname", 0, self.dbapi, size=0)
+        self.focus_by_name = LRUQuery(
+            "select id from focus where focusName=:focusname", 0, self.dbapi, size=128)
         self.descendent_id = LRUQuery(
-            "select rid from resource_has_descendant where rid=:rid", 0, self.dbapi, size=0)
+            "select rid from resource_has_descendant where rid=:rid", 0, self.dbapi, size=128)
+        self.ancestor_id = LRUQuery(
+            "select rid from resource_has_ancestor where rid=:rid", 0, self.dbapi, size=128)
         self.parent_id = LRUQuery(
             "select parent_id from resource_item where id=:id", 0, self.dbapi)
         self.framework_id = LRUQuery(
@@ -177,8 +184,9 @@ class PTdataStore:
 
         self.cached = [self.resid, self.resource_type, \
                            self.resource_by_name, self.resource_name_by_id, \
-                           self.focus_by_id, \
+                           self.focus_by_name, \
                            self.descendent_id, \
+                           self.ancestor_id, \
                            self.parent_id, \
                            self.framework_id, \
                            self.performance_result, \
@@ -188,7 +196,14 @@ class PTdataStore:
 
     def cache_info(self):
         for x in self.cached:
-            self.log.debug("%s : %s", x.cache_info(), x.original_sql)
+            print ("%s : %s" % (x.cache_info(), x.original_sql))
+
+    def reset_cache(self):
+        """ Caches must be reset whenever a delete/update operation occurs on anything
+        that LRU Queries are being used for. This is a bit of a nuclear option, but it
+        keeps things safe"""
+        for x in self.cached:
+            x.cache_clear()
 
     def connectToDB(self, debugFlag, ctb_db = None, ctb_dsn = None,
                     ctb_host = None, ctb_pwd = None, ctb_user = None):
@@ -219,8 +234,8 @@ class PTdataStore:
                                                      pt_user = ctb_user)
 
                 self.cursor = self.dbapi.getCursor(self.connection)
-                for x in self.cached:
-                    x.prepare()
+                for q in self.cached:
+                    q.prepare()
             except:
                 print "ERROR: Cannot connect to database."
                 return False
@@ -556,7 +571,6 @@ class PTdataStore:
        else:
            return False
 
-
     def createPerformanceResult(self,  metric_id,value,start_time,\
                            end_time, units,  foci, result_id, label=None, combined=0):
         """Creates an entry in the performance_result table
@@ -676,7 +690,8 @@ class PTdataStore:
 
             self.dbapi.execute(self.cursor, sql, cplxperfResParam)
 
-            result = self.createPerformanceResult( metric_id, avgValue, start_time, end_time, units, foci, result_id)    
+            result = self.createPerformanceResult( metric_id, avgValue, start_time, end_time, 
+                                                   units, foci, result_id)    
 
         except:
             raise
@@ -688,18 +703,19 @@ class PTdataStore:
            Creates entries in the combined_perf_result_has_member table
            Returns 0 on failure
            Returns perf_result id on success
-        """
-        # expects 'context' to be in the format returned by 
-        # PTds.parseAndCreateContext,
-        # a list of (id, contextType) tuples
-        
+        """    
         # pr_ids is the list of performance results used to make this new one
-
+        foci = self.parseAndCreateContext(context)
+        if (foci == 0):
+            return 0
+        
         # first create an entry in the performance_result table
-        prId = self.createPerformanceResult(metric_id,value,start_time,\
-                           end_time, units,  context, label, 1)
+        prId = self.createPerformanceResult(metric_id, value, start_time,
+                                            end_time, units, foci, None, label, combined=1)
+
         if prId == 0:
             return 0
+
         # then add the list of prids that were used to make this comb perfRes
         # to the combined_perf_result_has_member table
         params = []
@@ -721,7 +737,7 @@ class PTdataStore:
            return 0
         if resource_id_list == None:
            return 0
-        
+
         # get all the resource names
         # and sort the resources by their type
         resource_info = []
@@ -734,15 +750,9 @@ class PTdataStore:
 
         # build the name of the focus, which is a comma separated list
         # of the resources that make up the focus (in order by type)
-        focusname = ""
-        first = True
-        for res in resource_info:
-           if not first:
-               focusname += ","
-           focusname += res[1]
-           first = False
+        focusname = ",".join([res[1] for res in resource_info])
 
-        result = self.focus_by_id.query({'focusname':focusname})
+        result = self.focus_by_name.query({'focusname':focusname})
         self.log.debug("result is %s", result)
         return result
 
@@ -770,20 +780,14 @@ class PTdataStore:
         """
         if focusName == None:
             return 0
-        sql = "select id from focus where focusName=:focusName"
 
         if self.debug >= self.NO_CONNECT:
            return 0
-        try:
-          self.dbapi.execute(self.cursor, sql, {'focusName':focusName})
-          result = self.dbapi.fetchone (self.cursor)
-        except:
-           raise
-        if result == None:
-           return 0
+        
+        result = self.focus_by_name.query({'focusname':focusName})
 
         self.log.debug("result is %s", result)
-        return result[0]
+        return result
 
     def findOrCreateFocus(self, resource_id_list):
        """This function attempts to find a focus that has entries in the
@@ -793,9 +797,9 @@ class PTdataStore:
        resource_id_list
        """
        # look up focus by trying to find an entry that matches the resource list
-
        if self.debug >= self.NO_CONNECT:
            return 0
+
        focusID = self.findFocusByID(resource_id_list)
        if self.debug >= self.NO_WRITE:
            return focusID
@@ -824,13 +828,7 @@ class PTdataStore:
 
            # build the name of the focus, which is a comma separated list
            # of the resources that make up the focus (in order by type)
-           focusname = ""
-           first = True
-           for res in resource_info:
-               if not first:
-                   focusname += ","
-               focusname += res[1]
-               first = False
+           focusname = ",".join([res[1] for res in resource_info])
 
            if self.debug >= self.NO_WRITE:
                return 0
@@ -880,12 +878,8 @@ class PTdataStore:
        if rid == None or rid == 0:
           return
        # first, check if resource already entered into table -- if so, we're done
-       try:
-           sql = "select rid from resource_has_ancestor where rid=:rid"
-           self.dbapi.execute (self.cursor, sql, {'rid':rid})
-           result = self.dbapi.fetchone (self.cursor)
-       except:
-           raise
+       result = self.ancestor_id.query({'rid':rid})
+
        if result:
            return
        # here if entry not already in the table
@@ -1435,7 +1429,7 @@ class PTdataStore:
         nameElements = resName.split(self.dbDelim)
         nameLen = len(nameElements)
         if nameLen > 1: 
-            parentName = self.dbDelim.join(nameElements[0:nameLen-1])
+            parentName = self.dbDelim.join(nameElements[0:-1])
             parentID = self.findResourceByName(parentName)
             if parentID == 0:
                return 0
@@ -1548,7 +1542,7 @@ class PTdataStore:
             # add the new resource record
             resId = self.insertResource(resName, resType)
             if resId == 0:
-                self.log.error("addExecResource fails: couldn't add resource")
+                self.log.error("addExecResource fails: couldn't add resource name:%s type:%s", resName, resType)
                 return 0
         if self.addResourceToExecution(eId, resId, resType):
             return resId
@@ -1615,15 +1609,6 @@ class PTdataStore:
             Returns 0 if no new entry/context is created.
             Returns 1 if a new entry and context are created.
         """
-
-
-        if alias in self.contextCache:
-           # we've already seen this alias. Let's make sure it's for the 
-           # same context, though, and it's not a new alias 
-           (fullName, contexts) = self.contextCache[alias]
-           if fullName == context: 
-              # yup, the same, ignore it
-              return 0
         if self.debug >= self.NO_WRITE:
             return 0
         # add the context to the database if it doesn't already
@@ -1637,7 +1622,7 @@ class PTdataStore:
         # add this context to contextCache
         # first item in the pair is the full context name
         # second item is the list of (cntxt_id,type) pairs
-        self.contextCache[alias] = (context,contexts)
+        #self.contextCache[alias] = (context,contexts)
         return 1
 
     def parseAndCreateContext(self, context):
@@ -1649,7 +1634,6 @@ class PTdataStore:
             Returns 0 on error
             Returns a list of (id, subcontextType) pairs on success
         """
-
         if self.debug >= self.NO_WRITE:
             return 0
         # parse the context and add it to the database
@@ -1663,6 +1647,7 @@ class PTdataStore:
             else:              # default to primary
                type = "primary"
                name = c
+
             context_id = self.findFocusByName(name)
             if context_id == 0:
                 # create resource_id_list for new context
@@ -1694,13 +1679,13 @@ class PTdataStore:
                 contexts.append((context_id,type))
         return contexts                
 
-
     def addPerfResult(self, eName, fNames, perfToolName, metricName, value, units, startTime, endTime, label=None):
         """ Adds a new performance result to the database
 
         Returns 0 if eName, fName, perfToolName, metricName are not already defined in DB
         Returns perfResultID if new record added, or 0 if nothing changed in the DB
         """
+    
         if self.debug >= self.NO_WRITE:
             return 0
         # get metric_id
@@ -1709,14 +1694,10 @@ class PTdataStore:
             self.log.error("Metric Id Not Found '%s', Did you forget a ResourceAttribute line?", metricName)
             return 0
 
-        if fNames in self.contextCache:
-           (fullName,foci) = self.contextCache[fNames]
-        else:
-           foci = self.parseAndCreateContext(fNames)
-           if foci == 0:
-               self.log.debug("Foci Not Found for %s", fNames)
-               return 0
-           self.contextCache[fNames] = (fNames,foci)
+        foci = self.parseAndCreateContext(fNames)
+        if foci == 0:
+            self.log.debug("Foci Not Found for %s", fNames)
+            return 0
 
         # add the new performance result
         if startTime == "noValue":
@@ -1726,7 +1707,7 @@ class PTdataStore:
         if units == "noValue":
            units = None
         result = self.createPerformanceResult( metric_id, value, startTime,
-                                               endTime, units, foci, label)
+                                               endTime, units, foci, None, label)
         return result
 
     def addResult(self, rName, fNames, perfToolName, metricName, value, units, startTime, endTime, label=None):
@@ -1746,13 +1727,10 @@ class PTdataStore:
         metric_id = self.findResourceByName(metricName)
         if metric_id == 0:
             return 0
-        if fNames in self.contextCache:
-           (fullName,foci) = self.contextCache[fNames]
-        else:
-           foci = self.parseAndCreateContext(fNames)
-           if foci == 0:
-              return 0
-           self.contextCache[fNames] = (fNames,foci)
+        
+        foci = self.parseAndCreateContext(fNames)
+        if foci == 0:
+            return 0
 
         # add the new result
         if startTime == "noValue":
@@ -1763,7 +1741,7 @@ class PTdataStore:
            units = None
 
         result = self.createPerformanceResult( metric_id, value, startTime,\
-                                               endTime, units, foci, label)
+                                               endTime, units, foci, None, label)
         return result
 
     def addComplexResult(self, fNames, perfToolName, metricName, values, units, startTimes, endTimes):
@@ -1783,13 +1761,10 @@ class PTdataStore:
         metric_id = self.findResourceByName(metricName)
         if metric_id == 0:
             return 0
-        if fNames in self.contextCache:
-           (fullName,foci) = self.contextCache[fNames]
-        else:
-           foci = self.parseAndCreateContext(fNames)
-           if foci == 0:
-              return 0
-           self.contextCache[fNames] = (fNames,foci)
+
+        foci = self.parseAndCreateContext(fNames)
+        if foci == 0:
+            return 0
 
         # add the new results
         if startTimes == "noValue":
@@ -1901,14 +1876,8 @@ class PTdataStore:
         # create new context for the pr
         contextReses = resIdx.createContextTemplate()
         # build up the focusname string in PTdf format
-        first = True
-        focusName = ""
-        for c in contextReses:
-            if not first:
-               focusName += "," + c.name
-            else:
-               focusName = c.name
-               first = False
+        focusName = ",".join([c.name for c in contextReses])
+
         return focusName
 
 
@@ -1927,13 +1896,6 @@ class PTdataStore:
         metric_id = self.findResourceByName(metricName)
         if metric_id == 0:
             return 0
-        if fNames in self.contextCache:
-           (fullName,foci) = self.contextCache[fNames]
-        else:
-           foci = self.parseAndCreateContext(fNames)
-           if foci == 0:
-              return 0
-           self.contextCache[fNames] = (fNames,foci)
 
         # add the new performance result
         if startTime == "noValue":
@@ -1943,7 +1905,7 @@ class PTdataStore:
         if units == "noValue":
            units = None
         result = self.createCombinedPerformanceResult( metric_id, value, \
-                      startTime, endTime, units, foci, pr_ids, label)
+                      startTime, endTime, units, fNames, pr_ids, label)
         return result
 
     def getCombinedPerfResultSourceData(self, prid):
@@ -2006,7 +1968,7 @@ class PTdataStore:
         for fid, in fids:
            sql = "select performance_result_id from performance_result_has_focus where focus_id=:fid"
            self.dbapi.execute(self.cursor, sql, {'fid':fid})
-           prs = self.dbapi.fetchall()
+           prs = self.dbapi.fetchall(self.cursor)
 
            # if there's no refs, then delete
            if len(prs) == 0:
@@ -2016,11 +1978,13 @@ class PTdataStore:
            
               # delete focus_has_resource_name
               sql = "delete from focus_has_resource_name where focus_id=:fid"
-              self.dbapi.cursor.execute(self.cursor, sql, {'fid':fid})
+              self.dbapi.execute(self.cursor, sql, {'fid':fid})
              
               # delete from focus
               sql = "delete from focus where id=:fid"
               self.dbapi.execute(self.cursor, sql, {'fid':fid})
+
+        self.reset_cache()
         return (1,[])
 
     def __res_type_name(self, name):
@@ -2041,8 +2005,11 @@ class PTdataStore:
             return False
 
         print ("Loading %s ..." % filename)
+
         parser = PTDFParser(self)
-        parser.parse(pfile.read())
+        for line in pfile:
+            parser.parse(line)
+
         pfile.close()
         self.commitTransaction() #Transaction committed after every file
         print("Loaded %s" % (filename))
@@ -2080,16 +2047,19 @@ class PTdataStore:
        self.dbapi.execute(self.cursor, sql)
        sql = "DELETE FROM contexts_temp"
        self.dbapi.execute(self.cursor, sql)
+       self.reset_cache()
 
     def __clearAddTable(self):
        # clears data from the adds table
        sql = "DELETE FROM adds_temp "
        self.dbapi.execute(self.cursor, sql)
+       self.reset_cache()
 
     def __clearContextTable(self):
        # clears data from the temporary contexts table
        sql = "DELETE FROM contexts_temp "
        self.dbapi.execute(self.cursor, sql)
+       self.reset_cache()
 
     def __addResourceToTempTable(self, resName, resType):
        # adds resources to the resources_temp table. 

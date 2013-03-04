@@ -14,8 +14,10 @@ pf = PassFail()
 for f in files:
    print "processing:" + f
    try: 
-      Hardware.main(["", "--in_file", dataDir + "/" + f, "--out_file", "/dev/null"])
-      pf.failed("Bad Machine Data for %s did not fail" % f)
+      if Hardware.main(["", "--in_file", dataDir + "/" + f, "--out_file", "/dev/null"]) == 0:
+         pf.failed("Bad Machine Data for %s did not fail" % f)
+      else:
+         pf.passed("Bad Machine Data Caught")
    except PTexception, a:
       pf.passed("Intentional FAIL: %s" % a.value)
 

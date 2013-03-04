@@ -1,0 +1,17 @@
+! theHosts: allocation file 8 tasks
+  frost006.pacific.llnl.gov  dedicated  unique 
+! external_IP   MPL_IP 134.9.47.6
+  frost006.pacific.llnl.gov 
+! external_IP   MPL_IP 134.9.47.6
+  frost046.pacific.llnl.gov 
+! external_IP   MPL_IP 134.9.47.46
+  frost046.pacific.llnl.gov 
+! external_IP   MPL_IP 134.9.47.46
+  frost053.pacific.llnl.gov 
+! external_IP   MPL_IP 134.9.47.53
+  frost053.pacific.llnl.gov 
+! external_IP   MPL_IP 134.9.47.53
+  frost055.pacific.llnl.gov 
+! external_IP   MPL_IP 134.9.47.55
+  frost055.pacific.llnl.gov 
+! external_IP   MPL_IP 134.9.47.55

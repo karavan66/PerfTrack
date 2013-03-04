@@ -32,7 +32,6 @@ def main():
             files = glob(ptdfname + "/*.ptdf")
             files.sort()
             for ptdfname in files:
-                print("Processing %s" % ptdfname)
                 ptds.storePTDFdata(ptdfname)
 
     #Transaction is commited at the end of access

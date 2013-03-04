@@ -6,11 +6,13 @@ import pickle
 import readline
 import sys, os, string, re
 from getpass import getpass
+from lru_cache import lru_cache
 
 class PTpyDBAPI:
    """ methods for interfacing with python DB API for specific interfaces
        supported by PerfTrack
    """
+   formatRe = re.compile(':([a-zA-Z_]+)')
    def __init__(self):
       self.pyDBmap = {"PG_PYGRESQL":"psycopg2",
                       "ORA_CXORACLE":"cx_Oracle",
@@ -134,29 +136,22 @@ class PTpyDBAPI:
    #             values (%(tname)s, %(tgrade)s, %(tsize)s)"
    #
    #   NOTE: only does named, pyformat, and format right now
-   def opToParamFormat (self, sqlOpToConvert, paramList):
-     if self.paramstyle == "named":
-          return sqlOpToConvert
-     elif self.paramstyle == "pyformat":
-        slist = []
-        slist.append(sqlOpToConvert)
-        for x in paramList:
-           tmp = slist[0]
-           count = tmp.count(":"+x)
-           if count < 1:
-              return None
-           else:
-              newstr = tmp.replace(":"+x, "%("+x+")s")
-              slist[0] = newstr
-        convertedOp = slist[0]
-        return convertedOp
-     elif self.paramstyle == "format":
-        formatRe = re.compile(r"[^,]+")
-        val_index = sqlOpToConvert.index("values")
-        convertedOp = sqlOpToConvert[:val_index] + "values (" + formatRe.sub(" %s", sqlOpToConvert[val_index:]) + ")"
-        return convertedOp
-     else:
-        return None
+   @lru_cache(maxsize=128)
+   def __opToParamFormat (self, sqlOpToConvert):
+      def replace_spec(x):
+         return "%%(%s)s" % x.group(1)
+      
+      if self.paramstyle == "named":
+         return sqlOpToConvert
+      elif self.paramstyle == "pyformat":
+         return self.formatRe.sub(replace_spec, sqlOpToConvert)
+      elif self.paramstyle == "format":
+         formatRe = re.compile(r"[^,]+")
+         val_index = sqlOpToConvert.index("values")
+         convertedOp = sqlOpToConvert[:val_index] + "values (" + formatRe.sub(" %s", sqlOpToConvert[val_index:]) + ")"
+         return convertedOp
+      else:
+         return None
    
    # Public Methods
             
@@ -339,7 +334,7 @@ class PTpyDBAPI:
          crs.execute (operation)
       else:
          plist = parameters.keys()
-         sql = self.opToParamFormat(operation, plist)
+         sql = self.__opToParamFormat(operation)
          if sql != None:
             if self.dbenv == "MYSQL":
                crs.execute (sql, self.orderParams(operation, parameters))
@@ -365,11 +360,7 @@ class PTpyDBAPI:
    #
    # Output: Return values are not defined by DB API 2.0
    def executemany (self, crs, operation, seqOfParameters):
-      try:
-         plist = seqOfParameters[0].keys()
-      except:
-         raise Exception(self.dbapiError)
-      sql = self.opToParamFormat(operation, plist)
+      sql = self.__opToParamFormat(operation)
       if sql != None:
          crs.executemany(sql, seqOfParameters)
       else:

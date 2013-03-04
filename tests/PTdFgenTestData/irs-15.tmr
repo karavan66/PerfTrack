@@ -1,0 +1,581 @@
+==================================================================================================================
+Domain Distribution Across Processors
+Proc   Domains
+   0      0 - 24389 total zones (nnalls), 15625 real zones
+          1 - 24389 total zones (nnalls), 15625 real zones
+          2 - 24389 total zones (nnalls), 15625 real zones
+          3 - 24389 total zones (nnalls), 15625 real zones
+          4 - 24389 total zones (nnalls), 15625 real zones
+          5 - 24389 total zones (nnalls), 15625 real zones
+          6 - 24389 total zones (nnalls), 15625 real zones
+          7 - 24389 total zones (nnalls), 15625 real zones
+   1      8 - 24389 total zones (nnalls), 15625 real zones
+          9 - 24389 total zones (nnalls), 15625 real zones
+         10 - 24389 total zones (nnalls), 15625 real zones
+         11 - 24389 total zones (nnalls), 15625 real zones
+         12 - 24389 total zones (nnalls), 15625 real zones
+         13 - 24389 total zones (nnalls), 15625 real zones
+         14 - 24389 total zones (nnalls), 15625 real zones
+         15 - 24389 total zones (nnalls), 15625 real zones
+   2     16 - 24389 total zones (nnalls), 15625 real zones
+         17 - 24389 total zones (nnalls), 15625 real zones
+         18 - 24389 total zones (nnalls), 15625 real zones
+         19 - 24389 total zones (nnalls), 15625 real zones
+         20 - 24389 total zones (nnalls), 15625 real zones
+         21 - 24389 total zones (nnalls), 15625 real zones
+         22 - 24389 total zones (nnalls), 15625 real zones
+         23 - 24389 total zones (nnalls), 15625 real zones
+   3     24 - 24389 total zones (nnalls), 15625 real zones
+         25 - 24389 total zones (nnalls), 15625 real zones
+         26 - 24389 total zones (nnalls), 15625 real zones
+         27 - 24389 total zones (nnalls), 15625 real zones
+         28 - 24389 total zones (nnalls), 15625 real zones
+         29 - 24389 total zones (nnalls), 15625 real zones
+         30 - 24389 total zones (nnalls), 15625 real zones
+         31 - 24389 total zones (nnalls), 15625 real zones
+   4     32 - 24389 total zones (nnalls), 15625 real zones
+         33 - 24389 total zones (nnalls), 15625 real zones
+         34 - 24389 total zones (nnalls), 15625 real zones
+         35 - 24389 total zones (nnalls), 15625 real zones
+         36 - 24389 total zones (nnalls), 15625 real zones
+         37 - 24389 total zones (nnalls), 15625 real zones
+         38 - 24389 total zones (nnalls), 15625 real zones
+         39 - 24389 total zones (nnalls), 15625 real zones
+   5     40 - 24389 total zones (nnalls), 15625 real zones
+         41 - 24389 total zones (nnalls), 15625 real zones
+         42 - 24389 total zones (nnalls), 15625 real zones
+         43 - 24389 total zones (nnalls), 15625 real zones
+         44 - 24389 total zones (nnalls), 15625 real zones
+         45 - 24389 total zones (nnalls), 15625 real zones
+         46 - 24389 total zones (nnalls), 15625 real zones
+         47 - 24389 total zones (nnalls), 15625 real zones
+   6     48 - 24389 total zones (nnalls), 15625 real zones
+         49 - 24389 total zones (nnalls), 15625 real zones
+         50 - 24389 total zones (nnalls), 15625 real zones
+         51 - 24389 total zones (nnalls), 15625 real zones
+         52 - 24389 total zones (nnalls), 15625 real zones
+         53 - 24389 total zones (nnalls), 15625 real zones
+         54 - 24389 total zones (nnalls), 15625 real zones
+         55 - 24389 total zones (nnalls), 15625 real zones
+   7     56 - 24389 total zones (nnalls), 15625 real zones
+         57 - 24389 total zones (nnalls), 15625 real zones
+         58 - 24389 total zones (nnalls), 15625 real zones
+         59 - 24389 total zones (nnalls), 15625 real zones
+         60 - 24389 total zones (nnalls), 15625 real zones
+         61 - 24389 total zones (nnalls), 15625 real zones
+         62 - 24389 total zones (nnalls), 15625 real zones
+         63 - 24389 total zones (nnalls), 15625 real zones
+
+
+--------------------------------------------------------------------------------
+A Note on Wall Seconds and CPU Seconds Gathering under Threads.
+
+  The 'clock' routine is used to obtain CPU clocks which is converted to CPU
+  seconds.
+
+  The 'times' routine is used to obtain elapsed wall seconds.
+
+  In a threaded code, the way these two system routines return the data is
+  a bit inconsistent -- but it is logical.
+
+    - 'clock' sums up the clocks used by all processors in a threaded
+       section of code.  Since the man page for 'clock' states
+
+      "Reports central processing unit (CPU) time used"
+
+      This implies counting the CPU time spent on all processors.
+
+    - 'times' returns elapsed wall time, which is not summed across threads.
+
+   Keep this in mind when reading the Aggregate Wall Seconds and CPU Seconds
+   for a threaded code.
+
+   In many cases for a threaded global routine, the CPU Seconds will be
+   greather than the Wall seconds by a factor equal to the number of threads.
+
+   Refer to HTML documentation for further info on this.
+
+
+
+--------------------------------------------------------------------------------
+Definitions
+
+  Aggregate
+
+    Num Calls ........... Number of times routine was called.
+                          For (G)lobal routines, summed across all MPI processes
+                          For (T)hreaded routines, summed across all MPI
+                          processes and threads.
+
+    Wall Secs ........... Wall Seconds spent in routine.
+                          For (G)lobal and (T)hreaded routines, summed across
+                          all MPI processes.  See above note on the gathering
+                          of wall seconds.
+
+    CPU Secs ............ CPU Seconds spent in routine.
+                          For (G)lobal routines, summed across all MPI Processes
+                          For (T)hreaded routines, summed across all MPI
+                          processes and threads.  See above note on the
+                          gathering of cpu seconds.
+
+    FLOPS ............... Number of FLOPS executed by this routine and all 
+                          routines called by it.
+
+    MFLOP / Wall Secs ... Aggregate FLOPS / Wall Secs of single MPI Process 
+                          which had the MAX wall seconds
+
+    Processor or Domain . Not Applicable.
+
+
+  Average
+
+    Each of these averages is simply the Aggregate as defined above divided
+    by either the number of MPI processes or threads.
+
+    For (G)lobal routines, divide by number of MPI processes which called
+    the routine.
+
+    For (T)hreaded routines, divide by number of threads across all MPI
+    processes which called the routine.
+
+    Num Calls ........... Aggregate Num Calls / Num Of Processes or Threads
+    Wall Secs ........... Aggregate Wall Secs / Num Of Processes or Threads
+    CPU Secs ............ Aggregate CPU Secs  / Num Of Processes or Threads
+    FLOPS ............... Aggregate FLOPS     / Num Of Processes or Threads
+    MFLOP / Wall Secs ... Aggregate MFLOPS    / Num Of Processes or Threads
+    Processor or Domain . Not Applicable.
+
+
+  Max & Min Rows
+
+    These rows report the max and min of one of the following values:
+    wall seconds, cpu seconds, flops, mflops, num calls. 
+
+    For (G)lobal routines, this refers to the two MPI processs which had the 
+    max and min values.  This is denoted as "Proc 2" for example.
+
+    For (T)hreaded routines, this refers to the two threads across all MPI
+    processes which had the max and min values.  This is denoted as 
+    "Thread 378" for example.  
+
+    In many codes, threading is done over Blocks or Domains.  So "Thread 378"
+    refers to "Domain 378".
+
+    Num Calls ........... Min/Max num of times routine was called
+    Wall Secs ........... Min/Max wall secs spent in routine
+    CPU Secs ............ Min/Max cpu secs spent in routine
+    FLOPS ............... Min/Max flops generated by routine
+    MFLOP / Wall Secs ... Min/Max MFLOPS executed by routine
+    Processor or Domain . For (G)lobal routines, MPI Process ID.
+                          For (T)hreaded routines, Thread (Domain, Block, or 
+                          other chunk of threaded code).
+
+
+
+--------------------------------------------------------------------------------
+Function Timers Analysis Across Processors
+Num of MPI Processes : 8
+Num of Domains       : 64
+Threading            : ON
+Sorted by Max Wall Seconds
+
+                                        PROCESSOR      MFLOP /                                                    
+                  ROUTINE               OR DOMAIN     WALL SEC        FLOPS     CPU SECS    WALL SECS    NUM CALLS
+------------------------- ---------- ------------ ------------ ------------ ------------ ------------ ------------
+xirs (G)                   Aggregate          N/A 3.608162e+03 6.673908e+12 1.173590e+05 1.479690e+04 2.360000e+03
+xirs (G)                     Average          N/A 4.510202e+02 8.342385e+11 1.466987e+04 1.849612e+03 2.950000e+02
+xirs (G)               Wall Secs Max    Proc    3 4.510427e+02 8.342801e+11 1.466856e+04 1.849670e+03 2.950000e+02
+xirs (G)               Wall Secs Min    Proc    0 4.510715e+02 8.342477e+11 1.468801e+04 1.849480e+03 2.950000e+02
+
+tdiff (G)                  Aggregate          N/A 3.732417e+03 6.583461e+12 1.118993e+05 1.410881e+04 4.720000e+03
+tdiff (G)                    Average          N/A 4.665521e+02 8.229326e+11 1.398742e+04 1.763601e+03 5.900000e+02
+tdiff (G)              Wall Secs Max    Proc    4 4.665828e+02 8.229867e+11 1.399651e+04 1.763860e+03 5.900000e+02
+tdiff (G)              Wall Secs Min    Proc    2 4.667165e+02 8.229518e+11 1.397268e+04 1.763280e+03 5.900000e+02
+
+rdiff (G)                  Aggregate          N/A 3.793234e+03 5.900071e+12 9.852927e+04 1.242089e+04 4.720000e+03
+rdiff (G)                    Average          N/A 4.741542e+02 7.375089e+11 1.231616e+04 1.552611e+03 5.900000e+02
+rdiff (G)              Wall Secs Max    Proc    0 4.741601e+02 7.375181e+11 1.235629e+04 1.555420e+03 5.900000e+02
+rdiff (G)              Wall Secs Min    Proc    5 4.758969e+02 7.374737e+11 1.231691e+04 1.549650e+03 5.900000e+02
+
+MatrixSolveDriver (G)      Aggregate          N/A 1.501657e+03 2.068292e+12 8.699014e+04 1.096890e+04 4.720000e+03
+MatrixSolveDriver (G)        Average          N/A 1.877071e+02 2.585365e+11 1.087377e+04 1.371113e+03 5.900000e+02
+MatrixSolveDriver (G)  Wall Secs Max    Proc    1 1.876893e+02 2.585120e+11 1.093077e+04 1.377340e+03 5.900000e+02
+MatrixSolveDriver (G)  Wall Secs Min    Proc    5 1.891973e+02 2.585079e+11 1.085782e+04 1.366340e+03 5.900000e+02
+
+MatrixSolveCG (G)          Aggregate          N/A 1.511917e+03 2.041768e+12 8.542931e+04 1.077138e+04 4.720000e+03
+MatrixSolveCG (G)            Average          N/A 1.889896e+02 2.552210e+11 1.067866e+04 1.346422e+03 5.900000e+02
+MatrixSolveCG (G)      Wall Secs Max    Proc    0 1.889824e+02 2.552113e+11 1.072700e+04 1.350450e+03 5.900000e+02
+MatrixSolveCG (G)      Wall Secs Min    Proc    5 1.899438e+02 2.551914e+11 1.067661e+04 1.343510e+03 5.900000e+02
+
+rmatmult3 (T)              Aggregate          N/A 5.153515e+03 1.698650e+12 1.220935e+05 1.537868e+04 2.051200e+06
+rmatmult3 (T)                Average          N/A 8.052367e+01 2.654141e+10 1.907711e+03 2.402919e+02 3.205000e+04
+rmatmult3 (T)          Wall Secs Max  Thread   16 8.052367e+01 2.654141e+10 2.626200e+03 3.296100e+02 3.205000e+04
+rmatmult3 (T)          Wall Secs Min  Thread   15 1.193194e+02 2.654141e+10 1.791000e+03 2.224400e+02 3.205000e+04
+
+MPI_Allreduce (G)          Aggregate          N/A 9.899792e-04 2.663440e+05 1.418457e+04 1.795910e+03 2.663440e+05
+MPI_Allreduce (G)            Average          N/A 1.237474e-04 3.329300e+04 1.773071e+03 2.244887e+02 3.329300e+04
+MPI_Allreduce (G)      Wall Secs Max    Proc    0 1.237474e-04 3.329300e+04 2.122610e+03 2.690400e+02 3.329300e+04
+MPI_Allreduce (G)      Wall Secs Min    Proc    5 1.700444e-04 3.329300e+04 1.544980e+03 1.957900e+02 3.329300e+04
+
+MPI_Waitany (G)            Aggregate          N/A 1.003792e-02 1.376400e+06 7.680460e+03 9.646300e+02 1.376400e+06
+MPI_Waitany (G)              Average          N/A 1.254740e-03 1.720500e+05 9.600575e+02 1.205788e+02 1.720500e+05
+MPI_Waitany (G)        Wall Secs Max    Proc    7 1.003792e-03 1.376400e+05 1.093620e+03 1.371200e+02 1.376400e+05
+MPI_Waitany (G)        Wall Secs Min    Proc    2 1.946084e-03 2.064600e+05 8.484800e+02 1.060900e+02 2.064600e+05
+
+rdiffset (T)               Aggregate          N/A 3.053039e+03 1.386996e+11 2.252115e+04 2.829750e+03 3.776000e+04
+rdiffset (T)                 Average          N/A 4.770374e+01 2.167181e+09 3.518930e+02 4.421484e+01 5.900000e+02
+rdiffset (T)           Wall Secs Max  Thread   40 4.770374e+01 2.167181e+09 3.621800e+02 4.543000e+01 5.900000e+02
+rdiffset (T)           Wall Secs Min  Thread   63 4.993504e+01 2.167181e+09 3.475400e+02 4.340000e+01 5.900000e+02
+
+gtkappabnd (T)             Aggregate          N/A 3.063830e+03 1.386996e+11 2.242652e+04 2.817390e+03 3.776000e+04
+gtkappabnd (T)               Average          N/A 4.787234e+01 2.167181e+09 3.504144e+02 4.402172e+01 5.900000e+02
+gtkappabnd (T)         Wall Secs Max  Thread   16 4.787234e+01 2.167181e+09 3.591900e+02 4.527000e+01 5.900000e+02
+gtkappabnd (T)         Wall Secs Min  Thread   63 5.030596e+01 2.167181e+09 3.451400e+02 4.308000e+01 5.900000e+02
+
+update (G)                 Aggregate          N/A 1.870337e+03 6.630346e+10 2.242660e+03 2.822800e+02 2.368000e+03
+update (G)                   Average          N/A 2.337922e+02 8.287932e+09 2.803325e+02 3.528500e+01 2.960000e+02
+update (G)             Wall Secs Max    Proc    2 2.337922e+02 8.287932e+09 2.808700e+02 3.545000e+01 2.960000e+02
+update (G)             Wall Secs Min    Proc    7 2.357876e+02 8.287932e+09 2.780000e+02 3.515000e+01 2.960000e+02
+
+SetFaceTemperature_Dr (T)  Aggregate          N/A 3.647279e+03 1.292596e+11 1.759799e+04 2.207620e+03 3.776000e+04
+SetFaceTemperature_Dr (T)    Average          N/A 5.698874e+01 2.019681e+09 2.749686e+02 3.449406e+01 5.900000e+02
+SetFaceTemperature_Dr  Wall Secs Max  Thread   32 5.698874e+01 2.019681e+09 2.829500e+02 3.544000e+01 5.900000e+02
+SetFaceTemperature_Dr  Wall Secs Min  Thread   50 5.941986e+01 2.019681e+09 2.717700e+02 3.399000e+01 5.900000e+02
+
+DiffCoef_3D (T)            Aggregate          N/A 9.549129e+04 3.234290e+12 1.666764e+04 2.093790e+03 3.776000e+04
+DiffCoef_3D (T)              Average          N/A 1.492051e+03 5.053578e+10 2.604319e+02 3.271547e+01 5.900000e+02
+DiffCoef_3D (T)        Wall Secs Max  Thread    3 1.492051e+03 5.053578e+10 2.686200e+02 3.387000e+01 5.900000e+02
+DiffCoef_3D (T)        Wall Secs Min  Thread   34 1.575305e+03 5.053578e+10 2.565700e+02 3.208000e+01 5.900000e+02
+
+SetFaceTemperature_Wa (T)  Aggregate          N/A 3.675806e+03 1.134721e+11 1.522684e+04 1.911710e+03 1.132800e+05
+SetFaceTemperature_Wa (T)    Average          N/A 5.743446e+01 1.773002e+09 2.379194e+02 2.987047e+01 1.770000e+03
+SetFaceTemperature_Wa  Wall Secs Max  Thread   40 5.743446e+01 1.773002e+09 2.458700e+02 3.087000e+01 1.770000e+03
+SetFaceTemperature_Wa  Wall Secs Min  Thread   63 6.038835e+01 1.773002e+09 2.343600e+02 2.936000e+01 1.770000e+03
+
+updateblk (T)              Aggregate          N/A 2.243772e+03 6.630345e+10 1.473445e+04 1.849620e+03 1.894400e+04
+updateblk (T)                Average          N/A 3.505893e+01 1.035991e+09 2.302258e+02 2.890031e+01 2.960000e+02
+updateblk (T)          Wall Secs Max  Thread   60 3.505897e+01 1.035993e+09 2.347600e+02 2.955000e+01 2.960000e+02
+updateblk (T)          Wall Secs Min  Thread   40 3.669829e+01 1.035993e+09 2.251600e+02 2.823000e+01 2.960000e+02
+
+volcal3d (T)               Aggregate          N/A 2.747591e+04 7.572360e+11 1.377891e+04 1.727790e+03 1.133440e+05
+volcal3d (T)                 Average          N/A 4.293110e+02 1.183181e+10 2.152955e+02 2.699672e+01 1.771000e+03
+volcal3d (T)           Wall Secs Max  Thread   56 4.293110e+02 1.183181e+10 2.155800e+02 2.756000e+01 1.771000e+03
+volcal3d (T)           Wall Secs Min  Thread   32 4.451397e+02 1.183181e+10 2.149100e+02 2.658000e+01 1.771000e+03
+
+MPI_Isend (G)              Aggregate          N/A 4.466300e-02 1.120148e+06 9.883600e+02 1.215700e+02 1.120148e+06
+MPI_Isend (G)                Average          N/A 5.582875e-03 1.400185e+05 1.235450e+02 1.519625e+01 1.400185e+05
+MPI_Isend (G)          Wall Secs Max    Proc    4 6.978589e-03 1.750230e+05 2.082900e+02 2.508000e+01 1.750230e+05
+MPI_Isend (G)          Wall Secs Min    Proc    7 2.500333e-02 1.050140e+05 3.342000e+01 4.200000e+00 1.050140e+05
+
+FluxLimiterDriver (T)      Aggregate          N/A 1.863674e+04 3.842896e+11 1.033448e+04 1.295110e+03 3.776000e+04
+FluxLimiterDriver (T)        Average          N/A 2.911991e+02 6.004525e+09 1.614763e+02 2.023609e+01 5.900000e+02
+FluxLimiterDriver (T)  Wall Secs Max  Thread   30 2.911991e+02 6.004525e+09 1.631600e+02 2.062000e+01 5.900000e+02
+FluxLimiterDriver (T)  Wall Secs Min  Thread   23 3.014320e+02 6.004525e+09 1.599000e+02 1.992000e+01 5.900000e+02
+
+DivgradDriver (T)          Aggregate          N/A 1.904620e+04 3.915900e+11 1.021596e+04 1.283370e+03 3.776000e+04
+DivgradDriver (T)            Average          N/A 2.975969e+02 6.118593e+09 1.596244e+02 2.005266e+01 5.900000e+02
+DivgradDriver (T)      Wall Secs Max  Thread   40 2.975969e+02 6.118593e+09 1.626900e+02 2.056000e+01 5.900000e+02
+DivgradDriver (T)      Wall Secs Min  Thread   48 3.110622e+02 6.118593e+09 1.581800e+02 1.967000e+01 5.900000e+02
+
+ChemPotCalc (T)            Aggregate          N/A 2.571893e+03 3.953000e+10 7.682540e+03 9.643800e+02 3.776000e+04
+ChemPotCalc (T)              Average          N/A 4.018583e+01 6.176562e+08 1.200397e+02 1.506844e+01 5.900000e+02
+ChemPotCalc (T)        Wall Secs Max  Thread    8 4.018583e+01 6.176562e+08 1.215800e+02 1.537000e+01 5.900000e+02
+ChemPotCalc (T)        Wall Secs Min  Thread   57 4.176175e+01 6.176562e+08 1.191600e+02 1.479000e+01 5.900000e+02
+
+ChemPot_fm1 (T)            Aggregate          N/A 2.687288e+03 3.953000e+10 7.314380e+03 9.189500e+02 3.776000e+04
+ChemPot_fm1 (T)              Average          N/A 4.198887e+01 6.176562e+08 1.142872e+02 1.435859e+01 5.900000e+02
+ChemPot_fm1 (T)        Wall Secs Max  Thread    8 4.198887e+01 6.176562e+08 1.157500e+02 1.471000e+01 5.900000e+02
+ChemPot_fm1 (T)        Wall Secs Min  Thread   57 4.377436e+01 6.176562e+08 1.133500e+02 1.411000e+01 5.900000e+02
+
+EosDriver (G)              Aggregate          N/A 1.529663e+02 2.065045e+09 8.439800e+02 1.063600e+02 2.360000e+03
+EosDriver (G)                Average          N/A 1.912079e+01 2.581306e+08 1.054975e+02 1.329500e+01 2.950000e+02
+EosDriver (G)          Wall Secs Max    Proc    3 1.912079e+01 2.581306e+08 1.066500e+02 1.350000e+01 2.950000e+02
+EosDriver (G)          Wall Secs Min    Proc    4 1.961479e+01 2.581306e+08 1.050900e+02 1.316000e+01 2.950000e+02
+
+norml2 (T)                 Aggregate          N/A 9.406560e+03 1.254835e+11 6.051700e+03 7.594100e+02 3.001280e+06
+norml2 (T)                   Average          N/A 1.469775e+02 1.960680e+09 9.455781e+01 1.186578e+01 4.689500e+04
+norml2 (T)             Wall Secs Max  Thread   46 1.469775e+02 1.960680e+09 9.913000e+01 1.334000e+01 4.689500e+04
+norml2 (T)             Wall Secs Min  Thread   24 2.520154e+02 1.960680e+09 6.901000e+01 7.780000e+00 4.689500e+04
+
+diagonal (T)               Aggregate          N/A 4.270726e+03 5.030915e+10 5.299010e+03 6.660900e+02 3.776000e+04
+diagonal (T)                 Average          N/A 6.673009e+01 7.860805e+08 8.279703e+01 1.040766e+01 5.900000e+02
+diagonal (T)           Wall Secs Max  Thread   24 6.839908e+01 8.057412e+08 9.417000e+01 1.178000e+01 5.900000e+02
+diagonal (T)           Wall Secs Min  Thread   34 8.177090e+01 7.784590e+08 7.827000e+01 9.520000e+00 5.900000e+02
+
+HydroDtControls (T)        Aggregate          N/A 4.448954e+03 5.227521e+10 5.875130e+03 7.369200e+02 1.894400e+04
+HydroDtControls (T)          Average          N/A 6.951491e+01 8.168002e+08 9.179891e+01 1.151437e+01 2.960000e+02
+HydroDtControls (T)    Wall Secs Max  Thread    1 6.951491e+01 8.168002e+08 9.289000e+01 1.175000e+01 2.960000e+02
+HydroDtControls (T)    Wall Secs Min  Thread   56 7.234722e+01 8.168002e+08 9.016000e+01 1.129000e+01 2.960000e+02
+
+tblkinit (G)               Aggregate          N/A 0.000000e+00 0.000000e+00 6.498100e+02 8.169000e+01 4.720000e+03
+tblkinit (G)                 Average          N/A 0.000000e+00 0.000000e+00 8.122625e+01 1.021125e+01 5.900000e+02
+tblkinit (G)           Wall Secs Max    Proc    3 0.000000e+00 0.000000e+00 8.140000e+01 1.039000e+01 5.900000e+02
+tblkinit (G)           Wall Secs Min    Proc    4 0.000000e+00 0.000000e+00 8.035000e+01 9.990000e+00 5.900000e+02
+
+getspeed2 (T)              Aggregate          N/A 1.365601e+03 1.188073e+10 4.353620e+03 5.452700e+02 1.894400e+04
+getspeed2 (T)                Average          N/A 2.133752e+01 1.856364e+08 6.802531e+01 8.519844e+00 2.960000e+02
+getspeed2 (T)          Wall Secs Max  Thread    7 2.133752e+01 1.856364e+08 6.843000e+01 8.700000e+00 2.960000e+02
+getspeed2 (T)          Wall Secs Min  Thread   24 2.209957e+01 1.856364e+08 6.773000e+01 8.400000e+00 2.960000e+02
+
+MatrixSolvePC3D (T)        Aggregate          N/A 2.724654e+03 2.302333e+10 3.982250e+03 5.062100e+02 3.776000e+04
+MatrixSolvePC3D (T)          Average          N/A 4.257272e+01 3.597395e+08 6.222266e+01 7.909531e+00 5.900000e+02
+MatrixSolvePC3D (T)    Wall Secs Max  Thread   32 4.257272e+01 3.597395e+08 6.402000e+01 8.450000e+00 5.900000e+02
+MatrixSolvePC3D (T)    Wall Secs Min  Thread   59 4.696338e+01 3.597395e+08 6.217000e+01 7.660000e+00 5.900000e+02
+
+divgradpert3d (T)          Aggregate          N/A 1.490551e+04 1.187969e+11 3.708270e+03 4.642900e+02 3.776000e+04
+divgradpert3d (T)            Average          N/A 2.328985e+02 1.856201e+09 5.794172e+01 7.254531e+00 5.900000e+02
+divgradpert3d (T)      Wall Secs Max  Thread   40 2.328985e+02 1.856201e+09 6.238000e+01 7.970000e+00 5.900000e+02
+divgradpert3d (T)      Wall Secs Min  Thread   26 2.629180e+02 1.856201e+09 5.722000e+01 7.060000e+00 5.900000e+02
+
+FluxLimiterPert3d (T)      Aggregate          N/A 1.429443e+04 1.114965e+11 3.803960e+03 4.760900e+02 3.776000e+04
+FluxLimiterPert3d (T)        Average          N/A 2.233504e+02 1.742133e+09 5.943688e+01 7.438906e+00 5.900000e+02
+FluxLimiterPert3d (T)  Wall Secs Max  Thread   32 2.233504e+02 1.742133e+09 6.021000e+01 7.800000e+00 5.900000e+02
+FluxLimiterPert3d (T)  Wall Secs Min  Thread   18 2.446816e+02 1.742133e+09 5.904000e+01 7.120000e+00 5.900000e+02
+
+MPI_Waitall (G)            Aggregate          N/A 3.576104e-02 2.753600e+05 2.583100e+02 3.209000e+01 2.753600e+05
+MPI_Waitall (G)              Average          N/A 4.470130e-03 3.442000e+04 3.228875e+01 4.011250e+00 3.442000e+04
+MPI_Waitall (G)        Wall Secs Max    Proc    1 4.470130e-03 3.442000e+04 6.276000e+01 7.700000e+00 3.442000e+04
+MPI_Waitall (G)        Wall Secs Min    Proc    6 2.689062e-02 3.442000e+04 9.770000e+00 1.280000e+00 3.442000e+04
+
+retransfer (T)             Aggregate          N/A 2.711569e+03 1.711000e+10 3.044700e+03 3.818800e+02 3.776000e+04
+retransfer (T)               Average          N/A 4.236826e+01 2.673438e+08 4.757344e+01 5.966875e+00 5.900000e+02
+retransfer (T)         Wall Secs Max  Thread    8 4.236826e+01 2.673438e+08 4.988000e+01 6.310000e+00 5.900000e+02
+retransfer (T)         Wall Secs Min  Thread   26 4.657557e+01 2.673438e+08 4.630000e+01 5.740000e+00 5.900000e+02
+
+opac2t (T)                 Aggregate          N/A 1.132800e+03 7.080000e+09 3.023050e+03 3.811700e+02 2.265600e+05
+opac2t (T)                   Average          N/A 1.770000e+01 1.106250e+08 4.723516e+01 5.955781e+00 3.540000e+03
+opac2t (T)             Wall Secs Max  Thread   17 1.770000e+01 1.106250e+08 4.673000e+01 6.250000e+00 3.540000e+03
+opac2t (T)             Wall Secs Min  Thread   63 1.978980e+01 1.106250e+08 4.668000e+01 5.590000e+00 3.540000e+03
+
+radinit (G)                Aggregate          N/A 1.273527e+03 7.080810e+09 3.486600e+02 4.359000e+01 4.720000e+03
+radinit (G)                  Average          N/A 1.591909e+02 8.851012e+08 4.358250e+01 5.448750e+00 5.900000e+02
+radinit (G)            Wall Secs Max    Proc    7 1.588970e+02 8.834671e+08 4.435000e+01 5.560000e+00 5.900000e+02
+radinit (G)            Wall Secs Min    Proc    4 1.688484e+02 8.830769e+08 4.278000e+01 5.230000e+00 5.900000e+02
+
+geteos (T)                 Aggregate          N/A 9.598805e+02 4.137085e+09 1.901400e+03 2.453300e+02 3.782400e+04
+geteos (T)                   Average          N/A 1.499813e+01 6.464195e+07 2.970937e+01 3.833281e+00 5.910000e+02
+geteos (T)             Wall Secs Max  Thread   29 1.499796e+01 6.464122e+07 3.241000e+01 4.310000e+00 5.910000e+02
+geteos (T)             Wall Secs Min  Thread   55 1.884584e+01 6.464122e+07 2.711000e+01 3.430000e+00 5.910000e+02
+
+regenrgy3d (T)             Aggregate          N/A 5.489649e+03 1.998232e+10 1.333250e+03 1.675100e+02 1.894400e+04
+regenrgy3d (T)               Average          N/A 8.577576e+01 3.122238e+08 2.083203e+01 2.617344e+00 2.960000e+02
+regenrgy3d (T)         Wall Secs Max  Thread    0 8.577576e+01 3.122238e+08 2.799000e+01 3.640000e+00 2.960000e+02
+regenrgy3d (T)         Wall Secs Min  Thread   11 1.274383e+02 3.122238e+08 2.048000e+01 2.450000e+00 2.960000e+02
+
+MPI_Irecv (G)              Aggregate          N/A 3.648691e-01 1.120148e+06 1.687700e+02 2.063000e+01 1.120148e+06
+MPI_Irecv (G)                Average          N/A 4.560863e-02 1.400185e+05 2.109625e+01 2.578750e+00 1.400185e+05
+MPI_Irecv (G)          Wall Secs Max    Proc    3 5.701075e-02 1.750230e+05 2.449000e+01 3.070000e+00 1.750230e+05
+MPI_Irecv (G)          Wall Secs Min    Proc    7 4.976967e-02 1.050140e+05 1.653000e+01 2.110000e+00 1.050140e+05
+
+MPI_Wait (G)               Aggregate          N/A 6.169935e-03 1.888000e+04 1.304800e+02 1.639000e+01 1.888000e+04
+MPI_Wait (G)                 Average          N/A 7.712418e-04 2.360000e+03 1.631000e+01 2.048750e+00 2.360000e+03
+MPI_Wait (G)           Wall Secs Max    Proc    0 5.784314e-04 1.770000e+03 2.437000e+01 3.060000e+00 1.770000e+03
+MPI_Wait (G)           Wall Secs Min    Proc    5 1.903226e-03 2.950000e+03 1.189000e+01 1.550000e+00 2.950000e+03
+
+CalcDtTemp (T)             Aggregate          N/A 2.868056e+03 8.260000e+09 1.276560e+03 1.608500e+02 1.888000e+04
+CalcDtTemp (T)               Average          N/A 4.481337e+01 1.290625e+08 1.994625e+01 2.513281e+00 2.950000e+02
+CalcDtTemp (T)         Wall Secs Max  Thread   28 4.481337e+01 1.290625e+08 2.263000e+01 2.880000e+00 2.950000e+02
+CalcDtTemp (T)         Wall Secs Min  Thread   40 5.611413e+01 1.290625e+08 1.883000e+01 2.300000e+00 2.950000e+02
+
+KrAnalytic_fm1 (T)         Aggregate          N/A 3.251969e+03 8.260000e+09 1.103660e+03 1.399200e+02 2.643200e+05
+KrAnalytic_fm1 (T)           Average          N/A 5.081201e+01 1.290625e+08 1.724469e+01 2.186250e+00 4.130000e+03
+KrAnalytic_fm1 (T)     Wall Secs Max  Thread   17 5.081201e+01 1.290625e+08 1.704000e+01 2.540000e+00 4.130000e+03
+KrAnalytic_fm1 (T)     Wall Secs Min  Thread   26 7.333097e+01 1.290625e+08 1.711000e+01 1.760000e+00 4.130000e+03
+
+LengthScale (T)            Aggregate          N/A 1.877862e+04 3.999846e+10 1.032120e+03 1.276400e+02 1.894400e+04
+LengthScale (T)              Average          N/A 2.934159e+02 6.249759e+08 1.612688e+01 1.994375e+00 2.960000e+02
+LengthScale (T)        Wall Secs Max  Thread   63 2.934159e+02 6.249759e+08 1.627000e+01 2.130000e+00 2.960000e+02
+LengthScale (T)        Wall Secs Min  Thread   13 3.396608e+02 6.249759e+08 1.622000e+01 1.840000e+00 2.960000e+02
+
+geteosnomix (T)            Aggregate          N/A 1.680587e+03 3.546038e+09 9.138800e+02 1.201900e+02 3.782400e+04
+geteosnomix (T)              Average          N/A 2.625917e+01 5.540684e+07 1.427937e+01 1.877969e+00 5.910000e+02
+geteosnomix (T)        Wall Secs Max  Thread    9 2.625917e+01 5.540684e+07 1.446000e+01 2.110000e+00 5.910000e+02
+geteosnomix (T)        Wall Secs Min  Thread   24 3.357990e+01 5.540684e+07 1.439000e+01 1.650000e+00 5.910000e+02
+
+eosfm5 (T)                 Aggregate          N/A 1.547120e+03 2.955000e+09 8.242900e+02 1.092700e+02 3.782400e+04
+eosfm5 (T)                   Average          N/A 2.417376e+01 4.617188e+07 1.287953e+01 1.707344e+00 5.910000e+02
+eosfm5 (T)             Wall Secs Max  Thread   20 2.417376e+01 4.617188e+07 1.415000e+01 1.910000e+00 5.910000e+02
+eosfm5 (T)             Wall Secs Min  Thread   57 3.017770e+01 4.617188e+07 1.303000e+01 1.530000e+00 5.910000e+02
+
+planck_opacity (T)         Aggregate          N/A 1.456790e+03 2.360000e+09 6.684800e+02 8.673000e+01 3.776000e+04
+planck_opacity (T)           Average          N/A 2.276235e+01 3.687500e+07 1.044500e+01 1.355156e+00 5.900000e+02
+planck_opacity (T)     Wall Secs Max  Thread   24 2.276235e+01 3.687500e+07 1.186000e+01 1.620000e+00 5.900000e+02
+planck_opacity (T)     Wall Secs Min  Thread   59 3.292411e+01 3.687500e+07 1.030000e+01 1.120000e+00 5.900000e+02
+
+zstarcal (T)               Aggregate          N/A 0.000000e+00 0.000000e+00 6.869200e+02 8.335000e+01 3.782400e+04
+zstarcal (T)                 Average          N/A 0.000000e+00 0.000000e+00 1.073312e+01 1.302344e+00 5.910000e+02
+zstarcal (T)           Wall Secs Max  Thread   57 0.000000e+00 0.000000e+00 1.072000e+01 1.530000e+00 5.910000e+02
+zstarcal (T)           Wall Secs Min  Thread   34 0.000000e+00 0.000000e+00 1.110000e+01 1.110000e+00 5.910000e+02
+
+CalcDtSource (T)           Aggregate          N/A 2.185185e+03 2.360000e+09 4.789400e+02 6.134000e+01 1.888000e+04
+CalcDtSource (T)             Average          N/A 3.414352e+01 3.687500e+07 7.483437e+00 9.584375e-01 2.950000e+02
+CalcDtSource (T)       Wall Secs Max  Thread   24 3.414352e+01 3.687500e+07 7.590000e+00 1.080000e+00 2.950000e+02
+CalcDtSource (T)       Wall Secs Min  Thread   34 4.143258e+01 3.687500e+07 7.450000e+00 8.900000e-01 2.950000e+02
+
+rsrcbc3 (T)                Aggregate          N/A 3.690505e+02 3.579790e+08 1.053500e+02 1.321000e+01 9.440000e+03
+rsrcbc3 (T)                  Average          N/A 2.306565e+01 2.237368e+07 6.584375e+00 8.256250e-01 5.900000e+02
+rsrcbc3 (T)            Wall Secs Max  Thread   20 2.394427e+01 2.322594e+07 6.770000e+00 9.700000e-01 5.900000e+02
+rsrcbc3 (T)            Wall Secs Min  Thread   12 3.076766e+01 2.153736e+07 6.370000e+00 7.000000e-01 5.900000e+02
+
+DtTempInitialze (G)        Aggregate          N/A 3.189189e-03 2.360000e+03 4.495000e+01 5.410000e+00 2.360000e+03
+DtTempInitialze (G)          Average          N/A 3.986486e-04 2.950000e+02 5.618750e+00 6.762500e-01 2.950000e+02
+DtTempInitialze (G)    Wall Secs Max    Proc    4 3.986486e-04 2.950000e+02 5.630000e+00 7.400000e-01 2.950000e+02
+DtTempInitialze (G)    Wall Secs Min    Proc    3 5.000000e-04 2.950000e+02 5.760000e+00 5.900000e-01 2.950000e+02
+
+rdiffbc3 (T)               Aggregate          N/A 1.909309e+02 1.298330e+08 1.468400e+02 1.873000e+01 3.304000e+04
+rdiffbc3 (T)                 Average          N/A 3.409481e+00 2.318447e+06 2.622143e+00 3.344643e-01 5.900000e+02
+rdiffbc3 (T)           Wall Secs Max  Thread   59 5.965941e+00 4.056840e+06 4.500000e+00 6.800000e-01 5.900000e+02
+rdiffbc3 (T)           Wall Secs Min  Thread   57 2.950000e-02 5.900000e+02 3.500000e-01 2.000000e-02 5.900000e+02
+
+MPI_Init (G)               Aggregate          N/A 1.702128e-05 8.000000e+00 2.629000e+01 3.640000e+00 8.000000e+00
+MPI_Init (G)                 Average          N/A 2.127660e-06 1.000000e+00 3.286250e+00 4.550000e-01 1.000000e+00
+MPI_Init (G)           Wall Secs Max    Proc    0 2.127660e-06 1.000000e+00 3.400000e+00 4.700000e-01 1.000000e+00
+MPI_Init (G)           Wall Secs Min    Proc    2 2.439024e-06 1.000000e+00 2.930000e+00 4.100000e-01 1.000000e+00
+
+DensityEnergyMin (T)       Aggregate          N/A 0.000000e+00 0.000000e+00 1.522100e+02 1.930000e+01 3.782400e+04
+DensityEnergyMin (T)         Average          N/A 0.000000e+00 0.000000e+00 2.378281e+00 3.015625e-01 5.910000e+02
+DensityEnergyMin (T)   Wall Secs Max  Thread   35 0.000000e+00 0.000000e+00 2.410000e+00 4.400000e-01 5.910000e+02
+DensityEnergyMin (T)   Wall Secs Min  Thread    9 0.000000e+00 0.000000e+00 2.410000e+00 2.100000e-01 5.910000e+02
+
+stoplot (G)                Aggregate          N/A 1.646512e-02 7.080000e+03 2.459000e+01 2.850000e+00 2.360000e+03
+stoplot (G)                  Average          N/A 2.058140e-03 8.850000e+02 3.073750e+00 3.562500e-01 2.950000e+02
+stoplot (G)            Wall Secs Max    Proc    0 2.058140e-03 8.850000e+02 3.200000e+00 4.300000e-01 2.950000e+02
+stoplot (G)            Wall Secs Min    Proc    3 2.950000e-03 8.850000e+02 2.960000e+00 3.000000e-01 2.950000e+02
+
+KpAnalytic_fm1 (T)         Aggregate          N/A 1.404762e+03 5.900000e+08 1.379100e+02 1.749000e+01 3.776000e+04
+KpAnalytic_fm1 (T)           Average          N/A 2.194940e+01 9.218750e+06 2.154844e+00 2.732813e-01 5.900000e+02
+KpAnalytic_fm1 (T)     Wall Secs Max  Thread   49 2.194940e+01 9.218750e+06 2.040000e+00 4.200000e-01 5.900000e+02
+KpAnalytic_fm1 (T)     Wall Secs Min  Thread   31 6.584821e+01 9.218750e+06 1.940000e+00 1.400000e-01 5.900000e+02
+
+InitCycle (G)              Aggregate          N/A 6.378378e-03 2.360000e+03 1.921000e+01 2.630000e+00 2.360000e+03
+InitCycle (G)                Average          N/A 7.972973e-04 2.950000e+02 2.401250e+00 3.287500e-01 2.950000e+02
+InitCycle (G)          Wall Secs Max    Proc    2 7.972973e-04 2.950000e+02 2.410000e+00 3.700000e-01 2.950000e+02
+InitCycle (G)          Wall Secs Min    Proc    0 9.516129e-04 2.950000e+02 2.430000e+00 3.100000e-01 2.950000e+02
+
+etaminchk (T)              Aggregate          N/A 2.462500e+03 5.910000e+08 7.176000e+01 8.880000e+00 3.782400e+04
+etaminchk (T)                Average          N/A 3.847656e+01 9.234375e+06 1.121250e+00 1.387500e-01 5.910000e+02
+etaminchk (T)          Wall Secs Max  Thread   61 3.847656e+01 9.234375e+06 1.200000e+00 2.400000e-01 5.910000e+02
+etaminchk (T)          Wall Secs Min  Thread   24 1.846875e+02 9.234375e+06 1.180000e+00 5.000000e-02 5.910000e+02
+
+pminchk (T)                Aggregate          N/A 2.686364e+03 5.910000e+08 6.955000e+01 8.820000e+00 3.782400e+04
+pminchk (T)                  Average          N/A 4.197443e+01 9.234375e+06 1.086719e+00 1.378125e-01 5.910000e+02
+pminchk (T)            Wall Secs Max  Thread   25 4.197443e+01 9.234375e+06 1.100000e+00 2.200000e-01 5.910000e+02
+pminchk (T)            Wall Secs Min  Thread   22 1.154297e+02 9.234375e+06 1.120000e+00 8.000000e-02 5.910000e+02
+
+MPI_Bcast (G)              Aggregate          N/A 1.946667e-02 4.088000e+03 8.150000e+00 1.030000e+00 4.088000e+03
+MPI_Bcast (G)                Average          N/A 2.433333e-03 5.110000e+02 1.018750e+00 1.287500e-01 5.110000e+02
+MPI_Bcast (G)          Wall Secs Max    Proc    7 2.433333e-03 5.110000e+02 1.550000e+00 2.100000e-01 5.110000e+02
+MPI_Bcast (G)          Wall Secs Min    Proc    0 5.110000e-02 5.110000e+02 1.900000e-01 1.000000e-02 5.110000e+02
+
+refzq (T)                  Aggregate          N/A 3.146667e-01 3.776000e+04 3.655000e+01 4.060000e+00 3.776000e+04
+refzq (T)                    Average          N/A 4.916667e-03 5.900000e+02 5.710938e-01 6.343750e-02 5.900000e+02
+refzq (T)              Wall Secs Max  Thread    1 4.916667e-03 5.900000e+02 6.800000e-01 1.200000e-01 5.900000e+02
+refzq (T)              Wall Secs Min  Thread   58 5.900000e-02 5.900000e+02 4.200000e-01 1.000000e-02 5.900000e+02
+
+RadiationSourceBC_3d (T)   Aggregate          N/A 0.000000e+00 0.000000e+00 9.810000e+00 1.190000e+00 3.776000e+04
+RadiationSourceBC_3d (T)     Average          N/A 0.000000e+00 0.000000e+00 1.532813e-01 1.859375e-02 5.900000e+02
+RadiationSourceBC_3d ( Wall Secs Max  Thread   49 0.000000e+00 0.000000e+00 2.600000e-01 6.000000e-02 5.900000e+02
+RadiationSourceBC_3d ( Wall Secs Min  Thread    3 0.000000e+00 0.000000e+00 2.200000e-01 1.000000e-02 5.900000e+02
+
+erate (T)                  Aggregate          N/A 3.776000e-01 1.888000e+04 1.116000e+01 1.460000e+00 1.888000e+04
+erate (T)                    Average          N/A 5.900000e-03 2.950000e+02 1.743750e-01 2.281250e-02 2.950000e+02
+erate (T)              Wall Secs Max  Thread   10 5.900000e-03 2.950000e+02 2.300000e-01 5.000000e-02 2.950000e+02
+erate (T)              Wall Secs Min  Thread    9 2.950000e-02 2.950000e+02 2.200000e-01 1.000000e-02 2.950000e+02
+
+PostSubcycle (G)           Aggregate          N/A 7.866667e-02 2.360000e+03 9.600000e-01 1.100000e-01 2.360000e+03
+PostSubcycle (G)             Average          N/A 9.833333e-03 2.950000e+02 1.200000e-01 1.375000e-02 2.950000e+02
+PostSubcycle (G)       Wall Secs Max    Proc    1 9.833333e-03 2.950000e+02 1.600000e-01 3.000000e-02 2.950000e+02
+PostSubcycle (G)       Wall Secs Min    Proc    0 2.950000e-02 2.950000e+02 8.000000e-02 1.000000e-02 2.950000e+02
+
+dsrc (T)                   Aggregate          N/A 3.152000e-01 9.456000e+03 1.350000e+00 1.300000e-01 9.456000e+03
+dsrc (T)                     Average          N/A 1.970000e-02 5.910000e+02 8.437500e-02 8.125000e-03 5.910000e+02
+dsrc (T)               Wall Secs Max  Thread   48 1.970000e-02 5.910000e+02 1.400000e-01 3.000000e-02 5.910000e+02
+dsrc (T)               Wall Secs Min  Thread    0 5.910000e-02 5.910000e+02 9.000000e-02 1.000000e-02 5.910000e+02
+
+esrc (T)                   Aggregate          N/A 3.152000e-01 9.456000e+03 8.900000e-01 8.000000e-02 9.456000e+03
+esrc (T)                     Average          N/A 1.970000e-02 5.910000e+02 5.562500e-02 5.000000e-03 5.910000e+02
+esrc (T)               Wall Secs Max  Thread   28 1.970000e-02 5.910000e+02 3.000000e-02 3.000000e-02 5.910000e+02
+esrc (T)               Wall Secs Min  Thread   36 5.910000e-02 5.910000e+02 6.000000e-02 1.000000e-02 5.910000e+02
+
+tmsrc (T)                  Aggregate          N/A 6.304000e-01 1.891200e+04 1.720000e+00 1.800000e-01 1.891200e+04
+tmsrc (T)                    Average          N/A 3.940000e-02 1.182000e+03 1.075000e-01 1.125000e-02 1.182000e+03
+tmsrc (T)              Wall Secs Max  Thread   16 3.940000e-02 1.182000e+03 8.000000e-02 3.000000e-02 1.182000e+03
+tmsrc (T)              Wall Secs Min  Thread    0 1.182000e-01 1.182000e+03 1.400000e-01 1.000000e-02 1.182000e+03
+
+MPI_Gather (G)             Aggregate          N/A 1.480000e-02 2.960000e+02 2.600000e-01 7.000000e-02 2.960000e+02
+MPI_Gather (G)               Average          N/A 1.850000e-03 3.700000e+01 3.250000e-02 8.750000e-03 3.700000e+01
+MPI_Gather (G)         Wall Secs Max    Proc    4 1.850000e-03 3.700000e+01 8.000000e-02 2.000000e-02 3.700000e+01
+MPI_Gather (G)         Wall Secs Min    Proc    0 3.700000e-03 3.700000e+01 6.000000e-02 1.000000e-02 3.700000e+01
+
+PreSubcycle (G)            Aggregate          N/A 1.180000e-01 2.360000e+03 8.700000e-01 8.000000e-02 2.360000e+03
+PreSubcycle (G)              Average          N/A 1.475000e-02 2.950000e+02 1.087500e-01 1.000000e-02 2.950000e+02
+PreSubcycle (G)        Wall Secs Max    Proc    3 1.475000e-02 2.950000e+02 1.100000e-01 2.000000e-02 2.950000e+02
+PreSubcycle (G)        Wall Secs Min    Proc    2 2.950000e-02 2.950000e+02 1.100000e-01 1.000000e-02 2.950000e+02
+
+psrc (T)                   Aggregate          N/A 4.728000e-01 9.456000e+03 1.240000e+00 1.200000e-01 9.456000e+03
+psrc (T)                     Average          N/A 2.955000e-02 5.910000e+02 7.750000e-02 7.500000e-03 5.910000e+02
+psrc (T)               Wall Secs Max  Thread   16 2.955000e-02 5.910000e+02 7.000000e-02 2.000000e-02 5.910000e+02
+psrc (T)               Wall Secs Min  Thread   20 5.910000e-02 5.910000e+02 1.000000e-01 1.000000e-02 5.910000e+02
+
+MPI_Send (G)               Aggregate          N/A 1.200000e-02 1.200000e+02 6.000000e-02 2.000000e-02 1.200000e+02
+MPI_Send (G)                 Average          N/A 1.500000e-03 1.500000e+01 7.500000e-03 2.500000e-03 1.500000e+01
+MPI_Send (G)           Wall Secs Max    Proc    4 1.700000e-03 1.700000e+01 1.000000e-02 1.000000e-02 1.700000e+01
+MPI_Send (G)           Wall Secs Min    Proc    4 1.700000e-03 1.700000e+01 1.000000e-02 1.000000e-02 1.700000e+01
+
+getemat (T)                Aggregate          N/A 1.280000e-02 1.280000e+02 1.410000e+00 1.900000e-01 6.400000e+01
+getemat (T)                  Average          N/A 2.000000e-04 2.000000e+00 2.203125e-02 2.968750e-03 1.000000e+00
+getemat (T)            Wall Secs Max  Thread    0 2.000000e-04 2.000000e+00 4.000000e-02 1.000000e-02 1.000000e+00
+getemat (T)            Wall Secs Min  Thread    0 2.000000e-04 2.000000e+00 4.000000e-02 1.000000e-02 1.000000e+00
+
+getematnomix (T)           Aggregate          N/A 6.400000e-03 6.400000e+01 4.000000e-01 5.000000e-02 6.400000e+01
+getematnomix (T)             Average          N/A 1.000000e-04 1.000000e+00 6.250000e-03 7.812500e-04 1.000000e+00
+getematnomix (T)       Wall Secs Max  Thread    6 1.000000e-04 1.000000e+00 1.000000e-02 1.000000e-02 1.000000e+00
+getematnomix (T)       Wall Secs Min  Thread    6 1.000000e-04 1.000000e+00 1.000000e-02 1.000000e-02 1.000000e+00
+
+refnd3d (T)                Aggregate          N/A 2.957120e+01 2.957120e+05 3.200000e-01 3.000000e-02 1.280000e+02
+refnd3d (T)                  Average          N/A 4.620500e-01 4.620500e+03 5.000000e-03 4.687500e-04 2.000000e+00
+refnd3d (T)            Wall Secs Max  Thread    4 6.160000e-01 6.160000e+03 1.000000e-02 1.000000e-02 2.000000e+00
+refnd3d (T)            Wall Secs Min  Thread    4 6.160000e-01 6.160000e+03 1.000000e-02 1.000000e-02 2.000000e+00
+
+EosGroup_check (G)         Aggregate          N/A 0.000000e+00 8.000000e+00 1.000000e-02 0.000000e+00 8.000000e+00
+EosGroup_check (G)           Average          N/A 0.000000e+00 1.000000e+00 1.250000e-03 0.000000e+00 1.000000e+00
+EosGroup_check (G)     Wall Secs Max          N/A         ----         ----         ----         ----         ----
+EosGroup_check (G)     Wall Secs Min          N/A         ----         ----         ----         ----         ----
+
+MPI_Comm_group (G)         Aggregate          N/A 0.000000e+00 8.000000e+00 1.000000e-02 0.000000e+00 8.000000e+00
+MPI_Comm_group (G)           Average          N/A 0.000000e+00 1.000000e+00 1.250000e-03 0.000000e+00 1.000000e+00
+MPI_Comm_group (G)     Wall Secs Max          N/A         ----         ----         ----         ----         ----
+MPI_Comm_group (G)     Wall Secs Min          N/A         ----         ----         ----         ----         ----
+
+MPI_Comm_rank (G)          Aggregate          N/A 0.000000e+00 8.000000e+00 1.000000e-02 0.000000e+00 8.000000e+00
+MPI_Comm_rank (G)            Average          N/A 0.000000e+00 1.000000e+00 1.250000e-03 0.000000e+00 1.000000e+00
+MPI_Comm_rank (G)      Wall Secs Max          N/A         ----         ----         ----         ----         ----
+MPI_Comm_rank (G)      Wall Secs Min          N/A         ----         ----         ----         ----         ----
+
+MPI_Comm_size (G)          Aggregate          N/A 0.000000e+00 8.000000e+00 0.000000e+00 0.000000e+00 8.000000e+00
+MPI_Comm_size (G)            Average          N/A 0.000000e+00 1.000000e+00 0.000000e+00 0.000000e+00 1.000000e+00
+MPI_Comm_size (G)      Wall Secs Max          N/A         ----         ----         ----         ----         ----
+MPI_Comm_size (G)      Wall Secs Min          N/A         ----         ----         ----         ----         ----
+
+MPI_Gatherv (G)            Aggregate          N/A 0.000000e+00 3.200000e+01 5.000000e-02 0.000000e+00 3.200000e+01
+MPI_Gatherv (G)              Average          N/A 0.000000e+00 4.000000e+00 6.250000e-03 0.000000e+00 4.000000e+00
+MPI_Gatherv (G)        Wall Secs Max          N/A         ----         ----         ----         ----         ----
+MPI_Gatherv (G)        Wall Secs Min          N/A         ----         ----         ----         ----         ----
+
+MPI_Recv (G)               Aggregate          N/A 0.000000e+00 1.200000e+02 4.000000e-02 0.000000e+00 1.200000e+02
+MPI_Recv (G)                 Average          N/A 0.000000e+00 1.500000e+01 5.000000e-03 0.000000e+00 1.500000e+01
+MPI_Recv (G)           Wall Secs Max          N/A         ----         ----         ----         ----         ----
+MPI_Recv (G)           Wall Secs Min          N/A         ----         ----         ----         ----         ----
+
+Region_check (G)           Aggregate          N/A 0.000000e+00 8.000000e+00 0.000000e+00 0.000000e+00 8.000000e+00
+Region_check (G)             Average          N/A 0.000000e+00 1.000000e+00 0.000000e+00 0.000000e+00 1.000000e+00
+Region_check (G)       Wall Secs Max          N/A         ----         ----         ----         ----         ----
+Region_check (G)       Wall Secs Min          N/A         ----         ----         ----         ----         ----
+
+eos_init (G)               Aggregate          N/A 0.000000e+00 2.400000e+01 1.000000e-02 0.000000e+00 8.000000e+00
+eos_init (G)                 Average          N/A 0.000000e+00 3.000000e+00 1.250000e-03 0.000000e+00 1.000000e+00
+eos_init (G)           Wall Secs Max          N/A         ----         ----         ----         ----         ----
+eos_init (G)           Wall Secs Min          N/A         ----         ----         ----         ----         ----
+
+
+==================================================================================================================

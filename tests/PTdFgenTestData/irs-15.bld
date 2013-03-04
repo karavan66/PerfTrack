@@ -1,0 +1,75 @@
+BuildDataBegin
+ApplicationName=irs
+ApplicationLanguages=['C']
+ApplicationParadigms=['MPI', 'OpenMP']
+ApplicationExeName=../codes_opt/irs
+ApplicationExeSize=5898478
+ApplicationExePerms=0700
+ApplicationExeUID=45528
+ApplicationExeGID=45528
+ApplicationExeTimestamp=2004-09-21T15:04:56
+ApplicationExeUsername=mohror2
+ApplicationExeTrialName=None
+BuildNode=frost067
+BuildOSName=AIX
+BuildOSReleaseVersion=5
+BuildOSReleaseType=1
+BuildEnv=_=/usr/local/gnu/bin/env@@@TMPDIR=/usr/tmp@@@MANPATH=/usr/share/man:/usr/local/man:/usr/local/totalview/man:/usr/lpp/LoadL/full/man:/usr/lpp/ssp/man:/usr/lpp/ssp/perl5/man@@@CSS_ESCALATE_SOFT_SNAP=YES@@@LANG=en_US@@@MP_RESD=yes@@@PAGER=more@@@MP_SHARED_MEMORY=yes@@@MP_EUIDEVICE=csss@@@PATH=/usr/local/gnu/bin:/g/g23/mohror2/irs-1.4_snow/scripts/:/usr/local/bin:/usr/bin:/usr/sbin:/usr/ucb:/usr/bin/X11:/usr/local/totalview/bin:/usr/local/gnu/bin:/usr/local/scripts:/usr/apps/bin:/usr/lpp/ZeroFault/bin:/usr/gapps/bin:/g/g23/mohror2:.@@@ARCHIVE=/usr/bin/ar -g -r -v@@@DCE_SEC_KEYMGMT_WAKEUP_INTERVAL=7200@@@COLUMNS=80@@@AIXTHREAD_MUTEX_DEBUG=OFF@@@GROUP=mohror2@@@RPC_UNSUPPORTED_NETIFS=en0:en1:en2:en3:en4:en5:en6:css0:css1@@@GLOGIN=1@@@MP_COREFILE_FORMAT=core.light@@@AIXTHREAD_RWLOCK_DEBUG=OFF@@@LM_LICENSE_FILE=/usr/local/etc/license.client:/usr/local/etc/license.client.lpr@@@AIXTHREAD_COND_DEBUG=OFF@@@MP_INFOLEVEL=1@@@EDITOR=/usr/bin/vi@@@LOGNAME=mohror2@@@MAIL=/var/spool/mail/mohror2@@@LOCPATH=/usr/lib/nls/loc@@@HOST=frost067.pacific.llnl.gov@@@ARCHIVE_X=/usr/bin/ar x@@@TKG_LMHOST=@blue-dns2.llnl.gov@@@USER=mohror2@@@MP_EUILIB=us@@@AUTHSTATE=compat@@@SHLVL=1@@@MP_LABELIO=yes@@@RPC_RESTRICTED_PORTS=ncadg_ip_udp[10100-12100]:ncacn_ip_tcp[10100-12100]@@@DISPLAY=frost067.pacific.llnl.gov:58.0@@@LC_FASTMSG=true@@@CVSROOT=/g/g23/mohror2/CVS@@@SHELL=/bin/csh@@@CVSUMASK=007@@@ODMDIR=/etc/objrepos@@@HOSTTYPE=rs6000@@@HOST_GRP=blue@@@SSH2_CLIENT=128.115.13.125 60140 134.9.45.1 22@@@TMOUT=86400@@@OSTYPE=aix@@@VENDOR=ibm@@@HOME=/g/g23/mohror2@@@LLAPIERRORMSGS=yes@@@PFTP_CONFIG_FILENAME=/etc/pftp_config@@@MP_SYNC_ON_CONNECT=no@@@TERM=xterm@@@MAILMSG=You have new mail@@@K5MUTE=1@@@PWD=/g/g23/mohror2/build.irs_snow/build@@@MP_CPU_USE=unique@@@MACHTYPE=rs6000@@@MP_HOSTFILE=NULL@@@TZ=PST8PDT@@@TRY_PE_SITE=1@@@MP_COREFILE_SIGTERM=NO@@@AIXTHREAD_SCOPE=S@@@LINES=67@@@ENVIRONMENT=INTERACTIVE@@@SYS_TYPE=aix_5_ll@@@A__z="*TMOUT@@@NLSPATH=/usr/lib/nls/msg/%L/%N:/usr/lib/nls/msg/%L/%N.cat
+BuildDateTime=2004-09-21T14:57:27
+CompilerBegin
+CompilerName=newmpguidec
+CompilerPath=/usr/local/bin/newmpguidec
+CompilerVendor=KAI
+CompilerVersion=0.0_not_set
+mpiScriptCompilerName=guidec
+mpiScriptCompilerPath=/usr/local/tools/guide.assure/guide40.31/bin/guidec
+mpiScriptCompilerFlags=['-v', '-binitfini:poe_remote_main']
+mpiScriptIncludePaths=['-I/usr/lpp/ppe.poe/include', '-I/usr/lpp/ssp/css/include']
+mpiScriptLibraryPaths=['-L/usr/lpp/ppe.poe/lib/threads', '-L/usr/lpp/ppe.poe/lib', '-L/usr/lpp/ppe.poe/lib/ip']
+mpiScriptLibraries=['-lmpi_r', '-lvtd_r', '-llapi_r']
+CompilerCompileFlags=['-Dkaicc', '-c', '-bnoquiet', '-g', '-qlanglvl=ansi', '-qmaxmem=32768', '-O2', '-qtune=604', '-qarch=ppc', '-DUNIX', '-DFUNCTION_TIMERS', '-Daix', '-DCOMMPI', '-DOPENMP', '-bmaxdata:0x70000000']
+CompilerLibraries=['-lctl', '-leos', '-lgen', '-lgenrd', '-lhash', '-lparm', '-lreg', '-lrgst', '-lsrc', '-lsys', '-ltdiff', '-ltimers', '-llag', '-lbndry', '-lblk', '-lcom', '-lcur', '-ldmp', '-lobjects', '-ledits', '-lsilo', '-lc', '-lm']
+CompilerIncludePaths=['-I../..', '-I../../includes', '-I/usr/local/include', '-I/usr/include', '-I/usr/local/apps/include', '-I/usr/lpp/ppe.poe/include', '-I../']
+CompilerLibraryPaths=['-L../lib_opt', '-L../libs', '-L/usr/local/apps/lib']
+CompilerEnd
+LibraryBegin
+LibraryName=liblapi_r.a
+LibraryPath=/usr/lib/liblapi_r.a
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=850108
+LibraryTimestamp=Wed Jun 16 19:02:41 2004
+LibraryDynamic=False
+LibraryEnd
+LibraryBegin
+LibraryName=libvtd_r.a
+LibraryPath=/usr/lpp/ppe.poe/lib/libvtd_r.a
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=5664075
+LibraryTimestamp=Tue Aug 26 19:27:14 2003
+LibraryDynamic=False
+LibraryEnd
+LibraryBegin
+LibraryName=libm.a
+LibraryPath=/usr/lib/libm.a
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=822064
+LibraryTimestamp=Wed Dec 10 10:24:15 2003
+LibraryDynamic=False
+LibraryEnd
+LibraryBegin
+LibraryName=libsilo.a
+LibraryPath=/usr/local/apps/lib/libsilo.a
+LibraryMemberObject=
+LibraryType=
+LibraryVersion=
+LibrarySize=1085901
+LibraryTimestamp=Fri May 24 10:59:22 2002
+LibraryDynamic=False
+LibraryEnd
+BuildDataEnd

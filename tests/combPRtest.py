@@ -12,8 +12,8 @@ def test1(ptds, pf):
     # Assumes that there are executions with names: 
     # /irs-15 /irs-2 /irs-6 /sppm-2  in the database
     # the ptdfs for these are in /pperfdb/development/kathryn/perftrack/local_data/testData/smallBin/reference
-    execs = [("/irs-15","execution",1504),("/irs-2","execution",1414),
-             ("/irs-6","execution",1454),("/sppm-2","execution",66)]
+    execs = [("irs-15","execution",1504),("irs-2","execution",1414),
+             ("irs-6","execution",1454),("sppm-2","execution",66)]
     # yes ancestors, yes descendants, simple only
     for ex,t,pr_count in execs:
         reses = ptds.getPerfResultsByContext([(ex,t)], anc=True, desc=True, \
@@ -30,9 +30,9 @@ def test2(ptds, pf):
     # Assumes that there are executions with names: 
     # /irs-15 /irs-2 /irs-6 /sppm-2  in the database
     # the ptdfs for these are in /pperfdb/development/kathryn/perftrack/local_data/testData/smallBin/reference
-    reses = [("/irs-15","execution",794),("/irs-2","execution",784),
-             ("/irs-6","execution",794),("/sppm-2","execution",0),
-             ("/irs-15/Process-3","execution/process",829)]
+    reses = [("irs-15","execution",794),("irs-2","execution",784),
+             ("irs-6","execution",794),("sppm-2","execution",0),
+             ("irs-15|Process-3","execution|process",829)]
     # yes ancestors, yes descendants, simple only
     for r,t,pr_count in reses:
         results = ptds.getPerfResultsByContext([(r,t)], anc=True, desc=False, \
@@ -50,8 +50,8 @@ def test3(ptds, pf):
     # Assumes that there are executions with names: 
     # /irs-15 /irs-2 /irs-6 /sppm-2  in the database
     # the ptdfs for these are in /pperfdb/development/kathryn/perftrack/local_data/testData/smallBin/reference
-    reses = [("/irs-15","execution",1504),("/irs-2","execution",1414),
-             ("/irs-6","execution",1454),("/sppm-2","execution",66)]
+    reses = [("irs-15","execution",1504),("irs-2","execution",1414),
+             ("irs-6","execution",1454),("sppm-2","execution",66)]
     # yes ancestors, yes descendants, simple only
     for r,t,pr_count in reses:
         results = ptds.getPerfResultsByContext([(r,t)], anc=False, desc=True, \
@@ -68,8 +68,8 @@ def test4(ptds, pf):
     # Assumes that there are executions with names: 
     # /irs-15 /irs-2 /irs-6 /sppm-2  in the database
     # the ptdfs for these are in /pperfdb/development/kathryn/perftrack/local_data/testData/smallBin/reference
-    execs = [("/irs-15","execution",0),("/irs-2","execution",0),
-             ("/irs-6","execution",0),("/sppm-2","execution",0)]
+    execs = [("irs-15","execution",0),("irs-2","execution",0),
+             ("irs-6","execution",0),("sppm-2","execution",0)]
     # yes ancestors, yes descendants, combined only
     for ex,t,pr_count in execs:
         reses = ptds.getPerfResultsByContext([(ex,t)], anc=True, desc=True, \
@@ -89,7 +89,7 @@ def test5(ptds, pf):
 
     # our test data has no labels, so make some
     testLabel = "superExtraFancyLabel"
-    rets = ptds.getPerfResultsByContext([("/sppm-2","execution")],anc=True,desc=True,combined=False)
+    rets = ptds.getPerfResultsByContext([("sppm-2","execution")],anc=True,desc=True,combined=False)
     for id,m,v,u,s,e,f,l,c in rets: 
        sql = "update performance_result set label='%s' where id='%s'" \
            % (testLabel,id)
@@ -97,7 +97,7 @@ def test5(ptds, pf):
     
     # yes ancestors, yes descendants, simple only
     pr_count = 66
-    ex = '/sppm-2'
+    ex = 'sppm-2'
     reses = ptds.getPerfResultsByLabel(testLabel, combined=False)
     if len(reses) != pr_count:
         pf.failed("For %s Got %s, expected %s" %(ex,len(reses),pr_count))
@@ -114,18 +114,18 @@ def test6(ptds, pf):
   
     # get information for one Process
     # the time step metrics are "TSTEP-HYD cpu time" and "TSTEP-HYD wall time"
-    prs = ptds.getPerfResultsByContext([("/sppm-2/Process-0","execution/process")],combined=False)
+    prs = ptds.getPerfResultsByContext([("sppm-2|Process-0","execution|process")],combined=False)
     #print prs
     ts_cpu = []
     ts_wall = []
     for p in prs: 
        id,met,val,units,st,et,fid,lab,comb = p
-       if met == "/TSTEP-HYD cpu time":
+       if met == "TSTEP-HYD cpu time":
           ts_cpu.append(p)
-       elif met == "/TSTEP-HYD wall time":
+       elif met == "TSTEP-HYD wall time":
           ts_wall.append(p)
 
-    expectedContext = "/sppm,/build,/mpiicc-8.0 Version 8.0,/mpiifort-8.0 Version 8.0,/env,/sppm-2/Process-0,/SingleMachineMCR/MCR,/inputdeck,/iq.h,/Linux #1 SMP Mon Sep 27 13:51:13 PDT 2004 2.4.21-p4smp-71.3chaos,/Linux #1 SMP Wed Sep 1 16:37:16 PDT 2004 2.4.21-p4smp-71chaos,/fpp,/m4,/whole execution/10,/whole execution/12,/whole execution/14,/whole execution/16,/whole execution/18,/whole execution/2,/whole execution/20,/whole execution/4,/whole execution/6,/whole execution/8"
+    expectedContext = "sppm,build,mpiicc-8.0 Version 8.0,mpiifort-8.0 Version 8.0,env,sppm-2|Process-0,SingleMachineMCR|MCR,inputdeck,iq.h,Linux #1 SMP Mon Sep 27 13:51:13 PDT 2004 2.4.21-p4smp-71.3chaos,Linux #1 SMP Wed Sep 1 16:37:16 PDT 2004 2.4.21-p4smp-71chaos,fpp,m4,whole execution|10,whole execution|12,whole execution|14,whole execution|16,whole execution|18,whole execution|2,whole execution|20,whole execution|4,whole execution|6,whole execution|8"
     fids = [] 
     for id,met,val,units,st,et,fid,lab,comb in ts_cpu:
         fids.append(fid)
@@ -155,15 +155,15 @@ def test7(ptds, pf):
     # get information for one Process
     # we'll take the results for each time step and average it
     # the time step metrics are "TSTEP-HYD cpu time" and "TSTEP-HYD wall time"
-    prs = ptds.getPerfResultsByContext([("/sppm-2/Process-0","execution/process")],combined=False)
+    prs = ptds.getPerfResultsByContext([("sppm-2|Process-0","execution|process")],combined=False)
     #print prs
     ts_cpu = []
     ts_wall = []
     for p in prs:
        id,met,val,units,st,et,fid,lab,comb = p
-       if met == "/TSTEP-HYD cpu time":
+       if met == "TSTEP-HYD cpu time":
           ts_cpu.append(p)
-       elif met == "/TSTEP-HYD wall time":
+       elif met == "TSTEP-HYD wall time":
           ts_wall.append(p)
 
     newLabel = "sppm-2"
@@ -182,16 +182,16 @@ def test7(ptds, pf):
 
     newVal = totVal/len(ts_cpu)
     newCntxt = ptds.createCombinedContext(fids)
-    ret = ptds.addResource("/Average TSTEP-HYD cpu time", "metric")
+    ret = ptds.addResource("Average TSTEP-HYD cpu time", "metric")
     if ret == 0:
         pf.failed("adding metric 'Average TSTEP-HYD cpu time' failed")
-    cprid = ptds.addCombinedPerfResult(newCntxt, "/Average TSTEP-HYD cpu time", newVal, "seconds", "noValue", "noValue", prIds, label=newLabel)
+    cprid = ptds.addCombinedPerfResult(newCntxt, "Average TSTEP-HYD cpu time", newVal, "seconds", "noValue", "noValue", prIds, label=newLabel)
     if cprid == 0:
         pf.failed("addCombinedPerfResult failed for Average TSTEP-HYD cpu time")
     cpr = ptds.getPerfResultsByLabel(newLabel, combined=True)
     if len(cpr) != 1:
         pf.failed("wrong number of results in db for label=%s for Average TSTEP-HYD cpu time" % newLabel)
-    expectedContext = "/sppm,/build,/mpiicc-8.0 Version 8.0,/mpiifort-8.0 Version 8.0,/env,/sppm-2/Process-0,/SingleMachineMCR/MCR,/inputdeck,/iq.h,/Linux #1 SMP Mon Sep 27 13:51:13 PDT 2004 2.4.21-p4smp-71.3chaos,/Linux #1 SMP Wed Sep 1 16:37:16 PDT 2004 2.4.21-p4smp-71chaos,/fpp,/m4,/whole execution/10,/whole execution/12,/whole execution/14,/whole execution/16,/whole execution/18,/whole execution/2,/whole execution/20,/whole execution/4,/whole execution/6,/whole execution/8"
+    expectedContext = "sppm,build,mpiicc-8.0 Version 8.0,mpiifort-8.0 Version 8.0,env,sppm-2|Process-0,SingleMachineMCR|MCR,inputdeck,iq.h,Linux #1 SMP Mon Sep 27 13:51:13 PDT 2004 2.4.21-p4smp-71.3chaos,Linux #1 SMP Wed Sep 1 16:37:16 PDT 2004 2.4.21-p4smp-71chaos,fpp,m4,whole execution|10,whole execution|12,whole execution|14,whole execution|16,whole execution|18,whole execution|2,whole execution|20,whole execution|4,whole execution|6,whole execution|8"
     # extract the focus id from the combined perf res we made above
     id,met,val,units,st,et,fid,lab,comb = cpr[0]
     # check to see that there's a new focus for our new perf result
@@ -215,10 +215,10 @@ def test7(ptds, pf):
         totVal += val
     newVal = totVal/len(ts_cpu)
     newCntxt = ptds.createCombinedContext(fids)
-    ret = ptds.addResource("/Average TSTEP-HYD wall time", "metric")
+    ret = ptds.addResource("Average TSTEP-HYD wall time", "metric")
     if ret == 0:
        pf.failed("adding metric 'Average TSTEP-HYD wall time' failed")
-    cprid = ptds.addCombinedPerfResult(newCntxt, "/Average TSTEP-HYD wall time", newVal, "seconds", "noValue", "noValue", prIds, label=newLabel)
+    cprid = ptds.addCombinedPerfResult(newCntxt, "Average TSTEP-HYD wall time", newVal, "seconds", "noValue", "noValue", prIds, label=newLabel)
     if cprid == 0:
         pf.failed("addCombinedPerfResult failed for Average TSTEP-HYD wall time")
     ret = ptds.getPerfResultsByLabel(newLabel, combined=True)
@@ -244,10 +244,10 @@ def test7(ptds, pf):
         totVal += val
     newVal = totVal/len(prs)
     newCntxt = ptds.createCombinedContext(fids)
-    ret = ptds.addResource("/Average of TSTEP-HYD wall and cpu time", "metric")
+    ret = ptds.addResource("Average of TSTEP-HYD wall and cpu time", "metric")
     if ret == 0:
        pf.failed("adding metric 'Average of TSTEP-HYD wall and cpu time' failed")
-    cprid = ptds.addCombinedPerfResult(newCntxt, "/Average of TSTEP-HYD wall and cpu time", newVal, "seconds", "noValue", "noValue", prIds, label=newLabel)
+    cprid = ptds.addCombinedPerfResult(newCntxt, "Average of TSTEP-HYD wall and cpu time", newVal, "seconds", "noValue", "noValue", prIds, label=newLabel)
     if cprid == 0:
         pf.failed("addCombinedPerfResult failed for Average of TSTEP-HYD wall and cpu time")
     ret = ptds.getPerfResultsByLabel(newLabel, combined=True)
@@ -294,7 +294,7 @@ def test8(ptds,pf):
     # context (from test7). 
     #we'll delete one, and make sure the context is still there, and then
     # delete the other and make sure the context is gone
-    expectedContext = "/sppm,/build,/mpiicc-8.0 Version 8.0,/mpiifort-8.0 Version 8.0,/env,/sppm-2/Process-0,/SingleMachineMCR/MCR,/inputdeck,/iq.h,/Linux #1 SMP Mon Sep 27 13:51:13 PDT 2004 2.4.21-p4smp-71.3chaos,/Linux #1 SMP Wed Sep 1 16:37:16 PDT 2004 2.4.21-p4smp-71chaos,/fpp,/m4,/whole execution/10,/whole execution/12,/whole execution/14,/whole execution/16,/whole execution/18,/whole execution/2,/whole execution/20,/whole execution/4,/whole execution/6,/whole execution/8"
+    expectedContext = "sppm,build,mpiicc-8.0 Version 8.0,mpiifort-8.0 Version 8.0,env,sppm-2|Process-0,SingleMachineMCR|MCR,inputdeck,iq.h,Linux #1 SMP Mon Sep 27 13:51:13 PDT 2004 2.4.21-p4smp-71.3chaos,Linux #1 SMP Wed Sep 1 16:37:16 PDT 2004 2.4.21-p4smp-71chaos,fpp,m4,whole execution|10,whole execution|12,whole execution|14,whole execution|16,whole execution|18,whole execution|2,whole execution|20,whole execution|4,whole execution|6,whole execution|8"
     if (len(idsNotDeleted) == 0):
         pf.failed("Missing idsNotDeleted")
         return

@@ -1,0 +1,292 @@
+
+******* sPPM Benchmark     *************************
+******* Double Precision   *************************
+******* UNThreaded VERSION *************************
+******* sppm alternate code flags: *****************
+**********    IFSUPR = 0
+**********    IFCVMG = 0
+**********    IFINLN = 0
+**********    IFCRAY = 0
+
+    2 Communication nodes, in a    2   1   1 array
+      Communication node ID is    0 for this node
+    1 threads update a   192 192 192 tile,    7077888. Total
+  Total problem  size =  384 192 192         14155776. Total
+  ddd array      size per node  =      329.696 Mbytes
+  ddd array      size ALL nodes =      659.393 Mbytes
+  /scratch/      size per node  =       54.572 Mbytes
+  /scratch/      size ALL nodes =      109.143 Mbytes
+  Restart file   size per node  =      314.428 Mbytes
+  Restart file   size ALL nodes =      628.856 Mbytes
+  Image   files  size per node  =       20.250 Mbytes
+  Image   files  size ALL nodes =       40.500 Mbytes
+
+****************************************************
+
+
+ Problem parameters:
+    Perturbation amplitudes:  0.050 0.002 0.002 0.035
+    Interface z: 0.60, Shock z: 0.50 Density ratio: 10.00
+
+ TOTAL-HYD cpu, wall, ratio:      0.000     0.000     0.000   Started Calculation        @ 1095131819.056
+==============================================================================
+==================> Begin Double Timestep    2  <=============================
+ DELTA-HYD cpu, wall, ratio:      1.330     1.333     0.998   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      8.640     8.625     1.002   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.630     0.636     0.990   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.660     9.655     1.001   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      0.220     0.222     0.990   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      8.520     8.524     1.000   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      1.170     1.168     1.002   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      9.350     9.359     0.999   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      0.740     0.734     1.009   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.000     9.038     0.996   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      0.890     1.031     0.863   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      6.910     7.740     0.893   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.000     0.000     0.000   Finished Courant
+______________________________________________________________________________
+nstep Time        Dtime       Courant     Kinetic     Heat        Total Energy
+    2 6.00000E-04 3.00000E-04 2.08692E-01 4.01648E+01 7.90764E+01 1.19241E+02
+______________________________________________________________________________
+ DELTA-HYD cpu, wall, ratio:      0.000     0.001     0.000   1000 Loop misc.           
+ TSTEP-HYD cpu, wall, ratio:     57.060    58.066     0.983   Finished   double timestep @ 1095131877.122
+ TOTAL-HYD cpu, wall, ratio:     57.060    58.066     0.983   Cumulative double timestep
+==================> End   Double Timestep    2  <=============================
+==============================================================================
+
+
+==============================================================================
+==================> Begin Double Timestep    4  <=============================
+ DELTA-HYD cpu, wall, ratio:      1.210     1.216     0.995   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      8.680     8.687     0.999   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.630     0.643     0.981   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.700     9.713     0.999   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      0.220     0.225     0.977   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      8.620     8.628     0.999   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      1.170     1.174     0.997   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      9.390     9.405     0.998   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      0.730     0.738     0.990   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.050     9.068     0.998   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      1.030     1.031     0.999   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      7.770     7.772     1.000   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.000     0.000     0.000   Finished Courant
+______________________________________________________________________________
+nstep Time        Dtime       Courant     Kinetic     Heat        Total Energy
+    4 1.20000E-03 3.00000E-04 2.20227E-01 4.02497E+01 7.93098E+01 1.19560E+02
+______________________________________________________________________________
+ DELTA-HYD cpu, wall, ratio:      0.000     0.000     0.000   1000 Loop misc.           
+ TSTEP-HYD cpu, wall, ratio:     58.200    58.300     0.998   Finished   double timestep @ 1095131935.422
+ TOTAL-HYD cpu, wall, ratio:    115.260   116.366     0.990   Cumulative double timestep
+==================> End   Double Timestep    4  <=============================
+==============================================================================
+
+
+==============================================================================
+==================> Begin Double Timestep    6  <=============================
+ DELTA-HYD cpu, wall, ratio:      1.210     1.222     0.990   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      8.720     8.720     1.000   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.640     0.644     0.994   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.750     9.744     1.001   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      0.220     0.225     0.977   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      8.670     8.664     1.001   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      1.180     1.178     1.002   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      9.410     9.412     1.000   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      0.740     0.738     1.003   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.110     9.111     1.000   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      1.040     1.035     1.005   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      7.780     7.806     0.997   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.000     0.000     0.000   Finished Courant
+______________________________________________________________________________
+nstep Time        Dtime       Courant     Kinetic     Heat        Total Energy
+    6 1.80000E-03 3.00000E-04 1.76946E-01 4.03295E+01 7.95484E+01 1.19878E+02
+______________________________________________________________________________
+ DELTA-HYD cpu, wall, ratio:      0.000     0.001     0.000   1000 Loop misc.           
+ TSTEP-HYD cpu, wall, ratio:     58.470    58.501     0.999   Finished   double timestep @ 1095131993.922
+ TOTAL-HYD cpu, wall, ratio:    173.730   174.866     0.994   Cumulative double timestep
+==================> End   Double Timestep    6  <=============================
+==============================================================================
+
+
+==============================================================================
+==================> Begin Double Timestep    8  <=============================
+ DELTA-HYD cpu, wall, ratio:      1.220     1.216     1.003   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      8.760     8.757     1.000   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.650     0.643     1.011   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.760     9.770     0.999   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      0.230     0.226     1.018   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      8.680     8.681     1.000   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      1.170     1.177     0.994   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      9.420     9.448     0.997   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      0.740     0.740     0.999   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.140     9.144     1.000   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      1.040     1.037     1.003   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      7.810     7.836     0.997   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.000     0.000     0.000   Finished Courant
+______________________________________________________________________________
+nstep Time        Dtime       Courant     Kinetic     Heat        Total Energy
+    8 2.40000E-03 3.00000E-04 2.08047E-01 4.04167E+01 7.97796E+01 1.20196E+02
+______________________________________________________________________________
+ DELTA-HYD cpu, wall, ratio:      0.000     0.001     0.000   1000 Loop misc.           
+ TSTEP-HYD cpu, wall, ratio:     58.620    58.675     0.999   Finished   double timestep @ 1095132052.597
+ TOTAL-HYD cpu, wall, ratio:    232.350   233.541     0.995   Cumulative double timestep
+==================> End   Double Timestep    8  <=============================
+==============================================================================
+
+
+==============================================================================
+==================> Begin Double Timestep   10  <=============================
+ DELTA-HYD cpu, wall, ratio:      1.220     1.218     1.002   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      8.780     8.776     1.000   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.640     0.644     0.993   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.780     9.788     0.999   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      0.230     0.226     1.017   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      8.690     8.692     1.000   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      1.180     1.181     0.999   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      9.440     9.444     1.000   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      0.740     0.738     1.002   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.140     9.145     0.999   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      1.040     1.035     1.005   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      7.840     7.843     1.000   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.000     0.000     0.000   Finished Courant
+______________________________________________________________________________
+nstep Time        Dtime       Courant     Kinetic     Heat        Total Energy
+   10 3.00000E-03 3.00000E-04 2.17005E-01 4.04983E+01 8.00163E+01 1.20515E+02
+______________________________________________________________________________
+ DELTA-HYD cpu, wall, ratio:      0.000     0.000     0.000   1000 Loop misc.           
+ TSTEP-HYD cpu, wall, ratio:     58.720    58.733     1.000   Finished   double timestep @ 1095132111.330
+ TOTAL-HYD cpu, wall, ratio:    291.070   292.274     0.996   Cumulative double timestep
+==================> End   Double Timestep   10  <=============================
+==============================================================================
+
+
+==============================================================================
+==================> Begin Double Timestep   12  <=============================
+ DELTA-HYD cpu, wall, ratio:      1.210     1.221     0.991   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      8.780     8.784     1.000   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.650     0.648     1.003   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.800     9.805     0.999   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      0.230     0.226     1.016   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      8.700     8.701     1.000   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      1.180     1.184     0.997   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      9.450     9.471     0.998   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      0.740     0.744     0.995   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.170     9.174     1.000   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      1.020     1.040     0.981   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      7.730     7.867     0.983   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.000     0.000     0.000   Finished Courant
+______________________________________________________________________________
+nstep Time        Dtime       Courant     Kinetic     Heat        Total Energy
+   12 3.60000E-03 3.00000E-04 2.04042E-01 4.05775E+01 8.02555E+01 1.20833E+02
+______________________________________________________________________________
+ DELTA-HYD cpu, wall, ratio:      0.000     0.001     0.000   1000 Loop misc.           
+ TSTEP-HYD cpu, wall, ratio:     58.660    58.865     0.997   Finished   double timestep @ 1095132170.195
+ TOTAL-HYD cpu, wall, ratio:    349.730   351.139     0.996   Cumulative double timestep
+==================> End   Double Timestep   12  <=============================
+==============================================================================
+
+
+==============================================================================
+==================> Begin Double Timestep   14  <=============================
+ DELTA-HYD cpu, wall, ratio:      1.220     1.223     0.997   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      8.820     8.818     1.000   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.640     0.644     0.993   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.830     9.831     1.000   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      0.230     0.228     1.011   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      8.730     8.734     1.000   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      1.190     1.188     1.002   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      9.520     9.518     1.000   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      0.740     0.743     0.996   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.230     9.232     1.000   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      1.030     1.052     0.979   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      7.920     7.923     1.000   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.000     0.000     0.000   Finished Courant
+______________________________________________________________________________
+nstep Time        Dtime       Courant     Kinetic     Heat        Total Energy
+   14 5.77956E-03 1.08978E-03 7.57736E-01 4.08889E+01 8.11006E+01 1.21990E+02
+______________________________________________________________________________
+ DELTA-HYD cpu, wall, ratio:      0.000     0.001     0.000   1000 Loop misc.           
+ TSTEP-HYD cpu, wall, ratio:     59.100    59.136     0.999   Finished   double timestep @ 1095132229.331
+ TOTAL-HYD cpu, wall, ratio:    408.830   410.276     0.996   Cumulative double timestep
+==================> End   Double Timestep   14  <=============================
+==============================================================================
+
+
+==============================================================================
+==================> Begin Double Timestep   16  <=============================
+ DELTA-HYD cpu, wall, ratio:      1.230     1.233     0.998   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      8.840     8.838     1.000   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.640     0.644     0.993   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.890     9.893     1.000   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      0.230     0.230     1.002   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      8.810     8.812     1.000   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      1.190     1.195     0.995   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      9.590     9.582     1.001   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      0.740     0.744     0.995   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.260     9.258     1.000   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      1.060     1.063     0.998   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      7.930     7.933     1.000   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.000     0.000     0.000   Finished Courant
+______________________________________________________________________________
+nstep Time        Dtime       Courant     Kinetic     Heat        Total Energy
+   16 7.99149E-03 1.10596E-03 7.70853E-01 4.11918E+01 8.19715E+01 1.23163E+02
+______________________________________________________________________________
+ DELTA-HYD cpu, wall, ratio:      0.000     0.001     0.000   1000 Loop misc.           
+ TSTEP-HYD cpu, wall, ratio:     59.410    59.427     1.000   Finished   double timestep @ 1095132288.758
+ TOTAL-HYD cpu, wall, ratio:    468.240   469.702     0.997   Cumulative double timestep
+==================> End   Double Timestep   16  <=============================
+==============================================================================
+
+
+==============================================================================
+==================> Begin Double Timestep   18  <=============================
+ DELTA-HYD cpu, wall, ratio:      1.220     1.235     0.988   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      8.870     8.865     1.001   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.640     0.644     0.993   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.830     9.920     0.991   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      0.210     0.233     0.901   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      8.150     8.928     0.913   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      1.200     1.207     0.994   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      9.660     9.652     1.001   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      0.750     0.752     0.998   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.290     9.286     1.000   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      1.040     1.044     0.996   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      7.950     7.953     1.000   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.000     0.000     0.000   Finished Courant
+______________________________________________________________________________
+nstep Time        Dtime       Courant     Kinetic     Heat        Total Energy
+   18 1.02034E-02 1.10596E-03 8.13994E-01 4.14600E+01 8.28769E+01 1.24337E+02
+______________________________________________________________________________
+ DELTA-HYD cpu, wall, ratio:      0.000     0.001     0.000   1000 Loop misc.           
+ TSTEP-HYD cpu, wall, ratio:     58.810    59.721     0.985   Finished   double timestep @ 1095132348.479
+ TOTAL-HYD cpu, wall, ratio:    527.050   529.423     0.996   Cumulative double timestep
+==================> End   Double Timestep   18  <=============================
+==============================================================================
+
+
+==============================================================================
+==================> Begin Double Timestep   20  <=============================
+ DELTA-HYD cpu, wall, ratio:      1.220     1.232     0.990   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      8.890     8.896     0.999   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.660     0.652     1.012   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:     10.020    10.026     0.999   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      0.240     0.235     1.020   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      9.070     9.067     1.000   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      1.210     1.215     0.996   Finished Z bdrys
+ DELTA-HYD cpu, wall, ratio:      9.780     9.773     1.001   Finished Z sweep
+ DELTA-HYD cpu, wall, ratio:      0.750     0.756     0.992   Finished Y bdrys
+ DELTA-HYD cpu, wall, ratio:      9.390     9.394     1.000   Finished Y sweep
+ DELTA-HYD cpu, wall, ratio:      1.050     1.048     1.002   Finished X bdrys
+ DELTA-HYD cpu, wall, ratio:      8.020     8.021     1.000   Finished X sweep
+ DELTA-HYD cpu, wall, ratio:      0.000     0.000     0.000   Finished Courant
+______________________________________________________________________________
+nstep Time        Dtime       Courant     Kinetic     Heat        Total Energy
+   20 1.23773E-02 1.08695E-03 7.93299E-01 4.16674E+01 8.38230E+01 1.25490E+02
+______________________________________________________________________________
+ DELTA-HYD cpu, wall, ratio:      0.000     0.002     0.000   1000 Loop misc.           
+ TSTEP-HYD cpu, wall, ratio:     60.300    60.319     1.000   Finished   double timestep @ 1095132408.798
+ TOTAL-HYD cpu, wall, ratio:    587.350   589.742     0.996   Cumulative double timestep
+==================> End   Double Timestep   20  <=============================
+==============================================================================
+
+
+ TOTAL-HYD cpu, wall, ratio:    587.350   589.743     0.996   Finished Calculation       @ 1095132408.799

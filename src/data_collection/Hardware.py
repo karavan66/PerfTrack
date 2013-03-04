@@ -21,9 +21,10 @@ def main(argv=sys.argv):
       for grid in grids:
          f.write(grid.PTdF(""," "))
       f.close()
+      return 0
    except PTexception, a:
       print a.value 
-      return
+      return 1
 
 def getHardwareInfo(resIdx, filename ): 
   

@@ -98,7 +98,7 @@ def test2(testStore, pf):
             newResId = testStore.createResource(14, 0, "testerB", "execution")    
 
         # non-existent resource short name
-        type = "grid/machine/partition/node"
+        type = "grid|machine|partition|node"
         sname = "mcr999999"
         id = testStore.findResourceByShortNameAndType(type, sname)
         if id == None:
@@ -110,10 +110,8 @@ def test2(testStore, pf):
 
         # existing resource shortname that could partially overlap another name
         # mcr9 is contained in mcr99
-        type = "grid/machine/partition/node"
+        type = "grid|machine|partition|node"
         sname = "mcr9"
-        type = "grid|machine|node"
-        sname = "jaccn115"
         id = testStore.findResourceByShortNameAndType(type, sname)
         if id == None:
             pf.failed("did not find existing resource " + sname)
@@ -123,7 +121,7 @@ def test2(testStore, pf):
             pf.passed("found one id for existing resource " + sname)
 
         # non-existent type name
-        type = "grid/machine/partition/mode"
+        type = "grid|machine|partition|mode"
         sname = "mcr9"
         id = testStore.findResourceByShortNameAndType(type, sname)
         if id == None:
@@ -237,11 +235,11 @@ def test3(db, pf):
             pf.failed("problem with parent resource created earlier")
             returnFlag = False
         else:
-            child1Id = testStore.createResource(None, parent_res_id, "test3A/test3A-child1", "execution/process")
+            child1Id = testStore.createResource(None, parent_res_id, "test3A|test3A-child1", "execution|process")
             if (child1Id != None and child1Id > 0):
-                print "child1Id returned from createResource: %d" % (child1Id)
+                pf.passed("child1Id returned from createResource: %d" % (child1Id))
             else:
-                print "ERROR: test3: createResource returned invalid resource_item id"
+                pf.failed("ERROR: test3: createResource returned invalid resource_item id")
                 testStore.abortTransaction()
                 testStore.closeDB()
                 return returnFlag
@@ -250,7 +248,7 @@ def test3(db, pf):
             cname = testStore.getResourceName(child1Id)
             pname = testStore.getResourceName(parent_res_id)
             print "name of child1Id: %s name of parent: %s" % (cname, pname)
-            if (cname != pname + "/test3A-child1"):
+            if (cname != pname + "|test3A-child1"):
                 pf.failed("getResourceName: child name is not expected: %s" % cname)
                 returnFlag = False
             else:
@@ -258,7 +256,7 @@ def test3(db, pf):
                 childname = cname
                 ctype = testStore.getResourceType(child1Id)
                 print "type of child1Id: %s" % (ctype)
-                if (ctype != "execution/process"):
+                if (ctype != "execution|process"):
                     pf.failed("getResourceType: child type is not expected")
                     returnFlag = False
                 else:
@@ -341,10 +339,9 @@ def test3(db, pf):
                 pf.failed("getResourceName: id %d does not exist; should cause exception" %(maxid+100))
                 returnFlag = False
             else:
-                pf.failed("getResourceName: id %d does not exist; should cause exception," %(maxid+100))
-                print "      but the empty string was returned"
+                pf.passed("getResourceName: id %d does not exist; empty string returned" %(maxid+100))
         except:
-            pf.passed("EXCEPTION CAUGHT: getResourceName: id %d does not exist" %(maxid+100) )
+            pf.failed("EXCEPTION: getResourceName: id %d does not exist" %(maxid+100) )
 
         # getResourceType 
         bad6 = testStore.getResourceType (0)
@@ -397,7 +394,7 @@ def test4(db, pf):
     # NOTE: Currently does not test createFocus or findOrCreateFocus
 
     no1 = " "
-    no2 = "/8/main.o/main"
+    no2 = "8|main.o|main"
     
     #testConnection = testStore.connectToDB(testStore.NO_WRITE, dbname, dbpwd, dbfullname) # old Oracle
     #testConnection = testStore.connectToDB(testStore.NO_WRITE, dbhost, dbname, dbuser, dbpwd) # old Postgres
@@ -411,7 +408,7 @@ def test4(db, pf):
         focusId = 0 
         reslist = []
         reslist.append(testStore.createResource(14, 0, "execA", "execution"))
-        reslist.append(testStore.createResource(12, 0, "funcB", "environment/module/function"))
+        reslist.append(testStore.createResource(12, 0, "funcB", "environment|module|function"))
         reslist.append(testStore.createResource(23, 0, "metricC", "metric"))
         # create a focus 
         try:
@@ -1077,13 +1074,13 @@ def test8(testStore, pf):
         pf.failed("test8: ancestors/descendants:  unable to connect.")
         return False
     else:
-        good1 = testStore.findResourceByShortNameAndType("grid/machine", "Frost")
+        good1 = testStore.findResourceByShortNameAndType("grid|machine", "Frost")
         if good1 == None:
-            print "findResourceByShortNameAndType: No match found for Frost, grid/machine"
+            pf.failed("findResourceByShortNameAndType: No match found for Frost, grid|machine")
         elif good1 == -1:
-            print "findResourceByShortNameAndType: Found more than 1 for Frost, grid/machine"
+            pf.failed("findResourceByShortNameAndType: Found more than 1 for Frost, grid|machine")
         else:
-            print "findResourceByShortNameAndType: Found 1 match for Frost, grid/machine"
+            pf.passed("findResourceByShortNameAndType: Found 1 match for Frost, grid|machine")
         
         #This good2 is specific to data in oracle database
         # smtihmtest commented out this good2 because its oracle
@@ -1091,40 +1088,39 @@ def test8(testStore, pf):
         #           "iq.h-33"))
         #This good2 exists in Postgresql database
 
-        good2 = testStore.findResourceByShortNameAndType("inputDeck", \
-                   "iq.h-22")
+        good2 = testStore.findResourceByShortNameAndType("inputDeck", "iq.h-22")
         
         if good2 == None:
-            print "findResourceByShortNameAndType: No match found for iq.h-22, inputDeck"
+            pf.failed("findResourceByShortNameAndType: No match found for iq.h-22, inputDeck")
         elif good2 == -1:
-            print "findResourceByShortNameAndType: Found more than 1 for iq.h-22, inputDeck"
+            pf.failed("findResourceByShortNameAndType: Found more than 1 for iq.h-22, inputDeck")
         else:
-            print "findResourceByShortNameAndType: Found 1 match for iq.h-22, inputDeck"
+            pf.failed("findResourceByShortNameAndType: Found 1 match for iq.h-22, inputDeck")
 
         #This is Oracle data.  Does not exists yet in PG
-        good3 = int(testStore.findResourceByName("/irs-8-545/Process-38/Thread-0"))
+        good3 = int(testStore.findResourceByName("irs-8-545|Process-38|Thread-0"))
         if good3:
-            print "findResourceByName: Found resource with name /irs-8-545/Process-38/Thread-0"
+            pf.passed("findResourceByName: Found resource with name irs-8-545|Process-38|Thread-0")
         else:
-            print "findResourceByName: Did not find resource with name /irs-8-545/Process-38/Thread-0"
+            pf.failed("findResourceByName: Did not find resource with name irs-8-545|Process-38|Thread-0")
         #print "POSTGRESQL: N/A"
         #This is the oracle data 
-        good4 = int(testStore.findResourceByName("/irs-8-545"))
+        good4 = int(testStore.findResourceByName("irs-8-545"))
         #This is for the postgresql db
         #good4 = int(testStore.findResourceByName("/irs-2-503")) 
         if good4:
-            print "findResourceByName: Found resource with name /irs-2-503"
+            pf.passed("findResourceByName: Found resource with name irs-2-503")
         else:
-            print "findResourceByName: Did not find resource with name /irs-2-503"
+            pf.failed("findResourceByName: Did not find resource with name irs-2-503")
 
         #This is for the Oracle db 
-        good5 = testStore.findResourceByName("/irs-8-545/Process-38")
+        good5 = testStore.findResourceByName("irs-8-545|Process-38")
         #This is for the postgresql db
         #good5 = int(testStore.findResourceByName("/irs-2-503/Process-3"))
         if good5:
-            print "findResourceByName: Found resource with name /irs-2-503/Process-3"
+            pf.passed("findResourceByName: Found resource with name irs-2-503|Process-3")
         else:
-            print "findResourceByName: Did not find resource with name /irs-2-503/Process-3"
+            pf.failed("findResourceByName: Did not find resource with name irs-2-503|Process-3")
 
         #answer1 = testStore.getChildResources(good1)
         #if answer1 == []:
@@ -1324,33 +1320,33 @@ testStore = PTdataStore()
 pf = PassFail()
 
 #TEST 1 -- connection test
-#print "test1.2 - connect, no optional parameters"
-#test1_2(testStore)
+print "test1.2 - connect, no optional parameters"
+test1_2(testStore, pf)
 
-#print "test1.3 - connect, with optional parameters"
-#test1_3(testStore)
+print "test1.3 - connect, with optional parameters"
+test1_3(testStore, pf)
 
 
 #TEST 2 -- createResource, findResourceByName, findResourceByShortNameAndType
-#print "test2 -- createResource, findResourceByName, findResourceByShortNameAndType"
-#test2(testStore)
+print "test2 -- createResource, findResourceByName, findResourceByShortNameAndType"
+test2(testStore, pf)
 
-#print "test3 -- findResourceByName, getResourceName, getResourceType, getParentResource"
-#test3(testStore)
+print "test3 -- findResourceByName, getResourceName, getResourceType, getParentResource"
+test3(testStore, pf)
 
-#print "test4 -- createFocus, findOrCreateFocus, findFocusByName, findFocusById"
-#test4(testStore)
-
-# This test function is commented out
-#print "test5 -- enterResourceConstraints, lookupConstraint, lookupConstraints"
-#test5(testStore)
-
-#print "test6 -- addResourceAttribute, lookupAttribute, lookupAttributes"
-#test6(testStore)
+print "test4 -- createFocus, findOrCreateFocus, findFocusByName, findFocusById"
+test4(testStore, pf)
 
 # This test function is commented out
-#print "test6b"
-#test6b(testStore)
+print "test5 -- enterResourceConstraints, lookupConstraint, lookupConstraints"
+test5(testStore, pf)
+
+print "test6 -- addResourceAttribute, lookupAttribute, lookupAttributes"
+test6(testStore, pf)
+
+# This test function is commented out
+print "test6b"
+test6b(testStore, pf)
 
 print "test8"
 test8(testStore, pf)

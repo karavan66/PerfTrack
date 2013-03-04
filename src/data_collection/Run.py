@@ -143,6 +143,11 @@ def getInitialAVs(resIdx, attrs, exe, runMachineArg, ptds):
        runOSType == "" or runOSType == None:
        raise PTexception("no operating system details given in run data file "\
                          "for execution:%s" % exe.name )
+
+    if runMachine == "" or runMachine == None:
+        raise PTexception("no run machine name given in data file "\
+                         "for execution:%s" % exe.name )
+
     runOSNewName = ptds.getNewResourceName(runOSName+" "+runOSVersion+" "+\
                              runOSType)
     runOS = Resource(runOSNewName, "operatingSystem", runOSAVs)
@@ -162,13 +167,13 @@ def getInitialAVs(resIdx, attrs, exe, runMachineArg, ptds):
        resIdx.addResource(runMach)
     exe.addAttributes(runAVs)
   
-    #if threadsPerProcess < 0:
-       #raise PTexception("ThreadsPerProcess attribute not given in run data "\
-                         #"file for execution:%s" % exe.name )
-    #if numberOfProcesses < 0:
-       #raise PTexception("NumberOfProcesses attribute not given in run data "\
-                         #"file for execution:%s" % exe.name )
+    if threadsPerProcess < 0:
+       raise PTexception("ThreadsPerProcess attribute not given in run data "\
+                             "file for execution:%s" % exe.name )
 
+    if numberOfProcesses < 0:
+       raise PTexception("NumberOfProcesses attribute not given in run data "\
+                             "file for execution:%s" % exe.name )
     return  (runMach, runOS, exe, numberOfProcesses, \
             threadsPerProcess)
 

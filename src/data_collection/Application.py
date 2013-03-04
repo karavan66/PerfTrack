@@ -61,7 +61,7 @@ class Application(Resource):
 
    def addExecutions(self, NEs):
       """Adds a list of Executions to the application"""
-      if type(NEs) != list:
+      if type(NEs).__name__!='list':
          raise PTexception("Non-list type given to Application.addExecutions"\
                            " for application:%s" % self.name)
       for ne in NEs:
