@@ -13,7 +13,7 @@ class PassFail:
 
    def failed(self, msg=""):
       if msg != "":
-         print ("FAIL: %s" % msg)w
+         print ("FAIL: %s" % msg)
       else:
          print ("FAIL")
       self.failed_count += 1
