@@ -1,28 +1,33 @@
 THE PERFTRACK GUI
  
-Icons
+Issues with Icons:
 1.New Query:
+Once Selection Parameters have been added, clicking the Combine Data button will produce a pop-up window 
+where the user can select from a dropdown list of aggregate functions such as sum and mean. Neither the 
+"Cancel" button nor the "OK" button will close the pop up or visibly take any action in the application.
+The only way to resume use of the application is to click the OS-provided "x" in the corner.
 
 2.Open data file:
+We had an issue in the open data file too.
+The open data file is not opening any files which we selected.
 
 3.Add display parameters:
+When selecting the Resources, their attributes are not populated and even after selecting the Resources without
+attributes and trying to Get data, we cannot view any data of the selected Resource. 
+We are trying to fix this issue.
 
 4.Filter result:
-
 Presently we can define filters on number fields using relations. We cannot keep filters on character fields.
 
 
 5.Plot data:
-
 Working fine but when we select field which have duplicate values then showing error message like 
 "the data set can't be plotted A dupliate item was found in the  X Axis column".
  
 6.Combine performance result:
-
 When we select Combine performance result icon then getting popup Select an operator window and
 able to select an operator but Ok and Cancel buttons are not working on pop up window
 
 7.Print or Data as text:
-
 Trying to get PDF format using printer options as Print to File (PDF), but getting PDF with messed up data.
 
