@@ -19,6 +19,9 @@ class NoDBResultException(Exception):
     def __init__(self, error):
         self.err = error
 
+CACHING_ENABLED = True
+INJECTION_ENABLED = False
+
 class BaseQuery(object):
     query_count = 0
 
@@ -92,6 +95,8 @@ class LRUQuery(BaseQuery):
     def __init__(self, sql, default, dbapi, prepare=True, size = 128, insert=False):
         super(LRUQuery, self).__init__(sql, default, dbapi, prepare=prepare, insert=insert)
         assert(not insert)
+        if (not CACHING_ENABLED):
+            size = 0
         self.cached_method = lru_cache(maxsize=size)(self.__lru_query)
 
     def __lru_query(self, frozen_keys):
@@ -104,6 +109,11 @@ class LRUQuery(BaseQuery):
         else:
             logging.debug("Got Cacheable result %s", result[0])
             return result[0]
+
+    def inject (self, result, keys):
+        if (INJECTION_ENABLED):
+            frozen = frozenset(keys.items())
+            self.cached_method.inject(result, frozen)
 
     def cache_info(self):
         return self.cached_method.cache_info()
@@ -168,6 +178,9 @@ class PTdataStore:
             "select parent_id from resource_item where id=:id", 0, self.dbapi)
         self.framework_id = LRUQuery(
             "select id from focus_framework where type_string=:type", 0, self.dbapi)
+        self.focus_has_resource_name = LRUQuery(
+            "select 1 from focus_has_resource_name where resource_name=:resname and focus_id=:focus_id",
+            0, self.dbapi)
         self.performance_result = BaseQuery(
             "insert into performance_result (id, metric_id, value, start_time, end_time, units, "
             "focus_id, label, combined, complex_result_id) values (:rid, :mid, :val, :stime, "
@@ -192,9 +205,11 @@ class PTdataStore:
                            self.performance_result, \
                            self.focus_resource_name, \
                            self.focus_has_resource, \
+                           self.focus_has_resource_name, \
                            self.performance_result_has_focus ]
 
     def cache_info(self):
+        print "parseAndCreateContext: ", self.parseAndCreateContext.cache_info()
         for x in self.cached:
             print ("%s : %s" % (x.cache_info(), x.original_sql))
 
@@ -333,6 +348,11 @@ class PTdataStore:
                   "(id, focus_framework_id, type, parent_id, name, ff) " +\
                   "values (:rid, :fid, :ftype, :par_id, :fname, :ffw)"
             self.dbapi.execute(self.cursor, sql, resource_params)
+            self.resid.inject(res_id, {'name':fullName, 'type':fullType})
+            self.resource_type.inject(fullType, {'id':res_id})
+            self.resource_by_name.inject(res_id, {'name':fullName})
+            self.resource_name_by_id.inject(fullName, {'id':res_id})
+            self.parent_id.inject(parent_id, {'id':res_id})
         except:
             raise
 
@@ -769,8 +789,10 @@ class PTdataStore:
            return 0
         if self.debug >= self.NO_WRITE:
            return 0
-        
-        self.focus_resource_name.query({'focus_id':focusId, 'resname':resName})
+        if self.focus_has_resource_name.query({'focus_id':focusId, 'resname':resName}) == 0:
+            self.focus_resource_name.query({'focus_id':focusId, 'resname':resName})
+            self.focus_has_resource_name.inject(1, {'focus_id':focusId, 'resname':resName})
+
         return focusId
 
     def findFocusByName (self, focusName):
@@ -854,6 +876,7 @@ class PTdataStore:
                  "(id, focusname) " +\
                  "values (:fid, :fname)"
            self.dbapi.execute(self.cursor, sql, focusParams)
+           self.focus_by_name.inject(focus_id, {'focusname':focusname})
 
            for resource in resource_info:
                self.log.debug("resource is : %s focus is : %s", resource, str(focus_id))
@@ -1226,24 +1249,7 @@ class PTdataStore:
 
         returns FocusFramework id  if found, 0 if not found
         """
-        query = "select id from focus_framework where type_string = :hierName"
-
-        self.log.debug(query)
-        if self.debug >= self.NO_CONNECT:
-            return 0
-        try:
-            self.dbapi.execute(self.cursor, query, {'hierName':hierName})
-            result = self.dbapi.fetchone (self.cursor)
-            self.log.debug("check for existing: %s", str(result))
-        except:
-            self.log.error("findResTypeHierarchy query failed")
-            raise
-        else:
-            if result == None:
-                return 0
-            self.log.debug("findResTypeHierarchy gets %s", str(result))
-            return result[0]
-
+        return self.framework_id.query({'type':hierName})
 
     def insertResTypeHierarchy(self, hierName):
         """ adds a new resource hierarchy to the focus framework
@@ -1304,21 +1310,7 @@ class PTdataStore:
         """
         if self.debug >= self.NO_CONNECT:
            return 0
-
-        query = "select id from focus_framework where type_string =:typeString"
-        self.log.debug("findResType: %s",query)
-        try:
-            self.dbapi.execute(self.cursor, query, {'typeString':resTypeName})
-            result = self.dbapi.fetchone(self.cursor)
-        except:
-            self.log.error("findResType query failed")
-            raise
-        else:
-            if result == None:
-                return 0
-            self.log.debug("check for existing res type: %s", str(result[0]))
-            self.log.debug("findResType gets %s", str(result))
-            return result[0]
+        return self.framework_id.query({'type':resTypeName})
 
     def insertResType(self, resTypeName, parentID):
         """ adds a new resource type to the focus framework
@@ -1619,12 +1611,9 @@ class PTdataStore:
         contexts = self.parseAndCreateContext(context)
         if contexts == 0:
            return 0
-        # add this context to contextCache
-        # first item in the pair is the full context name
-        # second item is the list of (cntxt_id,type) pairs
-        #self.contextCache[alias] = (context,contexts)
         return 1
 
+    @lru_cache(maxsize=128)
     def parseAndCreateContext(self, context):
         """ Takes a context and splits it up into its subcontexts. For each 
             subcontext (e.g. primary, parent, sender, etc.) it checks to see if 
@@ -2009,7 +1998,7 @@ class PTdataStore:
         parser = PTDFParser(self)
         for line in pfile:
             parser.parse(line)
-
+        #parser.parse(pfile.read())
         pfile.close()
         self.commitTransaction() #Transaction committed after every file
         print("Loaded %s" % (filename))

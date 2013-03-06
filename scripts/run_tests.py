@@ -8,9 +8,8 @@ def load_db(repo, dbname, files, outfile=None, split=False, reinit=False):
     dbinfo = os.environ.get('DBPASS').split(",")
     dbinfo[0] = dbname
     os.environ['DBPASS'] = ",".join(dbinfo)
-
+    
     if (reinit):
-        os.system("createdb %s" % dbname)
         env_db(repo)
         init_db(repo)
     
@@ -21,7 +20,8 @@ def load_db(repo, dbname, files, outfile=None, split=False, reinit=False):
                 print "Error loading files"
     else:
         final_files = " ".join([(f % repo) for f in files])
-        sys_cmd = "python -m cProfile -s cumulative %s %s" % (ptdf(repo), final_files )
+        sys_cmd = "%s %s" % (ptdf(repo), final_files )
+        print sys_cmd
         if os.system(sys_cmd) != 0:
             print "Error loading files"
 
@@ -35,15 +35,9 @@ def run_tests():
 
     passes = 0
     fails = 0
-    repo = env_db()
-    init_db(repo)
+    repo = os.path.dirname(os.path.realpath(__file__)) + "/.."
 
-    if False:
-        os.system("/home/crzysdrs/test.sh")
-        sys.exit(1)    
-
-
-    if False and os.path.isdir(repo + '/../pt_data/'):
+    if True and os.path.isdir(repo + '/../pt_data/'):
         test_files = [
             "%s/../pt_data/LD_A1_56p_2ppn_28n_IO-BASIC_even_forHema/",
             "%s/../pt_data/LD_A1_56p_2ppn_28n_IO-BASIC_even_forHema/01_machinePTDF",
@@ -52,11 +46,11 @@ def run_tests():
             "%s/../pt_data/LD_A1_56p_2ppn_28n_IO-BASIC_even_forHema/04_appPTDF_t01",
             "%s/../pt_data/LD_A1_56p_2ppn_28n_IO-BASIC_even_forHema/04_appPTDF_t02",
             "%s/../pt_data/LD_A1_56p_2ppn_28n_IO-BASIC_even_forHema/04_appPTDF_t03"]
-        load_db(repo, 'ld', test_files)
+        load_db(repo, 'ld', test_files, reinit=True)
         sys.exit(1)
 
     if False and os.path.isdir(repo + '/../pt_old'):
-        test_files = ["%s/tests/PTdFgenTestData/irs-good-reference.ptdf"]
+        test_files = ["%s/tests/PTdFgenTestData/irs-good.ptdf"]
         load_db(repo, 'temp1', test_files, "temp1_out", reinit=True)
         load_db(repo + '/../pt_old/', 'temp2', test_files, "temp2_out", split=True, reinit=True)
         p = subprocess.Popen("diff temp1_out temp2_out | wc -l", shell=True, stdout=subprocess.PIPE)
@@ -71,6 +65,11 @@ def run_tests():
 
     repo = env_db()
     init_db(repo)
+
+    if True:
+        os.system("/home/crzysdrs/test.sh")
+        sys.exit(1)   
+
     os.chdir(repo + "/tests")
 
     print "Loading Default Machines"

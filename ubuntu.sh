@@ -55,7 +55,7 @@ export PYTHONPATH="$REPO/src/dataStore:$REPO/src/data_collection"
     "$REPO"/share/dataCenterResourceHierarchyExtensions.ptdf \
     "$REPO"/etc/PTdefaultMachines.ptdf 
 
-$REPO/tests/PTdFgenTester.py --tnsname $DBNAME --username $USER \
+"$REPO"/tests/PTdFgenTester.py --tnsname $DBNAME --username $USER \
     --hostname localhost --data_dir $REPO/tests/PTdFgenTestData
 
 "$PTDF" "$REPO"/tests/PTdFgenTestData/irs-good.ptdf

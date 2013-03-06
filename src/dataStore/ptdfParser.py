@@ -48,6 +48,7 @@ class PTDFLexer:
 
     precedence = ()
 
+from time import time
 class PTDFParser:
     def __init__(self, ptds):
         self.ptds = ptds
@@ -55,6 +56,7 @@ class PTDFParser:
         self.tokens = self.lexer.tokens
         self.parser = yacc.yacc(module=self,write_tables=0,debug=False,start='ptdf',optimize=parser_optimize)
         self.statements = 0
+        self.startTime = time()
 
     def __error(self, p, syntax):
         self.ptds.log.error("Syntax Error %s:%s -> %s", self.ptds.filename, p.lineno(1), syntax)
@@ -96,9 +98,12 @@ class PTDFParser:
                      | result
                      | complexresult
                      | NEWLINE'''
+        print_incr = 1000
         self.statements += 1
-        if (self.statements % 1000) == 0:
-            print ("Processed %s statements" % self.statements)
+        if (self.statements % print_incr) == 0:
+            print ("Processed %s statements (%s per second)" 
+                   % (self.statements, print_incr / (time()-self.startTime)))
+            self.startTime = time()
 
     def p_lambda(self, p):
         'lambda : '

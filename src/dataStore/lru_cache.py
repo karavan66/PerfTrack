@@ -2,7 +2,7 @@ from collections import namedtuple
 from functools import update_wrapper
 from threading import Lock
 
-_CacheInfo = namedtuple("CacheInfo", ["hits", "misses", "maxsize", "currsize"])
+_CacheInfo = namedtuple("CacheInfo", ["hits", "misses", "injected", "maxsize", "currsize"])
 
 def lru_cache(maxsize=100, typed=False):
     """Least-recently-used cache decorator.
@@ -31,8 +31,8 @@ def lru_cache(maxsize=100, typed=False):
 
     def decorating_function(user_function):
         cache = dict()
-        stats = [0, 0]                  # make statistics updateable non-locally
-        HITS, MISSES = 0, 1             # names for the stats fields
+        stats = [0, 0, 0]               # make statistics updateable non-locally
+        HITS, MISSES, INJECTED = 0, 1, 2# names for the stats fields
         kwd_mark = (object(),)          # separate positional and keyword args
         cache_get = cache.get           # bound method to lookup key or return None
         _len = len                      # localize the global len() function
@@ -115,10 +115,34 @@ def lru_cache(maxsize=100, typed=False):
                     stats[MISSES] += 1
                 return result
 
+        def inject(result, *args, **kwds):
+            if (maxsize == 0):
+                return
+            key = make_key(args, kwds, typed) if kwds or typed else args
+            with lock:
+                link = cache_get(key)
+                assert(link == None) #Should not inject existing entry
+                root = nonlocal_root[0]
+                if _len(cache) < maxsize:
+                    # put result in a new link at the front of the list
+                    last = root[PREV]
+                    link = [last, root, key, result]
+                    cache[key] = last[NEXT] = root[PREV] = link
+                else:
+                    # use root to store the new key and result
+                    root[KEY] = key
+                    root[RESULT] = result
+                    cache[key] = root
+                    # empty the oldest link and make it the new root
+                    root = nonlocal_root[0] = root[NEXT]
+                    del cache[root[KEY]]
+                    root[KEY] = None
+                    root[RESULT] = None
+                stats[INJECTED] += 1
         def cache_info():
             """Report cache statistics"""
             with lock:
-                return _CacheInfo(stats[HITS], stats[MISSES], maxsize, len(cache))
+                return _CacheInfo(stats[HITS], stats[MISSES], stats[INJECTED], maxsize, len(cache))
 
         def cache_clear():
             """Clear the cache and cache statistics"""
@@ -131,6 +155,7 @@ def lru_cache(maxsize=100, typed=False):
         wrapper.__wrapped__ = user_function
         wrapper.cache_info = cache_info
         wrapper.cache_clear = cache_clear
+        wrapper.inject = inject
         return update_wrapper(wrapper, user_function)
 
     return decorating_function

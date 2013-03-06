@@ -12,7 +12,6 @@ class PTpyDBAPI:
    """ methods for interfacing with python DB API for specific interfaces
        supported by PerfTrack
    """
-   formatRe = re.compile(':([a-zA-Z_]+)')
    def __init__(self):
       self.pyDBmap = {"PG_PYGRESQL":"psycopg2",
                       "ORA_CXORACLE":"cx_Oracle",
@@ -137,14 +136,14 @@ class PTpyDBAPI:
    #
    #   NOTE: only does named, pyformat, and format right now
    @lru_cache(maxsize=128)
-   def __opToParamFormat (self, sqlOpToConvert):
-      def replace_spec(x):
-         return "%%(%s)s" % x.group(1)
-      
+   def opToParamFormat (self, sqlOpToConvert):
+      formatRe = re.compile(':([a-zA-Z_]+)')
       if self.paramstyle == "named":
          return sqlOpToConvert
       elif self.paramstyle == "pyformat":
-         return self.formatRe.sub(replace_spec, sqlOpToConvert)
+         def replace_arg(x):
+            return "%%(%s)s" % x.group(1)
+         return formatRe.sub(replace_arg, sqlOpToConvert)
       elif self.paramstyle == "format":
          formatRe = re.compile(r"[^,]+")
          val_index = sqlOpToConvert.index("values")
@@ -334,7 +333,7 @@ class PTpyDBAPI:
          crs.execute (operation)
       else:
          plist = parameters.keys()
-         sql = self.__opToParamFormat(operation)
+         sql = self.opToParamFormat(operation)
          if sql != None:
             if self.dbenv == "MYSQL":
                crs.execute (sql, self.orderParams(operation, parameters))
@@ -360,7 +359,11 @@ class PTpyDBAPI:
    #
    # Output: Return values are not defined by DB API 2.0
    def executemany (self, crs, operation, seqOfParameters):
-      sql = self.__opToParamFormat(operation)
+      try:
+         plist = seqOfParameters[0].keys()
+      except:
+         raise Exception(self.dbapiError)
+      sql = self.opToParamFormat(operation, plist)
       if sql != None:
          crs.executemany(sql, seqOfParameters)
       else:

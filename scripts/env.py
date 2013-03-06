@@ -22,6 +22,8 @@ def init_db(repo):
         sys.exit(1)
 
     (dbname, dbhost, dbuser, dbpass) = os.environ.get('DBPASS').split(",")
+    print os.environ.get('DBPASS')
+    os.system("createdb %s" % dbname)
     print "Recreating Database"
     os.system("psql -d %s < %s/db_admin/postgres/pdropall.sql" % (dbname, repo))
     os.system("psql -d %s < %s/db_admin/postgres/pcreate.sql" % (dbname, repo))
