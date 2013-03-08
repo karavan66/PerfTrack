@@ -9,6 +9,7 @@ from glob import glob
 from PTds import PTdataStore
 from getpass import getpass
 
+
 def main():
     if len(sys.argv) < 2:
        print("usage: progname ptdfnames")

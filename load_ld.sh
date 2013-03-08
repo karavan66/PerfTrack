@@ -22,8 +22,10 @@ echo "It will create/recreate a db for you."
 echo -n "What DBNAME Do you want to put this in: "
 read DBNAME
 
-REPO=`dirname $(readlink -f $0)`
+#REPO=`dirname $(readlink -f $0)`
+REPO=/home/crzysdrs/pt_old/
 PTDF="$REPO/src/dataStore/ptdf_entry.py"
+PTDF_MULTI="$REPO/src/dataStore/ptdf_multi.py"
 export PTDB="PG_PYGRESQL"
 export PYTHONPATH="$REPO/src/dataStore:$REPO/src/data_collection"
 
@@ -31,12 +33,17 @@ createdb $DBNAME
 psql -d $DBNAME < "$REPO"/db_admin/postgres/pdropall.sql
 psql -d $DBNAME < "$REPO"/db_admin/postgres/pcreate.sql
 
-time "$PTDF" \
-    "$LD"/ \
-    "$LD"/01_machinePTDF \
-    "$LD"/02_esdcPTDF \
-    "$LD"/03_systemPTDF \
-    "$LD"/04_appPTDF_t01 \
-    "$LD"/04_appPTDF_t02 \
-    "$LD"/04_appPTDF_t03
+#time python -m cProfile -s "cumulative" "$PTDF" \
+#    "$LD"/ \
+#    "$LD"/01_machinePTDF \
+#    "$LD"/02_esdcPTDF \
+#    "$LD"/03_systemPTDF \
+#    "$LD"/04_appPTDF_t01 \
+#    "$LD"/04_appPTDF_t02 \
+#    "$LD"/04_appPTDF_t03
 
+"$PTDF" \
+    "$LD"/m_init.ptdf
+
+#time "$PTDF_MULTI" \
+#    "$LD"/m_data.ptdf

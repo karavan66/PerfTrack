@@ -26,9 +26,9 @@ class Resource:
          ind_str += "  "
          i -= 1
         
-      print ind_str + "Name: " + self.name
-      print ind_str + "type: " + self.type
-      print ind_str + "attributes: " + str(self.attributes)
+      print(ind_str + "Name: " + self.name)
+      print(ind_str + "type: " + self.type)
+      print(ind_str + "attributes: " + str(self.attributes))
 
    def PTdF(self, exeName=None, delim="\t"):
       """Returns a string that contains the information about the resource

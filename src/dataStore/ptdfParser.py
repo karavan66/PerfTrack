@@ -48,20 +48,29 @@ class PTDFLexer:
 
     precedence = ()
 
-from time import time
+from time import time, sleep
 class PTDFParser:
-    def __init__(self, ptds):
+    def __init__(self, ptds, multi=False):
         self.ptds = ptds
         self.lexer = PTDFLexer()
         self.tokens = self.lexer.tokens
         self.parser = yacc.yacc(module=self,write_tables=0,debug=False,start='ptdf',optimize=parser_optimize)
         self.statements = 0
         self.startTime = time()
+        self.worker = 0
+        self.multi = multi
 
     def __error(self, p, syntax):
         self.ptds.log.error("Syntax Error %s:%s -> %s", self.ptds.filename, p.lineno(1), syntax)
         raise Exception("PTDF Syntax Error %s:%s" % (self.ptds.filename, p.lineno(1)))
-    
+
+    def set_worker(self, worker):
+        self.worker = worker
+
+    def reset(self):
+        self.statements = 0
+        self.startTime = time()
+
     def parse(self,data):
         if data:
             # useful for just dumping lexer tokens
@@ -101,8 +110,11 @@ class PTDFParser:
         print_incr = 1000
         self.statements += 1
         if (self.statements % print_incr) == 0:
-            print ("Processed %s statements (%s per second)" 
-                   % (self.statements, print_incr / (time()-self.startTime)))
+            worker_info = ""
+            if (self.multi):
+                worker_info = "Worker %s" % (self.worker)
+            print ("%s Processed %s statements (%s per second)" 
+                   % (worker_info, self.statements, print_incr / (time()-self.startTime)))
             self.startTime = time()
 
     def p_lambda(self, p):

@@ -13,6 +13,7 @@ from ptdfParser import PTDFParser
 from lru_cache import lru_cache, lru_method
 from ResourceIndex import ResourceIndex
 from Resource import Resource
+from multiprocessing import Lock
 import logging
 
 class NoDBResultException(Exception):
@@ -21,6 +22,7 @@ class NoDBResultException(Exception):
 
 CACHING_ENABLED = True
 INJECTION_ENABLED = False
+DEFAULT_CACHE_SIZE = 256
 
 class BaseQuery(object):
     query_count = 0
@@ -92,7 +94,7 @@ class BaseQuery(object):
         pass
 
 class LRUQuery(BaseQuery):
-    def __init__(self, sql, default, dbapi, prepare=True, size = 128, insert=False):
+    def __init__(self, sql, default, dbapi, prepare=True, size = DEFAULT_CACHE_SIZE, insert=False):
         super(LRUQuery, self).__init__(sql, default, dbapi, prepare=prepare, insert=insert)
         assert(not insert)
         if (not CACHING_ENABLED):
@@ -142,7 +144,10 @@ class PTdataStore:
     NO_WRITE = 5  # will only read from db, no sequence numbers will change
     NO_CONNECT = 10 # will not connect to the database
 
-    def __init__(self, data_delim='|'):
+    def __init__(self, data_delim='|', multi=False, lock=None, worker=-1):
+        self.worker = worker
+        self.lock = lock
+        self.parser =  PTDFParser(self, multi)
         self.cache_enabled = True
         self.cursor = None          # object for using db 
         self.connection = None      # object for db connection
@@ -171,9 +176,9 @@ class PTdataStore:
         self.focus_by_name = LRUQuery(
             "select id from focus where focusName=:focusname", 0, self.dbapi, size=128)
         self.descendent_id = LRUQuery(
-            "select rid from resource_has_descendant where rid=:rid", 0, self.dbapi, size=128)
+            "select rid from resource_has_descendant where rid=:rid", 0, self.dbapi)
         self.ancestor_id = LRUQuery(
-            "select rid from resource_has_ancestor where rid=:rid", 0, self.dbapi, size=128)
+            "select rid from resource_has_ancestor where rid=:rid", 0, self.dbapi)
         self.parent_id = LRUQuery(
             "select parent_id from resource_item where id=:id", 0, self.dbapi)
         self.framework_id = LRUQuery(
@@ -209,7 +214,9 @@ class PTdataStore:
                            self.performance_result_has_focus ]
 
     def cache_info(self):
-        print "parseAndCreateContext: ", self.parseAndCreateContext.cache_info()
+        print("opToParamFormat: %s" % (self.dbapi.opToParamFormat.cache_info(),))
+        print("parseAndCreateContext: %s" % (self.parseAndCreateContext.cache_info(),))
+        print("__focus_name_from_resources %s" % (self.__focus_name_from_resources.cache_info(),))
         for x in self.cached:
             print ("%s : %s" % (x.cache_info(), x.original_sql))
 
@@ -252,7 +259,7 @@ class PTdataStore:
                 for q in self.cached:
                     q.prepare()
             except:
-                print "ERROR: Cannot connect to database."
+                print("ERROR: Cannot connect to database.")
                 return False
             return True
         return False 
@@ -359,12 +366,11 @@ class PTdataStore:
         # update table resource_has_descendant if needed
         #  we only need to do the update if an ancestor of the new resource is in the table
         ancestors = self.getAncestors(res_id)
+        sql = "insert into resource_has_descendant (rid,did) values (:aid, :res_id)"
         for aid in ancestors:
             thisid = self.descendent_id.query({'rid':aid})
             if thisid > 0:
                 try:
-                    sql = "insert into resource_has_descendant (rid,did) values " +\
-                          "(:aid, :res_id)"
                     self.dbapi.execute(self.cursor, sql, {'aid':aid, 'res_id':res_id})
                 except:
                     raise
@@ -739,25 +745,16 @@ class PTdataStore:
         # then add the list of prids that were used to make this comb perfRes
         # to the combined_perf_result_has_member table
         params = []
+        sql = "insert into combined_perf_result_members (c_pr_id, pr_id) values (:c_pr_id, :pr_id)"
+        
         for pr in pr_ids:
            params = {'c_pr_id':prId,'pr_id':pr}
-
-           sql = "insert into combined_perf_result_members " +\
-                 "(c_pr_id, pr_id) values (:c_pr_id, :pr_id)"
            self.dbapi.execute(self.cursor, sql, params)
 
         return prId
 
-    def findFocusByID (self, resource_id_list):
-        """ lookup and return the focus ID that matches the list of resource IDs provided.
-
-        Returns [number] 0 if focus not found in DB.
-        """
-        if self.debug >= self.NO_CONNECT:
-           return 0
-        if resource_id_list == None:
-           return 0
-
+    @lru_cache(maxsize=128)
+    def __focus_name_from_resources(self, resource_id_list):      
         # get all the resource names
         # and sort the resources by their type
         resource_info = []
@@ -771,7 +768,18 @@ class PTdataStore:
         # build the name of the focus, which is a comma separated list
         # of the resources that make up the focus (in order by type)
         focusname = ",".join([res[1] for res in resource_info])
+        return (focusname, resource_info)
 
+    def findFocusByID (self, resource_id_list):
+        """ lookup and return the focus ID that matches the list of resource IDs provided.
+
+        Returns [number] 0 if focus not found in DB.
+        """
+        if self.debug >= self.NO_CONNECT:
+           return 0
+        if resource_id_list == None:
+           return 0
+        (focusname, resource_info) = self.__focus_name_from_resources(frozenset(resource_id_list))
         result = self.focus_by_name.query({'focusname':focusname})
         self.log.debug("result is %s", result)
         return result
@@ -822,7 +830,7 @@ class PTdataStore:
        if self.debug >= self.NO_CONNECT:
            return 0
 
-       focusID = self.findFocusByID(resource_id_list)
+       focusID = self.findFocusByID(frozenset(resource_id_list))
        if self.debug >= self.NO_WRITE:
            return focusID
 
@@ -838,19 +846,7 @@ class PTdataStore:
        if self.debug >= self.NO_CONNECT:
           return 0
        try:
-           # get all the resource names
-           # and sort the resources by their type
-           resource_info = []
-           for resource in resource_id_list:
-               if resource:
-                   name = self.getResourceName(resource)
-                   type = self.getResourceType(resource)
-                   resource_info.append((type, name, resource))
-           resource_info.sort()  # sort by resource type
-
-           # build the name of the focus, which is a comma separated list
-           # of the resources that make up the focus (in order by type)
-           focusname = ",".join([res[1] for res in resource_info])
+           (focusname, resource_info) = self.__focus_name_from_resources(frozenset(resource_id_list))
 
            if self.debug >= self.NO_WRITE:
                return 0
@@ -896,10 +892,11 @@ class PTdataStore:
 
        If resource already has an entry in getAncestors, does nothing.
        """
+           
        if self.debug >= self.NO_WRITE:
            return
        if rid == None or rid == 0:
-          return
+           return
        # first, check if resource already entered into table -- if so, we're done
        result = self.ancestor_id.query({'rid':rid})
 
@@ -918,6 +915,7 @@ class PTdataStore:
                    self.dbapi.execute(self.cursor, sql, {'rid':rid, 'parentId':parentID})
                except:
                    raise
+               assert(currResource != parentID)
                currResource = parentID
 
     def addDescendants(self, rid):
@@ -935,23 +933,18 @@ class PTdataStore:
 
         # here if entry not already in the table
         #  step down the hierarchy of resources, adding each descendant
-        kidList = rid,
+        kidList = [rid]
+        query = "select id from resource_item where parent_id = :parent_id"
         while len(kidList) > 0:
-            newKidList = ()
+            newKidList = []
             # get kids
             for currParent in kidList:
                 try:
-                    query = "select id from resource_item where parent_id = :parent_id"
                     self.dbapi.execute (self.cursor,query, {'parent_id':currParent})
                     children = self.dbapi.fetchall (self.cursor)
                 except:
                     raise
-                for c, in children:
-                    if len(newKidList) == 0:
-                        newKidList = c,
-                    else:
-                        newguy = c,
-                        newKidList = newKidList + newguy
+                newKidList.extend([c for c, in children])
 
             totalNewKids = len(newKidList)
             if totalNewKids == 0:
@@ -960,17 +953,14 @@ class PTdataStore:
             trials = totalNewKids / 1000 + 1
             starthere = 0
             endhere = min(CXLIMIT, totalNewKids)
-            while (trials > 0):
-                sql = "insert into resource_has_descendant (rid,did) (SELECT "+\
-                      "ri1.id, ri2.id FROM resource_item ri1, resource_item " +\
-                      "ri2 WHERE " +\
-                      "ri1.id = '" + str(rid) + "' AND ri2.id IN "
-                if len(newKidList) == 1:
-                    sql += "(" + str(newKidList[0]) + ") ) "
-                else:
-                    sql += str(newKidList[starthere:endhere]) + ")"
-
-                self.dbapi.execute (self.cursor, sql)
+            while (trials > 0 and endhere < totalNewKids):
+                sql = ("insert into resource_has_descendant (rid,did) (SELECT "
+                       "ri1.id, ri2.id FROM resource_item ri1, resource_item " 
+                       "ri2 WHERE "
+                       "ri1.id = :rid AND ri2.id IN (%s))"
+                       %  ",".join(str(k) for k in newKidList[starthere:endhere])
+                       )
+                self.dbapi.execute (self.cursor, sql, {'rid':rid})
 
                 starthere += CXLIMIT
                 endhere += CXLIMIT
@@ -1003,13 +993,14 @@ class PTdataStore:
        if self.debug >= self.NO_WRITE:
           return
        try:
+           sql = "select type from resource_item where id=:rid"
+           sql2 = "insert into execution_has_resource values (:eid, :rid, :has_type)"
            for rid in resources:
-               sql = "select type from resource_item where id=:rid"
+
                self.dbapi.execute(self.cursor, sql, {'rid':rid})
                has_type, = self.dbapi.fetchone()
-               sql = "insert into execution_has_resource values (:eid, :rid, :has_type)"
-               self.dbapi.execute(sql, {'eid':eid, 'rid':rid,'has_type':has_type})
-               self.log.debug(sql)
+               self.dbapi.execute(sql2, {'eid':eid, 'rid':rid,'has_type':has_type})
+               self.log.debug(sql2)
        except:
            raise
 
@@ -1239,9 +1230,9 @@ class PTdataStore:
         if self.debug >= self.NO_WRITE:
             return
 
+        query = "insert into resource_constraint (from_resource, to_resource) "
+        query += "values (:from_id, :to_id)"
         for to_id in constraintList:
-            query = "insert into resource_constraint (from_resource, to_resource) "
-            query += "values (:from_id, :to_id)"
             self.dbapi.execute (self.cursor, query, {'from_id':from_id, 'to_id':to_id})
 
     def findResTypeHierarchy(self, hierName):
@@ -1613,7 +1604,7 @@ class PTdataStore:
            return 0
         return 1
 
-    @lru_cache(maxsize=128)
+    @lru_cache(maxsize=DEFAULT_CACHE_SIZE)
     def parseAndCreateContext(self, context):
         """ Takes a context and splits it up into its subcontexts. For each 
             subcontext (e.g. primary, parent, sender, etc.) it checks to see if 
@@ -1625,47 +1616,50 @@ class PTdataStore:
         """
         if self.debug >= self.NO_WRITE:
             return 0
-        # parse the context and add it to the database
-        contexts = []
-        cs = context.split("::") # split into multiple context names
-        for c in cs:
-            index = c.find("(")
-            if index >= 0:     # get the type of context 
-               type = c[index+1:len(c)-1]
-               name = c[:index]
-            else:              # default to primary
-               type = "primary"
-               name = c
+        with self.lock:
+            # parse the context and add it to the database
+            contexts = []
+            cs = context.split("::") # split into multiple context names
+            for c in cs:
+                index = c.find("(")
+                if index >= 0:     # get the type of context 
+                   type = c[index+1:len(c)-1]
+                   name = c[:index]
+                else:              # default to primary
+                   type = "primary"
+                   name = c
 
-            context_id = self.findFocusByName(name)
-            if context_id == 0:
-                # create resource_id_list for new context
-                resourceNames = name.split(",")
-                resourceIDs = []
-                for rName in resourceNames:
-                    thisRID = self.findResourceByName(rName)
-                    if thisRID == 0:
-                        self.log.error("error forming context for %s", rName)
-                        return 0
-                    resourceIDs.append(thisRID)
-                # add the new focus to the DB
-                context_id = self.findOrCreateFocus(resourceIDs)
+                context_id = self.findFocusByName(name)
                 if context_id == 0:
-                    self.log.error("context could not be created")
-                    return 0
-                # here is support for a new table, focus_has_resource_name
-                # we are in the process of changing the primary key of 
-                # resource_item from an integer id to the resource's name
-                # we plan to have all references to the resource_item table
-                # be done by name in the future
-                for rName in resourceNames:
-                    check = self.addResourceNameToFocus(context_id,rName)
-                    if check == 0:
-                        self.log.error("error adding resource name to context")
+                    # create resource_id_list for new context
+                    resourceNames = name.split(",")
+                    resourceIDs = []
+                    for rName in resourceNames:
+                        thisRID = self.findResourceByName(rName)
+                        if thisRID == 0:
+                            self.log.error("error forming context for %s", rName)
+                            return 0
+                        resourceIDs.append(thisRID)
+                    # add the new focus to the DB
+                    context_id = self.findOrCreateFocus(resourceIDs)
+                    if context_id == 0:
+                        self.log.error("context could not be created")
                         return 0
-                contexts.append((context_id,type))
-            else:
-                contexts.append((context_id,type))
+                    # here is support for a new table, focus_has_resource_name
+                    # we are in the process of changing the primary key of 
+                    # resource_item from an integer id to the resource's name
+                    # we plan to have all references to the resource_item table
+                    # be done by name in the future
+                    for rName in resourceNames:
+                        check = self.addResourceNameToFocus(context_id,rName)
+                        if check == 0:
+                            self.log.error("error adding resource name to context")
+                            return 0
+                    contexts.append((context_id,type))
+                else:
+                    contexts.append((context_id,type))
+            self.commitTransaction()
+
         return contexts                
 
     def addPerfResult(self, eName, fNames, perfToolName, metricName, value, units, startTime, endTime, label=None):
@@ -1979,6 +1973,24 @@ class PTdataStore:
     def __res_type_name(self, name):
         return name.replace(self.dataDelim, self.dbDelim)
 
+    def storePTDFdataOffset (self, worker, filename, offset, size):
+        self.parser.set_worker(worker)
+        pfile = open(filename, 'r')
+        if (offset != 0):
+            pfile.seek(offset)
+            while(pfile.read(1) != '\n'):
+                pass
+        #file should be at newline (or beginning of file)
+        print ("Loading %s (offset %s)..." % (filename, offset))
+        self.parser.reset()
+        while (pfile.tell() < offset + size):
+            line = pfile.readline()
+            self.parser.parse(line)
+        pfile.close()
+        self.commitTransaction() #Transaction committed after every file
+        print("Loaded %s (offset %s size %s)" % (filename, offset, size))
+        return True
+
     def storePTDFdata (self, filename):
         """ opens <filename> and reads in contents one line at a time.
 
@@ -1994,10 +2006,9 @@ class PTdataStore:
             return False
 
         print ("Loading %s ..." % filename)
-
-        parser = PTDFParser(self)
+        self.parser.reset()
         for line in pfile:
-            parser.parse(line)
+            self.parser.parse(line)
         #parser.parse(pfile.read())
         pfile.close()
         self.commitTransaction() #Transaction committed after every file
