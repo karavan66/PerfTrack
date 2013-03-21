@@ -43,7 +43,7 @@ def test1(td):
    testName = "test1"
    TIs = ["PTrunIndex.txt", "PTrunIndex.txt.13", "PTrunIndex.txt.14", 
           "PTrunIndex.txt.15", "PTrunIndex.txt.19", "PTrunIndex.txt.20",
-          "PTrunIndex.txt.21", "PTrunIndex.txt.22"]
+          "PTrunIndex.txt.21", "PTrunIndex.txt.22", "PTrunIndex.txt.33"]
 
    for testIndex in TIs:
       try:

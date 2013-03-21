@@ -14,6 +14,7 @@ from PassFail import PassFail
 from ResourceIndex import ResourceIndex
 
 def resourceBasicTests(pf):
+    print "ResourceBasicTests"
     try:
        # try giving Resource name=None
        app = Resource (None)
@@ -381,7 +382,7 @@ def resourceSearchTests(pf):
 
 
 def execTests(pf):
-
+    print "Execution Tests"
     try:
        # try giving Application  non-list execution
         b = "superduper"
@@ -472,18 +473,6 @@ def execTests(pf):
     else:
        pf.failed("try giving Execution non-pair attrvalue")
 
-    try:
-       # try giving Execution good list attr value 
-       a = "susan"
-       c = "superduper"
-       d = "silliness"
-       exe = Execution(a,[(c,d)])
-    except PTexception, a:
-        pf.failed(a.value)
-    except:
-       pf.failed("non-PTexception when try giving Execution good list attrvalue")
-    else:
-       pf.passed("try giving Execution good list attrvalue")
 
     try:
        # try giving Execution  None resource list
@@ -491,7 +480,7 @@ def execTests(pf):
        c = "superduper"
        d = "silliness"
        f = None
-       exe = Execution(a,[(c,d)],[f])
+       exe = Execution(a,[(c,d),f])
     except PTexception, a:
         pf.passed(a.value)
     except:
@@ -505,7 +494,7 @@ def execTests(pf):
        c = "superduper"
        d = "silliness"
        f = Resource("a","b")
-       exe = Execution(a,[(c,d)],f)
+       exe = Execution(a,(c,d))
     except PTexception, a:
         pf.passed(a.value)
     except:
@@ -513,22 +502,10 @@ def execTests(pf):
     else:
        pf.failed("try giving Execution non-list resource list")
 
-    try:
-       # try giving Execution  good resource list 
-       a = "susan"
-       c = "superduper"
-       d = "silliness"
-       f = Resource("a","b")
-       exe = Execution(a,[(c,d), f])
-    except PTexception, a:
-        pf.failed(a.value)
-    except:
-       pf.failed("non-PTexception raised when try giving Execution good resource list")
-       raise
-    else:
-       pf.passed("try giving Execution good resource list")
+   
 
 def focusTests(pf):
+    print "Focus Tests"
     try:
        # try  getting a focus template
         ri = ResourceIndex()
@@ -578,7 +555,7 @@ def focusTests(pf):
        pf.failed("non-PTexception raised when getting focusTemplate same types")
        raise
     else:
-       if len(fl) != 5:
+       if len(fl) != 6:
           pf.failed("wrong number of resources same types. %d" % len(fl))
        else:
           pf.passed("got focus template successfully same types")
@@ -640,52 +617,7 @@ def focusTests(pf):
 
 
 def attrValTests(pf):
-
-    try:
-        # test AttrVal class. nothing bad should happen
-        av = AttrVal()
-        av.addPair("frank", "alice")
-        av.addPair("susan", "james")
-        b = [("a",""),("c",None)] 
-        av.addPairs(b)
-        av.addPairs([])
-        newlist = []
-        for a in av:
-           newlist.append(a) 
-        if len(newlist) != 4:
-           raise PTexception("wrong number in pair list")
-        newlist = []
-        for a in av:
-           newlist.append(a) 
-        if len(newlist) != 4:
-           raise PTexception("wrong number in pair list")
-        i = 0
-        print av.pairs
-        for (a,v,t) in av:
-           i += 1
-           if a == "susan":
-              break
-        for a,v,t in av:
-           i += 1
-        if i != 4:
-           raise PTexception("break in iteration didn't work")
-        a = av.getNext()
-        newlist = []
-        while a: 
-           newlist.append(a)
-           a,v,t = av.getNext()
-        if len(newlist) != 4:
-           raise PTexception("getNext not working")
-            
-    except PTexception, a:
-        pf.failed("PTexception raised for good AttrVal test: " + a.value)
-    except:
-        pf.failed("non-PTexception raised AttrVal good test")
-        raise
-    else:
-        pf.passed("good AttrVal test")
-
-
+    print "ATTR Value Tests"
     try:
         # test missing value for name 
         av = AttrVal()
@@ -728,7 +660,7 @@ def attrValTests(pf):
 
 def main():
     pf = PassFail()
-    tests = [resourceBasicTests,resourceSearchTests,execTests, attrValTests,\
+    tests = [resourceBasicTests,resourceSearchTests,execTests,attrValTests, \
                  focusTests]
     for test in tests:
         test(pf)

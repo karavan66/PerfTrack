@@ -1,0 +1,81 @@
+Start Time| Mon Mar 11 02:02:53 UTC 2013
+Processor| Intel(R) Xeon(R) CPU           E5520  @ 2.27GHz
+Processor Cores| 8
+Cache Size| 8192 KB
+Operating System| Ubuntu 12.04.2 LTS
+Kernel Name| Linux 3.2.0-38-generic
+Kernel Version| #61-Ubuntu SMP Tue Feb 19 12:18:21 UTC 2013
+Total Memory| 12294320 kB
+Free Memory| 750884 kB
+Total Virtual Memory| 12570620 kB
+Free Virtual Memory| 12520632 kB
+Host bridge| Intel Corporation 5500 I/O Hub to ESI Port (rev 13)
+PCI bridge| Intel Corporation 5520/5500/X58 I/O Hub PCI Express Root Port 1 (rev 13)
+PCI bridge| Intel Corporation 5520/5500/X58 I/O Hub PCI Express Root Port 3 (rev 13)
+PCI bridge| Intel Corporation 5520/5500/X58 I/O Hub PCI Express Root Port 7 (rev 13)
+PCI bridge| Intel Corporation 5520/5500/X58 I/O Hub PCI Express Root Port 9 (rev 13)
+PCI bridge| Intel Corporation 5520/5500/X58 I/O Hub PCI Express Root Port 10 (rev 13)
+PIC| Intel Corporation 5520/5500/X58 I/O Hub System Management Registers (rev 13)
+PIC| Intel Corporation 5520/5500/X58 I/O Hub GPIO and Scratch Pad Registers (rev 13)
+PIC| Intel Corporation 5520/5500/X58 I/O Hub Control Status and RAS Registers (rev 13)
+USB controller| Intel Corporation 82801JI (ICH10 Family) USB UHCI Controller #4
+USB controller| Intel Corporation 82801JI (ICH10 Family) USB UHCI Controller #5
+USB controller| Intel Corporation 82801JI (ICH10 Family) USB2 EHCI Controller #2
+PCI bridge| Intel Corporation 82801JI (ICH10 Family) PCI Express Root Port 1
+USB controller| Intel Corporation 82801JI (ICH10 Family) USB UHCI Controller #1
+USB controller| Intel Corporation 82801JI (ICH10 Family) USB UHCI Controller #2
+USB controller| Intel Corporation 82801JI (ICH10 Family) USB UHCI Controller #3
+USB controller| Intel Corporation 82801JI (ICH10 Family) USB UHCI Controller #6
+USB controller| Intel Corporation 82801JI (ICH10 Family) USB2 EHCI Controller #1
+PCI bridge| Intel Corporation 82801 PCI Bridge (rev 90)
+ISA bridge| Intel Corporation 82801JIR (ICH10R) LPC Interface Controller
+IDE interface| Intel Corporation 82801JI (ICH10 Family) 4 port SATA IDE Controller #1
+IDE interface| Intel Corporation 82801JI (ICH10 Family) 2 port SATA IDE Controller #2
+Ethernet controller| Broadcom Corporation NetXtreme II BCM5716 Gigabit Ethernet (rev 20)
+Ethernet controller| Broadcom Corporation NetXtreme II BCM5716 Gigabit Ethernet (rev 20)
+VGA compatible controller| Matrox Graphics, Inc. MGA G200eW WPCM450 (rev 0a)
+Host bridge| Intel Corporation Xeon 5500/Core i7 QuickPath Architecture Generic Non-Core Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 QuickPath Architecture System Address Decoder (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 QPI Link 0 (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 QPI Physical 0 (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 QPI Link 1 (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 QPI Physical 1 (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Target Address Decoder (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller RAS Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Test Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 0 Control Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 0 Address Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 0 Rank Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 0 Thermal Control Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 1 Control Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 1 Address Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 1 Rank Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 1 Thermal Control Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 2 Control Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 2 Address Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 2 Rank Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 2 Thermal Control Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 QuickPath Architecture Generic Non-Core Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 QuickPath Architecture System Address Decoder (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 QPI Link 0 (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 QPI Physical 0 (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 QPI Link 1 (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 QPI Physical 1 (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Target Address Decoder (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller RAS Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Test Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 0 Control Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 0 Address Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 0 Rank Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 0 Thermal Control Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 1 Control Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 1 Address Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 1 Rank Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 1 Thermal Control Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 2 Control Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 2 Address Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 2 Rank Registers (rev 05)
+Host bridge| Intel Corporation Xeon 5500/Core i7 Integrated Memory Controller Channel 2 Thermal Control Registers (rev 05)
+End Time| Mon Mar 11 02:02:53 UTC 2013

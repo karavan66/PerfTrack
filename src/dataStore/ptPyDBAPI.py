@@ -19,7 +19,8 @@ class PTpyDBAPI:
 
       self.dbenv = self.__getDBenv()
       self.dbMod = self.importDBapi()
-      
+      self.query_count = 0
+
       # Constants*
       self.paramstyle = self.dbMod.paramstyle
       
@@ -329,6 +330,7 @@ class PTpyDBAPI:
       #   sql = self.opToParamFormat(operation, parameters.keys())
       #  
       #f.write("%s" % pickle.dumps((sql, parameters)))
+      self.query_count += 1
       if parameters == None:
          crs.execute (operation)
       else:

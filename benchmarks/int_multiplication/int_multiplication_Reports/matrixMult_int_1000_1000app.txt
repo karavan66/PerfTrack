@@ -1,0 +1,8 @@
+CPU: Intel Core/i7, speed 2260.97 MHz (estimated)
+Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (No unit mask) count 30000
+Counted LLC_MISSES events (Last level cache demand requests from this core that missed the LLC) with a unit mask of 0x41 (No unit mask) count 30000
+samples  %        samples  %        image name               symbol name
+1035167  98.5809  298      95.2077  matrixMult_int           main
+12816     1.2205  1         0.3195  libc-2.15.so             /lib/x86_64-linux-gnu/libc-2.15.so
+2080      0.1981  13        4.1534  no-vmlinux               /no-vmlinux
+5        4.8e-04  1         0.3195  ld-2.15.so               /lib/x86_64-linux-gnu/ld-2.15.so

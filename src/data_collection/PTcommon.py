@@ -103,16 +103,16 @@ def isIP(addy):
     return ret
 
 
-#def mapIPtoNode(ip):
-#    """ Attempts to get the hostname of the machine with ip address ip."""
-#    try:
-#       (hostname, aliaslist, ipaddrlist) = socket.gethostbyaddr(ip)
-#    except socket.gaierror (error, string):
-#       raise PTexception("toolParser.paradynParse: could not get node name"\
-#                       " for IP address %d. System error msg: %s" % \
-#                       (ip, string))
-#    else:
-#       return hostname
+def mapIPtoNode(ip):
+    """ Attempts to get the hostname of the machine with ip address ip."""
+    try:
+       (hostname, aliaslist, ipaddrlist) = socket.gethostbyaddr(ip)
+    except socket.gaierror (error, string):
+       raise PTexception("toolParser.paradynParse: could not get node name"\
+                       " for IP address %d. System error msg: %s" % \
+                       (ip, string))
+    else:
+       return hostname
 
 
 def my_exec2(cmd1,cmd2):

@@ -1,0 +1,22 @@
+
+./matrixMult_float.o 100 100
+
+./matrixMult_float.o 1000 1000
+
+./matrixMult_float.o 1500 1500
+
+./matrixMult_float.o 2000 2000
+
+
+
+
+./multOMP_float.o 100 100
+
+./multOMP_float.o 1000 1000
+
+./multOMP_float.o 1500 1500
+
+./multOMP_float.o 2000 2000
+
+
+

@@ -31,6 +31,40 @@ class TestInfo:
     pass
 
 
+def write_files(dir_name, execName, writeLst, split):
+    if (not split):
+        ptdfname = dir_name + "/" + execName + ".ptdf"
+        f = open(ptdfname,'w')
+        for w in writeLst:
+            f.write(w)
+        f.close()
+    else:
+        fileCounter = 1
+        lineCounter = 0
+        fileCtrName = "00" + str(fileCounter)
+        ptdfname = dir_name + "/" + execName + "_" + fileCtrName + ".ptdf"
+        f = open(ptdfname,'w')
+        for w in writeLst:
+            lines = w.splitlines(True)
+            for line in lines:
+               f.write(line)
+               lineCounter = lineCounter + 1
+               if lineCounter == 250000:
+                  f.close()
+                  fileCounter = fileCounter + 1
+                  if fileCounter < 10:
+                     fileCtrName = "00" + str(fileCounter)
+                  elif fileCounter < 99:
+                     fileCtrName = "0" + str(fileCounter)
+                  else:
+                     fileCtrName = str(fileCounter)
+                  ptdfname = dir_name + "/" + execName + "_" + \
+                             fileCtrName + ".ptdf"
+                  f = open(ptdfname,'w')
+                  lineCounter = 0
+        if f:
+            f.close()
+
 def main(argv=sys.argv):
     
     options = checkInputs(argv)
@@ -173,15 +207,8 @@ def processData(eInfo, mInfo, sInfo, testMode, verbose, opt = None):
              parsePerf.getPerfInfo(resIdx, execName, \
                             eInfo.dataDir, eInfo.perfTools,  \
                             threaded, ptds)
-      
-             ptdfname = eInfo.dataDir + "/" + execName + ".ptdf"
-             f = open(ptdfname,'w')
-             # ResourceIndex.PTdF returns a list of strings to write
              writeLst = resIdx.PTdF()
-             for w in writeLst:
-                f.write(w)
-             if f:
-                f.close()
+             write_files(eInfo.dataDir, execName, writeLst, opt.split)
              print "PTDF execution data generation complete."
        except PTexception, a:
            if testMode:
@@ -305,6 +332,8 @@ def checkInputs(argv):
                       help="use this flag to get verbose output.") 
     parser.add_option("--testMode", dest="PTdFtestMode", action="store_true",
                       default=False, help=SUPPRESS_HELP)
+    parser.add_option("--split", dest="split", action="store_true",
+                  default=False, help=SUPPRESS_HELP)
     parser.add_option("--testRunIndex", dest="testRunIndex",help=SUPPRESS_HELP)
     parser.add_option("-D", "--dbname", dest = "database",
                       help = "name of the database to connect too")

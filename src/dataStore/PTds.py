@@ -20,17 +20,15 @@ class NoDBResultException(Exception):
     def __init__(self, error):
         self.err = error
 
-CACHING_ENABLED = True
-INJECTION_ENABLED = False
-DEFAULT_CACHE_SIZE = 256
+CACHING_ENABLED = os.getenv("PTDF_CACHE", 'True') == 'True'
+INJECTION_ENABLED = os.getenv("PTDF_INJECT", 'False') == 'True'
+DEFAULT_CACHE_SIZE = int(os.getenv("PTDF_CACHE_SIZE", 256))
+PREPARE_QUERY = os.getenv("PTDF_PREPARE", 'True') == 'True'
 
 class BaseQuery(object):
     query_count = 0
-
-    #formatRe = re.compile('(\%s|\%\([\w\.]+\)', re.DOTALL)
     formatRe = re.compile(':[a-zA-Z_]+')
-
-    def __init__(self, sql, default, dbapi, prepare=True, insert=False):
+    def __init__(self, sql, default, dbapi, prepare=PREPARE_QUERY, insert=False):
         self.dbapi = dbapi
         self.original_sql = sql
         self.sql = sql
@@ -145,9 +143,15 @@ class PTdataStore:
     NO_CONNECT = 10 # will not connect to the database
 
     def __init__(self, data_delim='|', multi=False, lock=None, worker=-1):
-        self.worker = worker
-        self.lock = lock
+        #self.worker = worker
+        if lock:
+            self.lock = lock
+        else:
+            self.lock = Lock()
+        
         self.parser =  PTDFParser(self, multi)
+        self.multi = multi
+        self.multi_re = re.compile('^(?:Perf)?Result')
         self.cache_enabled = True
         self.cursor = None          # object for using db 
         self.connection = None      # object for db connection
@@ -156,7 +160,6 @@ class PTdataStore:
         self.tempTablesCreated = False     # keep a record of whether we have 
                                            # created the temporary tables for
                                            # retrieving performance results
-        
         #logging.basicConfig(level=logging.INFO)
         #logging.basicConfig(level=logging.DEBUG)
         logging.basicConfig()
@@ -174,7 +177,7 @@ class PTdataStore:
         self.resource_name_by_id = LRUQuery(
             "select name from resource_item where id=:id", "", self.dbapi)
         self.focus_by_name = LRUQuery(
-            "select id from focus where focusName=:focusname", 0, self.dbapi, size=128)
+            "select id from focus where focusName=:focusname", 0, self.dbapi)
         self.descendent_id = LRUQuery(
             "select rid from resource_has_descendant where rid=:rid", 0, self.dbapi)
         self.ancestor_id = LRUQuery(
@@ -264,7 +267,7 @@ class PTdataStore:
             return True
         return False 
 
-    def closeDB(self):
+    def closeDB(self, hierarchy_update=True):
         if self.debug == self.NO_CONNECT:
             return
         else:
@@ -360,17 +363,27 @@ class PTdataStore:
             self.resource_by_name.inject(res_id, {'name':fullName})
             self.resource_name_by_id.inject(fullName, {'id':res_id})
             self.parent_id.inject(parent_id, {'id':res_id})
+
+            #build ancestors at creation of resource
+            self.addAncestors(res_id)
         except:
             raise
 
         # update table resource_has_descendant if needed
         #  we only need to do the update if an ancestor of the new resource is in the table
         ancestors = self.getAncestors(res_id)
+        #if (parent_id != None and parent_id > 0):
+        #    ancestors.append(parent_id)
+
         sql = "insert into resource_has_descendant (rid,did) values (:aid, :res_id)"
         for aid in ancestors:
-            thisid = self.descendent_id.query({'rid':aid})
-            if thisid > 0:
+            #print "Checking %s" % aid
+            #thisid = self.descendent_id.query({'rid':aid})
+            #print "Found %s" % thisid
+            thisid = None #By definition the descendent will not exist, since we just created it
+            if thisid == None or thisid == 0:
                 try:
+                    #print "Adding %s, %s" % (aid, res_id)
                     self.dbapi.execute(self.cursor, sql, {'aid':aid, 'res_id':res_id})
                 except:
                     raise
@@ -753,7 +766,7 @@ class PTdataStore:
 
         return prId
 
-    @lru_cache(maxsize=128)
+    @lru_cache(maxsize=DEFAULT_CACHE_SIZE)
     def __focus_name_from_resources(self, resource_id_list):      
         # get all the resource names
         # and sort the resources by their type
@@ -881,8 +894,6 @@ class PTdataStore:
                    focResParams = {"fid":focus_id, 
                                    "rid":resource[2]}
                    self.focus_has_resource.query(focResParams)
-                   self.addAncestors(resource[2])
-                   self.addDescendants(resource[2])
        except:
            raise
        return focus_id
@@ -915,7 +926,6 @@ class PTdataStore:
                    self.dbapi.execute(self.cursor, sql, {'rid':rid, 'parentId':parentID})
                except:
                    raise
-               assert(currResource != parentID)
                currResource = parentID
 
     def addDescendants(self, rid):
@@ -1404,7 +1414,6 @@ class PTdataStore:
         returns rid if successful, 0 if not
         """
         self.log.debug("insertResource: %s, %s", resName, resType)
-
         if self.debug >= self.NO_WRITE:
             return 0
         # get parentID
@@ -1415,7 +1424,8 @@ class PTdataStore:
             parentName = self.dbDelim.join(nameElements[0:-1])
             parentID = self.findResourceByName(parentName)
             if parentID == 0:
-               return 0
+                self.log.error("Couldn't find parent name of %s for %s", parentName, resName)
+                return 0
 
         # get focus_frame_id
         ffid = self.getFocusFrameId(resType)
@@ -1453,7 +1463,7 @@ class PTdataStore:
         # add resource for execution
         newbie = self.addResource(execName, "execution")
         if newbie == 0:
-            self.log.warning("unable to add new resource %s", execName)
+            self.log.warning("unable to add new execution %s", execName)
             return 0
         # add execution to its application
         result = self.applicationHasExecution(appExists, newbie)
@@ -1503,6 +1513,7 @@ class PTdataStore:
             return 0
         exists = self.findResourceByNameAndType(resName, resType)
         if exists > 0:
+            self.log.warning("Resource %s of type %s already exists", resName, resType)
             return 0
         else:
            result = self.insertResource(resName, resType)
@@ -1974,18 +1985,33 @@ class PTdataStore:
         return name.replace(self.dataDelim, self.dbDelim)
 
     def storePTDFdataOffset (self, worker, filename, offset, size):
+        self.filename = filename
         self.parser.set_worker(worker)
+        self.parser.reset()
+
         pfile = open(filename, 'r')
         if (offset != 0):
-            pfile.seek(offset)
-            while(pfile.read(1) != '\n'):
-                pass
+            while (pfile.tell() < offset):
+                pfile.readline()
+                self.parser.incr_lineno()
+            
+            #Ideally we would seek to the byte location
+            # But we need line numbers
+            #pfile.seek(offset)
+            #while(pfile.read(1) != '\n'):
+            #    pass
+
         #file should be at newline (or beginning of file)
         print ("Loading %s (offset %s)..." % (filename, offset))
-        self.parser.reset()
         while (pfile.tell() < offset + size):
             line = pfile.readline()
-            self.parser.parse(line)
+            if not line:
+                pass
+            elif(self.multi_re.match(line)):
+                self.parser.parse(line) 
+            else:
+                self.parser.incr_lineno()
+
         pfile.close()
         self.commitTransaction() #Transaction committed after every file
         print("Loaded %s (offset %s size %s)" % (filename, offset, size))
@@ -2006,10 +2032,21 @@ class PTdataStore:
             return False
 
         print ("Loading %s ..." % filename)
+        self.firstResult = -1
         self.parser.reset()
-        for line in pfile:
-            self.parser.parse(line)
-        #parser.parse(pfile.read())
+        while (True):
+            line_start = pfile.tell()
+            line = pfile.readline()
+            if (not line):
+                break
+            elif (not self.multi or not self.multi_re.match(line)):
+                self.parser.parse(line) 
+            elif(self.firstResult == -1):
+                self.firstResult = line_start
+                self.parser.incr_lineno()
+            else:
+                self.parser.incr_lineno()
+
         pfile.close()
         self.commitTransaction() #Transaction committed after every file
         print("Loaded %s" % (filename))

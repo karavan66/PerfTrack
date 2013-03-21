@@ -1,0 +1,14 @@
+
+./blocked.o 1000 200
+
+./blocked.o 1500 500
+
+./blocked.o 3000 300
+
+./blocked.o 3000 1500
+
+
+
+
+
+

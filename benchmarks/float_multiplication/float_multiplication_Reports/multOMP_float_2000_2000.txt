@@ -1,0 +1,277 @@
+CPU: Intel Core/i7, speed 2260.97 MHz (estimated)
+Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (No unit mask) count 36000
+Counted LLC_MISSES events (Last level cache demand requests from this core that missed the LLC) with a unit mask of 0x41 (No unit mask) count 36000
+CPU_CLK_UNHALT...| LLC_MISSES:36000|
+  samples|      %|  samples|      %|
+------------------------------------
+  7471130 96.7575      4021 93.4247 multOMP_float
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	  7117241 95.2632      3882 96.5431 multOMP_float
+	   337436  4.5165        38  0.9450 libc-2.15.so
+	    16446  0.2201       101  2.5118 no-vmlinux
+	        7 9.4e-05         0       0 ld-2.15.so
+   188886  2.4462       161  3.7407 no-vmlinux
+    29258  0.3789        32  0.7435 oprofiled
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	    23279 79.5646         9 28.1250 oprofiled
+	     5747 19.6425        23 71.8750 no-vmlinux
+	      229  0.7827         0       0 libc-2.15.so
+	        3  0.0103         0       0 ld-2.15.so
+    24535  0.3177        61  1.4173 sshd
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	    11716 47.7522         3  4.9180 libcrypto.so.1.0.0
+	     7550 30.7724        40 65.5738 no-vmlinux
+	     2483 10.1202         9 14.7541 ld-2.15.so
+	     1997  8.1394         6  9.8361 libc-2.15.so
+	      400  1.6303         2  3.2787 sshd
+	      189  0.7703         0       0 libpam.so.0.83.0
+	       91  0.3709         1  1.6393 libpthread-2.15.so
+	       15  0.0611         0       0 libnss_files-2.15.so
+	       15  0.0611         0       0 libresolv-2.15.so
+	       10  0.0408         0       0 libdl-2.15.so
+	        8  0.0326         0       0 libnss_compat-2.15.so
+	        6  0.0245         0       0 libwrap.so.0.7.6
+	        6  0.0245         0       0 pam_unix.so
+	        5  0.0204         0       0 libnss_nis-2.15.so
+	        5  0.0204         0       0 libselinux.so.1
+	        4  0.0163         0       0 libnss_dns-2.15.so
+	        4  0.0163         0       0 libk5crypto.so.3.1
+	        3  0.0122         0       0 pam_motd.so
+	        3  0.0122         0       0 libkrb5support.so.0.1
+	        2  0.0082         0       0 libutil-2.15.so
+	        2  0.0082         0       0 libz.so.1.2.3.4
+	        2  0.0082         0       0 pam_deny.so
+	        2  0.0082         0       0 pam_env.so
+	        2  0.0082         0       0 pam_mail.so
+	        2  0.0082         0       0 libgssapi_krb5.so.2.2
+	        1  0.0041         0       0 [vdso] (tgid:16892 range:0x7fff991ff000-0x7fff99200000)
+	        1  0.0041         0       0 [vdso] (tgid:16896 range:0x7fffc27ff000-0x7fffc2800000)
+	        1  0.0041         0       0 [vdso] (tgid:16918 range:0x7fff091ff000-0x7fff09200000)
+	        1  0.0041         0       0 [vdso] (tgid:16924 range:0x7fff59bff000-0x7fff59c00000)
+	        1  0.0041         0       0 [vdso] (tgid:16930 range:0x7fff85174000-0x7fff85175000)
+	        1  0.0041         0       0 [vdso] (tgid:16938 range:0x7fffcd3fb000-0x7fffcd3fc000)
+	        1  0.0041         0       0 [vdso] (tgid:16942 range:0x7fff123ff000-0x7fff12400000)
+	        1  0.0041         0       0 [vdso] (tgid:16946 range:0x7fffeafd0000-0x7fffeafd1000)
+	        1  0.0041         0       0 libcrypt-2.15.so
+	        1  0.0041         0       0 libkeyutils.so.1.4
+	        1  0.0041         0       0 pam_nologin.so
+	        1  0.0041         0       0 pam_permit.so
+	        1  0.0041         0       0 pam_umask.so
+     1359  0.0176         4  0.0929 irqbalance
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	     1088 80.0589         4 100.000 no-vmlinux
+	      198 14.5695         0       0 libc-2.15.so
+	       49  3.6056         0       0 irqbalance
+	       15  1.1038         0       0 libglib-2.0.so.0.3200.3
+	        9  0.6623         0       0 libpthread-2.15.so
+     1067  0.0138         6  0.1394 dash
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	      770 72.1649         6 100.000 no-vmlinux
+	      162 15.1828         0       0 dash
+	       99  9.2784         0       0 libc-2.15.so
+	       36  3.3739         0       0 ld-2.15.so
+      978  0.0127         0       0 gawk
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	      648 66.2577         0       0 no-vmlinux
+	      144 14.7239         0       0 ld-2.15.so
+	      116 11.8609         0       0 libc-2.15.so
+	       37  3.7832         0       0 gawk
+	       29  2.9652         0       0 libsigsegv.so.2.0.2
+	        3  0.3067         0       0 libm-2.15.so
+	        1  0.1022         0       0 libdl-2.15.so
+      911  0.0118         2  0.0465 rsyslogd
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	      519 56.9704         0       0 no-vmlinux
+	      205 22.5027         1 50.0000 rsyslogd
+	      111 12.1844         0       0 libc-2.15.so
+	       41  4.5005         0       0 libpthread-2.15.so
+	       22  2.4149         1 50.0000 imuxsock.so
+	       13  1.4270         0       0 [vdso] (tgid:934 range:0x7fff19349000-0x7fff1934a000)
+      781  0.0101         1  0.0232 ophelp
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	      388 49.6799         0       0 libc-2.15.so
+	      226 28.9373         1 100.000 no-vmlinux
+	      124 15.8771         0       0 ophelp
+	       43  5.5058         0       0 ld-2.15.so
+      667  0.0086         7  0.1626 mysqld
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	      546 81.8591         7 100.000 mysqld
+	      105 15.7421         0       0 no-vmlinux
+	        9  1.3493         0       0 libpthread-2.15.so
+	        5  0.7496         0       0 [vdso] (tgid:1264 range:0x7fffbfdff000-0x7fffbfe00000)
+	        2  0.2999         0       0 libc-2.15.so
+      300  0.0039         1  0.0232 cp
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	      253 84.3333         1 100.000 no-vmlinux
+	       20  6.6667         0       0 libc-2.15.so
+	       15  5.0000         0       0 cp
+	       12  4.0000         0       0 ld-2.15.so
+      247  0.0032         2  0.0465 init
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	      109 44.1296         0       0 no-vmlinux
+	       88 35.6275         1 50.0000 init
+	       20  8.0972         0       0 libnih.so.1.0.0
+	       18  7.2874         0       0 libdbus-1.so.3.5.8
+	        7  2.8340         0       0 libc-2.15.so
+	        2  0.8097         1 50.0000 librt-2.15.so
+	        1  0.4049         0       0 [vdso] (tgid:1 range:0x7fff9bbff000-0x7fff9bc00000)
+	        1  0.4049         0       0 libnih-dbus.so.1.0.0
+	        1  0.4049         0       0 libpthread-2.15.so
+      245  0.0032         1  0.0232 grep
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	      154 62.8571         1 100.000 no-vmlinux
+	       49 20.0000         0       0 libc-2.15.so
+	       36 14.6939         0       0 ld-2.15.so
+	        6  2.4490         0       0 grep
+      242  0.0031         2  0.0465 whoopsie
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	       78 32.2314         0       0 libgobject-2.0.so.0.3200.3
+	       58 23.9669         0       0 libglib-2.0.so.0.3200.3
+	       33 13.6364         0       0 libc-2.15.so
+	       30 12.3967         0       0 no-vmlinux
+	       21  8.6777         0       0 libpthread-2.15.so
+	       20  8.2645         2 100.000 libgio-2.0.so.0.3200.3
+	        1  0.4132         0       0 whoopsie
+	        1  0.4132         0       0 [vdso] (tgid:1372 range:0x7fffc85d4000-0x7fffc85d5000)
+      228  0.0030         1  0.0232 sudo
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	      129 56.5789         1 100.000 no-vmlinux
+	       44 19.2982         0       0 libc-2.15.so
+	       36 15.7895         0       0 ld-2.15.so
+	        7  3.0702         0       0 sudoers.so
+	        5  2.1930         0       0 libpam.so.0.83.0
+	        3  1.3158         0       0 libnss_compat-2.15.so
+	        2  0.8772         0       0 libnsl-2.15.so
+	        1  0.4386         0       0 sudo
+	        1  0.4386         0       0 libdl-2.15.so
+      130  0.0017         0       0 cat
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	       88 67.6923         0       0 no-vmlinux
+	       22 16.9231         0       0 ld-2.15.so
+	       19 14.6154         0       0 libc-2.15.so
+	        1  0.7692         0       0 cat
+      104  0.0013         1  0.0232 ls
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	       73 70.1923         1 100.000 no-vmlinux
+	       17 16.3462         0       0 ld-2.15.so
+	       11 10.5769         0       0 libc-2.15.so
+	        2  1.9231         0       0 libselinux.so.1
+	        1  0.9615         0       0 ls
+       72 9.3e-04         1  0.0232 apache2
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	       57 79.1667         0       0 no-vmlinux
+	        8 11.1111         1 100.000 apache2
+	        5  6.9444         0       0 libapr-1.so.0.4.6
+	        2  2.7778         0       0 libc-2.15.so
+       69 8.9e-04         0       0 id
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	       50 72.4638         0       0 no-vmlinux
+	        9 13.0435         0       0 ld-2.15.so
+	        9 13.0435         0       0 libc-2.15.so
+	        1  1.4493         0       0 libselinux.so.1
+       58 7.5e-04         0       0 rm
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	       37 63.7931         0       0 no-vmlinux
+	       11 18.9655         0       0 libc-2.15.so
+	       10 17.2414         0       0 ld-2.15.so
+       56 7.3e-04         0       0 seq
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	       28 50.0000         0       0 no-vmlinux
+	       15 26.7857         0       0 libc-2.15.so
+	       12 21.4286         0       0 ld-2.15.so
+	        1  1.7857         0       0 seq
+       44 5.7e-04         0       0 mkdir
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	       25 56.8182         0       0 no-vmlinux
+	       13 29.5455         0       0 libc-2.15.so
+	        6 13.6364         0       0 ld-2.15.so
+       29 3.8e-04         0       0 tr
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	       22 75.8621         0       0 no-vmlinux
+	        4 13.7931         0       0 ld-2.15.so
+	        3 10.3448         0       0 libc-2.15.so
+       27 3.5e-04         0       0 expr
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	       17 62.9630         0       0 no-vmlinux
+	        4 14.8148         0       0 ld-2.15.so
+	        4 14.8148         0       0 libc-2.15.so
+	        2  7.4074         0       0 expr
+       26 3.4e-04         0       0 sleep
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	       19 73.0769         0       0 no-vmlinux
+	        3 11.5385         0       0 ld-2.15.so
+	        3 11.5385         0       0 libc-2.15.so
+	        1  3.8462         0       0 sleep
+       26 3.4e-04         0       0 dirname
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	       17 65.3846         0       0 no-vmlinux
+	        4 15.3846         0       0 ld-2.15.so
+	        4 15.3846         0       0 libc-2.15.so
+	        1  3.8462         0       0 dirname
+       18 2.3e-04         0       0 dnsmasq
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	       12 66.6667         0       0 no-vmlinux
+	        4 22.2222         0       0 dnsmasq
+	        2 11.1111         0       0 libc-2.15.so
+        5 6.5e-05         0       0 opjitconv
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	        5 100.000         0       0 no-vmlinux
+        4 5.2e-05         0       0 cron
+	CPU_CLK_UNHALT...| LLC_MISSES:36000|
+	  samples|      %|  samples|      %|
+	------------------------------------
+	        4 100.000         0       0 no-vmlinux

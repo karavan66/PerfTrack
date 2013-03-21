@@ -1,0 +1,8 @@
+ResourceType grid
+ResourceType grid|machine 
+ResourceType grid|machine|partition
+ResourceType grid|machine|partition|node
+
+Resource NWICE grid|machine
+Resource NWICE|batch grid|machine|partition
+Resource nwiceb grid|machine|partition|node

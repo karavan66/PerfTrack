@@ -163,3 +163,5 @@ class Resource:
       for perfRes in perfReses:
           self.addPerfResult(perfRes)
 
+   def extend(self, name, type):
+      return Resource(self.name + self.resDelim + name, self.type + self.resDelim + type)

@@ -1,0 +1,2289 @@
+<?xml version="1.0" ?>
+<profile  schemaversion="3.0" cputype="i386"
+ processor="core_i7"
+ mhz="2260.97"
+ title="opreport -X ">
+<options />
+<setup>
+<eventsetup  id="0" eventname="CPU_CLK_UNHALTED" unitmask="0" setupcount="30000"/>
+<eventsetup  id="1" eventname="LLC_MISSES" unitmask="65" setupcount="30000"/>
+</setup>
+
+<classes>
+<class  name="c0" event="0" mask="0"/>
+<class  name="c1" event="1" mask="65"/>
+</classes>
+<binary  name="/usr/lib/apache2/mpm-prefork/apache2">
+<count  class="c0">
+38</count>
+<symbol  idref="0">
+<count  class="c0">
+38</count>
+</symbol>
+<module  name="/usr/lib/libapr-1.so.0.4.6">
+<count  class="c0">
+36</count>
+<symbol  idref="1">
+<count  class="c0">
+36</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+34</count>
+<symbol  idref="2">
+<count  class="c0">
+34</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libpthread-2.15.so">
+<count  class="c0">
+20</count>
+<symbol  idref="3">
+<count  class="c0">
+12</count>
+</symbol>
+<symbol  idref="4">
+<count  class="c0">
+7</count>
+</symbol>
+<symbol  idref="5">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+687</count>
+<count  class="c1">
+2</count>
+<symbol  idref="6">
+<count  class="c0">
+687</count>
+<count  class="c1">
+2</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/bin/bash">
+<count  class="c0">
+38</count>
+<count  class="c1">
+1</count>
+<symbol  idref="7">
+<count  class="c0">
+38</count>
+<count  class="c1">
+1</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+13</count>
+<count  class="c1">
+1</count>
+<symbol  idref="2">
+<count  class="c0">
+13</count>
+<count  class="c1">
+1</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+63</count>
+<symbol  idref="6">
+<count  class="c0">
+63</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/bin/cat">
+<count  class="c0">
+1</count>
+<symbol  idref="8">
+<count  class="c0">
+1</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+29</count>
+<symbol  idref="9">
+<count  class="c0">
+29</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+30</count>
+<symbol  idref="2">
+<count  class="c0">
+30</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+95</count>
+<symbol  idref="6">
+<count  class="c0">
+95</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/bin/cp">
+<count  class="c0">
+17</count>
+<symbol  idref="10">
+<count  class="c0">
+17</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+14</count>
+<symbol  idref="9">
+<count  class="c0">
+14</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+24</count>
+<symbol  idref="2">
+<count  class="c0">
+24</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+301</count>
+<count  class="c1">
+1</count>
+<symbol  idref="6">
+<count  class="c0">
+301</count>
+<count  class="c1">
+1</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/sbin/cron">
+<count  class="c0">
+6</count>
+<symbol  idref="11">
+<count  class="c0">
+6</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+8</count>
+<symbol  idref="2">
+<count  class="c0">
+8</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+16</count>
+<symbol  idref="6">
+<count  class="c0">
+16</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/bin/dash">
+<count  class="c0">
+218</count>
+<symbol  idref="12">
+<count  class="c0">
+218</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+39</count>
+<symbol  idref="9">
+<count  class="c0">
+39</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+139</count>
+<symbol  idref="2">
+<count  class="c0">
+139</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+988</count>
+<count  class="c1">
+4</count>
+<symbol  idref="6">
+<count  class="c0">
+988</count>
+<count  class="c1">
+4</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/bin/dirname">
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+2</count>
+<symbol  idref="9">
+<count  class="c0">
+2</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+4</count>
+<count  class="c1">
+1</count>
+<symbol  idref="2">
+<count  class="c0">
+4</count>
+<count  class="c1">
+1</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+27</count>
+<symbol  idref="6">
+<count  class="c0">
+27</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/sbin/dnsmasq">
+<count  class="c0">
+20</count>
+<symbol  idref="13">
+<count  class="c0">
+20</count>
+</symbol>
+<module  name="[vdso] (tgid:1471 range:0x7fff325f3000-0x7fff325f4000)">
+<count  class="c0">
+1</count>
+<symbol  idref="14">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libpthread-2.15.so">
+<count  class="c0">
+1</count>
+<symbol  idref="15">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+133</count>
+<count  class="c1">
+1</count>
+<symbol  idref="6">
+<count  class="c0">
+133</count>
+<count  class="c1">
+1</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/bin/expr">
+<count  class="c0">
+1</count>
+<symbol  idref="16">
+<count  class="c0">
+1</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+7</count>
+<symbol  idref="9">
+<count  class="c0">
+7</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+5</count>
+<symbol  idref="2">
+<count  class="c0">
+5</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+18</count>
+<symbol  idref="6">
+<count  class="c0">
+18</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/bin/gawk">
+<count  class="c0">
+42</count>
+<symbol  idref="17">
+<count  class="c0">
+42</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+166</count>
+<symbol  idref="9">
+<count  class="c0">
+166</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+133</count>
+<symbol  idref="2">
+<count  class="c0">
+133</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libm-2.15.so">
+<count  class="c0">
+1</count>
+<symbol  idref="18">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/usr/lib/libsigsegv.so.2.0.2">
+<count  class="c0">
+38</count>
+<symbol  idref="19">
+<count  class="c0">
+38</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+775</count>
+<count  class="c1">
+2</count>
+<symbol  idref="6">
+<count  class="c0">
+775</count>
+<count  class="c1">
+2</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/bin/grep">
+<count  class="c0">
+12</count>
+<symbol  idref="20">
+<count  class="c0">
+12</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+33</count>
+<symbol  idref="9">
+<count  class="c0">
+33</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+62</count>
+<symbol  idref="2">
+<count  class="c0">
+62</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+181</count>
+<symbol  idref="6">
+<count  class="c0">
+181</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/bin/id">
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+16</count>
+<symbol  idref="9">
+<count  class="c0">
+16</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+11</count>
+<symbol  idref="2">
+<count  class="c0">
+11</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+58</count>
+<symbol  idref="6">
+<count  class="c0">
+58</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/sbin/init">
+<count  class="c0">
+205</count>
+<count  class="c1">
+5</count>
+<symbol  idref="21">
+<count  class="c0">
+205</count>
+<count  class="c1">
+5</count>
+</symbol>
+<module  name="[vdso] (tgid:1 range:0x7fff9bbff000-0x7fff9bc00000)">
+<count  class="c0">
+4</count>
+<symbol  idref="22">
+<count  class="c0">
+4</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+23</count>
+<symbol  idref="2">
+<count  class="c0">
+23</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libdbus-1.so.3.5.8">
+<count  class="c0">
+31</count>
+<count  class="c1">
+1</count>
+<symbol  idref="23">
+<count  class="c0">
+31</count>
+<count  class="c1">
+1</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libnih.so.1.0.0">
+<count  class="c0">
+45</count>
+<symbol  idref="24">
+<count  class="c0">
+45</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libpthread-2.15.so">
+<count  class="c0">
+1</count>
+<symbol  idref="25">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/librt-2.15.so">
+<count  class="c0">
+2</count>
+<symbol  idref="26">
+<count  class="c0">
+2</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+312</count>
+<count  class="c1">
+1</count>
+<symbol  idref="6">
+<count  class="c0">
+312</count>
+<count  class="c1">
+1</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/sbin/irqbalance">
+<count  class="c0">
+257</count>
+<count  class="c1">
+1</count>
+<symbol  idref="27">
+<count  class="c0">
+257</count>
+<count  class="c1">
+1</count>
+</symbol>
+<module  name="[vdso] (tgid:1276 range:0x7fffec7ff000-0x7fffec800000)">
+<count  class="c0">
+2</count>
+<symbol  idref="28">
+<count  class="c0">
+2</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+864</count>
+<symbol  idref="2">
+<count  class="c0">
+864</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libglib-2.0.so.0.3200.3">
+<count  class="c0">
+55</count>
+<symbol  idref="29">
+<count  class="c0">
+55</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libpthread-2.15.so">
+<count  class="c0">
+28</count>
+<symbol  idref="30">
+<count  class="c0">
+15</count>
+</symbol>
+<symbol  idref="31">
+<count  class="c0">
+11</count>
+</symbol>
+<symbol  idref="32">
+<count  class="c0">
+2</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+5104</count>
+<count  class="c1">
+6</count>
+<symbol  idref="6">
+<count  class="c0">
+5104</count>
+<count  class="c1">
+6</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/bin/ls">
+<count  class="c0">
+13</count>
+<symbol  idref="33">
+<count  class="c0">
+13</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+100</count>
+<symbol  idref="9">
+<count  class="c0">
+100</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libacl.so.1.1.0">
+<count  class="c0">
+1</count>
+<symbol  idref="34">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+69</count>
+<symbol  idref="2">
+<count  class="c0">
+69</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libnss_compat-2.15.so">
+<count  class="c0">
+1</count>
+<symbol  idref="35">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libnss_nis-2.15.so">
+<count  class="c0">
+1</count>
+<symbol  idref="36">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libpthread-2.15.so">
+<count  class="c0">
+3</count>
+<symbol  idref="30">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="37">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="38">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libselinux.so.1">
+<count  class="c0">
+1</count>
+<symbol  idref="39">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+326</count>
+<count  class="c1">
+1</count>
+<symbol  idref="6">
+<count  class="c0">
+326</count>
+<count  class="c1">
+1</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/bin/mkdir">
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+6</count>
+<symbol  idref="9">
+<count  class="c0">
+6</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+15</count>
+<symbol  idref="2">
+<count  class="c0">
+15</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+31</count>
+<symbol  idref="6">
+<count  class="c0">
+31</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/sbin/mysqld">
+<count  class="c0">
+3757</count>
+<count  class="c1">
+96</count>
+<symbol  idref="40">
+<count  class="c0">
+3757</count>
+<count  class="c1">
+96</count>
+</symbol>
+<module  name="[vdso] (tgid:1264 range:0x7fffbfdff000-0x7fffbfe00000)">
+<count  class="c0">
+65</count>
+<count  class="c1">
+2</count>
+<symbol  idref="41">
+<count  class="c0">
+65</count>
+<count  class="c1">
+2</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+18</count>
+<symbol  idref="2">
+<count  class="c0">
+18</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libpthread-2.15.so">
+<count  class="c0">
+195</count>
+<symbol  idref="42">
+<count  class="c0">
+71</count>
+</symbol>
+<symbol  idref="43">
+<count  class="c0">
+35</count>
+</symbol>
+<symbol  idref="37">
+<count  class="c0">
+33</count>
+</symbol>
+<symbol  idref="38">
+<count  class="c0">
+25</count>
+</symbol>
+<symbol  idref="5">
+<count  class="c0">
+14</count>
+</symbol>
+<symbol  idref="44">
+<count  class="c0">
+8</count>
+</symbol>
+<symbol  idref="4">
+<count  class="c0">
+5</count>
+</symbol>
+<symbol  idref="45">
+<count  class="c0">
+3</count>
+</symbol>
+<symbol  idref="46">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+970</count>
+<count  class="c1">
+2</count>
+<symbol  idref="6">
+<count  class="c0">
+970</count>
+<count  class="c1">
+2</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/no-vmlinux">
+<count  class="c0">
+1100119</count>
+<count  class="c1">
+748</count>
+<symbol  idref="6">
+<count  class="c0">
+1100119</count>
+<count  class="c1">
+748</count>
+</symbol>
+</binary>
+<binary  name="/usr/local/bin/ophelp">
+<count  class="c0">
+123</count>
+<symbol  idref="47">
+<count  class="c0">
+44</count>
+</symbol>
+<symbol  idref="48">
+<count  class="c0">
+29</count>
+</symbol>
+<symbol  idref="49">
+<count  class="c0">
+13</count>
+</symbol>
+<symbol  idref="50">
+<count  class="c0">
+8</count>
+</symbol>
+<symbol  idref="51">
+<count  class="c0">
+5</count>
+</symbol>
+<symbol  idref="52">
+<count  class="c0">
+3</count>
+</symbol>
+<symbol  idref="53">
+<count  class="c0">
+3</count>
+</symbol>
+<symbol  idref="54">
+<count  class="c0">
+2</count>
+</symbol>
+<symbol  idref="55">
+<count  class="c0">
+2</count>
+</symbol>
+<symbol  idref="56">
+<count  class="c0">
+2</count>
+</symbol>
+<symbol  idref="57">
+<count  class="c0">
+2</count>
+</symbol>
+<symbol  idref="58">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="59">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="60">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="61">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="62">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="63">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="64">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="65">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="66">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="67">
+<count  class="c0">
+1</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+55</count>
+<symbol  idref="9">
+<count  class="c0">
+55</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+488</count>
+<symbol  idref="2">
+<count  class="c0">
+488</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libpopt.so.0.0.0">
+<count  class="c0">
+2</count>
+<symbol  idref="68">
+<count  class="c0">
+2</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+258</count>
+<count  class="c1">
+1</count>
+<symbol  idref="6">
+<count  class="c0">
+258</count>
+<count  class="c1">
+1</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/local/bin/opjitconv">
+<module  name="/no-vmlinux">
+<count  class="c0">
+2</count>
+<symbol  idref="6">
+<count  class="c0">
+2</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/local/bin/oprofiled">
+<count  class="c0">
+168183</count>
+<count  class="c1">
+63</count>
+<symbol  idref="69">
+<count  class="c0">
+53413</count>
+<count  class="c1">
+37</count>
+</symbol>
+<symbol  idref="70">
+<count  class="c0">
+34309</count>
+<count  class="c1">
+7</count>
+</symbol>
+<symbol  idref="71">
+<count  class="c0">
+32409</count>
+<count  class="c1">
+5</count>
+</symbol>
+<symbol  idref="72">
+<count  class="c0">
+16887</count>
+<count  class="c1">
+5</count>
+</symbol>
+<symbol  idref="73">
+<count  class="c0">
+13948</count>
+<count  class="c1">
+5</count>
+</symbol>
+<symbol  idref="74">
+<count  class="c0">
+9371</count>
+<count  class="c1">
+2</count>
+</symbol>
+<symbol  idref="75">
+<count  class="c0">
+3732</count>
+<count  class="c1">
+1</count>
+</symbol>
+<symbol  idref="76">
+<count  class="c0">
+3052</count>
+</symbol>
+<symbol  idref="77">
+<count  class="c0">
+371</count>
+<count  class="c1">
+1</count>
+</symbol>
+<symbol  idref="78">
+<count  class="c0">
+210</count>
+</symbol>
+<symbol  idref="79">
+<count  class="c0">
+108</count>
+</symbol>
+<symbol  idref="80">
+<count  class="c0">
+97</count>
+</symbol>
+<symbol  idref="81">
+<count  class="c0">
+42</count>
+</symbol>
+<symbol  idref="82">
+<count  class="c0">
+39</count>
+</symbol>
+<symbol  idref="83">
+<count  class="c0">
+38</count>
+</symbol>
+<symbol  idref="84">
+<count  class="c0">
+33</count>
+</symbol>
+<symbol  idref="85">
+<count  class="c0">
+30</count>
+</symbol>
+<symbol  idref="86">
+<count  class="c0">
+30</count>
+</symbol>
+<symbol  idref="87">
+<count  class="c0">
+10</count>
+</symbol>
+<symbol  idref="88">
+<count  class="c0">
+8</count>
+</symbol>
+<symbol  idref="89">
+<count  class="c0">
+6</count>
+</symbol>
+<symbol  idref="90">
+<count  class="c0">
+5</count>
+</symbol>
+<symbol  idref="91">
+<count  class="c0">
+5</count>
+</symbol>
+<symbol  idref="92">
+<count  class="c0">
+4</count>
+</symbol>
+<symbol  idref="93">
+<count  class="c0">
+4</count>
+</symbol>
+<symbol  idref="94">
+<count  class="c0">
+4</count>
+</symbol>
+<symbol  idref="95">
+<count  class="c0">
+4</count>
+</symbol>
+<symbol  idref="96">
+<count  class="c0">
+3</count>
+</symbol>
+<symbol  idref="97">
+<count  class="c0">
+2</count>
+</symbol>
+<symbol  idref="98">
+<count  class="c0">
+2</count>
+</symbol>
+<symbol  idref="99">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="100">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="101">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="102">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="103">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="104">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="105">
+<count  class="c0">
+1</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+2</count>
+<symbol  idref="9">
+<count  class="c0">
+2</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+828</count>
+<count  class="c1">
+7</count>
+<symbol  idref="2">
+<count  class="c0">
+828</count>
+<count  class="c1">
+7</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+43090</count>
+<count  class="c1">
+233</count>
+<symbol  idref="6">
+<count  class="c0">
+43090</count>
+<count  class="c1">
+233</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/bin/rm">
+<count  class="c0">
+1</count>
+<symbol  idref="106">
+<count  class="c0">
+1</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+11</count>
+<symbol  idref="9">
+<count  class="c0">
+11</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+11</count>
+<symbol  idref="2">
+<count  class="c0">
+11</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+46</count>
+<symbol  idref="6">
+<count  class="c0">
+46</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/sbin/rsyslogd">
+<count  class="c0">
+726</count>
+<count  class="c1">
+3</count>
+<symbol  idref="107">
+<count  class="c0">
+726</count>
+<count  class="c1">
+3</count>
+</symbol>
+<module  name="[vdso] (tgid:934 range:0x7fff19349000-0x7fff1934a000)">
+<count  class="c0">
+88</count>
+<symbol  idref="108">
+<count  class="c0">
+88</count>
+</symbol>
+</module>
+<module  name="/usr/lib/rsyslog/imuxsock.so">
+<count  class="c0">
+58</count>
+<count  class="c1">
+1</count>
+<symbol  idref="109">
+<count  class="c0">
+58</count>
+<count  class="c1">
+1</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+430</count>
+<count  class="c1">
+2</count>
+<symbol  idref="2">
+<count  class="c0">
+430</count>
+<count  class="c1">
+2</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libpthread-2.15.so">
+<count  class="c0">
+235</count>
+<symbol  idref="37">
+<count  class="c0">
+30</count>
+</symbol>
+<symbol  idref="5">
+<count  class="c0">
+28</count>
+</symbol>
+<symbol  idref="110">
+<count  class="c0">
+23</count>
+</symbol>
+<symbol  idref="111">
+<count  class="c0">
+23</count>
+</symbol>
+<symbol  idref="38">
+<count  class="c0">
+21</count>
+</symbol>
+<symbol  idref="4">
+<count  class="c0">
+19</count>
+</symbol>
+<symbol  idref="112">
+<count  class="c0">
+16</count>
+</symbol>
+<symbol  idref="113">
+<count  class="c0">
+14</count>
+</symbol>
+<symbol  idref="114">
+<count  class="c0">
+13</count>
+</symbol>
+<symbol  idref="115">
+<count  class="c0">
+13</count>
+</symbol>
+<symbol  idref="116">
+<count  class="c0">
+6</count>
+</symbol>
+<symbol  idref="44">
+<count  class="c0">
+5</count>
+</symbol>
+<symbol  idref="43">
+<count  class="c0">
+5</count>
+</symbol>
+<symbol  idref="25">
+<count  class="c0">
+5</count>
+</symbol>
+<symbol  idref="46">
+<count  class="c0">
+3</count>
+</symbol>
+<symbol  idref="117">
+<count  class="c0">
+3</count>
+</symbol>
+<symbol  idref="118">
+<count  class="c0">
+3</count>
+</symbol>
+<symbol  idref="119">
+<count  class="c0">
+3</count>
+</symbol>
+<symbol  idref="120">
+<count  class="c0">
+2</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+3180</count>
+<count  class="c1">
+4</count>
+<symbol  idref="6">
+<count  class="c0">
+3180</count>
+<count  class="c1">
+4</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/bin/seq">
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+9</count>
+<symbol  idref="9">
+<count  class="c0">
+9</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+13</count>
+<symbol  idref="2">
+<count  class="c0">
+13</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+48</count>
+<symbol  idref="6">
+<count  class="c0">
+48</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/bin/sleep">
+<count  class="c0">
+1</count>
+<symbol  idref="121">
+<count  class="c0">
+1</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+5</count>
+<symbol  idref="9">
+<count  class="c0">
+5</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+4</count>
+<symbol  idref="2">
+<count  class="c0">
+4</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+22</count>
+<symbol  idref="6">
+<count  class="c0">
+22</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/sbin/sshd">
+<count  class="c0">
+1574</count>
+<count  class="c1">
+2</count>
+<symbol  idref="122">
+<count  class="c0">
+1574</count>
+<count  class="c1">
+2</count>
+</symbol>
+<module  name="[vdso] (tgid:25846 range:0x7ffffb578000-0x7ffffb579000)">
+<count  class="c0">
+1</count>
+<symbol  idref="123">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="[vdso] (tgid:25866 range:0x7fff057ff000-0x7fff05800000)">
+<count  class="c0">
+1</count>
+<symbol  idref="124">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="[vdso] (tgid:25867 range:0x7fff057ff000-0x7fff05800000)">
+<count  class="c0">
+1</count>
+<symbol  idref="125">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="[vdso] (tgid:25884 range:0x7fff001ff000-0x7fff00200000)">
+<count  class="c0">
+1</count>
+<symbol  idref="126">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="[vdso] (tgid:25898 range:0x7fff2a5ff000-0x7fff2a600000)">
+<count  class="c0">
+1</count>
+<symbol  idref="127">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="[vdso] (tgid:25904 range:0x7fff10fff000-0x7fff11000000)">
+<count  class="c0">
+1</count>
+<symbol  idref="128">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="[vdso] (tgid:25907 range:0x7fff8a1f4000-0x7fff8a1f5000)">
+<count  class="c0">
+1</count>
+<symbol  idref="129">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="[vdso] (tgid:25909 range:0x7fffcea5f000-0x7fffcea60000)">
+<count  class="c0">
+1</count>
+<symbol  idref="130">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="[vdso] (tgid:25919 range:0x7fff93fff000-0x7fff94000000)">
+<count  class="c0">
+1</count>
+<symbol  idref="131">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="[vdso] (tgid:25934 range:0x7fff227eb000-0x7fff227ec000)">
+<count  class="c0">
+1</count>
+<symbol  idref="132">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="[vdso] (tgid:25940 range:0x7ffffa582000-0x7ffffa583000)">
+<count  class="c0">
+1</count>
+<symbol  idref="133">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="[vdso] (tgid:25987 range:0x7fff3afff000-0x7fff3b000000)">
+<count  class="c0">
+1</count>
+<symbol  idref="134">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="[vdso] (tgid:25989 range:0x7fff4d36e000-0x7fff4d36f000)">
+<count  class="c0">
+1</count>
+<symbol  idref="135">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="[vdso] (tgid:25995 range:0x7fff7af3f000-0x7fff7af40000)">
+<count  class="c0">
+1</count>
+<symbol  idref="136">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+9739</count>
+<count  class="c1">
+18</count>
+<symbol  idref="9">
+<count  class="c0">
+9739</count>
+<count  class="c1">
+18</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+7222</count>
+<count  class="c1">
+16</count>
+<symbol  idref="2">
+<count  class="c0">
+7222</count>
+<count  class="c1">
+16</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libcom_err.so.2.1">
+<count  class="c0">
+2</count>
+<symbol  idref="137">
+<count  class="c0">
+2</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libcrypt-2.15.so">
+<count  class="c0">
+5</count>
+<symbol  idref="138">
+<count  class="c0">
+5</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libcrypto.so.1.0.0">
+<count  class="c0">
+43611</count>
+<count  class="c1">
+18</count>
+<symbol  idref="139">
+<count  class="c0">
+43611</count>
+<count  class="c1">
+18</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libdl-2.15.so">
+<count  class="c0">
+64</count>
+<symbol  idref="140">
+<count  class="c0">
+64</count>
+</symbol>
+</module>
+<module  name="/usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2.2">
+<count  class="c0">
+2</count>
+<symbol  idref="141">
+<count  class="c0">
+2</count>
+</symbol>
+</module>
+<module  name="/usr/lib/x86_64-linux-gnu/libk5crypto.so.3.1">
+<count  class="c0">
+1</count>
+<symbol  idref="142">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libkeyutils.so.1.4">
+<count  class="c0">
+2</count>
+<symbol  idref="143">
+<count  class="c0">
+2</count>
+</symbol>
+</module>
+<module  name="/usr/lib/x86_64-linux-gnu/libkrb5.so.3.3">
+<count  class="c0">
+6</count>
+<symbol  idref="144">
+<count  class="c0">
+6</count>
+</symbol>
+</module>
+<module  name="/usr/lib/x86_64-linux-gnu/libkrb5support.so.0.1">
+<count  class="c0">
+4</count>
+<symbol  idref="145">
+<count  class="c0">
+4</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libnsl-2.15.so">
+<count  class="c0">
+3</count>
+<symbol  idref="146">
+<count  class="c0">
+3</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libnss_compat-2.15.so">
+<count  class="c0">
+40</count>
+<symbol  idref="35">
+<count  class="c0">
+40</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libnss_dns-2.15.so">
+<count  class="c0">
+15</count>
+<count  class="c1">
+2</count>
+<symbol  idref="147">
+<count  class="c0">
+15</count>
+<count  class="c1">
+2</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libnss_files-2.15.so">
+<count  class="c0">
+55</count>
+<symbol  idref="148">
+<count  class="c0">
+55</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libnss_nis-2.15.so">
+<count  class="c0">
+17</count>
+<symbol  idref="36">
+<count  class="c0">
+17</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libpam.so.0.83.0">
+<count  class="c0">
+612</count>
+<symbol  idref="149">
+<count  class="c0">
+612</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libpthread-2.15.so">
+<count  class="c0">
+291</count>
+<symbol  idref="37">
+<count  class="c0">
+47</count>
+</symbol>
+<symbol  idref="150">
+<count  class="c0">
+44</count>
+</symbol>
+<symbol  idref="38">
+<count  class="c0">
+30</count>
+</symbol>
+<symbol  idref="151">
+<count  class="c0">
+22</count>
+</symbol>
+<symbol  idref="152">
+<count  class="c0">
+14</count>
+</symbol>
+<symbol  idref="31">
+<count  class="c0">
+14</count>
+</symbol>
+<symbol  idref="30">
+<count  class="c0">
+12</count>
+</symbol>
+<symbol  idref="153">
+<count  class="c0">
+12</count>
+</symbol>
+<symbol  idref="154">
+<count  class="c0">
+9</count>
+</symbol>
+<symbol  idref="155">
+<count  class="c0">
+9</count>
+</symbol>
+<symbol  idref="156">
+<count  class="c0">
+9</count>
+</symbol>
+<symbol  idref="15">
+<count  class="c0">
+8</count>
+</symbol>
+<symbol  idref="157">
+<count  class="c0">
+7</count>
+</symbol>
+<symbol  idref="158">
+<count  class="c0">
+7</count>
+</symbol>
+<symbol  idref="159">
+<count  class="c0">
+6</count>
+</symbol>
+<symbol  idref="25">
+<count  class="c0">
+6</count>
+</symbol>
+<symbol  idref="160">
+<count  class="c0">
+5</count>
+</symbol>
+<symbol  idref="161">
+<count  class="c0">
+5</count>
+</symbol>
+<symbol  idref="32">
+<count  class="c0">
+4</count>
+</symbol>
+<symbol  idref="162">
+<count  class="c0">
+4</count>
+</symbol>
+<symbol  idref="163">
+<count  class="c0">
+3</count>
+</symbol>
+<symbol  idref="164">
+<count  class="c0">
+3</count>
+</symbol>
+<symbol  idref="165">
+<count  class="c0">
+2</count>
+</symbol>
+<symbol  idref="110">
+<count  class="c0">
+2</count>
+</symbol>
+<symbol  idref="118">
+<count  class="c0">
+2</count>
+</symbol>
+<symbol  idref="166">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="117">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="167">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="168">
+<count  class="c0">
+1</count>
+</symbol>
+<symbol  idref="3">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libresolv-2.15.so">
+<count  class="c0">
+64</count>
+<symbol  idref="169">
+<count  class="c0">
+64</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libselinux.so.1">
+<count  class="c0">
+17</count>
+<symbol  idref="39">
+<count  class="c0">
+17</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libutil-2.15.so">
+<count  class="c0">
+5</count>
+<symbol  idref="170">
+<count  class="c0">
+5</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libwrap.so.0.7.6">
+<count  class="c0">
+26</count>
+<symbol  idref="171">
+<count  class="c0">
+26</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libz.so.1.2.3.4">
+<count  class="c0">
+1</count>
+<symbol  idref="172">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+30405</count>
+<count  class="c1">
+155</count>
+<symbol  idref="6">
+<count  class="c0">
+30405</count>
+<count  class="c1">
+155</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/security/pam_deny.so">
+<count  class="c0">
+3</count>
+<symbol  idref="173">
+<count  class="c0">
+3</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/security/pam_env.so">
+<count  class="c0">
+6</count>
+<symbol  idref="174">
+<count  class="c0">
+6</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/security/pam_limits.so">
+<count  class="c0">
+5</count>
+<symbol  idref="175">
+<count  class="c0">
+5</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/security/pam_mail.so">
+<count  class="c0">
+4</count>
+<symbol  idref="176">
+<count  class="c0">
+4</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/security/pam_motd.so">
+<count  class="c0">
+4</count>
+<symbol  idref="177">
+<count  class="c0">
+4</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/security/pam_nologin.so">
+<count  class="c0">
+5</count>
+<symbol  idref="178">
+<count  class="c0">
+5</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/security/pam_permit.so">
+<count  class="c0">
+4</count>
+<symbol  idref="179">
+<count  class="c0">
+4</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/security/pam_umask.so">
+<count  class="c0">
+6</count>
+<symbol  idref="180">
+<count  class="c0">
+6</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/security/pam_unix.so">
+<count  class="c0">
+38</count>
+<count  class="c1">
+1</count>
+<symbol  idref="181">
+<count  class="c0">
+38</count>
+<count  class="c1">
+1</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/bin/sudo">
+<count  class="c0">
+3</count>
+<symbol  idref="182">
+<count  class="c0">
+3</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+36</count>
+<symbol  idref="9">
+<count  class="c0">
+36</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+45</count>
+<symbol  idref="2">
+<count  class="c0">
+45</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libnss_compat-2.15.so">
+<count  class="c0">
+1</count>
+<symbol  idref="35">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libpam.so.0.83.0">
+<count  class="c0">
+5</count>
+<symbol  idref="149">
+<count  class="c0">
+5</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+144</count>
+<symbol  idref="6">
+<count  class="c0">
+144</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/security/pam_permit.so">
+<count  class="c0">
+1</count>
+<symbol  idref="179">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/usr/lib/sudo/sudoers.so">
+<count  class="c0">
+7</count>
+<symbol  idref="183">
+<count  class="c0">
+7</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/bin/tr">
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+5</count>
+<symbol  idref="9">
+<count  class="c0">
+5</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+6</count>
+<symbol  idref="2">
+<count  class="c0">
+6</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+19</count>
+<symbol  idref="6">
+<count  class="c0">
+19</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/home/harini/benchmark/OS/MalaBM/unblocked_multiplication/un_blocked">
+<count  class="c0">
+40454003</count>
+<count  class="c1">
+61169</count>
+<symbol  idref="184">
+<count  class="c0">
+40443851</count>
+<count  class="c1">
+61168</count>
+</symbol>
+<symbol  idref="185">
+<count  class="c0">
+10152</count>
+<count  class="c1">
+1</count>
+</symbol>
+<module  name="/lib/x86_64-linux-gnu/ld-2.15.so">
+<count  class="c0">
+4</count>
+<symbol  idref="9">
+<count  class="c0">
+4</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+7550</count>
+<symbol  idref="2">
+<count  class="c0">
+7550</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+42840</count>
+<count  class="c1">
+205</count>
+<symbol  idref="6">
+<count  class="c0">
+42840</count>
+<count  class="c1">
+205</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/bin/whoopsie">
+<module  name="[vdso] (tgid:1372 range:0x7fffc85d4000-0x7fffc85d5000)">
+<count  class="c0">
+5</count>
+<symbol  idref="186">
+<count  class="c0">
+5</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libc-2.15.so">
+<count  class="c0">
+164</count>
+<count  class="c1">
+1</count>
+<symbol  idref="2">
+<count  class="c0">
+164</count>
+<count  class="c1">
+1</count>
+</symbol>
+</module>
+<module  name="/usr/lib/x86_64-linux-gnu/libgio-2.0.so.0.3200.3">
+<count  class="c0">
+92</count>
+<count  class="c1">
+1</count>
+<symbol  idref="187">
+<count  class="c0">
+92</count>
+<count  class="c1">
+1</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libglib-2.0.so.0.3200.3">
+<count  class="c0">
+327</count>
+<symbol  idref="29">
+<count  class="c0">
+327</count>
+</symbol>
+</module>
+<module  name="/usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.3200.3">
+<count  class="c0">
+393</count>
+<symbol  idref="188">
+<count  class="c0">
+393</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/libpthread-2.15.so">
+<count  class="c0">
+71</count>
+<symbol  idref="38">
+<count  class="c0">
+34</count>
+</symbol>
+<symbol  idref="37">
+<count  class="c0">
+27</count>
+</symbol>
+<symbol  idref="31">
+<count  class="c0">
+8</count>
+</symbol>
+<symbol  idref="158">
+<count  class="c0">
+2</count>
+</symbol>
+</module>
+<module  name="/lib/x86_64-linux-gnu/librt-2.15.so">
+<count  class="c0">
+1</count>
+<symbol  idref="26">
+<count  class="c0">
+1</count>
+</symbol>
+</module>
+<module  name="/no-vmlinux">
+<count  class="c0">
+208</count>
+<count  class="c1">
+1</count>
+<symbol  idref="6">
+<count  class="c0">
+208</count>
+<count  class="c1">
+1</count>
+</symbol>
+</module>
+</binary>
+<symboltable>
+<symboldata  id="0"  name="/usr/lib/apache2/mpm-prefork/apache2"  startingaddr="00000000"/>
+<symboldata  id="1"  name="/usr/lib/libapr-1.so.0.4.6"  startingaddr="00000000"/>
+<symboldata  id="2"  name="/lib/x86_64-linux-gnu/libc-2.15.so"  startingaddr="00000000"/>
+<symboldata  id="3"  name="waitpid"  startingaddr="0000f830"/>
+<symboldata  id="4"  name="__pthread_enable_asynccancel"  startingaddr="0000e790"/>
+<symboldata  id="5"  name="__pthread_disable_asynccancel"  startingaddr="0000e7f0"/>
+<symboldata  id="6"  name="/no-vmlinux"  startingaddr="00000000"/>
+<symboldata  id="7"  name="/bin/bash"  startingaddr="00000000"/>
+<symboldata  id="8"  name="/bin/cat"  startingaddr="00000000"/>
+<symboldata  id="9"  name="/lib/x86_64-linux-gnu/ld-2.15.so"  startingaddr="00000000"/>
+<symboldata  id="10"  name="/bin/cp"  startingaddr="00000000"/>
+<symboldata  id="11"  name="/usr/sbin/cron"  startingaddr="00000000"/>
+<symboldata  id="12"  name="/bin/dash"  startingaddr="00000000"/>
+<symboldata  id="14"  name="[vdso] (tgid:1471 range:0x7fff325f3000-0x7fff325f4000)"  startingaddr="00000000"/>
+<symboldata  id="13"  name="/usr/sbin/dnsmasq"  startingaddr="00000000"/>
+<symboldata  id="15"  name="fcntl"  startingaddr="0000eeb0"/>
+<symboldata  id="16"  name="/usr/bin/expr"  startingaddr="00000000"/>
+<symboldata  id="17"  name="/usr/bin/gawk"  startingaddr="00000000"/>
+<symboldata  id="18"  name="/lib/x86_64-linux-gnu/libm-2.15.so"  startingaddr="00000000"/>
+<symboldata  id="19"  name="/usr/lib/libsigsegv.so.2.0.2"  startingaddr="00000000"/>
+<symboldata  id="20"  name="/bin/grep"  startingaddr="00000000"/>
+<symboldata  id="22"  name="[vdso] (tgid:1 range:0x7fff9bbff000-0x7fff9bc00000)"  startingaddr="00000000"/>
+<symboldata  id="21"  name="/sbin/init"  startingaddr="00000000"/>
+<symboldata  id="23"  name="/lib/x86_64-linux-gnu/libdbus-1.so.3.5.8"  startingaddr="00000000"/>
+<symboldata  id="24"  name="/lib/x86_64-linux-gnu/libnih.so.1.0.0"  startingaddr="00000000"/>
+<symboldata  id="25"  name="write"  startingaddr="0000eca0"/>
+<symboldata  id="26"  name="/lib/x86_64-linux-gnu/librt-2.15.so"  startingaddr="00000000"/>
+<symboldata  id="28"  name="[vdso] (tgid:1276 range:0x7fffec7ff000-0x7fffec800000)"  startingaddr="00000000"/>
+<symboldata  id="27"  name="/usr/sbin/irqbalance"  startingaddr="00000000"/>
+<symboldata  id="29"  name="/lib/x86_64-linux-gnu/libglib-2.0.so.0.3200.3"  startingaddr="00000000"/>
+<symboldata  id="30"  name="_pthread_cleanup_push_defer"  startingaddr="0000e3f0"/>
+<symboldata  id="31"  name="pthread_getspecific"  startingaddr="0000cd60"/>
+<symboldata  id="32"  name="_pthread_cleanup_pop_restore"  startingaddr="0000e440"/>
+<symboldata  id="34"  name="/lib/x86_64-linux-gnu/libacl.so.1.1.0"  startingaddr="00000000"/>
+<symboldata  id="35"  name="/lib/x86_64-linux-gnu/libnss_compat-2.15.so"  startingaddr="00000000"/>
+<symboldata  id="36"  name="/lib/x86_64-linux-gnu/libnss_nis-2.15.so"  startingaddr="00000000"/>
+<symboldata  id="37"  name="pthread_mutex_lock"  startingaddr="00009e80"/>
+<symboldata  id="38"  name="pthread_mutex_unlock"  startingaddr="0000b030"/>
+<symboldata  id="39"  name="/lib/x86_64-linux-gnu/libselinux.so.1"  startingaddr="00000000"/>
+<symboldata  id="33"  name="/bin/ls"  startingaddr="00000000"/>
+<symboldata  id="41"  name="[vdso] (tgid:1264 range:0x7fffbfdff000-0x7fffbfe00000)"  startingaddr="00000000"/>
+<symboldata  id="42"  name="pthread_cond_timedwait@@GLIBC_2.3.2"  startingaddr="0000bfc0"/>
+<symboldata  id="43"  name="__pthread_mutex_cond_lock"  startingaddr="00011050"/>
+<symboldata  id="44"  name="__lll_unlock_wake"  startingaddr="0000e9e0"/>
+<symboldata  id="45"  name="_L_unlock_644"  startingaddr="0000b0f5"/>
+<symboldata  id="46"  name="__pthread_mutex_unlock_usercnt"  startingaddr="0000af70"/>
+<symboldata  id="40"  name="/usr/sbin/mysqld"  startingaddr="00000000"/>
+<symboldata  id="68"  name="/lib/x86_64-linux-gnu/libpopt.so.0.0.0"  startingaddr="00000000"/>
+<symboldata  id="47"  name="op_get_line"  startingaddr="00406b20"/>
+<symboldata  id="48"  name="read_events"  startingaddr="00402dc0"/>
+<symboldata  id="49"  name="skip_nonws"  startingaddr="00406d90"/>
+<symboldata  id="50"  name="read_unit_masks"  startingaddr="004035d0"/>
+<symboldata  id="51"  name="skip_ws"  startingaddr="00406d60"/>
+<symboldata  id="52"  name="next_token"  startingaddr="00402980"/>
+<symboldata  id="53"  name="op_free_events"  startingaddr="00403e90"/>
+<symboldata  id="54"  name="load_events"  startingaddr="00403a10"/>
+<symboldata  id="55"  name="new_unit_mask"  startingaddr="00402c00"/>
+<symboldata  id="56"  name="strisprefix"  startingaddr="00406d40"/>
+<symboldata  id="57"  name="try_find_um"  startingaddr="00402760"/>
+<symboldata  id="58"  name="delete_event"  startingaddr="004027d0"/>
+<symboldata  id="59"  name="empty_line"  startingaddr="00406dd0"/>
+<symboldata  id="60"  name="main"  startingaddr="00401a60"/>
+<symboldata  id="61"  name="op_get_cpu_type"  startingaddr="004051c0"/>
+<symboldata  id="62"  name="op_poptGetContext"  startingaddr="00406c20"/>
+<symboldata  id="63"  name="parse_hex"  startingaddr="00402900"/>
+<symboldata  id="64"  name="parse_int"  startingaddr="00402950"/>
+<symboldata  id="65"  name="xcalloc"  startingaddr="00406f30"/>
+<symboldata  id="66"  name="xmalloc"  startingaddr="00406f00"/>
+<symboldata  id="67"  name="xmemdup"  startingaddr="00406fd0"/>
+<symboldata  id="69"  name="odb_update_node_with_offset"  startingaddr="0040c920"/>
+<symboldata  id="70"  name="sfile_log_sample_count"  startingaddr="00404880"/>
+<symboldata  id="71"  name="opd_process_samples"  startingaddr="004054e0"/>
+<symboldata  id="72"  name="get_file"  startingaddr="004046d0"/>
+<symboldata  id="73"  name="pop_buffer_value"  startingaddr="00405280"/>
+<symboldata  id="74"  name="odb_open_count"  startingaddr="0040c8c0"/>
+<symboldata  id="75"  name="sfile_log_sample"  startingaddr="00404a70"/>
+<symboldata  id="76"  name="sfile_find"  startingaddr="00403e30"/>
+<symboldata  id="77"  name="do_match"  startingaddr="00403c10"/>
+<symboldata  id="78"  name="find_kernel_image"  startingaddr="00404fc0"/>
+<symboldata  id="79"  name="code_kernel_enter"  startingaddr="00405120"/>
+<symboldata  id="80"  name="code_ctx_switch"  startingaddr="004053f0"/>
+<symboldata  id="81"  name="op_read_device"  startingaddr="004102d0"/>
+<symboldata  id="82"  name="code_user_enter"  startingaddr="004050c0"/>
+<symboldata  id="83"  name="code_cpu_switch"  startingaddr="00405370"/>
+<symboldata  id="84"  name="opd_26_start"  startingaddr="00402d70"/>
+<symboldata  id="85"  name="code_cookie_switch"  startingaddr="004052e0"/>
+<symboldata  id="86"  name="odb_grow_hashtable"  startingaddr="0040c350"/>
+<symboldata  id="87"  name="is_jitconv_requested"  startingaddr="00403880"/>
+<symboldata  id="88"  name="op_hash_string"  startingaddr="00410ca0"/>
+<symboldata  id="89"  name="find_anon_mapping"  startingaddr="004067f0"/>
+<symboldata  id="90"  name="find_cookie"  startingaddr="00405860"/>
+<symboldata  id="91"  name="find_counter_event"  startingaddr="00405d40"/>
+<symboldata  id="92"  name="get_anon_maps"  startingaddr="00406460"/>
+<symboldata  id="93"  name="odb_open"  startingaddr="0040c460"/>
+<symboldata  id="94"  name="opd_open_sample_file"  startingaddr="00406000"/>
+<symboldata  id="95"  name="xmalloc"  startingaddr="004110b0"/>
+<symboldata  id="96"  name="op_cpu_has_timer_fs"  startingaddr="0040fc20"/>
+<symboldata  id="97"  name="create_path"  startingaddr="00410650"/>
+<symboldata  id="98"  name="op_mangle_filename"  startingaddr="0040fdb0"/>
+<symboldata  id="99"  name="create_dir"  startingaddr="00410620"/>
+<symboldata  id="100"  name="fill_header"  startingaddr="00405e40"/>
+<symboldata  id="101"  name="is_cookie_ignored"  startingaddr="004058f0"/>
+<symboldata  id="102"  name="mangle_anon"  startingaddr="00405f90"/>
+<symboldata  id="103"  name="odb_get_data"  startingaddr="0040c8d0"/>
+<symboldata  id="104"  name="odb_init"  startingaddr="0040c450"/>
+<symboldata  id="105"  name="op_get_mtime"  startingaddr="004105f0"/>
+<symboldata  id="106"  name="/bin/rm"  startingaddr="00000000"/>
+<symboldata  id="108"  name="[vdso] (tgid:934 range:0x7fff19349000-0x7fff1934a000)"  startingaddr="00000000"/>
+<symboldata  id="109"  name="/usr/lib/rsyslog/imuxsock.so"  startingaddr="00000000"/>
+<symboldata  id="110"  name="__open_nocancel"  startingaddr="0000f569"/>
+<symboldata  id="111"  name="pthread_cond_wait@@GLIBC_2.3.2"  startingaddr="0000bcc0"/>
+<symboldata  id="112"  name="pthread_setcancelstate"  startingaddr="0000d140"/>
+<symboldata  id="113"  name="pthread_cond_signal@@GLIBC_2.3.2"  startingaddr="0000c500"/>
+<symboldata  id="114"  name="__pthread_register_cancel"  startingaddr="0000e280"/>
+<symboldata  id="115"  name="pthread_cond_broadcast@@GLIBC_2.3.2"  startingaddr="0000c5e0"/>
+<symboldata  id="116"  name="__pthread_unregister_cancel"  startingaddr="0000e2b0"/>
+<symboldata  id="117"  name="__write_nocancel"  startingaddr="0000eca9"/>
+<symboldata  id="118"  name="open64"  startingaddr="0000f560"/>
+<symboldata  id="119"  name="recvmsg"  startingaddr="0000f200"/>
+<symboldata  id="120"  name="__recvmsg_nocancel"  startingaddr="0000f209"/>
+<symboldata  id="107"  name="/usr/sbin/rsyslogd"  startingaddr="00000000"/>
+<symboldata  id="121"  name="/bin/sleep"  startingaddr="00000000"/>
+<symboldata  id="123"  name="[vdso] (tgid:25846 range:0x7ffffb578000-0x7ffffb579000)"  startingaddr="00000000"/>
+<symboldata  id="124"  name="[vdso] (tgid:25866 range:0x7fff057ff000-0x7fff05800000)"  startingaddr="00000000"/>
+<symboldata  id="125"  name="[vdso] (tgid:25867 range:0x7fff057ff000-0x7fff05800000)"  startingaddr="00000000"/>
+<symboldata  id="126"  name="[vdso] (tgid:25884 range:0x7fff001ff000-0x7fff00200000)"  startingaddr="00000000"/>
+<symboldata  id="127"  name="[vdso] (tgid:25898 range:0x7fff2a5ff000-0x7fff2a600000)"  startingaddr="00000000"/>
+<symboldata  id="128"  name="[vdso] (tgid:25904 range:0x7fff10fff000-0x7fff11000000)"  startingaddr="00000000"/>
+<symboldata  id="129"  name="[vdso] (tgid:25907 range:0x7fff8a1f4000-0x7fff8a1f5000)"  startingaddr="00000000"/>
+<symboldata  id="130"  name="[vdso] (tgid:25909 range:0x7fffcea5f000-0x7fffcea60000)"  startingaddr="00000000"/>
+<symboldata  id="131"  name="[vdso] (tgid:25919 range:0x7fff93fff000-0x7fff94000000)"  startingaddr="00000000"/>
+<symboldata  id="132"  name="[vdso] (tgid:25934 range:0x7fff227eb000-0x7fff227ec000)"  startingaddr="00000000"/>
+<symboldata  id="133"  name="[vdso] (tgid:25940 range:0x7ffffa582000-0x7ffffa583000)"  startingaddr="00000000"/>
+<symboldata  id="134"  name="[vdso] (tgid:25987 range:0x7fff3afff000-0x7fff3b000000)"  startingaddr="00000000"/>
+<symboldata  id="135"  name="[vdso] (tgid:25989 range:0x7fff4d36e000-0x7fff4d36f000)"  startingaddr="00000000"/>
+<symboldata  id="136"  name="[vdso] (tgid:25995 range:0x7fff7af3f000-0x7fff7af40000)"  startingaddr="00000000"/>
+<symboldata  id="137"  name="/lib/x86_64-linux-gnu/libcom_err.so.2.1"  startingaddr="00000000"/>
+<symboldata  id="138"  name="/lib/x86_64-linux-gnu/libcrypt-2.15.so"  startingaddr="00000000"/>
+<symboldata  id="139"  name="/lib/x86_64-linux-gnu/libcrypto.so.1.0.0"  startingaddr="00000000"/>
+<symboldata  id="140"  name="/lib/x86_64-linux-gnu/libdl-2.15.so"  startingaddr="00000000"/>
+<symboldata  id="141"  name="/usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2.2"  startingaddr="00000000"/>
+<symboldata  id="142"  name="/usr/lib/x86_64-linux-gnu/libk5crypto.so.3.1"  startingaddr="00000000"/>
+<symboldata  id="143"  name="/lib/x86_64-linux-gnu/libkeyutils.so.1.4"  startingaddr="00000000"/>
+<symboldata  id="144"  name="/usr/lib/x86_64-linux-gnu/libkrb5.so.3.3"  startingaddr="00000000"/>
+<symboldata  id="145"  name="/usr/lib/x86_64-linux-gnu/libkrb5support.so.0.1"  startingaddr="00000000"/>
+<symboldata  id="146"  name="/lib/x86_64-linux-gnu/libnsl-2.15.so"  startingaddr="00000000"/>
+<symboldata  id="147"  name="/lib/x86_64-linux-gnu/libnss_dns-2.15.so"  startingaddr="00000000"/>
+<symboldata  id="148"  name="/lib/x86_64-linux-gnu/libnss_files-2.15.so"  startingaddr="00000000"/>
+<symboldata  id="149"  name="/lib/x86_64-linux-gnu/libpam.so.0.83.0"  startingaddr="00000000"/>
+<symboldata  id="150"  name="__errno_location"  startingaddr="00011300"/>
+<symboldata  id="151"  name="read"  startingaddr="0000ed00"/>
+<symboldata  id="152"  name="__read_nocancel"  startingaddr="0000ed09"/>
+<symboldata  id="153"  name="pthread_once"  startingaddr="0000d3b0"/>
+<symboldata  id="154"  name="__nptl_setxid"  startingaddr="00007600"/>
+<symboldata  id="155"  name="accept"  startingaddr="0000f020"/>
+<symboldata  id="156"  name="close"  startingaddr="0000ed60"/>
+<symboldata  id="157"  name="__close_nocancel"  startingaddr="0000ed69"/>
+<symboldata  id="158"  name="pthread_rwlock_rdlock"  startingaddr="0000b270"/>
+<symboldata  id="159"  name="__pthread_initialize_minimal"  startingaddr="000068a0"/>
+<symboldata  id="160"  name="__reclaim_stacks"  startingaddr="00007180"/>
+<symboldata  id="161"  name="pthread_rwlock_unlock"  startingaddr="0000b8a0"/>
+<symboldata  id="162"  name="pthread_key_create"  startingaddr="0000ccc0"/>
+<symboldata  id="163"  name="__nptl_set_robust"  startingaddr="00006730"/>
+<symboldata  id="164"  name="sem_init@@GLIBC_2.2.5"  startingaddr="0000d5a0"/>
+<symboldata  id="165"  name="__do_global_ctors_aux"  startingaddr="00011320"/>
+<symboldata  id="166"  name="__libc_sigaction"  startingaddr="0000fcc0"/>
+<symboldata  id="167"  name="connect"  startingaddr="0000f080"/>
+<symboldata  id="168"  name="pthread_setspecific"  startingaddr="0000cde0"/>
+<symboldata  id="169"  name="/lib/x86_64-linux-gnu/libresolv-2.15.so"  startingaddr="00000000"/>
+<symboldata  id="170"  name="/lib/x86_64-linux-gnu/libutil-2.15.so"  startingaddr="00000000"/>
+<symboldata  id="171"  name="/lib/x86_64-linux-gnu/libwrap.so.0.7.6"  startingaddr="00000000"/>
+<symboldata  id="172"  name="/lib/x86_64-linux-gnu/libz.so.1.2.3.4"  startingaddr="00000000"/>
+<symboldata  id="173"  name="/lib/x86_64-linux-gnu/security/pam_deny.so"  startingaddr="00000000"/>
+<symboldata  id="174"  name="/lib/x86_64-linux-gnu/security/pam_env.so"  startingaddr="00000000"/>
+<symboldata  id="175"  name="/lib/x86_64-linux-gnu/security/pam_limits.so"  startingaddr="00000000"/>
+<symboldata  id="176"  name="/lib/x86_64-linux-gnu/security/pam_mail.so"  startingaddr="00000000"/>
+<symboldata  id="177"  name="/lib/x86_64-linux-gnu/security/pam_motd.so"  startingaddr="00000000"/>
+<symboldata  id="178"  name="/lib/x86_64-linux-gnu/security/pam_nologin.so"  startingaddr="00000000"/>
+<symboldata  id="179"  name="/lib/x86_64-linux-gnu/security/pam_permit.so"  startingaddr="00000000"/>
+<symboldata  id="180"  name="/lib/x86_64-linux-gnu/security/pam_umask.so"  startingaddr="00000000"/>
+<symboldata  id="181"  name="/lib/x86_64-linux-gnu/security/pam_unix.so"  startingaddr="00000000"/>
+<symboldata  id="122"  name="/usr/sbin/sshd"  startingaddr="00000000"/>
+<symboldata  id="182"  name="/usr/bin/sudo"  startingaddr="00000000"/>
+<symboldata  id="183"  name="/usr/lib/sudo/sudoers.so"  startingaddr="00000000"/>
+<symboldata  id="184"  name="Mat_mult"  startingaddr="00400bfb"/>
+<symboldata  id="185"  name="Get_matrices"  startingaddr="00400b32"/>
+<symboldata  id="186"  name="[vdso] (tgid:1372 range:0x7fffc85d4000-0x7fffc85d5000)"  startingaddr="00000000"/>
+<symboldata  id="187"  name="/usr/lib/x86_64-linux-gnu/libgio-2.0.so.0.3200.3"  startingaddr="00000000"/>
+<symboldata  id="188"  name="/usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.3200.3"  startingaddr="00000000"/>
+</symboltable>
+</profile>

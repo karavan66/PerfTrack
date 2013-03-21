@@ -1,0 +1,7 @@
+CPU: Intel Core/i7, speed 2260.97 MHz (estimated)
+Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (No unit mask) count 30000
+samples  %        image name               symbol name
+823      48.9008  multOMP_float            main
+800      47.5342  libc-2.15.so             /lib/x86_64-linux-gnu/libc-2.15.so
+57        3.3868  no-vmlinux               /no-vmlinux
+3         0.1783  ld-2.15.so               /lib/x86_64-linux-gnu/ld-2.15.so

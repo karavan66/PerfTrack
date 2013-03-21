@@ -1,0 +1,2689 @@
+<?xml version="1.0" ?>
+<profile  schemaversion="3.0" cputype="i386"
+ processor="westmere"
+ mhz="2400000.00"
+ title="opreport --xml ">
+<options />
+<setup>
+<eventsetup  id="0" eventname="CPU_CLK_UNHALTED" unitmask="0" setupcount="100000"/>
+</setup>
+
+<binary  name="/usr/sbin/NetworkManager">
+<count>
+23</count>
+<symbol  idref="0">
+<count>
+23</count>
+</symbol>
+</binary>
+<binary  name="/usr/bin/Xorg">
+<count>
+866</count>
+<symbol  idref="1">
+<count>
+866</count>
+</symbol>
+<module  name="[vdso] (tgid:1134 range:0x7fff587ff000-0x7fff58800000)">
+<count>
+14</count>
+<symbol  idref="2">
+<count>
+14</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/lib/python2.7/dist-packages/_dbus_bindings.so">
+<count>
+3</count>
+<symbol  idref="3">
+<count>
+3</count>
+</symbol>
+</binary>
+<binary  name="/home/siricilla/Desktop/a.out">
+<count>
+51</count>
+<symbol  idref="4">
+<count>
+51</count>
+</symbol>
+</binary>
+<binary  name="/usr/bin/as">
+<count>
+23</count>
+<symbol  idref="5">
+<count>
+23</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/bamf/bamfdaemon">
+<module  name="[vdso] (tgid:1716 range:0x7fff78fff000-0x7fff79000000)">
+<count>
+2</count>
+<symbol  idref="6">
+<count>
+2</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/bin/bash">
+<count>
+76</count>
+<symbol  idref="7">
+<count>
+76</count>
+</symbol>
+</binary>
+<binary  name="/bin/cat">
+<count>
+1</count>
+<symbol  idref="8">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/gcc/x86_64-linux-gnu/4.6/cc1">
+<count>
+429</count>
+<symbol  idref="9">
+<count>
+429</count>
+</symbol>
+</binary>
+<binary  name="/usr/bin/compiz">
+<count>
+378</count>
+<symbol  idref="10">
+<count>
+378</count>
+</symbol>
+<module  name="[vdso] (tgid:1629 range:0x7fffb03ff000-0x7fffb0400000)">
+<count>
+23</count>
+<symbol  idref="11">
+<count>
+23</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/bin/dash">
+<count>
+46</count>
+<symbol  idref="12">
+<count>
+46</count>
+</symbol>
+</binary>
+<binary  name="/bin/dbus-daemon">
+<count>
+1164</count>
+<symbol  idref="13">
+<count>
+1164</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/xorg/modules/input/evdev_drv.so">
+<count>
+25</count>
+<symbol  idref="14">
+<count>
+25</count>
+</symbol>
+</binary>
+<binary  name="/usr/bin/expr">
+<count>
+1</count>
+<symbol  idref="15">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/firefox/firefox">
+<count>
+44</count>
+<symbol  idref="16">
+<count>
+44</count>
+</symbol>
+<module  name="[vdso] (tgid:2136 range:0x7fff00338000-0x7fff00339000)">
+<count>
+9</count>
+<symbol  idref="17">
+<count>
+9</count>
+</symbol>
+</module>
+<module  name="anon (tgid:2136 range:0x7f1bff34f000-0x7f1bff3ff000)">
+<count>
+2</count>
+<symbol  idref="18">
+<count>
+2</count>
+</symbol>
+</module>
+<module  name="anon (tgid:2136 range:0x7f1bfff0b000-0x7f1bffffb000)">
+<count>
+7</count>
+<symbol  idref="19">
+<count>
+7</count>
+</symbol>
+</module>
+<module  name="anon (tgid:2136 range:0x7f1c00c0c000-0x7f1c00cbc000)">
+<count>
+8</count>
+<symbol  idref="20">
+<count>
+8</count>
+</symbol>
+</module>
+<module  name="anon (tgid:2136 range:0x7f1c00f0f000-0x7f1c00fff000)">
+<count>
+2</count>
+<symbol  idref="21">
+<count>
+2</count>
+</symbol>
+</module>
+<module  name="anon (tgid:2136 range:0x7f1c01a0f000-0x7f1c01aff000)">
+<count>
+7</count>
+<symbol  idref="22">
+<count>
+7</count>
+</symbol>
+</module>
+<module  name="anon (tgid:2136 range:0x7f1c02407000-0x7f1c02447000)">
+<count>
+6</count>
+<symbol  idref="23">
+<count>
+6</count>
+</symbol>
+</module>
+<module  name="anon (tgid:2136 range:0x7f1c03f0a000-0x7f1c03fea000)">
+<count>
+17</count>
+<symbol  idref="24">
+<count>
+17</count>
+</symbol>
+</module>
+<module  name="anon (tgid:2136 range:0x7f1c04a02000-0x7f1c04a12000)">
+<count>
+1</count>
+<symbol  idref="25">
+<count>
+1</count>
+</symbol>
+</module>
+<module  name="anon (tgid:2136 range:0x7f1c0780e000-0x7f1c0787e000)">
+<count>
+7</count>
+<symbol  idref="26">
+<count>
+7</count>
+</symbol>
+</module>
+<module  name="anon (tgid:2136 range:0x7f1c0958e000-0x7f1c095de000)">
+<count>
+4</count>
+<symbol  idref="27">
+<count>
+4</count>
+</symbol>
+</module>
+<module  name="anon (tgid:2136 range:0x7f1c09b80000-0x7f1c09c00000)">
+<count>
+8</count>
+<symbol  idref="28">
+<count>
+8</count>
+</symbol>
+</module>
+<module  name="anon (tgid:2136 range:0x7f1c0be31000-0x7f1c0be91000)">
+<count>
+18</count>
+<symbol  idref="29">
+<count>
+18</count>
+</symbol>
+</module>
+<module  name="anon (tgid:2136 range:0x7f1c0bec7000-0x7f1c0bed7000)">
+<count>
+1</count>
+<symbol  idref="30">
+<count>
+1</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/bin/gcc-4.6">
+<count>
+6</count>
+<symbol  idref="31">
+<count>
+6</count>
+</symbol>
+</binary>
+<binary  name="/usr/bin/gnome-screensaver">
+<module  name="[vdso] (tgid:1628 range:0x7fff799ff000-0x7fff79a00000)">
+<count>
+2</count>
+<symbol  idref="32">
+<count>
+2</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/lib/gnome-settings-daemon/gnome-settings-daemon">
+<module  name="[vdso] (tgid:1621 range:0x7ffffa9e9000-0x7ffffa9ea000)">
+<count>
+1</count>
+<symbol  idref="33">
+<count>
+1</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/bin/gnome-terminal">
+<module  name="[vdso] (tgid:1864 range:0x7fffec7ff000-0x7fffec800000)">
+<count>
+3</count>
+<symbol  idref="34">
+<count>
+3</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/dri/i965_dri.so">
+<count>
+225</count>
+<symbol  idref="35">
+<count>
+225</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/gtk-3.0/3.0.0/immodules/im-ibus.so">
+<count>
+2</count>
+<symbol  idref="36">
+<count>
+2</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/xorg/modules/drivers/intel_drv.so">
+<count>
+172</count>
+<symbol  idref="37">
+<count>
+172</count>
+</symbol>
+</binary>
+<binary  name="/usr/sbin/irqbalance">
+<count>
+3</count>
+<symbol  idref="38">
+<count>
+3</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/ld-2.13.so">
+<count>
+191</count>
+<symbol  idref="39">
+<count>
+69</count>
+</symbol>
+<symbol  idref="40">
+<count>
+20</count>
+</symbol>
+<symbol  idref="41">
+<count>
+17</count>
+</symbol>
+<symbol  idref="42">
+<count>
+14</count>
+</symbol>
+<symbol  idref="43">
+<count>
+11</count>
+</symbol>
+<symbol  idref="44">
+<count>
+6</count>
+</symbol>
+<symbol  idref="45">
+<count>
+6</count>
+</symbol>
+<symbol  idref="46">
+<count>
+5</count>
+</symbol>
+<symbol  idref="47">
+<count>
+4</count>
+</symbol>
+<symbol  idref="48">
+<count>
+4</count>
+</symbol>
+<symbol  idref="49">
+<count>
+2</count>
+</symbol>
+<symbol  idref="50">
+<count>
+2</count>
+</symbol>
+<symbol  idref="51">
+<count>
+2</count>
+</symbol>
+<symbol  idref="52">
+<count>
+2</count>
+</symbol>
+<symbol  idref="53">
+<count>
+2</count>
+</symbol>
+<symbol  idref="54">
+<count>
+2</count>
+</symbol>
+<symbol  idref="55">
+<count>
+2</count>
+</symbol>
+<symbol  idref="56">
+<count>
+2</count>
+</symbol>
+<symbol  idref="57">
+<count>
+2</count>
+</symbol>
+<symbol  idref="58">
+<count>
+1</count>
+</symbol>
+<symbol  idref="59">
+<count>
+1</count>
+</symbol>
+<symbol  idref="60">
+<count>
+1</count>
+</symbol>
+<symbol  idref="61">
+<count>
+1</count>
+</symbol>
+<symbol  idref="62">
+<count>
+1</count>
+</symbol>
+<symbol  idref="63">
+<count>
+1</count>
+</symbol>
+<symbol  idref="64">
+<count>
+1</count>
+</symbol>
+<symbol  idref="65">
+<count>
+1</count>
+</symbol>
+<symbol  idref="66">
+<count>
+1</count>
+</symbol>
+<symbol  idref="67">
+<count>
+1</count>
+</symbol>
+<symbol  idref="68">
+<count>
+1</count>
+</symbol>
+<symbol  idref="69">
+<count>
+1</count>
+</symbol>
+<symbol  idref="70">
+<count>
+1</count>
+</symbol>
+<symbol  idref="71">
+<count>
+1</count>
+</symbol>
+<symbol  idref="72">
+<count>
+1</count>
+</symbol>
+<symbol  idref="73">
+<count>
+1</count>
+</symbol>
+<symbol  idref="74">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/bin/ld.bfd">
+<count>
+17</count>
+<symbol  idref="75">
+<count>
+17</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/mesa/libGL.so.1.2">
+<count>
+50</count>
+<symbol  idref="76">
+<count>
+50</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libX11.so.6.3.0">
+<count>
+287</count>
+<symbol  idref="77">
+<count>
+287</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libXdamage.so.1.1.0">
+<count>
+3</count>
+<symbol  idref="78">
+<count>
+3</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libXext.so.6.4.0">
+<count>
+3</count>
+<symbol  idref="79">
+<count>
+3</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libXfixes.so.3.1.0">
+<count>
+5</count>
+<symbol  idref="80">
+<count>
+5</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libXi.so.6.1.0">
+<count>
+9</count>
+<symbol  idref="81">
+<count>
+9</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0">
+<count>
+20</count>
+<symbol  idref="82">
+<count>
+20</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/gnome-settings-daemon-3.0/liba11y-keyboard.so">
+<count>
+2</count>
+<symbol  idref="83">
+<count>
+2</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libanimation.so">
+<count>
+5</count>
+<symbol  idref="84">
+<count>
+5</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libbfd-2.21.53-system.20110810.so">
+<count>
+230</count>
+<symbol  idref="85">
+<count>
+230</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/libc-2.13.so">
+<count>
+2648</count>
+<symbol  idref="86">
+<count>
+315</count>
+</symbol>
+<symbol  idref="87">
+<count>
+233</count>
+</symbol>
+<symbol  idref="88">
+<count>
+197</count>
+</symbol>
+<symbol  idref="89">
+<count>
+194</count>
+</symbol>
+<symbol  idref="90">
+<count>
+192</count>
+</symbol>
+<symbol  idref="91">
+<count>
+187</count>
+</symbol>
+<symbol  idref="92">
+<count>
+116</count>
+</symbol>
+<symbol  idref="93">
+<count>
+113</count>
+</symbol>
+<symbol  idref="94">
+<count>
+97</count>
+</symbol>
+<symbol  idref="95">
+<count>
+92</count>
+</symbol>
+<symbol  idref="96">
+<count>
+66</count>
+</symbol>
+<symbol  idref="97">
+<count>
+56</count>
+</symbol>
+<symbol  idref="98">
+<count>
+53</count>
+</symbol>
+<symbol  idref="99">
+<count>
+53</count>
+</symbol>
+<symbol  idref="100">
+<count>
+48</count>
+</symbol>
+<symbol  idref="101">
+<count>
+40</count>
+</symbol>
+<symbol  idref="102">
+<count>
+37</count>
+</symbol>
+<symbol  idref="103">
+<count>
+32</count>
+</symbol>
+<symbol  idref="104">
+<count>
+28</count>
+</symbol>
+<symbol  idref="105">
+<count>
+27</count>
+</symbol>
+<symbol  idref="106">
+<count>
+25</count>
+</symbol>
+<symbol  idref="107">
+<count>
+24</count>
+</symbol>
+<symbol  idref="108">
+<count>
+22</count>
+</symbol>
+<symbol  idref="109">
+<count>
+19</count>
+</symbol>
+<symbol  idref="110">
+<count>
+17</count>
+</symbol>
+<symbol  idref="111">
+<count>
+17</count>
+</symbol>
+<symbol  idref="112">
+<count>
+17</count>
+</symbol>
+<symbol  idref="113">
+<count>
+17</count>
+</symbol>
+<symbol  idref="114">
+<count>
+15</count>
+</symbol>
+<symbol  idref="115">
+<count>
+13</count>
+</symbol>
+<symbol  idref="116">
+<count>
+11</count>
+</symbol>
+<symbol  idref="117">
+<count>
+11</count>
+</symbol>
+<symbol  idref="118">
+<count>
+10</count>
+</symbol>
+<symbol  idref="119">
+<count>
+10</count>
+</symbol>
+<symbol  idref="120">
+<count>
+9</count>
+</symbol>
+<symbol  idref="121">
+<count>
+8</count>
+</symbol>
+<symbol  idref="122">
+<count>
+8</count>
+</symbol>
+<symbol  idref="123">
+<count>
+7</count>
+</symbol>
+<symbol  idref="124">
+<count>
+6</count>
+</symbol>
+<symbol  idref="125">
+<count>
+6</count>
+</symbol>
+<symbol  idref="126">
+<count>
+5</count>
+</symbol>
+<symbol  idref="127">
+<count>
+5</count>
+</symbol>
+<symbol  idref="128">
+<count>
+5</count>
+</symbol>
+<symbol  idref="129">
+<count>
+5</count>
+</symbol>
+<symbol  idref="130">
+<count>
+5</count>
+</symbol>
+<symbol  idref="131">
+<count>
+5</count>
+</symbol>
+<symbol  idref="132">
+<count>
+4</count>
+</symbol>
+<symbol  idref="133">
+<count>
+4</count>
+</symbol>
+<symbol  idref="134">
+<count>
+4</count>
+</symbol>
+<symbol  idref="135">
+<count>
+4</count>
+</symbol>
+<symbol  idref="136">
+<count>
+4</count>
+</symbol>
+<symbol  idref="137">
+<count>
+3</count>
+</symbol>
+<symbol  idref="138">
+<count>
+3</count>
+</symbol>
+<symbol  idref="139">
+<count>
+3</count>
+</symbol>
+<symbol  idref="140">
+<count>
+3</count>
+</symbol>
+<symbol  idref="141">
+<count>
+3</count>
+</symbol>
+<symbol  idref="142">
+<count>
+3</count>
+</symbol>
+<symbol  idref="143">
+<count>
+3</count>
+</symbol>
+<symbol  idref="144">
+<count>
+3</count>
+</symbol>
+<symbol  idref="145">
+<count>
+3</count>
+</symbol>
+<symbol  idref="146">
+<count>
+3</count>
+</symbol>
+<symbol  idref="147">
+<count>
+3</count>
+</symbol>
+<symbol  idref="148">
+<count>
+3</count>
+</symbol>
+<symbol  idref="149">
+<count>
+3</count>
+</symbol>
+<symbol  idref="150">
+<count>
+3</count>
+</symbol>
+<symbol  idref="151">
+<count>
+3</count>
+</symbol>
+<symbol  idref="152">
+<count>
+3</count>
+</symbol>
+<symbol  idref="153">
+<count>
+2</count>
+</symbol>
+<symbol  idref="154">
+<count>
+2</count>
+</symbol>
+<symbol  idref="155">
+<count>
+2</count>
+</symbol>
+<symbol  idref="156">
+<count>
+2</count>
+</symbol>
+<symbol  idref="157">
+<count>
+2</count>
+</symbol>
+<symbol  idref="158">
+<count>
+2</count>
+</symbol>
+<symbol  idref="159">
+<count>
+2</count>
+</symbol>
+<symbol  idref="160">
+<count>
+2</count>
+</symbol>
+<symbol  idref="161">
+<count>
+2</count>
+</symbol>
+<symbol  idref="162">
+<count>
+2</count>
+</symbol>
+<symbol  idref="163">
+<count>
+2</count>
+</symbol>
+<symbol  idref="164">
+<count>
+2</count>
+</symbol>
+<symbol  idref="165">
+<count>
+2</count>
+</symbol>
+<symbol  idref="166">
+<count>
+2</count>
+</symbol>
+<symbol  idref="167">
+<count>
+2</count>
+</symbol>
+<symbol  idref="168">
+<count>
+2</count>
+</symbol>
+<symbol  idref="169">
+<count>
+2</count>
+</symbol>
+<symbol  idref="170">
+<count>
+2</count>
+</symbol>
+<symbol  idref="171">
+<count>
+2</count>
+</symbol>
+<symbol  idref="172">
+<count>
+2</count>
+</symbol>
+<symbol  idref="173">
+<count>
+2</count>
+</symbol>
+<symbol  idref="174">
+<count>
+2</count>
+</symbol>
+<symbol  idref="175">
+<count>
+2</count>
+</symbol>
+<symbol  idref="176">
+<count>
+2</count>
+</symbol>
+<symbol  idref="177">
+<count>
+2</count>
+</symbol>
+<symbol  idref="178">
+<count>
+2</count>
+</symbol>
+<symbol  idref="179">
+<count>
+2</count>
+</symbol>
+<symbol  idref="180">
+<count>
+1</count>
+</symbol>
+<symbol  idref="181">
+<count>
+1</count>
+</symbol>
+<symbol  idref="182">
+<count>
+1</count>
+</symbol>
+<symbol  idref="183">
+<count>
+1</count>
+</symbol>
+<symbol  idref="184">
+<count>
+1</count>
+</symbol>
+<symbol  idref="185">
+<count>
+1</count>
+</symbol>
+<symbol  idref="186">
+<count>
+1</count>
+</symbol>
+<symbol  idref="187">
+<count>
+1</count>
+</symbol>
+<symbol  idref="188">
+<count>
+1</count>
+</symbol>
+<symbol  idref="189">
+<count>
+1</count>
+</symbol>
+<symbol  idref="190">
+<count>
+1</count>
+</symbol>
+<symbol  idref="191">
+<count>
+1</count>
+</symbol>
+<symbol  idref="192">
+<count>
+1</count>
+</symbol>
+<symbol  idref="193">
+<count>
+1</count>
+</symbol>
+<symbol  idref="194">
+<count>
+1</count>
+</symbol>
+<symbol  idref="195">
+<count>
+1</count>
+</symbol>
+<symbol  idref="196">
+<count>
+1</count>
+</symbol>
+<symbol  idref="197">
+<count>
+1</count>
+</symbol>
+<symbol  idref="198">
+<count>
+1</count>
+</symbol>
+<symbol  idref="199">
+<count>
+1</count>
+</symbol>
+<symbol  idref="200">
+<count>
+1</count>
+</symbol>
+<symbol  idref="201">
+<count>
+1</count>
+</symbol>
+<symbol  idref="202">
+<count>
+1</count>
+</symbol>
+<symbol  idref="203">
+<count>
+1</count>
+</symbol>
+<symbol  idref="204">
+<count>
+1</count>
+</symbol>
+<symbol  idref="205">
+<count>
+1</count>
+</symbol>
+<symbol  idref="206">
+<count>
+1</count>
+</symbol>
+<symbol  idref="207">
+<count>
+1</count>
+</symbol>
+<symbol  idref="208">
+<count>
+1</count>
+</symbol>
+<symbol  idref="209">
+<count>
+1</count>
+</symbol>
+<symbol  idref="210">
+<count>
+1</count>
+</symbol>
+<symbol  idref="211">
+<count>
+1</count>
+</symbol>
+<symbol  idref="212">
+<count>
+1</count>
+</symbol>
+<symbol  idref="213">
+<count>
+1</count>
+</symbol>
+<symbol  idref="214">
+<count>
+1</count>
+</symbol>
+<symbol  idref="215">
+<count>
+1</count>
+</symbol>
+<symbol  idref="216">
+<count>
+1</count>
+</symbol>
+<symbol  idref="217">
+<count>
+1</count>
+</symbol>
+<symbol  idref="218">
+<count>
+1</count>
+</symbol>
+<symbol  idref="219">
+<count>
+1</count>
+</symbol>
+<symbol  idref="220">
+<count>
+1</count>
+</symbol>
+<symbol  idref="221">
+<count>
+1</count>
+</symbol>
+<symbol  idref="222">
+<count>
+1</count>
+</symbol>
+<symbol  idref="223">
+<count>
+1</count>
+</symbol>
+<symbol  idref="224">
+<count>
+1</count>
+</symbol>
+<symbol  idref="225">
+<count>
+1</count>
+</symbol>
+<symbol  idref="226">
+<count>
+1</count>
+</symbol>
+<symbol  idref="227">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/libc.so.6 (deleted)">
+<count>
+134</count>
+<symbol  idref="228">
+<count>
+134</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libcairo.so.2.11000.2">
+<count>
+408</count>
+<symbol  idref="229">
+<count>
+408</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libccp.so">
+<count>
+5</count>
+<symbol  idref="230">
+<count>
+5</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libcompizconfig.so.0.0.0">
+<count>
+1</count>
+<symbol  idref="231">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libcomposite.so">
+<count>
+109</count>
+<symbol  idref="232">
+<count>
+109</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/libdbus-1.so.3.5.7">
+<count>
+609</count>
+<symbol  idref="233">
+<count>
+609</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libdbus-glib-1.so.2.2.0">
+<count>
+42</count>
+<symbol  idref="234">
+<count>
+42</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libdbusmenu-glib.so.4.0.5">
+<count>
+3</count>
+<symbol  idref="235">
+<count>
+3</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libdbusmenu-gtk3.so.4.0.5">
+<count>
+1</count>
+<symbol  idref="236">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libdecor.so">
+<count>
+39</count>
+<symbol  idref="237">
+<count>
+39</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libdee-1.0.so.1.2.1">
+<count>
+1</count>
+<symbol  idref="238">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/xorg/modules/extensions/libdri2.so">
+<count>
+10</count>
+<symbol  idref="239">
+<count>
+10</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/dri/libdricore.so">
+<count>
+437</count>
+<symbol  idref="240">
+<count>
+437</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0">
+<count>
+8</count>
+<symbol  idref="241">
+<count>
+8</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libdrm_intel.so.1.0.0">
+<count>
+247</count>
+<symbol  idref="242">
+<count>
+247</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/xorg/modules/extensions/libextmod.so">
+<count>
+5</count>
+<symbol  idref="243">
+<count>
+5</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libfade.so">
+<count>
+110</count>
+<symbol  idref="244">
+<count>
+110</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/xorg/modules/libfb.so">
+<count>
+12</count>
+<symbol  idref="245">
+<count>
+12</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libffi.so.6.0.0">
+<count>
+1</count>
+<symbol  idref="246">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/firefox/libfreebl3.so">
+<count>
+5</count>
+<symbol  idref="247">
+<count>
+5</count>
+</symbol>
+</binary>
+<binary  name="/lib/libfuse.so.2 (deleted)">
+<count>
+63</count>
+<symbol  idref="248">
+<count>
+63</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/libgcc_s.so.1">
+<count>
+1</count>
+<symbol  idref="249">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compizconfig/backends/libgconf.so">
+<count>
+4</count>
+<symbol  idref="250">
+<count>
+4</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libgdk-3.so.0.200.0">
+<count>
+268</count>
+<symbol  idref="251">
+<count>
+268</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libgdk-x11-2.0.so.0.2400.6">
+<count>
+74</count>
+<symbol  idref="252">
+<count>
+74</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libgdk_pixbuf-2.0.so.0.2400.0">
+<count>
+4</count>
+<symbol  idref="253">
+<count>
+4</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libgio-2.0.so.0.3000.0">
+<count>
+92</count>
+<symbol  idref="254">
+<count>
+92</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libglapi.so.0.0.0">
+<count>
+9</count>
+<symbol  idref="255">
+<count>
+9</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/libglib-2.0.so.0.3000.0">
+<count>
+1541</count>
+<symbol  idref="256">
+<count>
+1541</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libglibmm-2.4.so.1.3.0">
+<count>
+47</count>
+<symbol  idref="257">
+<count>
+47</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libgnome-desktop-3.so.2.0.2">
+<count>
+1</count>
+<symbol  idref="258">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.3000.0">
+<count>
+560</count>
+<symbol  idref="259">
+<count>
+560</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libgthread-2.0.so.0.3000.0">
+<count>
+35</count>
+<symbol  idref="260">
+<count>
+35</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libgtk-3.so.0.200.0">
+<count>
+160</count>
+<symbol  idref="261">
+<count>
+160</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libgtk-x11-2.0.so.0.2400.6">
+<count>
+5</count>
+<symbol  idref="262">
+<count>
+5</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/gvfs/libgvfscommon.so">
+<count>
+28</count>
+<symbol  idref="263">
+<count>
+28</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/gio/modules/libgvfsdbus.so">
+<count>
+1</count>
+<symbol  idref="264">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/gnome-settings-daemon-3.0/libkeyboard.so">
+<count>
+2</count>
+<symbol  idref="265">
+<count>
+2</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/libm-2.13.so">
+<count>
+40</count>
+<symbol  idref="266">
+<count>
+18</count>
+</symbol>
+<symbol  idref="267">
+<count>
+7</count>
+</symbol>
+<symbol  idref="268">
+<count>
+5</count>
+</symbol>
+<symbol  idref="269">
+<count>
+2</count>
+</symbol>
+<symbol  idref="270">
+<count>
+2</count>
+</symbol>
+<symbol  idref="271">
+<count>
+1</count>
+</symbol>
+<symbol  idref="272">
+<count>
+1</count>
+</symbol>
+<symbol  idref="273">
+<count>
+1</count>
+</symbol>
+<symbol  idref="274">
+<count>
+1</count>
+</symbol>
+<symbol  idref="275">
+<count>
+1</count>
+</symbol>
+<symbol  idref="276">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/gnome-settings-daemon-3.0/libmedia-keys.so">
+<count>
+1</count>
+<symbol  idref="277">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libmetacity-private.so.0.0.0">
+<count>
+28</count>
+<symbol  idref="278">
+<count>
+28</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libmove.so">
+<count>
+9</count>
+<symbol  idref="279">
+<count>
+9</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/firefox/libmozalloc.so">
+<count>
+1</count>
+<symbol  idref="280">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/firefox/libmozsqlite3.so">
+<count>
+4</count>
+<symbol  idref="281">
+<count>
+4</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/nautilus/extensions-3.0/libnautilus-sendto.so">
+<count>
+1</count>
+<symbol  idref="282">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libnm-glib.so.4.2.0">
+<count>
+1</count>
+<symbol  idref="283">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libnm-util.so.2.1.0">
+<count>
+7</count>
+<symbol  idref="284">
+<count>
+7</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/firefox/libnspr4.so">
+<count>
+56</count>
+<symbol  idref="285">
+<count>
+56</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/firefox/libnssutil3.so">
+<count>
+1</count>
+<symbol  idref="286">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/lib/libntfs-3g.so.814 (deleted)">
+<count>
+202</count>
+<symbol  idref="287">
+<count>
+202</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libnux-1.0.so.0.1600.0">
+<count>
+176</count>
+<symbol  idref="288">
+<count>
+176</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libnux-core-1.0.so.0.1600.0">
+<count>
+52</count>
+<symbol  idref="289">
+<count>
+52</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libnux-graphics-1.0.so.0.1600.0">
+<count>
+325</count>
+<symbol  idref="290">
+<count>
+325</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libnux-image-1.0.so.0.1600.0">
+<count>
+2</count>
+<symbol  idref="291">
+<count>
+2</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libopengl.so">
+<count>
+218</count>
+<symbol  idref="292">
+<count>
+218</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/liboverlay-scrollbar3-0.2.so.0.0.11">
+<count>
+11</count>
+<symbol  idref="293">
+<count>
+11</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libpango-1.0.so.0.2903.0">
+<count>
+19</count>
+<symbol  idref="294">
+<count>
+19</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libpangocairo-1.0.so.0.2903.0">
+<count>
+1</count>
+<symbol  idref="295">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so.0.2903.0">
+<count>
+23</count>
+<symbol  idref="296">
+<count>
+23</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libpixman-1.so.0.22.2">
+<count>
+90</count>
+<symbol  idref="297">
+<count>
+90</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libplace.so">
+<count>
+2</count>
+<symbol  idref="298">
+<count>
+2</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/firefox/libplds4.so">
+<count>
+1</count>
+<symbol  idref="299">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/libpng12.so.0.46.0">
+<count>
+4</count>
+<symbol  idref="300">
+<count>
+4</count>
+</symbol>
+</binary>
+<binary  name="/lib/libpopt.so.0.0.0">
+<count>
+1</count>
+<symbol  idref="301">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/libpthread-2.13.so">
+<count>
+688</count>
+<symbol  idref="302">
+<count>
+258</count>
+</symbol>
+<symbol  idref="303">
+<count>
+201</count>
+</symbol>
+<symbol  idref="304">
+<count>
+47</count>
+</symbol>
+<symbol  idref="305">
+<count>
+35</count>
+</symbol>
+<symbol  idref="306">
+<count>
+31</count>
+</symbol>
+<symbol  idref="307">
+<count>
+28</count>
+</symbol>
+<symbol  idref="308">
+<count>
+18</count>
+</symbol>
+<symbol  idref="309">
+<count>
+18</count>
+</symbol>
+<symbol  idref="310">
+<count>
+17</count>
+</symbol>
+<symbol  idref="311">
+<count>
+6</count>
+</symbol>
+<symbol  idref="312">
+<count>
+3</count>
+</symbol>
+<symbol  idref="313">
+<count>
+3</count>
+</symbol>
+<symbol  idref="314">
+<count>
+3</count>
+</symbol>
+<symbol  idref="315">
+<count>
+3</count>
+</symbol>
+<symbol  idref="316">
+<count>
+2</count>
+</symbol>
+<symbol  idref="317">
+<count>
+2</count>
+</symbol>
+<symbol  idref="318">
+<count>
+2</count>
+</symbol>
+<symbol  idref="319">
+<count>
+2</count>
+</symbol>
+<symbol  idref="320">
+<count>
+2</count>
+</symbol>
+<symbol  idref="321">
+<count>
+2</count>
+</symbol>
+<symbol  idref="322">
+<count>
+2</count>
+</symbol>
+<symbol  idref="323">
+<count>
+1</count>
+</symbol>
+<symbol  idref="324">
+<count>
+1</count>
+</symbol>
+<symbol  idref="325">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/libpthread.so.0 (deleted)">
+<count>
+40</count>
+<symbol  idref="326">
+<count>
+40</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libresize.so">
+<count>
+3</count>
+<symbol  idref="327">
+<count>
+3</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/librt-2.13.so">
+<count>
+64</count>
+<symbol  idref="328">
+<count>
+64</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libscale.so">
+<count>
+6</count>
+<symbol  idref="329">
+<count>
+6</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/libselinux.so.1">
+<count>
+1</count>
+<symbol  idref="330">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libsession.so">
+<count>
+1</count>
+<symbol  idref="331">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libsigc-2.0.so.0.0.0">
+<count>
+48</count>
+<symbol  idref="332">
+<count>
+48</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libsnap.so">
+<count>
+3</count>
+<symbol  idref="333">
+<count>
+3</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/firefox/libssl3.so">
+<count>
+8</count>
+<symbol  idref="334">
+<count>
+8</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libstartup-notification-1.so.0.0.0">
+<count>
+5</count>
+<symbol  idref="335">
+<count>
+5</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.16">
+<count>
+109</count>
+<symbol  idref="336">
+<count>
+109</count>
+</symbol>
+</binary>
+<binary  name="/lib/libtinfo.so.5.9">
+<count>
+3</count>
+<symbol  idref="337">
+<count>
+3</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/libudev.so.0.12.0">
+<count>
+9</count>
+<symbol  idref="338">
+<count>
+9</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libunity-core-4.0.so.4.0.0">
+<count>
+1</count>
+<symbol  idref="339">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libunitymtgrabhandles.so">
+<count>
+13</count>
+<symbol  idref="340">
+<count>
+13</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libunityshell.so">
+<count>
+136</count>
+<symbol  idref="341">
+<count>
+136</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libusbmuxd.so.1.0.7">
+<count>
+2</count>
+<symbol  idref="342">
+<count>
+2</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libvpswitch.so">
+<count>
+2</count>
+<symbol  idref="343">
+<count>
+2</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libvte2_90.so.9.2800.2">
+<count>
+403</count>
+<symbol  idref="344">
+<count>
+403</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libwall.so">
+<count>
+13</count>
+<symbol  idref="345">
+<count>
+13</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libwnck-1.so.22.3.31">
+<count>
+10</count>
+<symbol  idref="346">
+<count>
+10</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libwnck-3.so.0.1.0">
+<count>
+8</count>
+<symbol  idref="347">
+<count>
+8</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/compiz/libworkarounds.so">
+<count>
+1</count>
+<symbol  idref="348">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0">
+<count>
+179</count>
+<symbol  idref="349">
+<count>
+179</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libxklavier.so.16.1.0">
+<count>
+2</count>
+<symbol  idref="350">
+<count>
+2</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/libxml2.so.2.7.8">
+<count>
+2</count>
+<symbol  idref="351">
+<count>
+2</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/firefox/libxul.so">
+<count>
+956</count>
+<symbol  idref="352">
+<count>
+956</count>
+</symbol>
+</binary>
+<binary  name="/lib/x86_64-linux-gnu/libz.so.1.2.3.4">
+<count>
+6</count>
+<symbol  idref="353">
+<count>
+6</count>
+</symbol>
+</binary>
+<binary  name="/bin/ls">
+<count>
+1</count>
+<symbol  idref="354">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/bin/mawk">
+<count>
+5</count>
+<symbol  idref="355">
+<count>
+5</count>
+</symbol>
+</binary>
+<binary  name="/usr/bin/nautilus">
+<count>
+9</count>
+<symbol  idref="356">
+<count>
+9</count>
+</symbol>
+</binary>
+<binary  name="/no-vmlinux">
+<count>
+30645</count>
+<symbol  idref="357">
+<count>
+30645</count>
+</symbol>
+</binary>
+<binary  name="/bin/ntfs-3g (deleted)">
+<count>
+9</count>
+<symbol  idref="358">
+<count>
+9</count>
+</symbol>
+<module  name="[vdso] (tgid:314 range:0x7fff979ff000-0x7fff97a00000)">
+<count>
+4</count>
+<symbol  idref="359">
+<count>
+4</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/local/bin/ophelp">
+<count>
+13</count>
+<symbol  idref="360">
+<count>
+3</count>
+</symbol>
+<symbol  idref="361">
+<count>
+2</count>
+</symbol>
+<symbol  idref="362">
+<count>
+1</count>
+</symbol>
+<symbol  idref="363">
+<count>
+1</count>
+</symbol>
+<symbol  idref="364">
+<count>
+1</count>
+</symbol>
+<symbol  idref="365">
+<count>
+1</count>
+</symbol>
+<symbol  idref="366">
+<count>
+1</count>
+</symbol>
+<symbol  idref="367">
+<count>
+1</count>
+</symbol>
+<symbol  idref="368">
+<count>
+1</count>
+</symbol>
+<symbol  idref="369">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/local/bin/oprofiled">
+<count>
+198</count>
+<symbol  idref="370">
+<count>
+62</count>
+</symbol>
+<symbol  idref="371">
+<count>
+32</count>
+</symbol>
+<symbol  idref="372">
+<count>
+29</count>
+</symbol>
+<symbol  idref="373">
+<count>
+22</count>
+</symbol>
+<symbol  idref="374">
+<count>
+8</count>
+</symbol>
+<symbol  idref="375">
+<count>
+6</count>
+</symbol>
+<symbol  idref="376">
+<count>
+6</count>
+</symbol>
+<symbol  idref="377">
+<count>
+6</count>
+</symbol>
+<symbol  idref="378">
+<count>
+5</count>
+</symbol>
+<symbol  idref="379">
+<count>
+3</count>
+</symbol>
+<symbol  idref="380">
+<count>
+3</count>
+</symbol>
+<symbol  idref="381">
+<count>
+3</count>
+</symbol>
+<symbol  idref="382">
+<count>
+3</count>
+</symbol>
+<symbol  idref="383">
+<count>
+2</count>
+</symbol>
+<symbol  idref="384">
+<count>
+2</count>
+</symbol>
+<symbol  idref="385">
+<count>
+1</count>
+</symbol>
+<symbol  idref="386">
+<count>
+1</count>
+</symbol>
+<symbol  idref="387">
+<count>
+1</count>
+</symbol>
+<symbol  idref="388">
+<count>
+1</count>
+</symbol>
+<symbol  idref="389">
+<count>
+1</count>
+</symbol>
+<symbol  idref="390">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/bin/python2.7">
+<count>
+23</count>
+<symbol  idref="391">
+<count>
+23</count>
+</symbol>
+</binary>
+<binary  name="/usr/sbin/rsyslogd">
+<count>
+2</count>
+<symbol  idref="392">
+<count>
+2</count>
+</symbol>
+<module  name="[vdso] (tgid:927 range:0x7fff98b9f000-0x7fff98ba0000)">
+<count>
+1</count>
+<symbol  idref="393">
+<count>
+1</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/lib/rtkit/rtkit-daemon">
+<count>
+1</count>
+<symbol  idref="394">
+<count>
+1</count>
+</symbol>
+</binary>
+<binary  name="/usr/bin/sudo">
+<count>
+2</count>
+<symbol  idref="395">
+<count>
+2</count>
+</symbol>
+</binary>
+<binary  name="/usr/bin/syndaemon">
+<count>
+1</count>
+<symbol  idref="396">
+<count>
+1</count>
+</symbol>
+<module  name="[vdso] (tgid:1635 range:0x7fff9c3ff000-0x7fff9c400000)">
+<count>
+4</count>
+<symbol  idref="397">
+<count>
+4</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/usr/bin/unity-window-decorator">
+<count>
+3</count>
+<symbol  idref="398">
+<count>
+3</count>
+</symbol>
+</binary>
+<binary  name="/usr/lib/upower/upowerd">
+<module  name="[vdso] (tgid:1364 range:0x7fff60bef000-0x7fff60bf0000)">
+<count>
+2</count>
+<symbol  idref="399">
+<count>
+2</count>
+</symbol>
+</module>
+</binary>
+<binary  name="/sbin/wpa_supplicant">
+<count>
+19</count>
+<symbol  idref="400">
+<count>
+19</count>
+</symbol>
+<module  name="[vdso] (tgid:988 range:0x7fffc87e9000-0x7fffc87ea000)">
+<count>
+2</count>
+<symbol  idref="401">
+<count>
+2</count>
+</symbol>
+</module>
+</binary>
+<symboltable>
+<symboldata  id="0"  name="/usr/sbin/NetworkManager"  startingaddr="00000000"/>
+<symboldata  id="1"  name="/usr/bin/Xorg"  startingaddr="00000000"/>
+<symboldata  id="2"  name="[vdso] (tgid:1134 range:0x7fff587ff000-0x7fff58800000)"  startingaddr="00000000"/>
+<symboldata  id="3"  name="/usr/lib/python2.7/dist-packages/_dbus_bindings.so"  startingaddr="00000000"/>
+<symboldata  id="4"  name="main"  startingaddr="00400664"/>
+<symboldata  id="5"  name="/usr/bin/as"  startingaddr="00000000"/>
+<symboldata  id="6"  name="[vdso] (tgid:1716 range:0x7fff78fff000-0x7fff79000000)"  startingaddr="00000000"/>
+<symboldata  id="7"  name="/bin/bash"  startingaddr="00000000"/>
+<symboldata  id="8"  name="/bin/cat"  startingaddr="00000000"/>
+<symboldata  id="9"  name="/usr/lib/gcc/x86_64-linux-gnu/4.6/cc1"  startingaddr="00000000"/>
+<symboldata  id="11"  name="[vdso] (tgid:1629 range:0x7fffb03ff000-0x7fffb0400000)"  startingaddr="00000000"/>
+<symboldata  id="10"  name="/usr/bin/compiz"  startingaddr="00000000"/>
+<symboldata  id="12"  name="/bin/dash"  startingaddr="00000000"/>
+<symboldata  id="13"  name="/bin/dbus-daemon"  startingaddr="00000000"/>
+<symboldata  id="14"  name="/usr/lib/xorg/modules/input/evdev_drv.so"  startingaddr="00000000"/>
+<symboldata  id="15"  name="/usr/bin/expr"  startingaddr="00000000"/>
+<symboldata  id="17"  name="[vdso] (tgid:2136 range:0x7fff00338000-0x7fff00339000)"  startingaddr="00000000"/>
+<symboldata  id="18"  name="anon (tgid:2136 range:0x7f1bff34f000-0x7f1bff3ff000)"  startingaddr="00000000"/>
+<symboldata  id="19"  name="anon (tgid:2136 range:0x7f1bfff0b000-0x7f1bffffb000)"  startingaddr="00000000"/>
+<symboldata  id="20"  name="anon (tgid:2136 range:0x7f1c00c0c000-0x7f1c00cbc000)"  startingaddr="00000000"/>
+<symboldata  id="21"  name="anon (tgid:2136 range:0x7f1c00f0f000-0x7f1c00fff000)"  startingaddr="00000000"/>
+<symboldata  id="22"  name="anon (tgid:2136 range:0x7f1c01a0f000-0x7f1c01aff000)"  startingaddr="00000000"/>
+<symboldata  id="23"  name="anon (tgid:2136 range:0x7f1c02407000-0x7f1c02447000)"  startingaddr="00000000"/>
+<symboldata  id="24"  name="anon (tgid:2136 range:0x7f1c03f0a000-0x7f1c03fea000)"  startingaddr="00000000"/>
+<symboldata  id="25"  name="anon (tgid:2136 range:0x7f1c04a02000-0x7f1c04a12000)"  startingaddr="00000000"/>
+<symboldata  id="26"  name="anon (tgid:2136 range:0x7f1c0780e000-0x7f1c0787e000)"  startingaddr="00000000"/>
+<symboldata  id="27"  name="anon (tgid:2136 range:0x7f1c0958e000-0x7f1c095de000)"  startingaddr="00000000"/>
+<symboldata  id="28"  name="anon (tgid:2136 range:0x7f1c09b80000-0x7f1c09c00000)"  startingaddr="00000000"/>
+<symboldata  id="29"  name="anon (tgid:2136 range:0x7f1c0be31000-0x7f1c0be91000)"  startingaddr="00000000"/>
+<symboldata  id="30"  name="anon (tgid:2136 range:0x7f1c0bec7000-0x7f1c0bed7000)"  startingaddr="00000000"/>
+<symboldata  id="16"  name="/usr/lib/firefox/firefox"  startingaddr="00000000"/>
+<symboldata  id="31"  name="/usr/bin/gcc-4.6"  startingaddr="00000000"/>
+<symboldata  id="32"  name="[vdso] (tgid:1628 range:0x7fff799ff000-0x7fff79a00000)"  startingaddr="00000000"/>
+<symboldata  id="33"  name="[vdso] (tgid:1621 range:0x7ffffa9e9000-0x7ffffa9ea000)"  startingaddr="00000000"/>
+<symboldata  id="34"  name="[vdso] (tgid:1864 range:0x7fffec7ff000-0x7fffec800000)"  startingaddr="00000000"/>
+<symboldata  id="35"  name="/usr/lib/x86_64-linux-gnu/dri/i965_dri.so"  startingaddr="00000000"/>
+<symboldata  id="36"  name="/usr/lib/gtk-3.0/3.0.0/immodules/im-ibus.so"  startingaddr="00000000"/>
+<symboldata  id="37"  name="/usr/lib/xorg/modules/drivers/intel_drv.so"  startingaddr="00000000"/>
+<symboldata  id="38"  name="/usr/sbin/irqbalance"  startingaddr="00000000"/>
+<symboldata  id="39"  name="__tls_get_addr"  startingaddr="00011d80"/>
+<symboldata  id="40"  name="_dl_relocate_object"  startingaddr="0000b7b0"/>
+<symboldata  id="41"  name="_dl_lookup_symbol_x"  startingaddr="0000a040"/>
+<symboldata  id="42"  name="do_lookup_x"  startingaddr="00009730"/>
+<symboldata  id="43"  name="strcmp"  startingaddr="000175a0"/>
+<symboldata  id="44"  name="check_match.10757"  startingaddr="00009580"/>
+<symboldata  id="45"  name="dl_main"  startingaddr="000025c0"/>
+<symboldata  id="46"  name="_dl_map_object_from_fd"  startingaddr="00006420"/>
+<symboldata  id="47"  name="_dl_fixup"  startingaddr="0000def0"/>
+<symboldata  id="48"  name="memcpy"  startingaddr="000186d0"/>
+<symboldata  id="49"  name="_dl_check_map_versions"  startingaddr="00010100"/>
+<symboldata  id="50"  name="_dl_name_match_p"  startingaddr="0000fc40"/>
+<symboldata  id="51"  name="_dl_sort_fini"  startingaddr="0000ed50"/>
+<symboldata  id="52"  name="_dl_start"  startingaddr="00004e40"/>
+<symboldata  id="53"  name="_dl_sysdep_start"  startingaddr="00014e90"/>
+<symboldata  id="54"  name="bcmp"  startingaddr="00017890"/>
+<symboldata  id="55"  name="index"  startingaddr="00017520"/>
+<symboldata  id="56"  name="match_symbol"  startingaddr="0000fd20"/>
+<symboldata  id="57"  name="mprotect"  startingaddr="00017150"/>
+<symboldata  id="58"  name="_dl_cache_libcmp"  startingaddr="00008dc0"/>
+<symboldata  id="59"  name="_dl_debug_initialize"  startingaddr="0000f340"/>
+<symboldata  id="60"  name="_dl_fini"  startingaddr="0000ef40"/>
+<symboldata  id="61"  name="_dl_load_cache_lookup"  startingaddr="00008ec0"/>
+<symboldata  id="62"  name="_dl_map_object_deps"  startingaddr="0000cd80"/>
+<symboldata  id="63"  name="_dl_receive_error"  startingaddr="0000ea50"/>
+<symboldata  id="64"  name="_dl_runtime_resolve"  startingaddr="00014720"/>
+<symboldata  id="65"  name="_dl_setup_hash"  startingaddr="0000aff0"/>
+<symboldata  id="66"  name="_start"  startingaddr="000015b0"/>
+<symboldata  id="67"  name="bsearch"  startingaddr="00019630"/>
+<symboldata  id="68"  name="init_cacheinfo"  startingaddr="00001330"/>
+<symboldata  id="69"  name="intel_02_known_compare"  startingaddr="00018dd0"/>
+<symboldata  id="70"  name="intel_check_word"  startingaddr="00018f80"/>
+<symboldata  id="71"  name="malloc"  startingaddr="00015e50"/>
+<symboldata  id="72"  name="openaux"  startingaddr="0000c8a0"/>
+<symboldata  id="73"  name="rtld_lock_default_lock_recursive"  startingaddr="00001610"/>
+<symboldata  id="74"  name="unsetenv"  startingaddr="00015ce0"/>
+<symboldata  id="75"  name="/usr/bin/ld.bfd"  startingaddr="00000000"/>
+<symboldata  id="76"  name="/usr/lib/x86_64-linux-gnu/mesa/libGL.so.1.2"  startingaddr="00000000"/>
+<symboldata  id="77"  name="/usr/lib/x86_64-linux-gnu/libX11.so.6.3.0"  startingaddr="00000000"/>
+<symboldata  id="78"  name="/usr/lib/x86_64-linux-gnu/libXdamage.so.1.1.0"  startingaddr="00000000"/>
+<symboldata  id="79"  name="/usr/lib/x86_64-linux-gnu/libXext.so.6.4.0"  startingaddr="00000000"/>
+<symboldata  id="80"  name="/usr/lib/x86_64-linux-gnu/libXfixes.so.3.1.0"  startingaddr="00000000"/>
+<symboldata  id="81"  name="/usr/lib/x86_64-linux-gnu/libXi.so.6.1.0"  startingaddr="00000000"/>
+<symboldata  id="82"  name="/usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0"  startingaddr="00000000"/>
+<symboldata  id="83"  name="/usr/lib/gnome-settings-daemon-3.0/liba11y-keyboard.so"  startingaddr="00000000"/>
+<symboldata  id="84"  name="/usr/lib/compiz/libanimation.so"  startingaddr="00000000"/>
+<symboldata  id="85"  name="/usr/lib/libbfd-2.21.53-system.20110810.so"  startingaddr="00000000"/>
+<symboldata  id="86"  name="_int_malloc"  startingaddr="0007c050"/>
+<symboldata  id="87"  name="malloc"  startingaddr="0007ead0"/>
+<symboldata  id="88"  name="__memcpy_ssse3_back"  startingaddr="0013a630"/>
+<symboldata  id="89"  name="__gconv_transform_utf8_internal"  startingaddr="00027860"/>
+<symboldata  id="90"  name="free"  startingaddr="0007f0d0"/>
+<symboldata  id="91"  name="mbrtowc"  startingaddr="00094ae0"/>
+<symboldata  id="92"  name="_int_free"  startingaddr="0007b530"/>
+<symboldata  id="93"  name="__memset_sse2"  startingaddr="00087380"/>
+<symboldata  id="94"  name="__strcmp_sse42"  startingaddr="00122100"/>
+<symboldata  id="95"  name="_IO_vfscanf"  startingaddr="00053d30"/>
+<symboldata  id="96"  name="__memcpy_sse2"  startingaddr="0008cf20"/>
+<symboldata  id="97"  name="vfprintf"  startingaddr="00048890"/>
+<symboldata  id="98"  name="malloc_consolidate.part.3"  startingaddr="0007b090"/>
+<symboldata  id="99"  name="poll"  startingaddr="000d8e10"/>
+<symboldata  id="100"  name="__strlen_sse42"  startingaddr="0012c360"/>
+<symboldata  id="101"  name="_dl_addr"  startingaddr="001204f0"/>
+<symboldata  id="102"  name="__memmove_ssse3_back"  startingaddr="0013fbd0"/>
+<symboldata  id="103"  name="_IO_default_xsputn"  startingaddr="00078160"/>
+<symboldata  id="104"  name="fgetc"  startingaddr="0006eb40"/>
+<symboldata  id="105"  name="__memcmp_sse4_1"  startingaddr="00146d90"/>
+<symboldata  id="106"  name="__strchr_sse42"  startingaddr="00122050"/>
+<symboldata  id="107"  name="realloc"  startingaddr="0007f1b0"/>
+<symboldata  id="108"  name="__GI_____strtoull_l_internal"  startingaddr="0003d1a0"/>
+<symboldata  id="109"  name="_IO_strn_overflow"  startingaddr="0006f540"/>
+<symboldata  id="110"  name="__libc_disable_asynccancel"  startingaddr="000f3320"/>
+<symboldata  id="111"  name="__libc_enable_asynccancel"  startingaddr="000f32c0"/>
+<symboldata  id="112"  name="_int_realloc"  startingaddr="0007d850"/>
+<symboldata  id="113"  name="calloc"  startingaddr="0007fd90"/>
+<symboldata  id="114"  name="gettimeofday"  startingaddr="000a1470"/>
+<symboldata  id="115"  name="strchrnul"  startingaddr="0008e220"/>
+<symboldata  id="116"  name="__strcmp_sse2"  startingaddr="00083090"/>
+<symboldata  id="117"  name="ioctl"  startingaddr="000dd130"/>
+<symboldata  id="118"  name="_IO_str_init_static_internal"  startingaddr="000797b0"/>
+<symboldata  id="119"  name="pthread_mutex_lock"  startingaddr="000f3170"/>
+<symboldata  id="120"  name="_dl_mcount_wrapper_check"  startingaddr="001208e0"/>
+<symboldata  id="121"  name="_IO_file_xsputn@@GLIBC_2.2.5"  startingaddr="000760f0"/>
+<symboldata  id="122"  name="setitimer"  startingaddr="000a4220"/>
+<symboldata  id="123"  name="__rawmemchr_sse2"  startingaddr="0008e1d0"/>
+<symboldata  id="124"  name="__strncmp_sse42"  startingaddr="00122fa0"/>
+<symboldata  id="125"  name="__strncpy_ssse3"  startingaddr="0012d1c0"/>
+<symboldata  id="126"  name="_IO_old_init"  startingaddr="00078500"/>
+<symboldata  id="127"  name="_IO_setb"  startingaddr="00078050"/>
+<symboldata  id="128"  name="_IO_sputbackc"  startingaddr="00078730"/>
+<symboldata  id="129"  name="__select_nocancel"  startingaddr="000ddfd9"/>
+<symboldata  id="130"  name="bsearch"  startingaddr="00039ce0"/>
+<symboldata  id="131"  name="writev"  startingaddr="000dd5a0"/>
+<symboldata  id="132"  name="__read_nocancel"  startingaddr="000d7279"/>
+<symboldata  id="133"  name="__strncmp_sse2"  startingaddr="00084d20"/>
+<symboldata  id="134"  name="_nl_intern_locale_data"  startingaddr="0002cf30"/>
+<symboldata  id="135"  name="memchr"  startingaddr="00086cb0"/>
+<symboldata  id="136"  name="select"  startingaddr="000ddfd0"/>
+<symboldata  id="137"  name="_IO_file_sync@@GLIBC_2.2.5"  startingaddr="00075e60"/>
+<symboldata  id="138"  name="__ctype_b_loc"  startingaddr="0002f480"/>
+<symboldata  id="139"  name="__dcigettext"  startingaddr="000307c0"/>
+<symboldata  id="140"  name="__nanosleep_nocancel"  startingaddr="000b0be9"/>
+<symboldata  id="141"  name="__stpcpy_ssse3"  startingaddr="0012e140"/>
+<symboldata  id="142"  name="__vsnprintf_chk"  startingaddr="000fa3d0"/>
+<symboldata  id="143"  name="__vsprintf_chk"  startingaddr="000fa270"/>
+<symboldata  id="144"  name="_itoa_word"  startingaddr="00048600"/>
+<symboldata  id="145"  name="_nl_make_l10nflist"  startingaddr="00033520"/>
+<symboldata  id="146"  name="_setjmp"  startingaddr="00036230"/>
+<symboldata  id="147"  name="ffs"  startingaddr="00088390"/>
+<symboldata  id="148"  name="fileno"  startingaddr="0006e5b0"/>
+<symboldata  id="149"  name="fork"  startingaddr="000b0c40"/>
+<symboldata  id="150"  name="msort_with_tmp.part.0"  startingaddr="0003a520"/>
+<symboldata  id="151"  name="pthread_mutex_unlock"  startingaddr="000f31a0"/>
+<symboldata  id="152"  name="read"  startingaddr="000d7270"/>
+<symboldata  id="153"  name="_IO_file_close"  startingaddr="00075a10"/>
+<symboldata  id="154"  name="_IO_getline_info"  startingaddr="0006c3a0"/>
+<symboldata  id="155"  name="_IO_link_in"  startingaddr="00077960"/>
+<symboldata  id="156"  name="_IO_no_init"  startingaddr="000785b0"/>
+<symboldata  id="157"  name="____strtod_l_internal"  startingaddr="00040670"/>
+<symboldata  id="158"  name="__ctype_get_mb_cur_max"  startingaddr="0002bda0"/>
+<symboldata  id="159"  name="__isoc99_vsscanf"  startingaddr="0005cb40"/>
+<symboldata  id="160"  name="__mempcpy_sse2"  startingaddr="00087ee0"/>
+<symboldata  id="161"  name="__mempcpy_ssse3_back"  startingaddr="0013d100"/>
+<symboldata  id="162"  name="__open_nocancel"  startingaddr="000d6f29"/>
+<symboldata  id="163"  name="__strcasecmp_l_sse42"  startingaddr="00124970"/>
+<symboldata  id="164"  name="__strcpy_ssse3"  startingaddr="0012c7a0"/>
+<symboldata  id="165"  name="__strcspn_sse42"  startingaddr="0012c400"/>
+<symboldata  id="166"  name="__strlen_sse2"  startingaddr="00084ad0"/>
+<symboldata  id="167"  name="__strstr_sse2"  startingaddr="00092010"/>
+<symboldata  id="168"  name="__strstr_sse42"  startingaddr="00124300"/>
+<symboldata  id="169"  name="__vasprintf_chk"  startingaddr="000fb810"/>
+<symboldata  id="170"  name="close"  startingaddr="000d7210"/>
+<symboldata  id="171"  name="fgets"  startingaddr="0006b290"/>
+<symboldata  id="172"  name="handle_intel"  startingaddr="00093b70"/>
+<symboldata  id="173"  name="init_cacheinfo"  startingaddr="00020dd0"/>
+<symboldata  id="174"  name="intel_02_known_compare"  startingaddr="000936d0"/>
+<symboldata  id="175"  name="intel_check_word"  startingaddr="00093880"/>
+<symboldata  id="176"  name="nanosleep"  startingaddr="000b0be0"/>
+<symboldata  id="177"  name="new_do_write"  startingaddr="00075830"/>
+<symboldata  id="178"  name="sigprocmask"  startingaddr="00036690"/>
+<symboldata  id="179"  name="usleep"  startingaddr="000de810"/>
+<symboldata  id="180"  name="_IO_file_doallocate"  startingaddr="0006a850"/>
+<symboldata  id="181"  name="_IO_file_init@@GLIBC_2.2.5"  startingaddr="00076360"/>
+<symboldata  id="182"  name="_IO_file_seekoff@@GLIBC_2.2.5"  startingaddr="00075a50"/>
+<symboldata  id="183"  name="_IO_file_underflow@@GLIBC_2.2.5"  startingaddr="00076fd0"/>
+<symboldata  id="184"  name="_IO_file_write@@GLIBC_2.2.5"  startingaddr="00075970"/>
+<symboldata  id="185"  name="_IO_getline"  startingaddr="0006c390"/>
+<symboldata  id="186"  name="_IO_un_link"  startingaddr="00077710"/>
+<symboldata  id="187"  name="_IO_unsave_markers"  startingaddr="00079050"/>
+<symboldata  id="188"  name="__alloc_dir"  startingaddr="000ac860"/>
+<symboldata  id="189"  name="__current_locale_name"  startingaddr="0002ec90"/>
+<symboldata  id="190"  name="__default_morecore"  startingaddr="00081130"/>
+<symboldata  id="191"  name="__errno_location"  startingaddr="00021790"/>
+<symboldata  id="192"  name="__fxstat64"  startingaddr="000d6690"/>
+<symboldata  id="193"  name="__gconv_lookup_cache"  startingaddr="0002b640"/>
+<symboldata  id="194"  name="__gconv_release_step"  startingaddr="00022760"/>
+<symboldata  id="195"  name="__longjmp_chk"  startingaddr="000fbdb0"/>
+<symboldata  id="196"  name="__new_exitfn"  startingaddr="0003b950"/>
+<symboldata  id="197"  name="__overflow"  startingaddr="00077e90"/>
+<symboldata  id="198"  name="__sprintf_chk"  startingaddr="000fa1d0"/>
+<symboldata  id="199"  name="__strcasecmp_sse42"  startingaddr="00124960"/>
+<symboldata  id="200"  name="__strpbrk_sse42"  startingaddr="0012c530"/>
+<symboldata  id="201"  name="__strrchr_sse42"  startingaddr="00124160"/>
+<symboldata  id="202"  name="__strspn_sse2"  startingaddr="00086a10"/>
+<symboldata  id="203"  name="__uflow"  startingaddr="00077f80"/>
+<symboldata  id="204"  name="__underflow"  startingaddr="00077ec0"/>
+<symboldata  id="205"  name="__xstat"  startingaddr="000d6640"/>
+<symboldata  id="206"  name="_nl_load_locale_from_archive"  startingaddr="0002d600"/>
+<symboldata  id="207"  name="eventfd"  startingaddr="000e52a0"/>
+<symboldata  id="208"  name="fclose@@GLIBC_2.2.5"  startingaddr="0006a980"/>
+<symboldata  id="209"  name="ferror"  startingaddr="0006e4d0"/>
+<symboldata  id="210"  name="finite"  startingaddr="00035750"/>
+<symboldata  id="211"  name="fnmatch@@GLIBC_2.2.5"  startingaddr="000b8b80"/>
+<symboldata  id="212"  name="ftruncate64"  startingaddr="000df8f0"/>
+<symboldata  id="213"  name="getdelim"  startingaddr="0006c070"/>
+<symboldata  id="214"  name="getenv"  startingaddr="0003ae80"/>
+<symboldata  id="215"  name="getpagesize"  startingaddr="000dddf0"/>
+<symboldata  id="216"  name="group_number"  startingaddr="0001ed3e"/>
+<symboldata  id="217"  name="internal_fnmatch"  startingaddr="000b7030"/>
+<symboldata  id="218"  name="pthread_cond_broadcast@@GLIBC_2.3.2"  startingaddr="000f2f60"/>
+<symboldata  id="219"  name="pthread_cond_signal@@GLIBC_2.3.2"  startingaddr="000f2ff0"/>
+<symboldata  id="220"  name="ptmalloc_init.part.5"  startingaddr="0007e000"/>
+<symboldata  id="221"  name="ptmalloc_lock_all"  startingaddr="00079cc0"/>
+<symboldata  id="222"  name="putc"  startingaddr="0006ef90"/>
+<symboldata  id="223"  name="re_acquire_state_context"  startingaddr="000c5370"/>
+<symboldata  id="224"  name="re_compile_internal"  startingaddr="000cc4e0"/>
+<symboldata  id="225"  name="strcat"  startingaddr="00082de0"/>
+<symboldata  id="226"  name="wait4"  startingaddr="000b08b0"/>
+<symboldata  id="227"  name="wcwidth"  startingaddr="0009d2d0"/>
+<symboldata  id="228"  name="/lib/x86_64-linux-gnu/libc.so.6 (deleted)"  startingaddr="00000000"/>
+<symboldata  id="229"  name="/usr/lib/x86_64-linux-gnu/libcairo.so.2.11000.2"  startingaddr="00000000"/>
+<symboldata  id="230"  name="/usr/lib/compiz/libccp.so"  startingaddr="00000000"/>
+<symboldata  id="231"  name="/usr/lib/libcompizconfig.so.0.0.0"  startingaddr="00000000"/>
+<symboldata  id="232"  name="/usr/lib/compiz/libcomposite.so"  startingaddr="00000000"/>
+<symboldata  id="233"  name="/lib/x86_64-linux-gnu/libdbus-1.so.3.5.7"  startingaddr="00000000"/>
+<symboldata  id="234"  name="/usr/lib/x86_64-linux-gnu/libdbus-glib-1.so.2.2.0"  startingaddr="00000000"/>
+<symboldata  id="235"  name="/usr/lib/libdbusmenu-glib.so.4.0.5"  startingaddr="00000000"/>
+<symboldata  id="236"  name="/usr/lib/libdbusmenu-gtk3.so.4.0.5"  startingaddr="00000000"/>
+<symboldata  id="237"  name="/usr/lib/compiz/libdecor.so"  startingaddr="00000000"/>
+<symboldata  id="238"  name="/usr/lib/libdee-1.0.so.1.2.1"  startingaddr="00000000"/>
+<symboldata  id="239"  name="/usr/lib/xorg/modules/extensions/libdri2.so"  startingaddr="00000000"/>
+<symboldata  id="240"  name="/usr/lib/x86_64-linux-gnu/dri/libdricore.so"  startingaddr="00000000"/>
+<symboldata  id="241"  name="/usr/lib/x86_64-linux-gnu/libdrm.so.2.4.0"  startingaddr="00000000"/>
+<symboldata  id="242"  name="/usr/lib/x86_64-linux-gnu/libdrm_intel.so.1.0.0"  startingaddr="00000000"/>
+<symboldata  id="243"  name="/usr/lib/xorg/modules/extensions/libextmod.so"  startingaddr="00000000"/>
+<symboldata  id="244"  name="/usr/lib/compiz/libfade.so"  startingaddr="00000000"/>
+<symboldata  id="245"  name="/usr/lib/xorg/modules/libfb.so"  startingaddr="00000000"/>
+<symboldata  id="246"  name="/usr/lib/x86_64-linux-gnu/libffi.so.6.0.0"  startingaddr="00000000"/>
+<symboldata  id="247"  name="/usr/lib/firefox/libfreebl3.so"  startingaddr="00000000"/>
+<symboldata  id="248"  name="/lib/libfuse.so.2 (deleted)"  startingaddr="00000000"/>
+<symboldata  id="249"  name="/lib/x86_64-linux-gnu/libgcc_s.so.1"  startingaddr="00000000"/>
+<symboldata  id="250"  name="/usr/lib/compizconfig/backends/libgconf.so"  startingaddr="00000000"/>
+<symboldata  id="251"  name="/usr/lib/libgdk-3.so.0.200.0"  startingaddr="00000000"/>
+<symboldata  id="252"  name="/usr/lib/x86_64-linux-gnu/libgdk-x11-2.0.so.0.2400.6"  startingaddr="00000000"/>
+<symboldata  id="253"  name="/usr/lib/x86_64-linux-gnu/libgdk_pixbuf-2.0.so.0.2400.0"  startingaddr="00000000"/>
+<symboldata  id="254"  name="/usr/lib/x86_64-linux-gnu/libgio-2.0.so.0.3000.0"  startingaddr="00000000"/>
+<symboldata  id="255"  name="/usr/lib/x86_64-linux-gnu/libglapi.so.0.0.0"  startingaddr="00000000"/>
+<symboldata  id="256"  name="/lib/x86_64-linux-gnu/libglib-2.0.so.0.3000.0"  startingaddr="00000000"/>
+<symboldata  id="257"  name="/usr/lib/libglibmm-2.4.so.1.3.0"  startingaddr="00000000"/>
+<symboldata  id="258"  name="/usr/lib/libgnome-desktop-3.so.2.0.2"  startingaddr="00000000"/>
+<symboldata  id="259"  name="/usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.3000.0"  startingaddr="00000000"/>
+<symboldata  id="260"  name="/usr/lib/x86_64-linux-gnu/libgthread-2.0.so.0.3000.0"  startingaddr="00000000"/>
+<symboldata  id="261"  name="/usr/lib/libgtk-3.so.0.200.0"  startingaddr="00000000"/>
+<symboldata  id="262"  name="/usr/lib/x86_64-linux-gnu/libgtk-x11-2.0.so.0.2400.6"  startingaddr="00000000"/>
+<symboldata  id="263"  name="/usr/lib/gvfs/libgvfscommon.so"  startingaddr="00000000"/>
+<symboldata  id="264"  name="/usr/lib/gio/modules/libgvfsdbus.so"  startingaddr="00000000"/>
+<symboldata  id="265"  name="/usr/lib/gnome-settings-daemon-3.0/libkeyboard.so"  startingaddr="00000000"/>
+<symboldata  id="266"  name="ceil"  startingaddr="000185a0"/>
+<symboldata  id="267"  name="lround"  startingaddr="000283a0"/>
+<symboldata  id="268"  name="__ieee754_log"  startingaddr="00011150"/>
+<symboldata  id="269"  name="floor"  startingaddr="00019600"/>
+<symboldata  id="270"  name="sin"  startingaddr="0001b080"/>
+<symboldata  id="271"  name="__dubsin"  startingaddr="0003cf10"/>
+<symboldata  id="272"  name="__ieee754_pow"  startingaddr="00012ec0"/>
+<symboldata  id="273"  name="hypot"  startingaddr="000249a0"/>
+<symboldata  id="274"  name="isnan"  startingaddr="00028540"/>
+<symboldata  id="275"  name="log"  startingaddr="00024f50"/>
+<symboldata  id="276"  name="pow"  startingaddr="00025090"/>
+<symboldata  id="277"  name="/usr/lib/gnome-settings-daemon-3.0/libmedia-keys.so"  startingaddr="00000000"/>
+<symboldata  id="278"  name="/usr/lib/libmetacity-private.so.0.0.0"  startingaddr="00000000"/>
+<symboldata  id="279"  name="/usr/lib/compiz/libmove.so"  startingaddr="00000000"/>
+<symboldata  id="280"  name="/usr/lib/firefox/libmozalloc.so"  startingaddr="00000000"/>
+<symboldata  id="281"  name="/usr/lib/firefox/libmozsqlite3.so"  startingaddr="00000000"/>
+<symboldata  id="282"  name="/usr/lib/nautilus/extensions-3.0/libnautilus-sendto.so"  startingaddr="00000000"/>
+<symboldata  id="283"  name="/usr/lib/libnm-glib.so.4.2.0"  startingaddr="00000000"/>
+<symboldata  id="284"  name="/usr/lib/libnm-util.so.2.1.0"  startingaddr="00000000"/>
+<symboldata  id="285"  name="/usr/lib/firefox/libnspr4.so"  startingaddr="00000000"/>
+<symboldata  id="286"  name="/usr/lib/firefox/libnssutil3.so"  startingaddr="00000000"/>
+<symboldata  id="287"  name="/lib/libntfs-3g.so.814 (deleted)"  startingaddr="00000000"/>
+<symboldata  id="288"  name="/usr/lib/libnux-1.0.so.0.1600.0"  startingaddr="00000000"/>
+<symboldata  id="289"  name="/usr/lib/libnux-core-1.0.so.0.1600.0"  startingaddr="00000000"/>
+<symboldata  id="290"  name="/usr/lib/libnux-graphics-1.0.so.0.1600.0"  startingaddr="00000000"/>
+<symboldata  id="291"  name="/usr/lib/libnux-image-1.0.so.0.1600.0"  startingaddr="00000000"/>
+<symboldata  id="292"  name="/usr/lib/compiz/libopengl.so"  startingaddr="00000000"/>
+<symboldata  id="293"  name="/usr/lib/liboverlay-scrollbar3-0.2.so.0.0.11"  startingaddr="00000000"/>
+<symboldata  id="294"  name="/usr/lib/x86_64-linux-gnu/libpango-1.0.so.0.2903.0"  startingaddr="00000000"/>
+<symboldata  id="295"  name="/usr/lib/x86_64-linux-gnu/libpangocairo-1.0.so.0.2903.0"  startingaddr="00000000"/>
+<symboldata  id="296"  name="/usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so.0.2903.0"  startingaddr="00000000"/>
+<symboldata  id="297"  name="/usr/lib/x86_64-linux-gnu/libpixman-1.so.0.22.2"  startingaddr="00000000"/>
+<symboldata  id="298"  name="/usr/lib/compiz/libplace.so"  startingaddr="00000000"/>
+<symboldata  id="299"  name="/usr/lib/firefox/libplds4.so"  startingaddr="00000000"/>
+<symboldata  id="300"  name="/lib/x86_64-linux-gnu/libpng12.so.0.46.0"  startingaddr="00000000"/>
+<symboldata  id="301"  name="/lib/libpopt.so.0.0.0"  startingaddr="00000000"/>
+<symboldata  id="302"  name="pthread_mutex_lock"  startingaddr="0000a000"/>
+<symboldata  id="303"  name="pthread_mutex_unlock"  startingaddr="0000b1d0"/>
+<symboldata  id="304"  name="pthread_getspecific"  startingaddr="0000d070"/>
+<symboldata  id="305"  name="__read_nocancel"  startingaddr="0000f0b9"/>
+<symboldata  id="306"  name="pthread_self"  startingaddr="00009490"/>
+<symboldata  id="307"  name="read"  startingaddr="0000f0b0"/>
+<symboldata  id="308"  name="__errno_location"  startingaddr="00011690"/>
+<symboldata  id="309"  name="__pthread_disable_asynccancel"  startingaddr="0000eb30"/>
+<symboldata  id="310"  name="__pthread_enable_asynccancel"  startingaddr="0000ead0"/>
+<symboldata  id="311"  name="pthread_cond_timedwait@@GLIBC_2.3.2"  startingaddr="0000c290"/>
+<symboldata  id="312"  name="__open_nocancel"  startingaddr="0000f919"/>
+<symboldata  id="313"  name="__pthread_mutex_cond_lock"  startingaddr="000113e0"/>
+<symboldata  id="314"  name="pthread_cond_signal@@GLIBC_2.3.2"  startingaddr="0000c7f0"/>
+<symboldata  id="315"  name="pthread_rwlock_unlock"  startingaddr="0000ba50"/>
+<symboldata  id="316"  name="__close_nocancel"  startingaddr="0000f119"/>
+<symboldata  id="317"  name="__recvmsg_nocancel"  startingaddr="0000f5b9"/>
+<symboldata  id="318"  name="__write_nocancel"  startingaddr="0000f059"/>
+<symboldata  id="319"  name="pthread_cond_broadcast@@GLIBC_2.3.2"  startingaddr="0000c8e0"/>
+<symboldata  id="320"  name="pthread_cond_destroy@@GLIBC_2.3.2"  startingaddr="0000bbf0"/>
+<symboldata  id="321"  name="recvmsg"  startingaddr="0000f5b0"/>
+<symboldata  id="322"  name="write"  startingaddr="0000f050"/>
+<symboldata  id="323"  name="pthread_getattr_np"  startingaddr="00009b00"/>
+<symboldata  id="324"  name="pthread_mutex_init"  startingaddr="00009de0"/>
+<symboldata  id="325"  name="send"  startingaddr="0000f610"/>
+<symboldata  id="326"  name="/lib/x86_64-linux-gnu/libpthread.so.0 (deleted)"  startingaddr="00000000"/>
+<symboldata  id="327"  name="/usr/lib/compiz/libresize.so"  startingaddr="00000000"/>
+<symboldata  id="328"  name="clock_gettime"  startingaddr="00004040"/>
+<symboldata  id="329"  name="/usr/lib/compiz/libscale.so"  startingaddr="00000000"/>
+<symboldata  id="330"  name="/lib/x86_64-linux-gnu/libselinux.so.1"  startingaddr="00000000"/>
+<symboldata  id="331"  name="/usr/lib/compiz/libsession.so"  startingaddr="00000000"/>
+<symboldata  id="332"  name="/usr/lib/libsigc-2.0.so.0.0.0"  startingaddr="00000000"/>
+<symboldata  id="333"  name="/usr/lib/compiz/libsnap.so"  startingaddr="00000000"/>
+<symboldata  id="334"  name="/usr/lib/firefox/libssl3.so"  startingaddr="00000000"/>
+<symboldata  id="335"  name="/usr/lib/libstartup-notification-1.so.0.0.0"  startingaddr="00000000"/>
+<symboldata  id="336"  name="/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.16"  startingaddr="00000000"/>
+<symboldata  id="337"  name="/lib/libtinfo.so.5.9"  startingaddr="00000000"/>
+<symboldata  id="338"  name="/lib/x86_64-linux-gnu/libudev.so.0.12.0"  startingaddr="00000000"/>
+<symboldata  id="339"  name="/usr/lib/libunity-core-4.0.so.4.0.0"  startingaddr="00000000"/>
+<symboldata  id="340"  name="/usr/lib/compiz/libunitymtgrabhandles.so"  startingaddr="00000000"/>
+<symboldata  id="341"  name="/usr/lib/compiz/libunityshell.so"  startingaddr="00000000"/>
+<symboldata  id="342"  name="/usr/lib/libusbmuxd.so.1.0.7"  startingaddr="00000000"/>
+<symboldata  id="343"  name="/usr/lib/compiz/libvpswitch.so"  startingaddr="00000000"/>
+<symboldata  id="344"  name="/usr/lib/libvte2_90.so.9.2800.2"  startingaddr="00000000"/>
+<symboldata  id="345"  name="/usr/lib/compiz/libwall.so"  startingaddr="00000000"/>
+<symboldata  id="346"  name="/usr/lib/libwnck-1.so.22.3.31"  startingaddr="00000000"/>
+<symboldata  id="347"  name="/usr/lib/libwnck-3.so.0.1.0"  startingaddr="00000000"/>
+<symboldata  id="348"  name="/usr/lib/compiz/libworkarounds.so"  startingaddr="00000000"/>
+<symboldata  id="349"  name="/usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0"  startingaddr="00000000"/>
+<symboldata  id="350"  name="/usr/lib/libxklavier.so.16.1.0"  startingaddr="00000000"/>
+<symboldata  id="351"  name="/usr/lib/libxml2.so.2.7.8"  startingaddr="00000000"/>
+<symboldata  id="352"  name="/usr/lib/firefox/libxul.so"  startingaddr="00000000"/>
+<symboldata  id="353"  name="/lib/x86_64-linux-gnu/libz.so.1.2.3.4"  startingaddr="00000000"/>
+<symboldata  id="354"  name="/bin/ls"  startingaddr="00000000"/>
+<symboldata  id="355"  name="/usr/bin/mawk"  startingaddr="00000000"/>
+<symboldata  id="356"  name="/usr/bin/nautilus"  startingaddr="00000000"/>
+<symboldata  id="357"  name="/no-vmlinux"  startingaddr="00000000"/>
+<symboldata  id="359"  name="[vdso] (tgid:314 range:0x7fff979ff000-0x7fff97a00000)"  startingaddr="00000000"/>
+<symboldata  id="358"  name="/bin/ntfs-3g (deleted)"  startingaddr="00000000"/>
+<symboldata  id="360"  name="op_get_line"  startingaddr="00406b00"/>
+<symboldata  id="361"  name="skip_ws"  startingaddr="00406d40"/>
+<symboldata  id="362"  name="comment_line"  startingaddr="00406de0"/>
+<symboldata  id="363"  name="empty_line"  startingaddr="00406db0"/>
+<symboldata  id="364"  name="new_event"  startingaddr="00402cc0"/>
+<symboldata  id="365"  name="read_events"  startingaddr="00402da0"/>
+<symboldata  id="366"  name="read_unit_masks"  startingaddr="004035b0"/>
+<symboldata  id="367"  name="skip_nonws"  startingaddr="00406d70"/>
+<symboldata  id="368"  name="xmalloc"  startingaddr="00406ee0"/>
+<symboldata  id="369"  name="xmemdup"  startingaddr="00406fb0"/>
+<symboldata  id="370"  name="odb_update_node_with_offset"  startingaddr="0040c910"/>
+<symboldata  id="371"  name="sfile_find"  startingaddr="00403e20"/>
+<symboldata  id="372"  name="opd_process_samples"  startingaddr="004054d0"/>
+<symboldata  id="373"  name="pop_buffer_value"  startingaddr="00405270"/>
+<symboldata  id="374"  name="sfile_log_sample_count"  startingaddr="00404870"/>
+<symboldata  id="375"  name="code_ctx_switch"  startingaddr="004053e0"/>
+<symboldata  id="376"  name="get_file"  startingaddr="004046c0"/>
+<symboldata  id="377"  name="odb_open_count"  startingaddr="0040c8b0"/>
+<symboldata  id="378"  name="opd_open_sample_file"  startingaddr="00405ff0"/>
+<symboldata  id="379"  name="do_match"  startingaddr="00403c00"/>
+<symboldata  id="380"  name="odb_grow_hashtable"  startingaddr="0040c340"/>
+<symboldata  id="381"  name="odb_open"  startingaddr="0040c450"/>
+<symboldata  id="382"  name="sfile_log_sample"  startingaddr="00404a60"/>
+<symboldata  id="383"  name="code_cookie_switch"  startingaddr="004052d0"/>
+<symboldata  id="384"  name="op_hash_string"  startingaddr="00410c90"/>
+<symboldata  id="385"  name="code_user_enter"  startingaddr="004050b0"/>
+<symboldata  id="386"  name="create_dir"  startingaddr="00410610"/>
+<symboldata  id="387"  name="create_path"  startingaddr="00410640"/>
+<symboldata  id="388"  name="fill_header"  startingaddr="00405e30"/>
+<symboldata  id="389"  name="find_kernel_image"  startingaddr="00404fb0"/>
+<symboldata  id="390"  name="get_anon_maps"  startingaddr="00406450"/>
+<symboldata  id="391"  name="/usr/bin/python2.7"  startingaddr="00000000"/>
+<symboldata  id="393"  name="[vdso] (tgid:927 range:0x7fff98b9f000-0x7fff98ba0000)"  startingaddr="00000000"/>
+<symboldata  id="392"  name="/usr/sbin/rsyslogd"  startingaddr="00000000"/>
+<symboldata  id="394"  name="/usr/lib/rtkit/rtkit-daemon"  startingaddr="00000000"/>
+<symboldata  id="395"  name="/usr/bin/sudo"  startingaddr="00000000"/>
+<symboldata  id="397"  name="[vdso] (tgid:1635 range:0x7fff9c3ff000-0x7fff9c400000)"  startingaddr="00000000"/>
+<symboldata  id="396"  name="/usr/bin/syndaemon"  startingaddr="00000000"/>
+<symboldata  id="398"  name="/usr/bin/unity-window-decorator"  startingaddr="00000000"/>
+<symboldata  id="399"  name="[vdso] (tgid:1364 range:0x7fff60bef000-0x7fff60bf0000)"  startingaddr="00000000"/>
+<symboldata  id="401"  name="[vdso] (tgid:988 range:0x7fffc87e9000-0x7fffc87ea000)"  startingaddr="00000000"/>
+<symboldata  id="400"  name="/sbin/wpa_supplicant"  startingaddr="00000000"/>
+</symboltable>
+</profile>

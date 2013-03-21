@@ -1090,37 +1090,6 @@ def test8(testStore, pf):
 
         good2 = testStore.findResourceByShortNameAndType("inputDeck", "iq.h-22")
         
-        if good2 == None:
-            pf.failed("findResourceByShortNameAndType: No match found for iq.h-22, inputDeck")
-        elif good2 == -1:
-            pf.failed("findResourceByShortNameAndType: Found more than 1 for iq.h-22, inputDeck")
-        else:
-            pf.failed("findResourceByShortNameAndType: Found 1 match for iq.h-22, inputDeck")
-
-        #This is Oracle data.  Does not exists yet in PG
-        good3 = int(testStore.findResourceByName("irs-8-545|Process-38|Thread-0"))
-        if good3:
-            pf.passed("findResourceByName: Found resource with name irs-8-545|Process-38|Thread-0")
-        else:
-            pf.failed("findResourceByName: Did not find resource with name irs-8-545|Process-38|Thread-0")
-        #print "POSTGRESQL: N/A"
-        #This is the oracle data 
-        good4 = int(testStore.findResourceByName("irs-8-545"))
-        #This is for the postgresql db
-        #good4 = int(testStore.findResourceByName("/irs-2-503")) 
-        if good4:
-            pf.passed("findResourceByName: Found resource with name irs-2-503")
-        else:
-            pf.failed("findResourceByName: Did not find resource with name irs-2-503")
-
-        #This is for the Oracle db 
-        good5 = testStore.findResourceByName("irs-8-545|Process-38")
-        #This is for the postgresql db
-        #good5 = int(testStore.findResourceByName("/irs-2-503/Process-3"))
-        if good5:
-            pf.passed("findResourceByName: Found resource with name irs-2-503|Process-3")
-        else:
-            pf.failed("findResourceByName: Did not find resource with name irs-2-503|Process-3")
 
         #answer1 = testStore.getChildResources(good1)
         #if answer1 == []:
@@ -1192,13 +1161,7 @@ def test8(testStore, pf):
         else:
             pf.passed("addAncestors passed for ans list of %s" % good1)
 
-        try:
-           testStore.addAncestors(good2) # no anc but shouldn't except   
-        except:
-            pf.failed("addAncestors failed for ans list of %s" % good2)
-        else:
-            pf.passed("addAncestors passed for ans list of %s" % good2)
-
+        
         try:
            testStore.addAncestors(bad1) # no anc but shouldn't except   
         except:
@@ -1213,20 +1176,6 @@ def test8(testStore, pf):
             raise
         else:
             pf.passed("addAncestors passed for ans list of %s" % bad2)
-
-        try:
-           testStore.addDescendants(good4)
-        except:
-           pf.failed("addDescendants failed for des list of %s" % good4)
-        else:
-           pf.passed("addDescendants passed for des list of %s" % good4)
-
-        try:
-           testStore.addDescendants(good5)
-        except:
-           pf.failed("addDescendants failed for des list of %s" % good5)
-        else:
-           pf.passed("addDescendants passed for des list of %s" % good5)
 
         try:
            testStore.addDescendants(bad1)

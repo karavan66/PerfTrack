@@ -8,8 +8,8 @@ from PTds import PTdataStore
 
 class PTdS_t1:
 
-	def __init__ (self, outFile):
-		self.out = outFile
+	def __init__ (self, pf):
+		self.pf = pf
 
 	def test1 (self, testStore, dbh, dbn, dbu, dbp):
    	 """Tests connect and close
@@ -21,20 +21,20 @@ class PTdS_t1:
   	  """
   	 testConnection = testStore.connectToDB(testStore.NO_COMMIT)
    	 if testConnection:
-         	print "PASS:  connectToDB passed using DB"
+         	self.pf.passed("connectToDB passed using DB")
         	testStore.closeDB()
-        	self.out.write('Test 1 - PASS' + '\n')
+        	self.pf.passed("Test 1" + '\n')
 	 else:
-	        print "FAIL:  connectToDB failed using DB"
-	        self.out.write('Test 1 - FAIL' + '\n')
+	        self.pf.failed("connectToDB failed using DB")
+	        self.pf.failed("Test 1" + '\n')
 	 testConnection = testStore.connectToDB(testStore.NO_COMMIT)
 	 if testConnection:
 	        print "connectToDB passed using debug"
 	        testStore.closeDB()
-	        self.out.write('Test 1 - PASS - Connected using debug' + '\n')
+	        self.pf.passed("Test 1 - Connected using debug" + '\n')
 	 else:
-	        print "FAIL:  connectToDB failed using debug"
-	        self.out.write('Test 1 - FAIL - Failed using debug' + '\n')
+	        self.pf.failed("connectToDB failed using debug")
+	        self.pf.failed("Test 1 - Failed using debug" + '\n')
 	
 	def test1_2 (self, testStore):
 	    """Tests connectToDB with only one arguments
@@ -42,12 +42,12 @@ class PTdS_t1:
 	    ##out = open('results', 'a')
 	    testConnection = testStore.connectToDB(testStore.NO_COMMIT)
 	    if testConnection:
-	        print "PASS:  connectToDB passed using DB"
+	        self.pf.passed("connectToDB passed using DB")
 	        testStore.closeDB()
-	        self.out.write('Test 1.2 - PASS - Connected using DB' + '\n')
+	        self.pf.passed("Test 1.2 - Connected using DB" + '\n')
 	    else:
-	        print "FAIL:  connectToDB failed using DB"
-	        self.out.write('Test 1.2 - FAIL - Failed to connect using DB' + '\n')
+	        self.pf.failed("connectToDB failed using DB")
+	        self.pf.failed("Test 1.2 - Failed to connect using DB" + '\n')
 
 	def test1_3 (self, testStore):
 	    """Tests connectToDB with five arguments, the last 4 are ignored
@@ -55,10 +55,10 @@ class PTdS_t1:
 	    ##out = open('results', 'a')
 	    testConnection = testStore.connectToDB(testStore.NO_COMMIT)
 	    if testConnection:
-	        print "PASS:  connectToDB passed using DB"
+	        self.pf.passed("connectToDB passed using DB")
 	        testStore.closeDB()
-	        self.out.write('Test 1.3 - PASS - Connected using DB' + '\n')
+	        self.pf.passed("Test 1.3 - Connected using DB" + '\n')
 	    else:
-	        print "FAIL:  connectToDB failed using DB"
-	        self.out.write('Test 1.3 - FAIL - Failed to connect using DB' + '\n')
+	        self.pf.failed("connectToDB failed using DB")
+	        self.pf.failed("Test 1.3 - Failed to connect using DB" + '\n')
 		

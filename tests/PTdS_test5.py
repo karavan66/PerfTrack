@@ -7,8 +7,8 @@ from PTds import PTdataStore
 
 class PTdS_t5:
 
-	def __init__(self, outFile):
-	    self.out = outFile
+	def __init__(self, pf):
+	    self.pf = pf
 
 	def test5_1(self, testStore):
 	    """ Tests addResourceAttribute, lookupAttributes, lookupAttribute
@@ -27,11 +27,11 @@ class PTdS_t5:
 	
 	    # for now, can't continue with testing if no DB connection
 	    if testConnection == False:
-	        print "FAIL: test5:  unable to connect."
-		self.out.write('Test 5.1 - FAIL - Unable to connect.\n')
+	        self.pf.failed("test5:  unable to connect.")
+		self.pf.failed("Test 5.1 - Unable to connect.\n")
 	        return False
-	    print "PASS: test5: able to connect."
-	    self.out.write('Test 5.1 - PASS - Able to connect.\n')
+	    self.pf.passed("test5: able to connect.")
+	    self.pf.passed("Test 5.1 - Able to connect.\n")
 	
 	    #add resources to db, then enter attribute-value pairs in resource_attribute 
 	    p1 = testStore.createResource (None, None, "ParentA", "ParentA-type")
@@ -90,20 +90,20 @@ class PTdS_t5:
 	        if not rv:
 	            print "FAIL-EXCEPTION RAISED: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource," %(a5name, a5val, type)
 	            print "    but attribute not added"
-		    self.out.write('Test 5.2 - FAIL - EXCEPTION RAISED - addResourceAttributes - ParentA is valid resource, but attribute not added.\n')
+		    self.pf.failed("Test 5.2 - EXCEPTION RAISED - addResourceAttributes - ParentA is valid resource, but attribute not added.\n")
 	        else:
 	            print "PASS-EXCEPTION RAISED: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource;" %(a5name, a5val, type)
 	            print "    attribute added"
-		    self.out.write('Test 5.2 - PASS - EXCEPTION RAISED - addResourceAttributes - ParentA is valid resource, attribute added.')
+		    self.pf.passed("Test 5.2 - EXCEPTION RAISED - addResourceAttributes - ParentA is valid resource, attribute added.")
 	    else:
 	        if not rv:
-	            print "FAIL: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource," %(a5name, a5val, type)
+	            self.pf.failed("addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource," %(a5name, a5val, type))
 	            print "    but attribute not added"
-		    self.out.write('Test 5.2 - FAIL - addResourceAttribute - ParentA is valid resource, but attribute not added.')
+		    self.pf.failed("Test 5.2 - addResourceAttribute - ParentA is valid resource, but attribute not added.")
 	        else:
-	            print "PASS: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource;" %(a5name, a5val, type)
+	            self.pf.passed("addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource;" %(a5name, a5val, type))
 	            print "    attribute added"
-		    self.out.write('Test 5.2 - PASS - addResourceAttribute - ParentA is valid resource, attribute added.\n')
+		    self.pf.passed("Test 5.2 - addResourceAttribute - ParentA is valid resource, attribute added.\n")
 	    rv = 0
 	    try:
 	        rv = testStore.addResourceAttribute("ParentA", a6name, a6val, type)
@@ -111,20 +111,20 @@ class PTdS_t5:
 	        if not rv:
 	            print "FAIL-EXCEPTION RAISED: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource," %(a6name, a6val, type) 
 	            print "    but attribute not added"
-		    self.out.write('Test 5.3 - FAIL - EXCEPTION RAISED - addResourceAttribute - ParentA is valid resource, but attribute not added.\n')
+		    self.pf.failed("Test 5.3 - EXCEPTION RAISED - addResourceAttribute - ParentA is valid resource, but attribute not added.\n")
 	        else:
 	            print "PASS-EXCEPTION RAISED: addResource Attribute: (ParentA, %s, %s, %s): ParentA is valid resource;" %(a6name, a6val, type)
 	            print "    attribute added"
-		    self.out.write('Test 5.3 - PASS - EXCEPTION RAISED - addResourceAttribute - ParentA is valid resource; attribute added.\n')
+		    self.pf.passed("Test 5.3 - EXCEPTION RAISED - addResourceAttribute - ParentA is valid resource; attribute added.\n")
 	    else:
 	        if not rv:
-	            print "FAIL: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource," %(a6name, a6val, type)
+	            self.pf.failed("addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource," %(a6name, a6val, type))
 	            print "    but attribute not added"
-		    self.out.write('Test 5.3 - FAIL - addResourceAttribute - ParentA is valid resource, but attribute not added.\n')
+		    self.pf.failed("Test 5.3 - addResourceAttribute - ParentA is valid resource, but attribute not added.\n")
 	        else:
-       	     	    print "PASS: addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource;" %(a6name, a6val, type)
+       	     	    self.pf.passed("addResourceAttribute: (ParentA, %s, %s, %s): ParentA is valid resource;" %(a6name, a6val, type))
        	     	    print "    attribute added"
-		    self.out.write('Test 5.3 - PASS - addResourceAttribute - ParentA is valid resource; attribute added.\n')
+		    self.pf.passed("Test 5.3 - addResourceAttribute - ParentA is valid resource; attribute added.\n")
 	
 	    rv = 0
 	    try:
@@ -133,72 +133,72 @@ class PTdS_t5:
 	        if not rv:
 	            print "FAIL-EXCEPTION RAISED: addResourceAttribute: (ParentB , %s, %s, %s): ParentB is valid resource," %(a7name, a7val, type)  
 	            print "    but attribute not added"
-		    self.out.write('Test 5.4 - FAIL - EXCEPTION RAISED - addResourceAttribute - ParentB is valid resource, but attribute not added.\n')
+		    self.pf.failed("Test 5.4 - EXCEPTION RAISED - addResourceAttribute - ParentB is valid resource, but attribute not added.\n")
 	        else:
 	            print "PASS-EXCEPTION RASISE: addResource Attribute: (ParentB, %s, %s, %s): ParentB is valid resource;" %(a7name, a7val, type)
 	            print "    attribute added"
-		    self.out.write('Test 5.4 - PASS - EXCEPTION RAISED  addResourceAttribute - ParentB is valid resource; attribute added.\n')
+		    self.pf.passed("Test 5.4 - EXCEPTION RAISED  addResourceAttribute - ParentB is valid resource; attribute added.\n")
 	    else:
 	        if not rv:
-	            print "FAIL: addResourceAttribute: (ParentB, %s, %s, %s): ParentB is valid resource," %(a7name, a7val, type)
+	            self.pf.failed("addResourceAttribute: (ParentB, %s, %s, %s): ParentB is valid resource," %(a7name, a7val, type))
 	            print "    but attribute not added"
-		    self.out.write('Test 5.4 - FAIL - addResourceAttribute - ParentB is valid resource, but attribute not added.\n')
+		    self.pf.failed("Test 5.4 - addResourceAttribute - ParentB is valid resource, but attribute not added.\n")
 	        else:
-	            print "PASS: addResourceAttribute: (ParentB, %s, %s, %s): ParentB is valid resource;" %(a7name, a7val, type)
+	            self.pf.passed("addResourceAttribute: (ParentB, %s, %s, %s): ParentB is valid resource;" %(a7name, a7val, type))
 	            print "    attribute added"
-		    self.out.write('Test 5.4 - PASS - addResourceAttribute - ParentB is valid resource; attribute added.\n')
+		    self.pf.passed("Test 5.4 - addResourceAttribute - ParentB is valid resource; attribute added.\n")
 
 	
 	    ##test: lookup attributes created in above test with lookupAttribute()
 	    #if not testStore.lookupAttribute (p1, a5name, a5val):
-	    #    print "FAIL: lookupAttribute: valid (%s, %s) entered for resource %d" % (a5name, a5val, p1)
+	    #    self.pf.failed("lookupAttribute: valid (%s, %s) entered for resource %d" % (a5name, a5val, p1))
 	    #    print "      not found"
 	    #    returnFlag = False
 	    #else:
-	    #    print "PASS: lookupAttribute: found (%s, %s) entered for resource %d" % (a5name, a5val, p1)
+	    #    self.pf.passed("lookupAttribute: found (%s, %s) entered for resource %d" % (a5name, a5val, p1))
 	
 	    #if not testStore.lookupAttribute (p1, a6name, a6val):
-	    #    print "FAIL: lookupAttribute: valid (%s, %s) entered for resource %d" % (a6name, a6val, p1)
+	    #    self.pf.failed("lookupAttribute: valid (%s, %s) entered for resource %d" % (a6name, a6val, p1))
 	    #    print "      not found"
 	    #    returnFlag = False
 	    #else:
-	    #    print "PASS: lookupAttribute: found (%s, %s) entered for resource %d" % (a6name, a6val, p1)
+	    #    self.pf.passed("lookupAttribute: found (%s, %s) entered for resource %d" % (a6name, a6val, p1))
 	
 	    #if not testStore.lookupAttribute (p2, a7name, a7val):
-	    #    print "FAIL: lookupAttribute: valid (%s, %s) entered for resource %d" % (a7name, a7val, p2)
+	    #    self.pf.failed("lookupAttribute: valid (%s, %s) entered for resource %d" % (a7name, a7val, p2))
 	    #    print "      not found"
 	    #    returnFlag = False
 	    #else:
-	    #    print "PASS: lookupAttribute: found (%s, %s) entered for resource %d" % (a7name, a7val, p2)
+	    #    self.pf.passed("lookupAttribute: found (%s, %s) entered for resource %d" % (a7name, a7val, p2))
 	
 	
 	    ##test: lookup attributes created above with lookupAttributes()
 	    #if not testStore.lookupAttributes (p1, [(d5["name"],d5["value"])]):
-	    #    print "FAIL: lookupAttributes: valid (%s, %s) entered for resource %d" % (d5["name"], d5["value"], p1)
+	    #    self.pf.failed("lookupAttributes: valid (%s, %s) entered for resource %d" % (d5["name"], d5["value"], p1))
 	    #    print "      not found"
 	    #    returnFlag = False
 	    #else:
-	    #    print "PASS: lookupAttributes: found (%s, %s) entered for resource %d" % (d5["name"], d5["value"], p1)
+	    #    self.pf.passed("lookupAttributes: found (%s, %s) entered for resource %d" % (d5["name"], d5["value"], p1))
 	
 	    #if not testStore.lookupAttributes (p1, [(d5["name"],d5["value"]),(d6["name"],d6["value"])]):
-	    #    print "FAIL: lookupAttributes: valid (%s, %s), (%s, %s) list entered for resource %d" %  (d5["name"], d5["value"], d6["name"], d6["value"], p1)
+	    #    self.pf.failed("lookupAttributes: valid (%s, %s), (%s, %s) list entered for resource %d" %  (d5["name"], d5["value"], d6["name"], d6["value"], p1))
 	    #    print "      not found"
 	    #    returnFlag = False
 	    #else:
-	    #    print "PASS: lookupAttributes: found (%s, %s), (%s, %s) entered for resource %d" % (d5["name"], d5["value"], d6["name"], d6["value"], p1)
+	    #    self.pf.passed("lookupAttributes: found (%s, %s), (%s, %s) entered for resource %d" % (d5["name"], d5["value"], d6["name"], d6["value"], p1))
 	
 	    #if not testStore.lookupAttributes (p1, [(a5name,a5val),(a6name,a6val)]):
-	    #    print "FAIL: lookupAttributes: valid (%s, %s), (%s, %s) list entered for resource %d" % (a5name, a5val, a6name, a6val, p1)
+	    #    self.pf.failed("lookupAttributes: valid (%s, %s), (%s, %s) list entered for resource %d" % (a5name, a5val, a6name, a6val, p1))
 	    #    print "      not found"
 	    #    returnFlag = False
 	    #else:
-	    #    print "PASS: lookupAttributes: found (%s, %s), (%s,%s) entered for resource %d" % (a5name,a5val, a6name, a6val,p1)
+	    #    self.pf.passed("lookupAttributes: found (%s, %s), (%s,%s) entered for resource %d" % (a5name,a5val, a6name, a6val,p1))
 	
 	    #if not testStore.lookupAttributes (p2, [(d7["name"],d7["value"])]):
-	    #    print "FAIL: lookupAttributes: valid (%s, %s) list entered for resource %d not found" % (d7["name"], d7["value"],p2)
+	    #    self.pf.failed("lookupAttributes: valid (%s, %s) list entered for resource %d not found" % (d7["name"], d7["value"],p2))
 	    #    returnFlag = False
 	    #else:
-	    #    print "PASS: lookupAttributes: found list (%s,%s) entered for resource %d" % (d7["name"], d7["value"], p2)
+	    #    self.pf.passed("lookupAttributes: found list (%s,%s) entered for resource %d" % (d7["name"], d7["value"], p2))
 	
 	
 	    #test: enter some invalid resource_attibute (name,value) pairs for invalid resources
@@ -226,22 +226,22 @@ class PTdS_t5:
 	    except:
 	        if not rv:
 	            print "PASS-EXCEPTION RAISED: addResourceAttribute: resource does not exist; attribute not added"
-		    self.out.write('Test 5.5 - PASS - EXCEPTION RAISED - addResourceAttribute - resource does not exist; attribute not added.\n')
+		    self.pf.passed("Test 5.5 - EXCEPTION RAISED - addResourceAttribute - resource does not exist; attribute not added.\n")
 	        else:
 	            print "FAIL-EXCEPTION RAISED: addResourceAttribute: resource does not exist, but attribue was added"
-		    self.out.write('Test 5.5 - FAIL - EXCEPTION RAISED - addResourceAttribute - resource does not exist, but attribute was added.\n')
+		    self.pf.failed("Test 5.5 - EXCEPTION RAISED - addResourceAttribute - resource does not exist, but attribute was added.\n")
 	    else:
 	        if not rv:
-	            print "PASS: addResourceAttribute: resource does not exist; attribute not added"
-		    self.out.write('Test 5.5 - PASS - addResourceAttribute - resource does not exist; attribute added.\n')
+	            self.pf.passed("addResourceAttribute: resource does not exist; attribute not added")
+		    self.pf.passed("Test 5.5 - addResourceAttribute - resource does not exist; attribute added.\n")
 	        else:
-	            print "FAIL: addResourceAttribute: resource does not exist, but attribue was added"
-		    self.out.write('Test 5.5 - FAIL - addResourceAttribute - resource does not exist, but attribute was added.\n')
+	            self.pf.failed("addResourceAttribute: resource does not exist, but attribue was added")
+		    self.pf.failed("Test 5.5 - addResourceAttribute - resource does not exist, but attribute was added.\n")
 	        returnFlag = False 
 	
 	    ## test: lookupAttribute with invalid resource_id
 	    #if testStore.lookupAttribute (maxid+300, d4["name"], d4["value"] ):
-	    #    print "FAIL: lookupAttribute: invalid resource_id of %d should cause lookupAttribute to fail" % (maxid+300)
+	    #    self.pf.failed("lookupAttribute: invalid resource_id of %d should cause lookupAttribute to fail" % (maxid+300))
 	    #    sql = "select count(*) from resource_attribute where resource_id = " + str(maxid+300)
 	    #    print "    Execute following query: " + sql
 	    #    #testStore.cursor.execute(sql)
@@ -254,7 +254,7 @@ class PTdS_t5:
 	    #       print "the query says count = " + str(cnt) 
 	    #    returnFlag = False
 	    #else:
-	    #    print "PASS: lookupAttribute: invalid resource_id caused lookupAttribute to fail"
+	    #    self.pf.passed("lookupAttribute: invalid resource_id caused lookupAttribute to fail")
 	
 	    ##test: lookupAttribute with valid resource_item id that is not a resource_attribute resource_id
 	    #rangelist = range(1,maxid+1)
@@ -269,47 +269,47 @@ class PTdS_t5:
 	    #        doesNotExist = x
 	    #        break    
 	    #if testStore.lookupAttribute (doesNotExist, d4["name"], d4["value"] ):
-	    #    print "FAIL: lookupAttribute: resource_id %d does not exist in resource_attribute." % (doesNotExist)
+	    #    self.pf.failed("lookupAttribute: resource_id %d does not exist in resource_attribute." % (doesNotExist))
 	    #    print "      This should cause lookupAttribute to fail"
 	    #    returnFlag = False
 	    #else:
-	    #    print "PASS: lookupAttribute: valid resource_item id %d which is an invalid" % (doesNotExist)
+	    #    self.pf.passed("lookupAttribute: valid resource_item id %d which is an invalid" % (doesNotExist))
 	    #    print "      resource_attribute resource_id caused lookupAttribute to fail"
 	
 	    ##test: lookup attribute with invalid name or value
 	    #if testStore.lookupAttribute (p1, "Not a Name", "Not a Value"):
-	    #    print "FAIL: (name,value) of (Not a Name, Not a Value) is not a valid"
+	    #    self.pf.failed("(name,value) of (Not a Name, Not a Value) is not a valid")
 	    #    print "      name,value pair and should cause lookupAttribute to fail"
 	    #    returnFlag = False
 		    #else:
-	    #    print "PASS: (name,value) of (Not a Name, Not a Value) caused lookupAttribute to fail"
+	    #    self.pf.passed("(name,value) of (Not a Name, Not a Value) caused lookupAttribute to fail")
 	    #if testStore.lookupAttribute (p1, "Not a Name", d1["value"]):
-	    #    print "FAIL: (name,value) of (Not a Name, " + str(d1["value"]) + ") has invalid name"
+	    #    self.pf.failed("(name,value) of (Not a Name, " + str(d1["value"]) + ") has invalid name")
 	    #    print "      and should cause lookupAttribute to fail"
 	    #    returnFlag = False
 	    #else:
-	    #    print "PASS: (name,value) of (Not a Name, " + str(d1["value"]) + ") caused lookupAttribute to fail"
+	    #    self.pf.passed("(name,value) of (Not a Name, " + str(d1["value"]) + ") caused lookupAttribute to fail")
 	    #if testStore.lookupAttribute (p1, d1["name"], "Not a Value"):
-	    #    print "FAIL: (name,value) of (" + str(d1["name"]) + ", Not a Value) has invalid value"
+	    #    self.pf.failed("(name,value) of (" + str(d1["name"]) + ", Not a Value) has invalid value")
 	    #    print "      and should cause lookupAttribute to fail"
 	    #    returnFlag = False
 	    #else:
-	    #    print "PASS: (name,value) of (" + str(d1["name"]) + ", Not a Value) caused lookupAttribute to fail"
+	    #    self.pf.passed("(name,value) of (" + str(d1["name"]) + ", Not a Value) caused lookupAttribute to fail")
 	
 	    ##test: lookupAttributes with invalid resource_id
 	    #if testStore.lookupAttributes (maxid+400, [(d1["name"],d1["value"])]):
-	    #    print "FAIL: lookupAttributes: resource_id %d does not exist in resource_attribute" % (maxid+400)
+	    #    self.pf.failed("lookupAttributes: resource_id %d does not exist in resource_attribute" % (maxid+400))
 	    #    print "      and should cause lookup attributes to fail"
 	    #    returnFlag = False
 	    #else:
-	    #    print "PASS: lookupAttributes: resource_id %d does not exist in resource_attribute" % (maxid+400)
+	    #    self.pf.passed("lookupAttributes: resource_id %d does not exist in resource_attribute" % (maxid+400))
 	    #    print "      and caused lookupAttributes to fail"
 	    #if testStore.lookupAttributes (doesNotExist, [(d1["name"],d1["value"])]):   
-	    #    print "FAIL: lookupAttributes: resource_id %d does not exist in resource_attribute." % (doesNotExist)
+	    #    self.pf.failed("lookupAttributes: resource_id %d does not exist in resource_attribute." % (doesNotExist))
 	    #    print "      This should cause lookupAttributes to fail"
 	
 	    #else:
-	    #    print "PASS: lookupAttributes: valid resource_item id %d which is an invalid" % (doesNotExist)
+	    #    self.pf.passed("lookupAttributes: valid resource_item id %d which is an invalid" % (doesNotExist))
 	    #    print "      resource_attribute resource_id caused lookupAttributes to fail"
  
 

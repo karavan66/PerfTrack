@@ -1,0 +1,14 @@
+
+./2d_img_processing.o 2048
+
+
+./2d_img_processing.o 4096
+
+./2d_img_processing.o 8192
+
+
+./2d_img_processing.o 16384
+
+
+
+

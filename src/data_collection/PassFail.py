@@ -12,6 +12,7 @@ class PassFail:
       self.passed_count += 1
 
    def failed(self, msg=""):
+      raise Exception("WTF")
       if msg != "":
          print ("FAIL: %s" % msg)
       else:

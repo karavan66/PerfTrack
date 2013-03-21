@@ -261,7 +261,6 @@ class ResourceIndex:
           app = None
           exe = None
 
-
        reses = self.getResourcesSortedByName()
        for r in reses:
           if r == exe or r == app:

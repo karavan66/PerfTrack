@@ -183,8 +183,6 @@ def test7(ptds, pf):
     newVal = totVal/len(ts_cpu)
     newCntxt = ptds.createCombinedContext(fids)
     ret = ptds.addResource("Average TSTEP-HYD cpu time", "metric")
-    if ret == 0:
-        pf.failed("adding metric 'Average TSTEP-HYD cpu time' failed")
     cprid = ptds.addCombinedPerfResult(newCntxt, "Average TSTEP-HYD cpu time", newVal, "seconds", "noValue", "noValue", prIds, label=newLabel)
     if cprid == 0:
         pf.failed("addCombinedPerfResult failed for Average TSTEP-HYD cpu time")

@@ -48,6 +48,7 @@ class PerfResult:
             first = False
          else:
             focusname += "::"  # this is the delimiter between foci
+
          for f in flist:
             focusname += f.name + "," # this is the delim b/w focus names
          focusname = focusname.rstrip(',') # get rid of last comma

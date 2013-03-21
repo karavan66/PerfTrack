@@ -8,7 +8,7 @@ class PTDFLexer:
     def __init__(self):
         self.reserved = {
             'Application' : 'APPLICATION',
-            'ResTypeHierArchy' : 'RESTYPEHIERARCHY',
+            'ResTypeHierarchy' : 'RESTYPEHIERARCHY',
             'ResourceType' : 'RESOURCETYPE',
             'Execution' : 'EXECUTION',
             'Resource' : 'RESOURCE',
@@ -50,9 +50,10 @@ class PTDFLexer:
 
 from time import time, sleep
 class PTDFParser:
-    def __init__(self, ptds, multi=False):
+    def __init__(self, ptds, multi=False, lineno=1):
         self.ptds = ptds
         self.lexer = PTDFLexer()
+        self.lexer.lexer.lineno = lineno
         self.tokens = self.lexer.tokens
         self.parser = yacc.yacc(module=self,write_tables=0,debug=False,start='ptdf',optimize=parser_optimize)
         self.statements = 0
@@ -64,12 +65,16 @@ class PTDFParser:
         self.ptds.log.error("Syntax Error %s:%s -> %s", self.ptds.filename, p.lineno(1), syntax)
         raise Exception("PTDF Syntax Error %s:%s" % (self.ptds.filename, p.lineno(1)))
 
+    def incr_lineno(self):
+        self.lexer.lexer.lineno += 1
+
     def set_worker(self, worker):
         self.worker = worker
 
     def reset(self):
         self.statements = 0
         self.startTime = time()
+        self.lexer.lexer.lineno = 1
 
     def parse(self,data):
         if data:
@@ -82,7 +87,12 @@ class PTDFParser:
             return []
 
     def p_error(self, p):
-        print("Syntax error at token %s filename %s line %s" % (p.type , self.ptds.filename, p.lineno))
+        if (p):
+            print("Syntax error at token %s filename %s line %s" % (p.type, self.ptds.filename, p.lineno))
+            raise Exception("PTDF Syntax Error %s:%s" % (self.ptds.filename, p.lineno))
+        else:
+            print("Unexpected End of File (do you have a newline at the end of the file?)")
+            raise Exception("Unexpected End of File (do you have a newline at the end of the file?)")
 
     def p_string(self, p):
         '''string : QUOTED 
@@ -201,7 +211,7 @@ class PTDFParser:
         'perfresult : PERFRESULT error NEWLINE'
         self.__error(p, "PerfResult <execName> "
                      "<focusName> <perfToolName> <metricName> <value> "
-                     "<units> <startTime> <endTime>""Context <contextName> <resourceList>")
+                     "<units> <startTime> <endTime>")
 
     def p_result(self, p):
         'result : RESULT string string string string string string string string NEWLINE'

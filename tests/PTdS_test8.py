@@ -8,6 +8,9 @@ from ResourceIndex import ResourceIndex
 
 
 class PTdS_t8:
+	def __init__(self, pf):
+		self.pf = pf
+
 	def test1(self, ptds):
 	    out = open('results', 'a')
 	    # Falls under TEST 6
@@ -24,7 +27,7 @@ class PTdS_t8:
 				combined=False)
 		#print "%s" %(reses)
 	        if len(reses) != pr_count:
-	           print "FAIL: for %s. Got %s, expected %s" %(ex,len(reses),pr_count)
+	           self.pf.failed("for %s. Got %s, expected %s" %(ex,len(reses),pr_count))
 		   out.write('Test 8.1 - FAIL: for %s.  Got %s, expected %s.\n')
 	        else:
 	           print "PASS"
@@ -49,8 +52,7 @@ class PTdS_t8:
 	                     combined=False)
 		#print "%s" %(reses)
         	if len(results) != pr_count:
-        	   print "FAIL: for %s. Got %s, expected %s" \
-        	         % (r,len(results),pr_count)
+        	   self.pf.failed("for %s. Got %s, expected %s" % (r,len(results),pr_count))
 		   out.write('Test 8.2 - FAIL: for %s.  Got %s, expected %s \n')
 	        else:
 	           print "PASS"
@@ -72,8 +74,7 @@ class PTdS_t8:
 	        results = ptds.getPerfResultsByContext([(r,t)], anc=False, desc=True, \
 	                     combined=False)
 	        if len(results) != pr_count:
-	           print "FAIL: for %s. Got %s, expected %s" \
-	                 % (r,len(results),pr_count)
+	           self.pf.failed("for %s. Got %s, expected %s"  % (r,len(results),pr_count))
 		   out.write('Test 8.3 - FAIL: For %s.  Got %s, expected %s.\n')
 	        else:
 	           print "PASS"
@@ -95,7 +96,7 @@ class PTdS_t8:
 	        reses = ptds.getPerfResultsByContext([(ex,t)], anc=True, desc=True, \
 	                     combined=True)
 	        if len(reses) != pr_count:
-	           print "FAIL: for %s. Got %s, expected %s" %(ex,len(reses),pr_count)
+	           self.pf.failed("for %s. Got %s, expected %s" %(ex,len(reses),pr_count))
 		   out.write('Test 8.4 - FAIL: for %s.  Got %s, expected %s.\n')
 	        else:
 	           print "PASS"
@@ -124,7 +125,7 @@ class PTdS_t8:
 	    ex = 'sppm-2'
 	    reses = ptds.getPerfResultsByLabel(testLabel, combined=False)
 	    if len(reses) != pr_count:
-	       	print "FAIL: for %s. Got %s, expected %s" %(ex,len(reses),pr_count)
+	       	self.pf.failed("for %s. Got %s, expected %s" %(ex,len(reses),pr_count))
 		out.write('Test 8.5 - FAIL: for %s.  Got %s, expected %s.\n')
 	    else:
 	       print "PASS"
@@ -162,7 +163,7 @@ class PTdS_t8:
 	       print "PASS"
 	       out.write('Test 8.6 - PASS.\n')
 	    else:
-	       print "FAIL: unexpected context for TSTEP-HYD cpu time"
+	       self.pf.failed("unexpected context for TSTEP-HYD cpu time")
 	       out.write('Test 8.6 - FAIL: Unexpected context for TSTEP-HYD cpu time.\n')
 	    fids = [] 
 	    for id,met,val,units,st,et,fid,lab,comb in ts_wall:
@@ -174,7 +175,7 @@ class PTdS_t8:
 	    else:
 		    print "NEW %s" % newCntxt
 		    print "OLD %s" % expectedContext
-		    print "FAIL: unexpected context for TSTEP-HYD wall time"
+		    self.pf.failed("unexpected context for TSTEP-HYD wall time")
 		    out.write('Test 8.7 - FAIL: Unexpected context for TSET-HYD wall time.\n')
 	
 	def test7(self, ptds):
@@ -212,23 +213,20 @@ class PTdS_t8:
 	        prIds.append(id)
 	        totVal += val
 	    if (len(ts_cpu) == 0):
-		    print "FAIL: len(ts_cpu) is zero"
+		    self.pf.failed("len(ts_cpu) is zero")
 		    return
 
 	    newVal = totVal/len(ts_cpu)
 
 	    newCntxt = ptds.createCombinedContext(fids)
 	    ret = ptds.addResource("Average TSTEP-HYD cpu time", "metric")
-	    if ret == 0:
-	       print "FAIL: adding metric 'Average TSTEP-HYD cpu time' failed"
-	       out.write('Test 8.8 - FAIL: Adding metric "average TSTEP=HYD cpu time" failed.\n')
 	    cprid = ptds.addCombinedPerfResult(newCntxt, "Average TSTEP-HYD cpu time", newVal, "seconds", "noValue", "noValue", prIds, label=newLabel)
 	    if cprid == 0:
-	       print "FAIL: addCombinedPerfResult failed for Average TSTEP-HYD cpu time"
+	       self.pf.failed("addCombinedPerfResult failed for Average TSTEP-HYD cpu time")
 	       out.write('Test 8.8 - FAIL: addCombinedPerfResult failed for Average TSTEP-HYD cpu time.\n')
 	    cpr = ptds.getPerfResultsByLabel(newLabel, combined=True)
 	    if len(cpr) != 1:
-	       print "FAIL: wrong number of results in db for label=%s for Average TSTEP-HYD cpu time" % newLabel
+	       self.pf.failed("wrong number of results in db for label=%s for Average TSTEP-HYD cpu time" % newLabel)
 	       out.write('Test 8.8 - FAIL: wrong number of results in db for label for average TSTEP-HYD cpu time.\n')
 	    expectedContext = "sppm,build,mpiicc-8.0 Version 8.0,mpiifort-8.0 Version 8.0,env,sppm-2|Process-0,SingleMachineMCR|MCR,inputdeck,iq.h,Linux #1 SMP Mon Sep 27 13:51:13 PDT 2004 2.4.21-p4smp-71.3chaos,Linux #1 SMP Wed Sep 1 16:37:16 PDT 2004 2.4.21-p4smp-71chaos,fpp,m4,whole execution|10,whole execution|12,whole execution|14,whole execution|16,whole execution|18,whole execution|2,whole execution|20,whole execution|4,whole execution|6,whole execution|8"
 	    # extract the focus id from the combined perf res we made above
@@ -236,11 +234,11 @@ class PTdS_t8:
 	    # check to see that there's a new focus for our new perf result
 	    fidFromDb = ptds.findFocusByName(expectedContext)
 	    if fidFromDb != fid:
-	       print "FAIL: wrong context entered for Average TSTEP-HYD cpu time"
+	       self.pf.failed("wrong context entered for Average TSTEP-HYD cpu time")
 	       out.write('Test 8.8 - FAIL: Wrong context entered for Average TSTEP-HYD cpu time.\n')
 	    ret = ptds.getCombinedPerfResultSourceData(cprid)
 	    if len(ret) != len(ts_cpu):
-	       print "FAIL: wrong number of source data prs in db for Average TSTEP-HYD cpu time" 
+	       self.pf.failed("wrong number of source data prs in db for Average TSTEP-HYD cpu time" )
 	       out.write('Test 8.8 - FAIL: Wrong number of source data prs in db for Average TSTEP-HYD cpu time.\n')
 	    else:
 	       print "PASS"
@@ -259,19 +257,19 @@ class PTdS_t8:
 	    newCntxt = ptds.createCombinedContext(fids)
 	    ret = ptds.addResource("Average TSTEP-HYD wall time", "metric")
 	    if ret == 0:
-	       print "FAIL: adding metric 'Average TSTEP-HYD wall time' failed"
+	       self.pf.failed("adding metric 'Average TSTEP-HYD wall time' failed")
 	       out.write('Test 8.9 - FAIL: adding metric "Average TSTEP-HYD wall time" failed.\n')
 	    cprid = ptds.addCombinedPerfResult(newCntxt, "Average TSTEP-HYD wall time", newVal, "seconds", "noValue", "noValue", prIds, label=newLabel)
 	    if cprid == 0:
-	      print "FAIL: addCombinedPerfResult failed for Average TSTEP-HYD wall time"
+	      self.pf.failed("addCombinedPerfResult failed for Average TSTEP-HYD wall time")
 	      out.write('Test 8.9 - FAIL: addCombinedPerfResult failed for Average TSTEP-HYD wall time.\n')
 	    ret = ptds.getPerfResultsByLabel(newLabel, combined=True)
 	    if len(ret) != 2:
-	       print "FAIL: wrong number of results in db for label=%s for Average TSTEP-HYD wall time" % newLabel
+	       self.pf.failed("wrong number of results in db for label=%s for Average TSTEP-HYD wall time" % newLabel)
 	       out.write('Test 8.9 - FAIL: Wrong number of results in db for label for average TSTEP-HYD wall time.\n')
 	    ret = ptds.getCombinedPerfResultSourceData(cprid)
 	    if len(ret) != len(ts_wall):
-	       print "FAIL: wrong number of source data prs in db for Average TSTEP-HYD wall time" 
+	       self.pf.failed("wrong number of source data prs in db for Average TSTEP-HYD wall time" )
 	       out.write('Test 8.9 - FAIL: Wrong number of source data prs in db for Average TSTEP-HYD wall time.\n')
 	    else:
 	       print "PASS"
@@ -293,19 +291,19 @@ class PTdS_t8:
 	    newCntxt = ptds.createCombinedContext(fids)
 	    ret = ptds.addResource("Average of TSTEP-HYD wall and cpu time", "metric")
 	    if ret == 0:
-	       print "FAIL: adding metric 'Average of TSTEP-HYD wall and cpu time failed"
+	       self.pf.failed("adding metric 'Average of TSTEP-HYD wall and cpu time failed")
 	       out.write('Test 8.10 - FAIL: Adding metric "Average of TSTEP-HYD" wall and cpu time failed.\n')
 	    cprid = ptds.addCombinedPerfResult(newCntxt, "Average of TSTEP-HYD wall and cpu time", newVal, "seconds", "noValue", "noValue", prIds, label=newLabel)
 	    if cprid == 0:
-	      print "FAIL: addCombinedPerfResult failed for Average of TSTEP-HYD wall and cpu time"
+	      self.pf.failed("addCombinedPerfResult failed for Average of TSTEP-HYD wall and cpu time")
 	      out.write('Test 8.10 - FAIL: addCombinedPerfResult failed for Average of TSTEP-HYD wall and cpu time.\n')
 	    ret = ptds.getPerfResultsByLabel(newLabel, combined=True)
 	    if len(ret) != 3:
-	       print "FAIL: wrong number of results in db for label=%s for Average of TSTEP-HYD wall  and cpu time" % newLabel
+	       self.pf.failed("wrong number of results in db for label=%s for Average of TSTEP-HYD wall  and cpu time" % newLabel)
 	       out.write('Test 8.10 - FAIL: Wrong number of results in db for label for average of TSTEP-HYD wall and cpu time.\n')
 	    ret = ptds.getCombinedPerfResultSourceData(cprid)
 	    if len(ret) != len(prs):
-	       print "FAIL: wrong number of source data prs in db for Average of TSTEP-HYD wall and cpu time" 
+	       self.pf.failed("wrong number of source data prs in db for Average of TSTEP-HYD wall and cpu time" )
 	       out.write('Test 8.10 - FAIL: Wrong number of source data prs in db for Average of TSTEP-Hyd wall and cpu time.\n')
 	    else:
 	       print "PASS"
@@ -325,7 +323,7 @@ class PTdS_t8:
 	    newLabel = 'sppm-2'
 	    ret = ptds.getPerfResultsByLabel(newLabel, combined=True)
 	    if not ret:
-	       print "FAIL: perhaps test7 wasn't run yet? the expected data is not in the database"
+	       self.pf.failed("perhaps test7 wasn't run yet? the expected data is not in the database")
 	       out.write('Test 8.11 - FAIL: Perhaps test7 was not run yet?  The expected tat is not in the database.\n')
 	    numStarted = len(ret)
 	    numDeleted = 0
@@ -333,7 +331,7 @@ class PTdS_t8:
 	    for id,met,val,units,st,et,fid,lab,comb in ret:
 	        ret,list = ptds.deleteCombinedPerfResult(id)
 	        if ret == 1 and len(list) > 0:
-	           print "FAIL: deleted comb perf rest with dependencies"
+	           self.pf.failed("deleted comb perf rest with dependencies")
 		   out.write('Test 8.11 - FAIL: Deleted comb perf rest with dependencies.\n')
 	        elif ret == 1 and len(list) == 0:
 	           numDeleted += 1
@@ -341,11 +339,11 @@ class PTdS_t8:
 	           # this is good, means pr that has dependency didn't get removed
 	           idsNotDeleted.append((id,fid))
 	        else:
-	           print "FAIL: unexpected return value from deleteCombinedPerfResult"
+	           self.pf.failed("unexpected return value from deleteCombinedPerfResult")
 		   out.write('Test 8.11 - FAIL: Unexpected return value from deleteCombPerfResult.\n')
 	    ret = ptds.getPerfResultsByLabel(newLabel, combined=True)
 	    if len(ret) != (numStarted-numDeleted):
-	       print "FAIL: retrieve unexpected number of prs after deletion." 
+	       self.pf.failed("retrieve unexpected number of prs after deletion." )
 	       out.write('Test 8.11 - FAIL: Retrieved unexpected number of prs after deletion.\n')
 	  
 	    # the list idsNotDeleted contains 2 combined perf reses that share a 
@@ -354,25 +352,25 @@ class PTdS_t8:
 	    # delete the other and make sure the context is gone
 	    expectedContext = "sppm,build,mpiicc-8.0 Version 8.0,mpiifort-8.0 Version 8.0,env,sppm-2|Process-0,SingleMachineMCR|MCR,inputdeck,iq.h,Linux #1 SMP Mon Sep 27 13:51:13 PDT 2004 2.4.21-p4smp-71.3chaos,Linux #1 SMP Wed Sep 1 16:37:16 PDT 2004 2.4.21-p4smp-71chaos,fpp,m4,whole execution|10,whole execution|12,whole execution|14,whole execution|16,whole execution|18,whole execution|2,whole execution|20,whole execution|4,whole execution|6,whole execution|8"
 	    if (len(idsNotDeleted) == 0):
-		    print "FAIL: idsNotDeleted is zero length"
+		    self.pf.failed("idsNotDeleted is zero length")
 		    return
 	    id,fid = idsNotDeleted[0]
 	    ret,list = ptds.deleteCombinedPerfResult(id) 
 	    if ret!=0 and len(list) != 0:
-	       print "FAIL: did not delete pr with no dependencies, #1"
+	       self.pf.failed("did not delete pr with no dependencies, #1")
 	       out.write('Test 8.11 - FAIL: Did not delete pr with no dependencies, #1.\n')
 	    fidFromDB = ptds.findFocusByName(expectedContext)
 	    if fidFromDB != fid:
-	       print "FAIL: expected to find context but it was gone"
+	       self.pf.failed("expected to find context but it was gone")
 	       out.write('Test 8.11 - FAIL: Expected to find context but it was gone.\n')
 	    id,fid = idsNotDeleted[1]
 	    ret,list = ptds.deleteCombinedPerfResult(id) 
 	    if ret!=0 and len(list) != 0:
-	       print "FAIL: did not delete pr with no dependencies, #2"
+	       self.pf.failed("did not delete pr with no dependencies, #2")
 	       out.write('Test 8.11 - FAIL: Did not delete pr with no dependencies, #2.\n')
 	    fidFromDB = ptds.findFocusByName(expectedContext)
 	    if fidFromDB == fid:
-	       print "FAIL: found context when it should be gone"
+	       self.pf.failed("found context when it should be gone")
 	       out.write('Test 8.11 - FAIL: found context when it should be gone.')
 	    
 	    else:

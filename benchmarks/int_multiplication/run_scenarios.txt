@@ -1,0 +1,22 @@
+
+
+./matrixMult_int.o 1000 1000
+
+./matrixMult_int.o 1500 1500
+
+./matrixMult_int.o 2100 2100
+
+./matrixMult_int.o 2500 2500
+
+
+
+
+./multOMP_int.o 1000 1000
+
+./multOMP_int.o 1500 1500
+
+./multOMP_int.o 2100 2100
+
+./multOMP_int.o 2500 2500
+
+

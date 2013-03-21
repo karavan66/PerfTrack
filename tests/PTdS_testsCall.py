@@ -18,19 +18,16 @@ from PassFail import PassFail
 #from getpass import getpass
 
 pf = PassFail()
-out = open('results', 'a')
-out.write('\n' + ARPA.str(now()) + '\n')
-
 testStore = PTdataStore()
 
-test1 = PTdS_t1(out)
-test2 = PTdS_t2(out)
-test3 = PTdS_t3(out)
-test4 = PTdS_t4(out)
-test5 = PTdS_t5(out)
-test6 = PTdS_t6(out)
-test7 = PTdS_t7(out)
-test8 = PTdS_t8()
+test1 = PTdS_t1(pf)
+test2 = PTdS_t2(pf)
+test3 = PTdS_t3(pf)
+test4 = PTdS_t4(pf)
+test5 = PTdS_t5(pf)
+test6 = PTdS_t6(pf)
+test7 = PTdS_t7(pf)
+test8 = PTdS_t8(pf)
 
 ##TEST 1 -- connection test
 print "test1.2 - connect, no optional parameters"
@@ -82,3 +79,5 @@ tests = [test8.test1,test8.test2,test8.test3,test8.test4,test8.test5,test8.test6
 
 for tests in tests:
 	tests(ptds)
+
+sys.exit(pf.failed_count > 0)
