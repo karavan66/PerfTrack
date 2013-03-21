@@ -36,7 +36,8 @@
                       </sizepolicy>
                     </property>
                     <property name="title">
-                      <string>Selection Parameters</string>
+                    <!-- Bhagya -->
+                      <string>Selection Parameters                                                                      </string>
                     </property>
                     <widget class="Q3ListView" name="parameterListView">
                       <property name="geometry">
@@ -84,7 +85,7 @@
                           <bool>false</bool>
                         </property>
                         <property name="resizable">
-                          <bool>false</bool>
+                          <bool>true</bool><!-- Bhagya -->
                         </property>
                       </column>
                       <column>
