@@ -410,7 +410,7 @@ QStringList DataAccess::queryForStrings( QString queryText )
 
 	// Execute the query
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to execute %s\n", queryText.latin1() );
 		return results;
@@ -431,7 +431,7 @@ int DataAccess::queryForInt( QString queryText )
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	// Execute the query
 	if( ! query.exec( queryText ) ) {
 		fprintf( stderr, "Query failed: %s\n", queryText.latin1() );
@@ -505,7 +505,7 @@ Q3ValueList<QStringList> DataAccess::parseResourceTypes(QStringList fullResource
 
 		// Add current string to the chain.
 		currentChain += (*rtit);
-		lastString = currentChain[0];
+		lastString = (*rtit);
 	}
 
 	// Add the last chain, if nonempty
@@ -548,7 +548,7 @@ void DataAccess::findAttributesByType( QString resourceType, QString filter,void
 	queryText += "ORDER BY ra.name";
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) )
 		return;
 
@@ -584,7 +584,7 @@ void DataAccess::findResourcesByType( QString resourceType, QString filter,void 
 		queryText += " AND " + filter;
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) )
 		return;
 
@@ -628,7 +628,7 @@ void DataAccess::findAttributesByName( QString attribute, QString filter, Select
 		queryText += " AND " + filter;
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) )
 		return;
 
@@ -676,7 +676,7 @@ void DataAccess::findResourcesByParent( QString idList, QString filter, Selectio
 		queryText += " AND " + filter;
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) )
 		return;
 
@@ -696,7 +696,7 @@ void DataAccess::findResourcesByParent( QString idList, QString filter, Selectio
 		"WHERE parent_id = " + firstId;
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) )
 		return;
 
@@ -733,7 +733,7 @@ void DataAccess::findResourcesByParent( QString parentType, QString baseName, QS
 		queryText += " AND " + filter;
 
         //debug
-        //fprintf(stderr, "findResourcesByParent executing: %s\n", queryText.latin1());
+        fprintf(stderr, "findResourcesByParent executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) )
 		return;
 
@@ -753,7 +753,7 @@ void DataAccess::findResourcesByParent( QString parentType, QString baseName, QS
 		"AND rip.type = '" + parentType + "'";
 
         //debug
-        //fprintf(stderr, "findResourcesByParent executing: %s\n", queryText.latin1());
+        fprintf(stderr, "findResourcesByParent executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) )
 		return;
 
@@ -787,7 +787,7 @@ void DataAccess::findAttributesByResourceName( QString name,SelectionListItem * 
 		"AND ri.name LIKE '%" + name + "' ";
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) )
 		return;
 
@@ -837,7 +837,7 @@ void DataAccess::findExecutionResourcesByName( QString name, SelectionListItem *
 		"AND ehr.rid = er.id ";
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) )
 		return;
 
@@ -868,7 +868,7 @@ void DataAccess::findAttributesById( QString id, SelectionListItem * sli )
 			"WHERE  resource_id = " + id;
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) )
 		return;
 
@@ -899,7 +899,7 @@ void DataAccess::findExecutionResourcesById( QString id, SelectionListItem * sli
 		"WHERE ehr.rid = ri.id AND ehr.eid = " + id;
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) )
 		return;
 
@@ -959,8 +959,13 @@ int DataAccess::addResourcesByName( QString type, QString name )
 
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	QSqlQuery query;
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
+
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to create adds table" );
 		return -1;
@@ -972,7 +977,7 @@ int DataAccess::addResourcesByName( QString type, QString name )
 		"SELECT * FROM " + addTable;
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
 		QString message =
 			"Failed to add resources of type \"" + type + "\"";
@@ -998,7 +1003,7 @@ int DataAccess::addResourcesByName( QString type, QString name )
 	}
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	query.exec( "DELETE FROM " + addTable );
 
 	return newItems;
@@ -1046,7 +1051,7 @@ int DataAccess::addResourcesByAttribute( QString type, QString attr, QString val
 	QSqlQuery query;
 	query.setForwardOnly( true );
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to add resource by attr to temp table" );
 		return -1;
@@ -1058,7 +1063,7 @@ int DataAccess::addResourcesByAttribute( QString type, QString attr, QString val
 		"SELECT * FROM " + addTable;
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
 		QString message =
 			"Failed to add resources of type \"" + type + "\""
@@ -1083,7 +1088,7 @@ int DataAccess::addResourcesByAttribute( QString type, QString attr, QString val
 	}
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	query.exec( "DELETE FROM " + addTable );
 
 	return newItems;
@@ -1123,7 +1128,11 @@ void DataAccess::deleteResourcesByName( QString type, QString name )
 
 	QSqlQuery query;
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to delete resource by name from temp table" );
 	}
@@ -1169,7 +1178,11 @@ void DataAccess::deleteResourcesByAttribute( QString type, QString attr, QString
 
 	QSqlQuery query;
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to delete resource by attr from temp table" );
 	}
@@ -1393,6 +1406,10 @@ int DataAccess::getResultCount( int typeCount, QString /*metricIds*/, QStringLis
 	// of resources.  This list is cached for use when the
 	// results are actually requested.
 	QSqlQuery query;
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
 	if( ! query.exec( "DELETE FROM " + focusTableName ) ) {
 		qWarning( "Failed to delete all rows from " + focusTableName );
 	}
@@ -1408,7 +1425,7 @@ int DataAccess::getResultCount( int typeCount, QString /*metricIds*/, QStringLis
 		   //+ QString::number( typeCount );
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to get list of foci" );
 		return -1;
@@ -1626,6 +1643,10 @@ void DataAccess::getResults( int typeCount, QString /*metricIds*/, QString filte
 
 	// Clear out the results table
 	QSqlQuery query;
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
 	if( ! query.exec( "DELETE FROM " + resultTableName ) ) {
 		qWarning( "Failed to delete all rows from " + resultTableName );
 	}
@@ -1711,7 +1732,7 @@ void DataAccess::getResults( int typeCount, QString /*metricIds*/, QString filte
 
 	// Submit the query to get the result list
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
 		QString message = "Failed to get performance results" 
 			+ curDb.lastError().text() + "\nQuery: " + queryText;
@@ -1809,8 +1830,12 @@ perfResultList * DataAccess::getResultsForCombining(int typeCount, QString metri
 
 	// Submit the query to get the result list
 	//debug
-	//fprintf(stderr, "executing: %s\n", queryText.latin1());
+	fprintf(stderr, "executing: %s\n", queryText.latin1());
 	QSqlQuery query;
+
+       // Bhagya Y:
+       query.setForwardOnly( true );	// optimize for simple traversal
+
 	if( ! query.exec( queryText ) ) {
 		QString message = "Failed to get performance results"
 	    	+ curDb.lastError().text() + "\nQuery: " + queryText;
@@ -1831,7 +1856,7 @@ perfResultList * DataAccess::getResultsForCombining(int typeCount, QString metri
 	   perfReses->append(*pr);
     
 	}
-	//fprintf(stderr, "got %d results for combining\n", perfReses->size());
+	fprintf(stderr, "got %d results for combining\n", perfReses->size());
 
 	return perfReses;
 
@@ -1869,7 +1894,16 @@ bool DataAccess::addCombinedResultToDataSheet(perfResult * pr){
             return false;
        }
    
-       QSqlQuery query(queryText);
+       // Bhagya Y:
+       //QSqlQuery query(queryText);
+       QSqlQuery query;
+
+       // Bhagya Y:
+       query.setForwardOnly( true );	// optimize for simple traversal
+
+       // Bhagya Y:
+       query.exec( queryText );
+
        if (query.next()){
            resId = query.value(0).toInt();
        }
@@ -1878,7 +1912,7 @@ bool DataAccess::addCombinedResultToDataSheet(perfResult * pr){
           QMessageBox::information(NULL,"Unknown database error",msg);
           return false;
        }
-       //fprintf(stderr, "in data access setting pr.resid:%d\n", resId);
+       fprintf(stderr, "in data access setting pr.resid:%d\n", resId);
        pr->setResultId(resId);
     }
     else{
@@ -1911,8 +1945,12 @@ bool DataAccess::addCombinedResultToDataSheet(perfResult * pr){
     queryText +=  "1)";  //is  a combined result
 
  
-    //fprintf(stderr, "add to data sheet query: %s\n", queryText.latin1());
+    fprintf(stderr, "add to data sheet query: %s\n", queryText.latin1());
     QSqlQuery query;
+
+     // Bhagya Y:
+     query.setForwardOnly( true );	// optimize for simple traversal
+
     if (!query.exec(queryText)){
        QMessageBox::information(NULL, "Error", "Add to data sheet failed. Error:" + query.lastError().text());
        return false;
@@ -1938,9 +1976,13 @@ bool DataAccess::removeResultFromSheet(perfResult * pr, int sheet){
     //the result is removed from the temporary table that has the data for this sheet
     
     int resId = pr->getResultId(); 
-    //fprintf(stderr, "removing result: %d\n", resId);
+    fprintf(stderr, "removing result: %d\n", resId);
     QString queryText = "delete from " + resultTableName + " where result_id=" + QString::number(resId);
     QSqlQuery query;
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
     if(!query.exec(queryText)){
       QMessageBox::information(NULL, "Unknown error", "Unable to remove result from data sheet: " + queryText);
       return false;
@@ -1998,7 +2040,7 @@ QStringList DataAccess::comparePerformanceResults( QStringList prIds )
 			"WHERE fhr.focus_id = pr.focus_id "
 			"AND pr.id IN (" + idList + "))"
 		"GROUP BY type HAVING COUNT( DISTINCT name ) > 1 ";
-        //fprintf(stderr, "executing comparePerformanceResults: %s\n", queryText.latin1());
+        fprintf(stderr, "executing comparePerformanceResults: %s\n", queryText.latin1());
 	return queryForStrings( queryText );
 }
 
@@ -2016,7 +2058,7 @@ QStringList DataAccess::comparePerformanceResults()
 			"WHERE fhrn.focus_id = prhf.focus_id "
 			"AND prhf.performance_result_id = r.result_id ) "
 		"GROUP BY type HAVING COUNT( DISTINCT name ) > 1 ";
-        //fprintf(stderr, "executing comparePerformanceResults22: %s\n", queryText.latin1());
+        fprintf(stderr, "executing comparePerformanceResults22: %s\n", queryText.latin1());
 	return queryForStrings( queryText );
 }
 
@@ -2048,7 +2090,11 @@ int DataAccess::addAncestorsByName( QString type, QString name )
 
 	QSqlQuery query;
  	//debug
-    //fprintf(stderr, "executing: %s\n", queryText.latin1());
+       fprintf(stderr, "executing: %s\n", queryText.latin1());
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
 
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to add ancestors of " + name  );
@@ -2063,7 +2109,7 @@ int DataAccess::addAncestorsByName( QString type, QString name )
 		"INSERT INTO " + resourceTableName + " "
 		"SELECT * FROM " + addTableName;
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 
 	if( ! query.exec( queryText ) ) {
 		QString message =
@@ -2095,8 +2141,12 @@ int DataAccess::addDescendantsByName( QString type, QString name )
 
 	// fputs( queryText.latin1(), stderr );
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	QSqlQuery query;
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to add descendants of " + name  );
 		return -1;
@@ -2111,7 +2161,7 @@ int DataAccess::addDescendantsByName( QString type, QString name )
 		"SELECT * FROM " + addTableName;
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
 		QString message =
 			"Failed to add resources of type \"" + type + "\"";
@@ -2126,7 +2176,7 @@ int DataAccess::addDescendantsByName( QString type, QString name )
 	}
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	query.exec( "DELETE FROM " + addTableName );
 
 	return newItems;
@@ -2147,8 +2197,12 @@ int DataAccess::addAncestorsByAttribute( QString type, QString attr, QString val
 		"  AND ra.resource_id = ri.id )";
 
     //debug
-    //fprintf(stderr, "executing: %s\n", queryText.latin1());
+    fprintf(stderr, "executing: %s\n", queryText.latin1());
 	QSqlQuery query;
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to add ancestors of "
 				+ attr + " " + value  );
@@ -2164,7 +2218,7 @@ int DataAccess::addAncestorsByAttribute( QString type, QString attr, QString val
 		"SELECT * FROM " + addTableName;
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
 		QString message =
 			"Failed to add resources of type \"" + type + "\""
@@ -2178,7 +2232,7 @@ int DataAccess::addAncestorsByAttribute( QString type, QString attr, QString val
 	}
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	query.exec( "DELETE FROM " + addTableName );
 
 	return newItems;
@@ -2200,8 +2254,12 @@ int DataAccess::addDescendantsByAttribute( QString type, QString attr, QString v
 
 	// fputs( queryText.latin1(), stderr );
     //debug
-    //fprintf(stderr, "executing: %s\n", queryText.latin1());
+    fprintf(stderr, "executing: %s\n", queryText.latin1());
 	QSqlQuery query;
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to add descendants of "
 				+ attr + " " + value  );
@@ -2217,7 +2275,7 @@ int DataAccess::addDescendantsByAttribute( QString type, QString attr, QString v
 		"SELECT * FROM " + addTableName;
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
 		QString message =
 			"Failed to add descendants of type \"" + type + "\""
@@ -2231,7 +2289,7 @@ int DataAccess::addDescendantsByAttribute( QString type, QString attr, QString v
 	}
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	query.exec( "DELETE FROM " + addTableName );
 
 	return newItems;
@@ -2250,8 +2308,12 @@ void DataAccess::deleteAncestorsByName( QString type, QString name )
 
 	// fputs( queryText.latin1(), stderr );
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	QSqlQuery query;
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to delete ancestors of " + name  );
 	}
@@ -2271,8 +2333,12 @@ void DataAccess::deleteDescendantsByName( QString type, QString name )
 
 	// fputs( queryText.latin1(), stderr );
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	QSqlQuery query;
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to delete descendants of " + name  );
 	}
@@ -2295,8 +2361,12 @@ void DataAccess::deleteAncestorsByAttribute( QString type, QString attr, QString
 
 	// fputs( queryText.latin1(), stderr );
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	QSqlQuery query;
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to delete ancestors of "
 				+ attr + " " + value  );
@@ -2320,8 +2390,12 @@ void DataAccess::deleteDescendantsByAttribute( QString type, QString attr, QStri
 
 	// fputs( queryText.latin1(), stderr );
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	QSqlQuery query;
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to delete descendants of "
 				+ attr + " " + value  );
@@ -2410,7 +2484,7 @@ void DataAccess::getResultResources( QStringList prIds, QString resType )
 		"AND ri.type = '" + resType + "' "
 		;
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	Q3SqlSelectCursor cursor( queryText );
 	cursor.setForwardOnly( true );
 	if( ! cursor.select() ) {
@@ -2470,7 +2544,7 @@ void DataAccess::getResultAttributes( QStringList prIds, QString attrName )
 		"AND ra.name = '" + attrName + "'";
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	Q3SqlSelectCursor cursor( queryText );
 	cursor.setForwardOnly( true );
 	if( ! cursor.select() ) {
@@ -2543,7 +2617,7 @@ void DataAccess::getResultResources( QString resType )
 	}
 	
     //debug
-    //fprintf(stderr, "executing: %s\n", queryText.latin1());
+    fprintf(stderr, "executing: %s\n", queryText.latin1());
 	Q3SqlSelectCursor cursor( queryText );
 	cursor.setForwardOnly( true );
 	if( ! cursor.select() ) {
@@ -2619,7 +2693,7 @@ void DataAccess::getResultAttributes( QString attrName )
 	
 
     //debug
-    //fprintf(stderr, "executing: %s\n", queryText.latin1());
+    fprintf(stderr, "executing: %s\n", queryText.latin1());
 	Q3SqlSelectCursor cursor( queryText );
 	cursor.setForwardOnly( true );
 	if( ! cursor.select() ) {
@@ -2655,7 +2729,7 @@ void DataAccess::createTempTable( QString& name, QString type )
 
 	QSqlQuery query;
     //debug
-    //fprintf(stderr, "executing: %s\n", queryText.latin1());
+    fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to create temporary table " + name );
 		name = QString();
@@ -2669,6 +2743,10 @@ void DataAccess::deleteAllResources()
 		"DELETE FROM " + resourceTableName;
 
 	QSqlQuery query;
+
+        // Bhagya Y:
+	query.setForwardOnly( true );	// optimize for simple traversal
+
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to delete all rows from "
 				+ resourceTableName );
@@ -2676,7 +2754,7 @@ void DataAccess::deleteAllResources()
 
 	queryText = "DELETE FROM " + metricTableName;
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to delete all rows from " + metricTableName );
 	}
@@ -2685,7 +2763,7 @@ void DataAccess::deleteAllResources()
 	queryText = "DELETE FROM " + focusTableName;
 
         //debug
-        //fprintf(stderr, "executing: %s\n", queryText.latin1());
+        fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to delete all rows from " + metricTableName );
 	}
@@ -2698,8 +2776,17 @@ QStringList DataAccess::getAllMetricNames(){
     //get all the metric names from the database for display in GUI lists
         QStringList metNames;
         QString queryText = "select distinct name from resource_item  where type='metric'";
-	//fprintf(stderr,"query to get metric names: %s\n", queryText.latin1());
-	QSqlQuery query( queryText );
+	fprintf(stderr,"query to get metric names: %s\n", queryText.latin1());
+
+        // Bhagya Y:
+	//QSqlQuery query( queryText );
+        QSqlQuery query;
+
+        // Bhagya Y:
+        query.setForwardOnly( true );	// optimize for simple traversal
+
+        // Bhagya Y:
+        query.exec( queryText );
 	while (query.next()){
             QString name = query.value(0).toString();
             metNames.append(name);
@@ -2711,7 +2798,15 @@ QStringList DataAccess::getAllLabelNames(){
     //get all the label names from the database for display in GUI lists
         QStringList labelNames;
         QString queryText = "select distinct label from performance_result where label != ''";
-	QSqlQuery query( queryText );
+        // Bhagya Y:
+	//QSqlQuery query( queryText );
+        QSqlQuery query;
+
+        // Bhagya Y:
+        query.setForwardOnly( true );	// optimize for simple traversal
+
+        // Bhagya Y:
+        query.exec( queryText );
 	while (query.next()){
             QString name = query.value(0).toString();
             labelNames.append(name);
@@ -2725,7 +2820,15 @@ QStringList DataAccess::getAllUnitsNames(){
     //get all the units names from the database for display in GUI lists
         QStringList unitsNames;
         QString queryText = "select distinct units from performance_result  where units != ''";
-	QSqlQuery query( queryText );
+        // Bhagya Y:
+	//QSqlQuery query( queryText );
+        QSqlQuery query;
+
+        // Bhagya Y:
+        query.setForwardOnly( true );	// optimize for simple traversal
+
+        // Bhagya Y:
+        query.exec( queryText );
 	while (query.next()){
             QString name = query.value(0).toString();
             unitsNames.append(name);
@@ -2743,8 +2846,14 @@ Context DataAccess::getContextFromResultId(int resId){
     QString queryText = "select focus_id from performance_result_has_focus where performance_result_id=";
     queryText += QString::number(resId) ;
     queryText += " and focus_type='primary'";
-    //fprintf(stderr,"context query 1: %s\n",queryText.latin1());
-    QSqlQuery query(queryText);
+    fprintf(stderr,"context query 1: %s\n",queryText.latin1());
+    QSqlQuery query;
+
+     // Bhagya Y:
+     query.setForwardOnly( true );	// optimize for simple traversal
+
+     query.exec(queryText);
+
     if( query.next())
        fid = query.value(0).toInt();
     else{
@@ -2757,12 +2866,12 @@ Context DataAccess::getContextFromResultId(int resId){
        return context;
     }
     queryText = "select type,name from focus_has_resource_name inner join resource_item on resource_name=resource_item.name where focus_id=" + QString::number(fid);
-    //fprintf(stderr,"context query 2: %s\n",queryText.latin1());
+    fprintf(stderr,"context query 2: %s\n",queryText.latin1());
     query.prepare(queryText);
     query.exec();
     while(query.next()){
         context.append(ResourceTypeAndName(query.value(0).toString(),query.value(1).toString()));
-	//fprintf(stderr,"adding type:%s, name:%s to context\n", query.value(0).toString().latin1(),query.value(1).toString().latin1());
+	fprintf(stderr,"adding type:%s, name:%s to context\n", query.value(0).toString().latin1(),query.value(1).toString().latin1());
     }
     
     qSort(context);
@@ -2775,7 +2884,7 @@ ContextList DataAccess::getContextsFromResultIds(Q3ValueList<int> resIds){
     Q3ValueList<int>::iterator it;
     for (it = resIds.begin(); it != resIds.end(); ++it){
        Context context;
-       //fprintf(stderr,"calling with resid: %d\n",(*it));
+       fprintf(stderr,"calling with resid: %d\n",(*it));
        context = getContextFromResultId((*it));
        contexts.append(context);
     }
@@ -2816,7 +2925,15 @@ int DataAccess::findResourceByName(QString resName){
     if (resName == QString::null)
 	return -1;
     QString queryText = "select id from resource_item where name='" + resName + "'";
-    QSqlQuery query(queryText);
+    // Bhagya Y:
+    // QSqlQuery query(queryText);
+    QSqlQuery query;
+
+    // Bhagya Y:
+    query.setForwardOnly( true );	// optimize for simple traversal
+
+    // Bhagya Y:
+    query.exec( queryText );
     if (query.next()){
        resId = query.value(0).toInt();
     }
@@ -2833,7 +2950,15 @@ int DataAccess::getFocusFrameworkId(QString type){
     int fid = -1;
 
     QString queryText = "select id from focus_framework where type_string='" + type + "'";
-    QSqlQuery query(queryText);
+    // Bhagya Y:
+    // QSqlQuery query(queryText);
+    QSqlQuery query;
+
+    // Bhagya Y:
+    query.setForwardOnly( true );	// optimize for simple traversal
+
+    // Bhagya Y:
+    query.exec( queryText );
     if (query.next())
        fid = query.value(0).toInt();
     return fid;
@@ -2887,7 +3012,13 @@ int DataAccess::insertResource(QString resName, QString resType){
 	 QMessageBox::information(NULL, "Unknown database", msg);
 	 return -1;
     }
-    QSqlQuery query(queryText);
+    QSqlQuery query;
+
+     // Bhagya Y:
+     query.setForwardOnly( true );	// optimize for simple traversal
+
+     query.exec( queryText );
+
     int resId = -1;
     if (query.next()){
        resId = query.value(0).toInt();
@@ -2930,11 +3061,18 @@ int DataAccess::findContextByName(Context c){
         fname += (*it).second;
     }
     QString queryText = "select id from focus where focusName = '" + fname + "'";
-    QSqlQuery query(queryText);
+     // Bhagya Y:
+    QSqlQuery query;
+
+     // Bhagya Y:
+     query.setForwardOnly( true );	// optimize for simple traversal
+
+     // Bhagya Y:
+     query.exec( queryText );
     if (query.next()){
 	contextid = query.value(0).toInt();
     }
-    //fprintf(stderr,"in findContextByName, returning: %d\n",contextid);
+    fprintf(stderr,"in findContextByName, returning: %d\n",contextid);
     return contextid;
 
 }
@@ -2957,7 +3095,7 @@ int DataAccess::createContext(Context c){
     }
     contextId = findContextByName(c);
     if (contextId == -1){  //not found, need to create
-        //fprintf(stderr,"in createContext, c not found, creating\n");
+        fprintf(stderr,"in createContext, c not found, creating\n");
 	QString focusName ; 
 	bool first = true;
         for (Context::iterator it = c.begin(); it != c.end(); ++it){
@@ -2967,7 +3105,7 @@ int DataAccess::createContext(Context c){
 	       focusName += ",";
             focusName += (*it).second;
         }
-	//fprintf(stderr,"in createContext focusname is: %s\n",focusName.latin1());
+	fprintf(stderr,"in createContext focusname is: %s\n",focusName.latin1());
         QString queryText;
         QString driver = curDb.driverName();
         if( driver == "QOCI8" ) {
@@ -2986,7 +3124,15 @@ int DataAccess::createContext(Context c){
              QMessageBox::information(NULL, "Unknown database", msg);
              return -1;
         }
-        QSqlQuery query(queryText);
+        //QSqlQuery query(queryText);
+        // Bhagya Y:
+        QSqlQuery query;
+
+        // Bhagya Y:
+        query.setForwardOnly( true );	// optimize for simple traversal
+
+        // Bhagya Y:
+        query.exec( queryText );
         if (query.next()){
            contextId = query.value(0).toInt();
         }
@@ -2996,7 +3142,7 @@ int DataAccess::createContext(Context c){
              return -1;
         }
         queryText = "insert into focus (id, focusname) values (" + QString::number(contextId) + ",'" + focusName + "')"; 
-	//fprintf(stderr, "executing query: %s\n", queryText.latin1());
+	fprintf(stderr, "executing query: %s\n", queryText.latin1());
 	query.prepare(queryText);
 	if (!query.exec()){
             QString msg = "Entering context to the database failed. The query was: " + queryText; 
@@ -3038,8 +3184,12 @@ void DataAccess::resultSaved(int sheet, perfResult * pr){
        return;
     }
     QString queryText = "update " + resultTableName + " set saved=1 where result_id=" + QString::number(resid);
-    //fprintf(stderr, "resultSaved query:%s\n", queryText.latin1());
+    fprintf(stderr, "resultSaved query:%s\n", queryText.latin1());
     QSqlQuery query;
+
+    // Bhagya Y:
+    query.setForwardOnly( true );	// optimize for simple traversal
+
     if(!query.exec(queryText)){
         QMessageBox::information(NULL, "Unknown Error", "Failed to update 'saved' status for performance result.");
 	return;
@@ -3064,6 +3214,10 @@ bool DataAccess::savePerformanceResult(perfResult * pr, bool combined){
 
     QString queryText;
     QSqlQuery query;
+
+    // Bhagya Y:
+    query.setForwardOnly( true );	// optimize for simple traversal
+
     //a safety check. if it's  a combined result, check to make sure it's parent results
     //are already saved in the database before continuing. 
     if (combined){
@@ -3109,7 +3263,7 @@ bool DataAccess::savePerformanceResult(perfResult * pr, bool combined){
     
     int resId ;
     resId = pr->getResultId();
-    //fprintf(stderr, "in save, I think my result id is: %d\n", pr->getResultId());
+    fprintf(stderr, "in save, I think my result id is: %d\n", pr->getResultId());
     if (resId == -1){
 	//it doesn't already have a result id, so we will get one for it
 	//why would a non-saved result already have an id? well, it's because we give it
@@ -3162,7 +3316,7 @@ bool DataAccess::savePerformanceResult(perfResult * pr, bool combined){
     else
        queryText += "'" + pr->getLabel() + "',";
     queryText += (combined ? QString::number(1) : QString::number(0)) + ")";
-    //fprintf(stderr, "entering performance result: %s\n", queryText.latin1());
+    fprintf(stderr, "entering performance result: %s\n", queryText.latin1());
     if (!query.exec(queryText)){
 	 QString msg = "Entering performance result failed. The query was: " + queryText;
 	 QMessageBox::information(NULL, "Performance Result Error", msg);
@@ -3202,7 +3356,12 @@ QStringList DataAccess::getResultLabels(){
 
     QStringList labels;
     QString queryText = "select distinct label from performance_result";
-    QSqlQuery query(queryText);
+    QSqlQuery query( curDb );
+
+    // Bhagya Y:
+    query.setForwardOnly( true );	// optimize for simple traversal
+
+    query.exec(queryText);
     while(query.next()){
        QString label = query.value(0).toString();
        labels.append(label);
@@ -3227,6 +3386,10 @@ void DataAccess::dropTempTable( QString& name )
 	QString queryText =
 		"DROP TABLE " + name;
 	QSqlQuery query;
+
+       // Bhagya Y:
+       query.setForwardOnly( true );	// optimize for simple traversal
+
 	if( ! query.exec( queryText ) ) {
 		qWarning( "Failed to drop temporary table " + name );
 	}
@@ -3239,6 +3402,10 @@ bool DataAccess::duplicateTable (QString orig, QString dup)
 	QString driver = curDb.driverName();
 	queryText = "CREATE TEMPORARY TABLE " + dup + " SELECT * FROM " + orig;
 	QSqlQuery query;
+
+       // Bhagya Y:
+       query.setForwardOnly( true );	// optimize for simple traversal
+
 	if (!query.exec(queryText)) {
 		QString message = "Failed to duplicate "
 			+ orig + ": " + query.lastError().text()
