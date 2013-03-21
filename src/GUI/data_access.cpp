@@ -505,7 +505,7 @@ Q3ValueList<QStringList> DataAccess::parseResourceTypes(QStringList fullResource
 
 		// Add current string to the chain.
 		currentChain += (*rtit);
-		lastString = (*rtit);
+		lastString = currentChain[0];
 	}
 
 	// Add the last chain, if nonempty
