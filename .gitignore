@@ -53,3 +53,13 @@ nosetests.xml
 CMakeFiles
 cmake_install.cmake
 CMakeCache.txt
+
+# Build Products
+src/GUI/Makefile
+src/GUI/perftrack
+
+# Test-Generated Files
+/machine.temp
+/machine.ptdf
+/oprofile.ptdf
+tests/PTdFgenTestData/*.ptdf
