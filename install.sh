@@ -53,6 +53,8 @@ function build_perftrack () {
     cmake -DPYTHON_LIBRARY=/usr/lib/python2.7/config/libpython2.7.so .
     make
 
+    banner "Build Complete"
+
     cd "$OLD_PWD"
 }
 
@@ -73,7 +75,7 @@ function create_db () {
     echo -en "\nEnter a name for the database: "
     read DBNAME
 
-    echo -n "Enter the database user's password: "
+    echo -n "Enter the database user's password to create database: "
     read -s USER_PASS
 
     echo "Creating the database $DBNAME..."
@@ -127,7 +129,6 @@ function create_and_populate_db () {
     echo -n "y/n: "
     read CREATE_DB
 
-    # if they want to create db
     if [ "$CREATE_DB" == "y" ] || [ "$CREATE_DB" == "Y" ]; then
         create_db "$BASE_PATH"
 
@@ -152,20 +153,18 @@ function create_and_populate_db () {
 REPO=`dirname $(readlink -f $0)`
 
 install_dependencies
-build_perftrack "$REPO"
 create_and_populate_db "$REPO"
+build_perftrack "$REPO"
 
-#echo "A database has been built and the perftrack GUI"
-#echo "dbname: $DBNAME"
-#echo "host: localhost"
-#echo "user: $USER"
-#
-#if [ $? -eq 0 ]
-#then
-#    echo "You now have a fully functional perftrack, with some data populated."
-#    cd "$REPO/src/GUI"
-#    PYTHONPATH="." ./perftrack
-#else
-#    echo "Something went wrong"
-#fi
+# FIXME Give them the option to install
+
+if [ "$DBPASS" != "" ]; then
+    cat <<DatabaseInstallMsg
+The database $DBNAME was created on localhost. A database user named
+"$USER" was created with full superuser rights.
+
+You can specify database-related configuration using environment variables.
+See the "Environment Variables" section of the user manual for more details.
+DatabaseInstallMsg
+fi
 
