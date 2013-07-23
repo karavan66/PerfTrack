@@ -31,6 +31,9 @@ class testData:
       return arg_list
 
 
+def announceTest(testName):
+   print "** Running %s in %s **" % (testName, __file__)
+
 def test1(td):
    # PTrunIndex.txt good, no problems, no oddities
    # PTrunIndex.txt.13 good run data file, but no libraries defined
@@ -41,6 +44,7 @@ def test1(td):
    # PTrunIndex.txt.21 good build data file, but no compilers or preprocs def'ed
    # PTrunIndex.txt.22 good build data file, but no comps,preprocs,or libs def'd
    testName = "test1"
+   announceTest(testName)
    TIs = ["PTrunIndex.txt", "PTrunIndex.txt.13", "PTrunIndex.txt.14", 
           "PTrunIndex.txt.15", "PTrunIndex.txt.19", "PTrunIndex.txt.20",
           "PTrunIndex.txt.21", "PTrunIndex.txt.22", "PTrunIndex.txt.33"]
@@ -62,6 +66,7 @@ def test1(td):
 def test2(td):
    # bad password 
    testName = "test2"
+   announceTest(testName)
    try:
       PTdFgen.main(td.genArgs({
                "--exec_data":"", 
@@ -79,6 +84,7 @@ def test2(td):
 def test3(td):
    # bad username
    testName = "test3"
+   announceTest(testName)
    try:
       PTdFgen.main(td.genArgs({
                "--exec_data":"", 
@@ -99,6 +105,7 @@ def test4(td):
    # PTrunIndex.txt.2 has additional data on one line
    # PTrunIndex.txt.3 points to non-existing data files
    testName = "test4"
+   announceTest(testName)
    TIs = ["PTrunIndex.txt.1","PTrunIndex.txt.2","PTrunIndex.txt.3"]
    for testIndex in TIs:
       try:
@@ -119,11 +126,12 @@ def test4(td):
 def test5(td):
    # PTrunIndex.txt.5 build data file missing build machine information
    # PTrunIndex.txt.6 build data file missing build os name 
+   # PTrunIndex.txt.18 build data file missing BuildDataEnd 
    # PTrunIndex.txt.26 build data file missing build os version 
    # PTrunIndex.txt.27 build data file missing build os release type
    # PTrunIndex.txt.28 build data file missing compiler name 
-   # PTrunIndex.txt.18 build data file missing BuildDataEnd 
    testName = "test5"
+   announceTest(testName)
    TIs = ["PTrunIndex.txt.5","PTrunIndex.txt.6","PTrunIndex.txt.18",\
           "PTrunIndex.txt.26", "PTrunIndex.txt.27", "PTrunIndex.txt.28"]
    for testIndex in TIs:
@@ -145,16 +153,17 @@ def test6(td):
    # bad run data files. 
    # PTrunIndex.txt.7 is missing run machine name
    # PTrunIndex.txt.8 is missing run os name
-   # PTrunIndex.txt.30 is missing run os version 
-   # PTrunIndex.txt.31 is missing run os release type 
    # PTrunIndex.txt.9 is mssing ThreadsPerProcess attribute
    # PTrunIndex.txt.10 is mssing NumberOfProcesses attribute
    # PTrunIndex.txt.11 is mssing LibraryName attribute in Lib definition
    # PTrunIndex.txt.12 is mssing InputDeckName attribute in inputdeck def
    # PTrunIndex.txt.16 is mssing RunDataEnd but has libs and idecks
    # PTrunIndex.txt.17 is mssing RunDataEnd has no libs or decks
+   # PTrunIndex.txt.30 is missing run os version 
+   # PTrunIndex.txt.31 is missing run os release type 
    # PTrunIndex.txt.32 is missing libmpi in the run data file for irs
    testName = "test6"
+   announceTest(testName)
    TIs = ["PTrunIndex.txt.7","PTrunIndex.txt.8","PTrunIndex.txt.9",\
           "PTrunIndex.txt.10", "PTrunIndex.txt.11", "PTrunIndex.txt.12",\
           "PTrunIndex.txt.16", "PTrunIndex.txt.17", "PTrunIndex.txt.30",\
@@ -179,6 +188,7 @@ def test7(td):
    # bad sppm data files - detect incomplete run
    #PTrunIndex.txt.23 missing run termination line in output0
    testName = "test7"
+   announceTest(testName)
    TIs = ["PTrunIndex.txt.23"]
    for testIndex in TIs:
       try:
@@ -200,6 +210,7 @@ def test8(td):
    #PTrunIndex.txt.24  incomplete hsp file
    #PTrunIndex.txt.25  incomplete tmr file
    testName = "test8"
+   announceTest(testName)
    TIs = ["PTrunIndex.txt.24", "PTrunIndex.txt.25"]
    for testIndex in TIs:
       try:
