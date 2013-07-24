@@ -1411,7 +1411,7 @@ int DataAccess::getResultCount( int typeCount, QString /*metricIds*/, QStringLis
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( "DELETE FROM " + focusTableName ) ) {
-		qWarning( "Failed to delete all rows from " + focusTableName );
+		qWarning( "Failed to delete all rows from %s", qPrintable(focusTableName) );
 	}
 
 	QString queryText =
@@ -1648,7 +1648,7 @@ void DataAccess::getResults( int typeCount, QString /*metricIds*/, QString filte
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( "DELETE FROM " + resultTableName ) ) {
-		qWarning( "Failed to delete all rows from " + resultTableName );
+		qWarning( "Failed to delete all rows from %s", qPrintable(resultTableName) );
 	}
 
 	// Get results in the result table
@@ -2097,7 +2097,7 @@ int DataAccess::addAncestorsByName( QString type, QString name )
 
 
 	if( ! query.exec( queryText ) ) {
-		qWarning( "Failed to add ancestors of " + name  );
+		qWarning( "Failed to add ancestors of %s", qPrintable(name)  );
 		return -1;
 	}
 
@@ -2148,7 +2148,7 @@ int DataAccess::addDescendantsByName( QString type, QString name )
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( queryText ) ) {
-		qWarning( "Failed to add descendants of " + name  );
+		qWarning( "Failed to add descendants of %s", qPrintable(name)  );
 		return -1;
 	}
 
@@ -2204,8 +2204,8 @@ int DataAccess::addAncestorsByAttribute( QString type, QString attr, QString val
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( queryText ) ) {
-		qWarning( "Failed to add ancestors of "
-				+ attr + " " + value  );
+		qWarning( "Failed to add ancestors of %s %s", qPrintable(attr), 
+                                qPrintable(value)  );
 		return -1;
 	}
 
@@ -2261,8 +2261,8 @@ int DataAccess::addDescendantsByAttribute( QString type, QString attr, QString v
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( queryText ) ) {
-		qWarning( "Failed to add descendants of "
-				+ attr + " " + value  );
+		qWarning( "Failed to add descendants of %s %s", qPrintable(attr),
+                                qPrintable(value)  );
 		return -1;
 	}
 
@@ -2315,7 +2315,7 @@ void DataAccess::deleteAncestorsByName( QString type, QString name )
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( queryText ) ) {
-		qWarning( "Failed to delete ancestors of " + name  );
+		qWarning( "Failed to delete ancestors of %s", qPrintable(name)  );
 	}
 }
 
@@ -2340,7 +2340,7 @@ void DataAccess::deleteDescendantsByName( QString type, QString name )
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( queryText ) ) {
-		qWarning( "Failed to delete descendants of " + name  );
+		qWarning( "Failed to delete descendants of %s", qPrintable(name)  );
 	}
 }
 
@@ -2368,8 +2368,8 @@ void DataAccess::deleteAncestorsByAttribute( QString type, QString attr, QString
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( queryText ) ) {
-		qWarning( "Failed to delete ancestors of "
-				+ attr + " " + value  );
+		qWarning( "Failed to delete ancestors of %s %s", qPrintable(attr),
+                                qPrintable(value) );
 	}
 }
 
@@ -2397,8 +2397,8 @@ void DataAccess::deleteDescendantsByAttribute( QString type, QString attr, QStri
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( queryText ) ) {
-		qWarning( "Failed to delete descendants of "
-				+ attr + " " + value  );
+		qWarning( "Failed to delete descendants of %s %s", qPrintable(attr),
+                                qPrintable(value) );
 	}
 }
 
@@ -2731,7 +2731,7 @@ void DataAccess::createTempTable( QString& name, QString type )
     //debug
     fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
-		qWarning( "Failed to create temporary table " + name );
+		qWarning( "Failed to create temporary table %s", qPrintable(name) );
 		name = QString();
 	}
 
@@ -2748,15 +2748,16 @@ void DataAccess::deleteAllResources()
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( queryText ) ) {
-		qWarning( "Failed to delete all rows from "
-				+ resourceTableName );
+		qWarning( "Failed to delete all rows from %s", 
+				qPrintable(resourceTableName) );
 	}
 
 	queryText = "DELETE FROM " + metricTableName;
         //debug
         fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
-		qWarning( "Failed to delete all rows from " + metricTableName );
+		qWarning( "Failed to delete all rows from %s", 
+                                qPrintable(metricTableName) );
 	}
         resultsUsingMetrics = 0;
 	
@@ -2765,7 +2766,8 @@ void DataAccess::deleteAllResources()
         //debug
         fprintf(stderr, "executing: %s\n", queryText.latin1());
 	if( ! query.exec( queryText ) ) {
-		qWarning( "Failed to delete all rows from " + metricTableName );
+		qWarning( "Failed to delete all rows from %s", 
+                                qPrintable(metricTableName) );
 	}
 	
 	// No need to clear the adds table; any function that populates
@@ -3391,7 +3393,7 @@ void DataAccess::dropTempTable( QString& name )
        query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( queryText ) ) {
-		qWarning( "Failed to drop temporary table " + name );
+		qWarning( "Failed to drop temporary table %s", qPrintable(name) );
 	}
 	name = QString();
 }

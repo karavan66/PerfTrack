@@ -52,7 +52,7 @@ void CombinePerfResesDialog::initializeOperators(){
     //keep a copy of the operator instance for future use
     pyOpClassInst = opInst;
     //get the plugins that class operator knows about
-    plugIns = PyObject_CallMethod(opInst, "getPlugins", "", NULL);
+    plugIns = PyObject_CallMethod(opInst, (char *)"getPlugins", (char *)"", NULL);
     if (!plugIns){
        fprintf(stderr,"SelectOperatorDialog::initialize failed to get plugins from class operator\n");
     }
@@ -72,7 +72,7 @@ void CombinePerfResesDialog::initializeOperators(){
            fprintf(stderr,"SelectOperatorDialog::initialize failed to get plugin item\n");
        }
        //get the plugin's name 
-       PyObject * pyName = PyObject_CallMethod(opInst, "getName", "S", obj);
+       PyObject * pyName = PyObject_CallMethod(opInst, (char *)"getName", (char *)"S", obj);
        if (!pyName){
           fprintf(stderr,"SelectOperatorDialog::initialize callMethod failed for getName\n");
        }
@@ -87,7 +87,7 @@ void CombinePerfResesDialog::initializeOperators(){
        //fprintf(stderr,"got name:%s\n", name);
        //fprintf(stderr,"obj for %s is %u\n",name,obj);
        //get the return type of the operator
-       PyObject * pyRetType = PyObject_CallMethod(opInst, "getRetType", "S", obj);
+       PyObject * pyRetType = PyObject_CallMethod(opInst, (char *)"getRetType", (char *)"S", obj);
        check = PyString_Check(pyRetType);
        if (!check){
           fprintf(stderr,"retType is not string!\n");
@@ -100,7 +100,7 @@ void CombinePerfResesDialog::initializeOperators(){
        }
        //fprintf(stderr,"got retType:%s\n", retType);
        //get the arguments expected by the operator
-       PyObject * pyArgList = PyObject_CallMethod(opInst, "getArgList", "S", obj);
+       PyObject * pyArgList = PyObject_CallMethod(opInst, (char *)"getArgList", (char *)"S", obj);
        check = PyList_Check(pyArgList);
        if (!check){
           fprintf(stderr,"argument list not a list type\n");
@@ -210,7 +210,8 @@ void CombinePerfResesDialog::combineData(QString opName, perfResultList * d){
 	++index;
     }
     //call the operator with the data
-    PyObject * ret = PyObject_CallMethod((PyObject*)pyOpClassInst, "operator", "SSS", pyOpObj,dataList,pyArgs);
+    PyObject * ret = PyObject_CallMethod((PyObject*)pyOpClassInst, (char *)"operator", 
+                                         (char *)"SSS", pyOpObj,dataList,pyArgs);
     QString retType = op->getReturnType();
     //TODO: only supporting float and int types now
     double val; 
