@@ -58,7 +58,7 @@ void DataTable:: populateTable( Q3SqlCursor cursor )
 	colType.resize( cursor.count(), TwoDTable<QString>::Numeric );
 
 	fprintf( stderr, "starting to read data %s\n",
-		QTime::currentTime().toString("hh:mm:ss.zzz").latin1() );
+		qPrintable(QTime::currentTime().toString("hh:mm:ss.zzz")) );
 
 #if 0
 	// Add the data, row by row.
@@ -109,7 +109,7 @@ void DataTable:: populateTable( Q3SqlCursor cursor )
 	insertRows( 0, row );
 
 	fprintf( stderr, "done reading data %s\n",
-		QTime::currentTime().toString("hh:mm:ss.zzz").latin1() );
+		qPrintable(QTime::currentTime().toString("hh:mm:ss.zzz")) );
 
 #if 0
 	for( unsigned i = 0; i < cursor.count(); i++ ) {
@@ -351,7 +351,7 @@ void DataTable:: addFilter( QString parameter, FilterOp op, QString value )
 	}
 
 	if( col == numCols() ) {
-		qDebug( "Couldn't find column %s", parameter.latin1() );
+		qDebug( "Couldn't find column %s", qPrintable(parameter) );
 		return;
 	}
 
@@ -381,7 +381,7 @@ void DataTable:: removeFilter( QString parameter, FilterOp op, QString value )
 	}
 
 	if( col == numCols() ) {
-		qDebug( "Couldn't find column %s", parameter.latin1() );
+		qDebug( "Couldn't find column %s", qPrintable(parameter) );
 		return;
 	}
 
@@ -396,7 +396,7 @@ void DataTable:: removeFilter( QString parameter, FilterOp op, QString value )
 
 	if( f == 0 ) {
 		qDebug( "No filter found with col = %d op = %d value = %s",
-				col, op, value.latin1() );
+				col, op, qPrintable(value) );
 		return;
 	}
 

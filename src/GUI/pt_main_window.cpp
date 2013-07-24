@@ -525,7 +525,7 @@ void PTMainWindow::printData( int id )
 	ChartViewer * chart_viewer = charts[plotName];
 	if( chart_viewer == NULL ) {
 		qWarning( "Couldn't find chart named %s!\n",
-				plotName.latin1() );
+				qPrintable(plotName) );
 		return;
 	}
 
@@ -680,20 +680,20 @@ perfResultList * PTMainWindow::getPerfResultsForCombining(){
 		   resIdCol = it;
 		   //fprintf(stderr,"found resid at %d\n",it);
 		}
-		//fprintf(stderr, "header is: %s for %d \n",topHeader->label(it).latin1(),it);
+		//fprintf(stderr, "header is: %s for %d \n", qPrintable(topHeader->label(it)),it);
         }
 
         // Sanity check; be sure we found  the columns we need
         if( metricCol >= topHeader->count() ) {
-                qWarning( "metric column %s not found!\n", metricColumn.latin1() );
+                qWarning( "metric column %s not found!\n", qPrintable(metricColumn) );
 		return 0;
         }
         if( valueCol >= topHeader->count() ) {
-                qWarning( "value column %s not found!\n", valueColumn.latin1() );
+                qWarning( "value column %s not found!\n", qPrintable(valueColumn) );
 		return 0;
         }
         if( resIdCol >= topHeader->count() ) {
-                qWarning( "value column %s not found!\n", resIdColumn.latin1() );
+                qWarning( "value column %s not found!\n", qPrintable(resIdColumn) );
 		return 0;
         }
 
@@ -752,17 +752,17 @@ void PTMainWindow::saveResults(){
                    savedCol = it;
                    //fprintf(stderr,"found resid at %d\n",it);
                 }
-                //fprintf(stderr, "header is: %s for %d \n",topHeader->label(it).latin1(),it);
+                //fprintf(stderr, "header is: %s for %d \n", qPrintable(topHeader->label(it)),it);
         }
 
         Q3ValueList<perfResult*> d;
 
         if( resIdCol >= topHeader->count() ) {
-                qWarning( "value column %s not found!\n", resIdColumn.latin1() );
+                qWarning( "value column %s not found!\n", qPrintable(resIdColumn) );
                 return ;
         }
         if( savedCol >= topHeader->count() ) {
-                qWarning( "saved column %s not found!\n", savedColumn.latin1() );
+                qWarning( "saved column %s not found!\n", qPrintable(savedColumn) );
                 return ;
         }
         // Now create a perfResult for each selected row
@@ -827,17 +827,17 @@ void PTMainWindow::clearResults(){
                    savedCol = it;
                    //fprintf(stderr,"found resid at %d\n",it);
                 }
-                //fprintf(stderr, "header is: %s for %d \n",topHeader->label(it).latin1(),it);
+                //fprintf(stderr, "header is: %s for %d \n", qPrintable(topHeader->label(it)),it);
         }
 
         Q3ValueList<perfResult*> d;
 
         if( resIdCol >= topHeader->count() ) {
-                qWarning( "value column %s not found!\n", resIdColumn.latin1());
+                qWarning( "value column %s not found!\n", qPrintable(resIdColumn));
                 return ;
         }
         if( savedCol >= topHeader->count() ) {
-                qWarning( "saved column %s not found!\n", savedColumn.latin1());
+                qWarning( "saved column %s not found!\n", qPrintable(savedColumn));
                 return ;
         }
         // Now create a perfResult for each selected row
@@ -909,7 +909,7 @@ void PTMainWindow::combinePerfResults(bool haveData){
           }
           //fprintf(stderr,"resCount:%d\n",resCount);
           QString op = selectOperatorDialog->getSelectedOperator();
-          //fprintf(stderr, "operator: %s\n",op.latin1());
+          //fprintf(stderr, "operator: %s\n",qPrintable(op));
           combinePerfResesDialog->show();
           combinePerfResesDialog->combineData(op,prs);
        }
@@ -927,7 +927,7 @@ void PTMainWindow::combinePerfResults(bool haveData){
           }
           selectionDialog->close();
           QString op = selectOperatorDialog->getSelectedOperator();
-          //fprintf(stderr, "operator: %s\n",op.latin1());
+          //fprintf(stderr, "operator: %s\n", qPrintable(op));
           combinePerfResesDialog->show();
           //combinePerfResesDialog->raise();
           combinePerfResesDialog->combineData(op,prs);
@@ -994,7 +994,7 @@ void PTMainWindow::addDataToPlot( QString xAxis, QString dataLabel,
 	ChartViewer * chart_viewer = charts[plotName];
 	if( chart_viewer == NULL ) {
 		qWarning( "Couldn't find chart named %s!\n",
-				plotName.latin1() );
+				qPrintable(plotName) );
 		return;
 	}
 
@@ -1041,7 +1041,7 @@ bool PTMainWindow::plotData( TGBarChart * bar_chart, QString xAxis,
 	// Sanity check; be sure we found a valid column for the x axis
 	if( xAxisCol >= topHeader->count() ) {
 		qWarning( "Selected X Axis column %s not found!\n",
-				xAxis.latin1() );
+				qPrintable(xAxis) );
 		return false;
 	}
 

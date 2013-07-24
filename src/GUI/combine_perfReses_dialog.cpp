@@ -173,7 +173,7 @@ void CombinePerfResesDialog::combineData(QString opName, perfResultList * d){
     //given an operator name, and a list of performance results
     Operator * op = getOperatorByName(opName);
     if (!op){
-       fprintf(stderr, "couldn't get operator given name:%s\n",opName.latin1());
+       fprintf(stderr, "couldn't get operator given name:%s\n", qPrintable(opName));
        return;
     }
     //get the python object for the operator
