@@ -1,10 +1,12 @@
-
-#include <Python.h>
-// 2008-6-27 smithm:  Included to work with Xcode
-//#include <Python/Python.h>
+#ifdef __APPLE__
+    #include <Python/Python.h>
+#else
+    #include <Python.h>
+#endif
 
 #include "combine_perfReses_dialog.h"
-//Added by qt3to4:
+
+//Added by qt3to4
 #include <Q3ValueList>
 
 #include "combine_perfReses_dialog.moc"
@@ -248,6 +250,7 @@ void CombinePerfResesDialog::combineData(QString opName, perfResultList * d){
     combPRtabWidget->showPage(combPerfResWidget);
     ++resultNum;
 }
+
 int CombinePerfResesDialog::getTabIndex(QWidget * prTab){
     return combPRtabWidget->indexOf(prTab);
 }
@@ -262,6 +265,7 @@ void CombinePerfResesDialog::removeResult(QWidget * page){
        resultNum = 1;
     }
 }
+
 void CombinePerfResesDialog::saveResult(perfResult* pr,Q3ValueList<int> resIds, bool fromDataSheet){
     //save a performance result, pr
     //if it's from the combined results widget, we'll have a list of parent_ids, resIds
@@ -376,12 +380,15 @@ bool CombinePerfResesDialog::saveResultToDB(perfResult * pr){
 QStringList CombinePerfResesDialog::getAllMetricNamesFromDB(){
     return dataSource->getAllMetricNames();
 }
+
 QStringList CombinePerfResesDialog::getAllLabelNamesFromDB(){
     return dataSource->getAllLabelNames();
 }
+
 QStringList CombinePerfResesDialog::getAllUnitsNamesFromDB(){
     return dataSource->getAllUnitsNames();
 }
+
 ContextList CombinePerfResesDialog::getContextsFromResultIds(Q3ValueList<int> resIds){
     return dataSource->getContextsFromResultIds(resIds);
 }
@@ -389,12 +396,15 @@ ContextList CombinePerfResesDialog::getContextsFromResultIds(Q3ValueList<int> re
 Context CombinePerfResesDialog::getCombinedContext(ContextList cl){
     return dataSource->createCombinedContext(cl);
 }
+
 QStringList CombinePerfResesDialog::getAllMetricNames(){
     return metricNames;
 }
+
 QStringList CombinePerfResesDialog::getAllLabelNames(){
     return labelNames;
 }
+
 QStringList CombinePerfResesDialog::getAllUnitsNames(){
     return unitsNames;
 }
