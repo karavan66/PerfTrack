@@ -590,9 +590,6 @@ void TGBarChart::paintEvent( QPaintEvent * )
 
 void TGBarChart::resizeEvent( QResizeEvent * event )
 {
-//	fprintf( stderr, "resize event; now %d x %d\n",
-//	      event->size().width(), event->size().height() );
-
 	// Resize the working buffer and paint it the base color
 	buffer.resize( event->size() );
 

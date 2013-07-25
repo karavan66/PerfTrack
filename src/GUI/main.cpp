@@ -28,8 +28,7 @@ int main( int argc, char *argv[] )
 	// See if the user specified a place to look for plugins
 	char * pluginPath;
 	if( ( pluginPath = getenv( "PERFTRACK_PLUGIN_PATH" ) ) != NULL ) {
-		fprintf( stderr, "Adding %s to plugin search path\n",
-				pluginPath );
+		qDebug( "Adding %s to plugin search path\n", pluginPath );
 		// Put user's path first, so it can override the default
 		QStringList libPaths = QApplication::libraryPaths();
 		libPaths.prepend( pluginPath );

@@ -4,7 +4,6 @@
 
 CombPerfResWidget::CombPerfResWidget(QWidget * Parent, QString op, perfResult * pr, QStringList Metrics, int numValsCombined){
 
-    //fprintf(stderr,"hello from combperfreswidget\n");
     CreateNewDataSheetBtn->hide();
      OperatorNameLbl->setText(op);
 
@@ -87,7 +86,6 @@ void CombPerfResWidget::saveCompleted(perfResult * pr){
         NewStartTimeText->setDisabled(true);
         NewEndTimeText->setDisabled(true);
     }
-     //fprintf(stderr,"before update I think resid is: %d\n", perfRes->getResultId());
 }
 
 void CombPerfResWidget::getAddToExistingSheetClick(){
@@ -107,7 +105,6 @@ void CombPerfResWidget::getAddToExistingSheetClick(){
      QString endTime = NewEndTimeText->text();
      perfRes->setEndTime(endTime);
 
-     //fprintf(stderr,"i think I am saved, but I am :%d\n",perfRes->isSaved());
      emit(addMeToExistingSheet(perfRes));
 }
 

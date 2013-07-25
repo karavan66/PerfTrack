@@ -670,17 +670,15 @@ perfResultList * PTMainWindow::getPerfResultsForCombining(){
         for( int it = 0; it < topHeader->count(); ++it) {
                 if( topHeader->label( it) == metricColumn ){
 		   metricCol = it;
-		   //fprintf(stderr,"found metric at %d\n",it);
 		}
+
                 if( topHeader->label( it) == valueColumn ){
 		   valueCol = it;
-		   //fprintf(stderr,"found value at %d\n",it);
 		}
+
                 if( topHeader->label( it) == resIdColumn ){
 		   resIdCol = it;
-		   //fprintf(stderr,"found resid at %d\n",it);
 		}
-		//fprintf(stderr, "header is: %s for %d \n", qPrintable(topHeader->label(it)),it);
         }
 
         // Sanity check; be sure we found  the columns we need
@@ -723,19 +721,11 @@ perfResultList * PTMainWindow::getPerfResultsForCombining(){
 
 	}
 
-        //int items = d->count();
-        //if( items > 0 ) {
-             //perfResultList::iterator it;
-	     //for (it = d->begin(); it != d->end(); ++it){
-                 //fprintf(stderr,"m:%s, d:%f, rid:%d\n",(*it).getMetric().latin1(),(*it).getValue(),(*it).getResultId());
-	     //}
-         //}
         return d;
 }
     
 void PTMainWindow::saveResults(){
     //save results to the database
-    //fprintf(stderr, "you want to save results\n");
     //first get the results to save from the data table
        QString resIdColumn = "result_id";
        int resIdCol = 0;
@@ -746,13 +736,10 @@ void PTMainWindow::saveResults(){
         for( int it = 0; it < topHeader->count(); ++it) {
                 if( topHeader->label( it) == resIdColumn ){
                    resIdCol = it;
-        //           fprintf(stderr,"found resid at %d\n",it);
                 }
                 if( topHeader->label( it) == savedColumn ){
                    savedCol = it;
-                   //fprintf(stderr,"found resid at %d\n",it);
                 }
-                //fprintf(stderr, "header is: %s for %d \n", qPrintable(topHeader->label(it)),it);
         }
 
         Q3ValueList<perfResult*> d;
@@ -761,10 +748,12 @@ void PTMainWindow::saveResults(){
                 qWarning( "value column %s not found!\n", qPrintable(resIdColumn) );
                 return ;
         }
+
         if( savedCol >= topHeader->count() ) {
                 qWarning( "saved column %s not found!\n", qPrintable(savedColumn) );
                 return ;
         }
+
         // Now create a perfResult for each selected row
         int currCol;
         for( int row = 0; row < dataTable->numRows(); ++row ) {
@@ -786,31 +775,26 @@ void PTMainWindow::saveResults(){
                      } 
                 }
         }
-        //int items = d.count();
-        //if( items > 0 ) {
-             //QValueList<perfResult*>::iterator it;
-             //for (it = d.begin(); it != d.end(); ++it){
-                 //fprintf(stderr,"s:%d, rid:%d\n",(*it)->isSaved(),(*it)->getResultId());
-             //}
-         //}
+
     perfResult * pr;
     Q3ValueList<perfResult*>::iterator it;
     Q3ValueList<int> resids;
+
     //then signal to the combinePerfResesDialog to save them
     for (it=d.begin(); it!= d.end(); ++it){
 	if ((*it)->isSaved()){
 	    QMessageBox::information(this, "Save error", "This result won't be saved. It's already saved.");
 	    continue;
 	}
+
        pr = (*it);
-       //fprintf(stderr, "before sending to combine dialog: resid:%d\n", pr->getResultId());
+
        emit(savePerfRes(pr,resids,true));
     }
 }
 
 void PTMainWindow::clearResults(){
     //clear results from a data sheet
-    //fprintf(stderr, "you want to clear results\n");
     //first grab the data to clear from the data table
        QString resIdColumn = "result_id";
        int resIdCol = 0;
@@ -821,13 +805,11 @@ void PTMainWindow::clearResults(){
         for( int it = 0; it < topHeader->count(); ++it) {
                 if( topHeader->label( it) == resIdColumn ){
                    resIdCol = it;
-        //           fprintf(stderr,"found resid at %d\n",it);
                 }
+
                 if( topHeader->label( it) == savedColumn ){
                    savedCol = it;
-                   //fprintf(stderr,"found resid at %d\n",it);
                 }
-                //fprintf(stderr, "header is: %s for %d \n", qPrintable(topHeader->label(it)),it);
         }
 
         Q3ValueList<perfResult*> d;
@@ -836,10 +818,12 @@ void PTMainWindow::clearResults(){
                 qWarning( "value column %s not found!\n", qPrintable(resIdColumn));
                 return ;
         }
+
         if( savedCol >= topHeader->count() ) {
                 qWarning( "saved column %s not found!\n", qPrintable(savedColumn));
                 return ;
         }
+
         // Now create a perfResult for each selected row
         int currCol;
         for( int row = 0; row < dataTable->numRows(); ++row ) {
@@ -862,29 +846,23 @@ void PTMainWindow::clearResults(){
                 }
         }
         int items = d.count();
- //       if( items > 0 ) {
- //            QValueList<perfResult*>::iterator it;
-  //           for (it = d.begin(); it != d.end(); ++it){
-   //              fprintf(stderr,"s:%d, rid:%d\n",(*it)->isSaved(),(*it)->getResultId());
-    //         }
-     //    }
+
     if (items == 0){
           QMessageBox::information(this, "Not cleared","No performance results were cleared because none were selected. Please try again.");
 	  return;
     }
+
     perfResult * pr;
     Q3ValueList<perfResult*>::iterator it;
     Q3ValueList<int> resids;
+
     //then signal to the combinedPerfResesDialog to clear them
     for (it=d.begin(); it!= d.end(); ++it){
        pr = (*it);
-       //fprintf(stderr, "before sending to combine dialog for clearing: resid:%d\n", pr->getResultId());
        emit(clearPerfRes(pr,0));
     }
-
-
-
 }
+
 void PTMainWindow::combinePerfResults(bool haveData){
     //combines performance results
     //if haveData is true, the request came from a data sheet
@@ -892,14 +870,14 @@ void PTMainWindow::combinePerfResults(bool haveData){
 
    QStringList * opNames = combinePerfResesDialog->getOperatorNames();
    selectOperatorDialog->setOperators(*opNames); 
+
    if (selectOperatorDialog->exec() == QDialog::Accepted){
-       //fprintf(stderr,"accepted\n");
        if (haveData){
           int resCount = 0;
-          //Dataset * d;
           perfResultList * prs; 
           prs = getPerfResultsForCombining();
           resCount = prs->count();
+
           if (!resCount){
              QMessageBox::information( this, "No Data Selected",
                              "No data was combined because none was "
@@ -907,39 +885,33 @@ void PTMainWindow::combinePerfResults(bool haveData){
                              QMessageBox::Ok );
              return;
           }
-          //fprintf(stderr,"resCount:%d\n",resCount);
+
           QString op = selectOperatorDialog->getSelectedOperator();
-          //fprintf(stderr, "operator: %s\n",qPrintable(op));
           combinePerfResesDialog->show();
           combinePerfResesDialog->combineData(op,prs);
-       }
-       else{
+       } else{
           perfResultList * prs;
           int typeCount = selectionDialog->typeCount();
           QString metrics = selectionDialog->metricIdList();
-          //QString filter = selectionDialog->getFilter();
           QStringList labels = selectionDialog->labelList();
           prs = dataSource->getResultsForCombining(typeCount, metrics, labels);
           int resCount = prs->count();
+
           if (!resCount){
              //dataSource code gives the error message...
              return;
           }
+
           selectionDialog->close();
           QString op = selectOperatorDialog->getSelectedOperator();
-          //fprintf(stderr, "operator: %s\n", qPrintable(op));
           combinePerfResesDialog->show();
-          //combinePerfResesDialog->raise();
           combinePerfResesDialog->combineData(op,prs);
        }
-
-
        
    }
+
    delete opNames;
 }
-
-
 
 void PTMainWindow::createDataPlot( QString xAxis, QString dataLabel,
 		QString plotName )

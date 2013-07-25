@@ -57,7 +57,7 @@ void DataTable:: populateTable( Q3SqlCursor cursor )
 	// we see a string
 	colType.resize( cursor.count(), TwoDTable<QString>::Numeric );
 
-	fprintf( stderr, "starting to read data %s\n",
+	qDebug( "starting to read data %s\n",
 		qPrintable(QTime::currentTime().toString("hh:mm:ss.zzz")) );
 
 #if 0
@@ -108,7 +108,7 @@ void DataTable:: populateTable( Q3SqlCursor cursor )
 	
 	insertRows( 0, row );
 
-	fprintf( stderr, "done reading data %s\n",
+	qDebug( "done reading data %s\n",
 		qPrintable(QTime::currentTime().toString("hh:mm:ss.zzz")) );
 
 #if 0
