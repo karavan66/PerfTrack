@@ -45,15 +45,17 @@ function build_perftrack () {
     BASE_PATH="$1"
     OLD_PWD="$PWD"
 
-    cd "$BASE_PATH/src/GUI"
-
     banner "Building PerfTrack GUI" "y"
 
-    # FIXME: Discover Python library rather than hardcoding it
-    cmake -DPYTHON_LIBRARY=/usr/lib/python2.7/config/libpython2.7.so .
-    make
+    cd "$BASE_PATH/src/GUI"
 
-    banner "Build Complete"
+    ./build.sh
+
+    if [ "$?" == "0" ]; then
+        banner "Build Complete"
+    else
+        banner "Build Not Successful"
+    fi
 
     cd "$OLD_PWD"
 }

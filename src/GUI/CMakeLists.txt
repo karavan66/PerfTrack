@@ -122,3 +122,7 @@ include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${PYTHON_INC
 add_executable(perftrack ${PERFTRACK_GUI_SRCS} ${perftrack_gui_ui})
 target_link_libraries(perftrack ${QT_LIBRARIES} ${PYTHON_LIBRARIES})
 
+# copy python plugins to the build directory
+configure_file(.ptoperators .ptoperators COPYONLY)
+configure_file(baseOps.py baseOps.py COPYONLY)
+configure_file(operator_pt.py operator_pt.py COPYONLY)
