@@ -113,6 +113,14 @@ set(PERFTRACK_GUI_UI
 	pt_main_window_base.ui
 	selection_dialog_base.ui)
 
+set(PERFTRACK_PLUGINS
+	.ptoperators
+	baseOps.py
+	operator_pt.py)
+
+set(PERFTRACK_PLUGIN_DIR
+	pertftrack-plugins)
+
 QT4_WRAP_UI(perftrack_gui_ui ${PERFTRACK_GUI_UI})
 QT4_AUTOMOC(${PERFTRACK_GUI_SRCS})
 
@@ -123,6 +131,11 @@ add_executable(perftrack ${PERFTRACK_GUI_SRCS} ${perftrack_gui_ui})
 target_link_libraries(perftrack ${QT_LIBRARIES} ${PYTHON_LIBRARIES})
 
 # copy python plugins to the build directory
-configure_file(.ptoperators .ptoperators COPYONLY)
-configure_file(baseOps.py baseOps.py COPYONLY)
-configure_file(operator_pt.py operator_pt.py COPYONLY)
+foreach(plugin ${PERFTRACK_PLUGINS})
+	configure_file(${plugin} ${plugin} COPYONLY)
+endforeach(plugin)
+
+# for make install
+install(TARGETS perftrack DESTINATION bin)
+install(FILES ${PERFTRACK_PLUGINS} DESTINATION lib/${PERFTRACK_PLUGIN_DIR})
+
