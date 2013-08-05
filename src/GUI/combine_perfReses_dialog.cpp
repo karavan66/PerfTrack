@@ -11,6 +11,8 @@
 
 #include "combine_perfReses_dialog.moc"
 
+#include "operator_python_module_conf.h"
+
 CombinePerfResesDialog::CombinePerfResesDialog(QWidget * parent, const char * name, DataAccess * da) : CombinePerfResesDialogBase(parent, name){
 
     Py_Initialize(); 
@@ -28,6 +30,16 @@ CombinePerfResesDialog::CombinePerfResesDialog(QWidget * parent, const char * na
 }
 
 void CombinePerfResesDialog::initializeOperators(){
+    // add the plugin dir to the python path
+    char *pythonPath, *newPath;
+
+    pythonPath = Py_GetPath();
+    newPath = new char[strlen(pythonPath) + strlen(PERFTRACK_MODULE_PATH) + 2];
+    strncpy(newPath, pythonPath, sizeof(newPath));
+    strncat(newPath, ":", 1);
+    strncat(newPath, PERFTRACK_MODULE_PATH, strlen(PERFTRACK_MODULE_PATH));
+    PySys_SetPath(newPath);
+    free(newPath);
 
     //import the file operator.py
     //this initializes the operators

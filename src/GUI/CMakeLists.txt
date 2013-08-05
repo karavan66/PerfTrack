@@ -52,6 +52,7 @@ set(PERFTRACK_GUI_HDRS
 	combine_perfReses_dialog.h
 	combine_perfReses_dialog_base.h
 	operator.h
+	operator_python_module_conf.h
 	perfResult.h)
 
 set(PERFTRACK_GUI_SRCS
@@ -124,8 +125,14 @@ set(PERFTRACK_PLUGIN_DIR
 QT4_WRAP_UI(perftrack_gui_ui ${PERFTRACK_GUI_UI})
 QT4_AUTOMOC(${PERFTRACK_GUI_SRCS})
 
+# generate the header file that configures plugin locations
+configure_file (
+    "${PROJECT_SOURCE_DIR}/operator_python_module_conf.h.in"
+    "${PROJECT_BINARY_DIR}/operator_python_module_conf.h"
+)
+
 ADD_DEFINITIONS(-DUSE_FULL_RESOURCE_NAMES=true -DPTRESDELIM=\"|\")
-include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${PYTHON_INCLUDE_DIRS})
+include_directories(${CMAKE_SOURCE_DIR} ${PROJECT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${PYTHON_INCLUDE_DIRS})
 
 add_executable(perftrack ${PERFTRACK_GUI_SRCS} ${perftrack_gui_ui})
 target_link_libraries(perftrack ${QT_LIBRARIES} ${PYTHON_LIBRARIES})

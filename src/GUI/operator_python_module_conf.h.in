@@ -1,0 +1,9 @@
+// operator_python_module_conf.h.in: Used to generate the path where PerfTrack
+// can find its python modules.
+//
+// Author:  Heath Harrelson
+// Created: 2013-08-05
+//
+
+#define PERFTRACK_MODULE_PATH "@CMAKE_INSTALL_PREFIX@/lib/@PERFTRACK_PLUGIN_DIR@"
+
