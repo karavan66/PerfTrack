@@ -4,7 +4,7 @@ project(perftrack_gui)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake/Modules")
 
-find_package(PythonLibs)
+find_package(PythonLibs REQUIRED)
 find_package(Qt4 COMPONENTS QtCore QtGui QtSql Qt3Support REQUIRED)
 #find_package(Qwt)
 
@@ -132,7 +132,7 @@ configure_file (
 )
 
 ADD_DEFINITIONS(-DUSE_FULL_RESOURCE_NAMES=true -DPTRESDELIM=\"|\")
-include_directories(${CMAKE_SOURCE_DIR} ${PROJECT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${PYTHON_INCLUDE_DIRS})
+include_directories(${CMAKE_SOURCE_DIR} ${PROJECT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${PYTHON_INCLUDE_DIRS} ${PYTHON_INCLUDE_PATH})
 
 add_executable(perftrack ${PERFTRACK_GUI_SRCS} ${perftrack_gui_ui})
 target_link_libraries(perftrack ${QT_LIBRARIES} ${PYTHON_LIBRARIES})
