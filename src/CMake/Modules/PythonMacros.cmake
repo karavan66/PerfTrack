@@ -126,6 +126,8 @@ macro(PYTHON_COMPILE)
 endmacro(PYTHON_COMPILE)
 
 macro(PYTHON_INSTALL_ALL DEST_DIR)
+  unset(PYTHON_COMPILED_FILES)
+  unset(PYTHON_COMPILE_PY_FILES)
   python_compile(${ARGN})
 
   # PLEASE tell me if there is better solutions
