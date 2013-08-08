@@ -114,8 +114,6 @@ set(PERFTRACK_PLUGINS
 	operator_pt.py
 )
 
-set(PERFTRACK_PLUGIN_DIR pertftrack-plugins)
-
 QT4_WRAP_UI(perftrack_gui_ui ${PERFTRACK_GUI_UI})
 QT4_AUTOMOC(${PERFTRACK_GUI_SRCS})
 
@@ -143,5 +141,5 @@ endforeach(plugin)
 
 # for make install
 install(TARGETS perftrack DESTINATION bin)
-install(FILES ${PERFTRACK_PLUGINS} DESTINATION lib/${PERFTRACK_PLUGIN_DIR})
+install(FILES ${PERFTRACK_PLUGINS} DESTINATION ${PERFTRACK_MODULE_DIR})
 

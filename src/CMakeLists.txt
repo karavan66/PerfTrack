@@ -6,6 +6,7 @@ project(perftrack)
 
 # determine Python interpreter, library path, site-packages path
 find_package(PythonLibrary REQUIRED)
+set(PERFTRACK_MODULE_DIR "${PYTHON_SITE_PACKAGES_INSTALL_DIR}/perftrack" CACHE PATH "Directory where PerfTrack Python modules will be installed.")
 
 # perftrack gui
 include_directories(${PROJECT_SOURCE_DIR}/GUI)
