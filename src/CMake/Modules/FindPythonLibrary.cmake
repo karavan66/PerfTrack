@@ -87,7 +87,9 @@ else(EXISTS PYTHON_LIBRARY)
       set(PYTHON_SITE_PACKAGES_DIR "${_TMP_PYTHON_SITE_PACKAGES_DIR}" CACHE PATH "The python site packages dir" FORCE)
 
       # This one is intended to be used and changed by the user for installing own modules:
-      set(PYTHON_SITE_PACKAGES_INSTALL_DIR ${_TMP_PYTHON_SITE_PACKAGES_DIR} CACHE PATH "The directory where python modules will be installed to.")
+      #set(PYTHON_SITE_PACKAGES_INSTALL_DIR ${_TMP_PYTHON_SITE_PACKAGES_DIR} CACHE PATH "The directory where python modules will be installed to.")
+      string(REGEX REPLACE ".*(python.*)" "${CMAKE_INSTALL_PREFIX}/lib/\\1" _TMP_SITE_PACKAGES_INSTALL_DIR ${_TMP_PYTHON_SITE_PACKAGES_DIR})
+      set(PYTHON_SITE_PACKAGES_INSTALL_DIR "${_TMP_SITE_PACKAGES_INSTALL_DIR}" CACHE PATH "The directory where python modules will be installed.")
 
       string(REGEX REPLACE "([0-9]+).([0-9]+)" "\\1\\2" PYTHON_SHORT_VERSION_NO_DOT ${PYTHON_SHORT_VERSION})
       find_package(PkgConfig)
