@@ -1,8 +1,5 @@
 project(perftrack_gui)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake/Modules")
-
-find_package(PythonLibs REQUIRED)
 find_package(Qt4 COMPONENTS QtCore QtGui QtSql Qt3Support REQUIRED)
 
 include(${QT_USE_FILE})
@@ -114,10 +111,10 @@ set(PERFTRACK_GUI_UI
 set(PERFTRACK_PLUGINS
 	.ptoperators
 	baseOps.py
-	operator_pt.py)
+	operator_pt.py
+)
 
-set(PERFTRACK_PLUGIN_DIR
-	pertftrack-plugins)
+set(PERFTRACK_PLUGIN_DIR pertftrack-plugins)
 
 QT4_WRAP_UI(perftrack_gui_ui ${PERFTRACK_GUI_UI})
 QT4_AUTOMOC(${PERFTRACK_GUI_SRCS})
@@ -129,7 +126,12 @@ configure_file (
 )
 
 ADD_DEFINITIONS(-DUSE_FULL_RESOURCE_NAMES=true -DPTRESDELIM=\"|\")
-include_directories(${CMAKE_SOURCE_DIR} ${PROJECT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${PYTHON_INCLUDE_DIRS} ${PYTHON_INCLUDE_PATH})
+include_directories(
+	${CMAKE_SOURCE_DIR}
+	${PROJECT_BINARY_DIR}
+	${CMAKE_CURRENT_BINARY_DIR}
+	${PYTHON_INCLUDE_PATH}
+)
 
 add_executable(perftrack ${PERFTRACK_GUI_SRCS} ${perftrack_gui_ui})
 target_link_libraries(perftrack ${QT_LIBRARIES} ${PYTHON_LIBRARIES})
