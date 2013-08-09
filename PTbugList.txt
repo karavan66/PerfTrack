@@ -155,4 +155,15 @@ The machine data collection scripts are in prototype status. They currently
 collect a limited amount of information for Linux and AIX machines. They have
 been primarily tested on Linux.
 
+********************************************************
+Installation
+********************************************************
 
+1. There may be namespacing issues with Python modules after installation.
+   Many of the Python modules in the PerfTrack source have generic names
+   like e.g. "Application.py", "Hardware.py" that could clash with other
+   Python applications. They should probably be renamed to something like
+   "PTApplicationResource.py", etc.
+
+2. It would be ideal if there were a way to run programs from the build
+   directory without having to set the PYTHONPATH variable.
