@@ -47,7 +47,7 @@ function build_perftrack () {
 
     banner "Building PerfTrack GUI" "y"
 
-    cd "$BASE_PATH/src/GUI"
+    cd "$BASE_PATH/src"
 
     ./build.sh
 
