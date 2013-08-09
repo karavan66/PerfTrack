@@ -34,10 +34,49 @@ function install_dependencies () {
 
     if [ "$INSTALL_DEPS" == "y" ] || [ "$INSTALL_DEPS" == "Y" ]; then
         banner "Installing Dependencies" "y"
-        scripts/install-dependencies-ubuntu.sh
+
+	banner "Detecting Distribution"
+
+        distro=`detect_supported_distros`
+        if [ "$distro" == "ubuntu" ]; then
+            echo "Ubuntu Linux Detected"
+            scripts/install-dependencies-ubuntu.sh
+        elif [ "$distro" == "enterprise-linux" ]; then
+            echo "Enterprise Linux Detected"
+            scripts/install-dependencies-el.sh
+        else
+            echo "detect_supported_distros answered \"$distro\""
+            echo
+            echo "This does not appear to be Ubuntu or a RHEL-based distro."
+            echo "Skipping dependency installation."
+            echo
+            echo "You may be able to modify one of the scripts in scripts/"
+            echo "to do what you want."
+        fi
     else
         echo "Skipping dependencies."
     fi
+}
+
+# Detects Linux distributions supported by dependency scripts.
+function detect_supported_distros () {
+    detected="unknown"
+
+    if [ -e /etc/redhat-release ] || [ -e /etc/centos-release ]; then
+        detected="enterprise-linux"
+    fi
+
+    if [ -e /etc/debian_version ]; then
+        distributor=`lsb_release -a 2>/dev/null | grep Distributor | cut -f 2`
+
+        if [ "$distributor" == "Ubuntu" ]; then
+            detected="ubuntu"
+        else
+            detected="debian-based"
+        fi
+    fi
+
+    echo "$detected"
 }
 
 # Builds the PerfTrack GUI.
