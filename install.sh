@@ -90,13 +90,16 @@ function build_perftrack () {
 
     ./build.sh
 
-    if [ "$?" == "0" ]; then
+    build_status="$?"
+    if [ "$build_status" == "0" ]; then
         banner "Build Complete"
     else
         banner "Build Not Successful"
     fi
 
     cd "$OLD_PWD"
+
+    return $build_status
 }
 
 # Creates a database superuser account and issues database commands to
@@ -193,8 +196,14 @@ function create_and_populate_db () {
 
 REPO=`dirname $(readlink -f $0)`
 
-install_dependencies
+# offer to install package dependencies on Linux
+os_kernel=`uname -s`
+if [ "$os_kernel" == "Linux" ]; then
+    install_dependencies
+fi
+
 create_and_populate_db "$REPO"
+
 build_perftrack "$REPO"
 
 # FIXME Give them the option to install
