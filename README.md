@@ -9,7 +9,7 @@ under the direction of co-PIs John May (johnmay@llnl.gov) and Karen Karavanic
 Installing PerfTrack
 --------------------
 
-An installation script that covers many several Linux distributions, `install.sh`,
+An installation script that covers several Linux distributions, `install.sh`,
 is included in the source tree. This script will attempt to the following:
 
 - install package dependencies appropriate for the distribution 
