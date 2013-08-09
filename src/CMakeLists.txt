@@ -25,3 +25,7 @@ add_subdirectory(dataStore)
 # perftrack data collection python scripts
 message("== Configuring PerfTrack Data Collection Scripts ==")
 add_subdirectory(data_collection)
+
+set(PERFTRACK_PYTHON_PATH_FILE perftrack.pth)
+install(FILES ${PERFTRACK_PYTHON_PATH_FILE}
+	DESTINATION ${PYTHON_SITE_PACKAGES_INSTALL_DIR})
