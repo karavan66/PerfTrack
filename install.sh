@@ -34,7 +34,7 @@ function install_dependencies () {
 
     if [ "$INSTALL_DEPS" == "y" ] || [ "$INSTALL_DEPS" == "Y" ]; then
         banner "Installing Dependencies" "y"
-        scripts/install-dependencies.sh
+        scripts/install-dependencies-ubuntu.sh
     else
         echo "Skipping dependencies."
     fi
