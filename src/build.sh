@@ -14,6 +14,4 @@ make
 
 EXITCODE=$?
 
-cd ..
-
 exit $EXITCODE

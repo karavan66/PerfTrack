@@ -93,6 +93,16 @@ function build_perftrack () {
     build_status="$?"
     if [ "$build_status" == "0" ]; then
         banner "Build Complete"
+
+        echo "Install PerfTrack system-wide?"
+        echo -n "y/n: "
+        read SYSTEM_INSTALL
+
+        if [ "$SYSTEM_INSTALL" == "y" ] || [ "$SYSTEM_INSTALL" == "Y" ]; then
+            cd "$BASE_PATH/src/build"
+            echo "Installing..."
+            sudo make install
+        fi
     else
         banner "Build Not Successful"
     fi
