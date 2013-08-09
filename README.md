@@ -20,8 +20,8 @@ To build Perftrack, you will need the following:
 - Qt 4 with SQL database support for your DB of choice
 - Psycopg 2.4 if you choose to use PostgreSQL
 
-An installation script that covers several Linux distributions (Ubuntu versions, 
-RHEL, CentOS), `install.sh`, is included in the source tree. This script will attempt
+An installation script, `install.sh`, is included in the source tree. The script
+covers several Linux distributions (Ubuntu versions, RHEL, CentOS). It will attempt
 the following:
 
 - install package dependencies appropriate for the distribution 
