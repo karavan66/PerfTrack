@@ -129,23 +129,30 @@ that starts with "libmpi".
 GUI bugs/limitations
 ********************************************************
 
-1. The file src/GUI/gui.pro contains some machine-specific  (rita/ruby) information, namely a hard-coded path to python includes and libraries. The reason for this is that we are not using the default installation of python, but a version in /pperfdb/packages. In order to find the needed files for the build, we have to specify where they are. It might be better to have an easier way for a user to specify this information, instead of having to edit this file.
+1. In the query window (implemented in selection_dialog_base.ui), the list box
+   that contains performance result labels ("Performance Result Label") does 
+   not resize with the window.
 
-2. In the query window (implemented in selection_dialog_base.ui), the list box that contains performance result labels ("Performance Result Label") does not resize with the window.
+2. In the PT main window (a.k.a. the data window, implemented in 
+   pt_main_window_base.ui), the "Selection Parameters" list box does not resize
+   with the window (to see this, try shrinking the window).
 
-3. In the PT main window (a.k.a. the data window, implemented in pt_main_window_base.ui), the "Selection Parameters" list box does not resize with the window (to see this, try shrinking the window).
+3. In the PT main window (a.k.a. the data window, implemented in 
+   pt_main_window_base.ui), the "Selection Parameters" list box does not contain
+   the performance result labels that were added to the query.
 
-4. In the PT main window (a.k.a. the data window, implemented in pt_main_window_base.ui), the "Selection Parameters" list box does not contain the performance result labels that were added to the query.
+4. The select operator dialog (implemented in select_operator_dialog_base.ui),
+   does not resize properly.
 
-5. The select operator dialog (implemented in select_operator_dialog_base.ui), does not resize properly.
-
-6. The combined performance results window (implemented in combine_perfReses_dialog_base.ui) , does not resize properly.
-
-7. The file .ptoperators needs to be in your PYTHONPATH. This file describes the available operators and tells what file implements them. The idea for this file was to have it work sort of like Paradyn's specification file, where you can have multiple .ptoperators files, they are all read, and there is a precedence order (e.g. if the same thing is defined in two files, the one in your homedir takes precedence). However, this doesn't work that way now. There is just one .ptoperators file that is read, and it will be the first one found in   your PYTHONPATH.
+5. The combined performance results window (implemented in 
+   combine_perfReses_dialog_base.ui) , does not resize properly.
 
 ********************************************************
 systemScan.py bugs/limitations  (machine data collection scripts)
 ********************************************************
-The machine data collection scripts are in prototype status. They currently collect a limited amount of information for Linux and AIX machines. They have been primarily tested on Linux.
+
+The machine data collection scripts are in prototype status. They currently 
+collect a limited amount of information for Linux and AIX machines. They have
+been primarily tested on Linux.
 
 
