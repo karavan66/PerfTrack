@@ -21,3 +21,7 @@ add_subdirectory(GUI)
 # perftrack data store python scripts
 message("== Configuring PerfTrack Data Store Scripts ==")
 add_subdirectory(dataStore)
+
+# perftrack data collection python scripts
+message("== Configuring PerfTrack Data Collection Scripts ==")
+add_subdirectory(data_collection)
