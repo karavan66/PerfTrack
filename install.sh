@@ -26,13 +26,24 @@ function banner () {
     echo
 }
 
+# Checks whether user response was affirmative
+function is_affirmative () {
+    response="$1"
+
+    if [ "$response" == "y" ] || [ "$response" == "Y" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # Calls the script that installs packages needed to build PerfTrack, if desired.
 function install_dependencies () {
     echo "Do you want to install packages needed to build and run PerfTrack?"
     echo -n "y/n: "
     read INSTALL_DEPS
 
-    if [ "$INSTALL_DEPS" == "y" ] || [ "$INSTALL_DEPS" == "Y" ]; then
+    if is_affirmative "$INSTALL_DEPS" ; then
         banner "Installing Dependencies" "y"
 
 	banner "Detecting Distribution"
@@ -98,7 +109,7 @@ function build_perftrack () {
         echo -n "y/n: "
         read SYSTEM_INSTALL
 
-        if [ "$SYSTEM_INSTALL" == "y" ] || [ "$SYSTEM_INSTALL" == "Y" ]; then
+        if is_affirmative "$SYSTEM_INSTALL" ; then
             cd "$BASE_PATH/src/build"
             echo "Installing..."
             sudo make install
@@ -183,14 +194,14 @@ function create_and_populate_db () {
     echo -n "y/n: "
     read CREATE_DB
 
-    if [ "$CREATE_DB" == "y" ] || [ "$CREATE_DB" == "Y" ]; then
+    if is_affirmative "$CREATE_DB" ; then
         create_db "$BASE_PATH"
 
         echo "Populate the database with demo data?"
         echo -n "y/n: "
         read POPULATE_DB
 
-        if [ "$POPULATE_DB" == "y" ] || [ "$POPULATE_DB" == "Y" ]; then
+        if is_affirmative "$POPULATE_DB" ; then
             populate_db "$BASE_PATH"
         else
             echo "Skipping database population."
@@ -215,8 +226,6 @@ fi
 create_and_populate_db "$REPO"
 
 build_perftrack "$REPO"
-
-# FIXME Give them the option to install
 
 if [ "$DBPASS" != "" ]; then
     cat <<DatabaseInstallMsg
