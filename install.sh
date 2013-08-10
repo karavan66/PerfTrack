@@ -217,6 +217,19 @@ function create_and_populate_db () {
 
 REPO=`dirname $(readlink -f $0)`
 
+cat <<InstallWarningMsg
+
+This script performs an automated build and install of PerfTrack. This is the
+easiest way to get PerfTrack onto a clean system. If you want to customize
+anything (change the install location, use a database other than PostgreSQL),
+installing manually might be a better choice. See the instructions in the user
+manual found in the docs/ directory.
+
+Press ENTER / RETURN to continue.
+
+InstallWarningMsg
+read
+
 # offer to install package dependencies on Linux
 os_kernel=`uname -s`
 if [ "$os_kernel" == "Linux" ]; then
