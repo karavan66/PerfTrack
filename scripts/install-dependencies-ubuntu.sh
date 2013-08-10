@@ -1,7 +1,5 @@
 #!/bin/bash
-# install-dependencies.sh: Installs packages needed to build and run perftrack.
-
-# FIXME: Add package list, command for RHEL / CentOS
+# install-dependencies-ubuntu.sh: Installs packages needed to build and run perftrack.
 
 PKG_CMD="apt-get"
 
