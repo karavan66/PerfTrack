@@ -1,6 +1,7 @@
 #!/bin/bash
 # install-dependencies-el.sh: Installs packages needed to build and run
-# perftrack on RHEL-based distributions.
+# perftrack on RHEL-based distributions. Currently known to work on 
+# CentOS, it should work on Red Hat Enterprise Linux and Scientific Linux.
 
 PKG_CMD="yum -y"
 
