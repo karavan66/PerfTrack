@@ -24,6 +24,16 @@ function fix_pg_hba_conf () {
     pg_hba_path="/var/lib/pgsql/data/pg_hba.conf"
     patched_hba_file="centos-pg_hba.conf"
 
+    if [ -e $patched_hba_file ]; then
+        echo -e "\nUsing default patched pg_hba.conf ..."
+    elif [ -e "scripts/$patched_hba_file" ]; then
+        patched_hba_file="scripts/$patched_hba_file"
+        echo -e "\nUsing patched pg_hba.conf file in $patched_hba_file ..."
+    else
+        echo -e "Cannot find pg_hba.conf file. Aborting."
+        return
+    fi
+
     pg_diff=`sudo diff -u $pg_hba_path $patched_hba_file`
 
     if [ "$pg_diff" == "" ]; then
