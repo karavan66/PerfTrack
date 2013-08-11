@@ -48,14 +48,14 @@ function fix_pg_hba_conf () {
             sudo cp $pg_hba_path $pg_hba_path.orig
             echo "Patching pg_hba.conf file"
             sudo cp $patched_hba_file $pg_hba_path
-            sudo chown root:root $pg_hba_path
+            sudo chown postgres:postgres $pg_hba_path
             sudo chmod 600 $pg_hba_path
         fi
     fi
 }
 
 function install_postgres_packages () {
-    postgres_data_dir="/var/lib/pgsql"
+    postgres_data_dir="/var/lib/pgsql/data"
 
     # install packages
     echo "Installing PostgreSQL packages ..."
@@ -66,9 +66,11 @@ function install_postgres_packages () {
         qt-postgresql
 
     # initialize database data directory
-    if ! [ -d $postgres_data_dir ]; then
+    if ! [ "$(sudo ls -A $postgres_data_dir)" ]; then
         echo -e "\nInitializing Postgres data dir ..."
         sudo service postgresql initdb
+    else
+        echo -e "\nPostgres data dir already exists. Skipping initdb."
     fi
 
     # fix database access config file
