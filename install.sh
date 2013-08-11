@@ -242,6 +242,7 @@ build_perftrack "$REPO"
 
 if [ "$DBPASS" != "" ]; then
     cat <<DatabaseInstallMsg
+
 The database $DBNAME was created on localhost. A database user named
 "$USER" was created with full superuser rights.
 
