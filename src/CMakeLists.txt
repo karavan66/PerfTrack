@@ -7,6 +7,7 @@ cmake_minimum_required(VERSION 2.6)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake/Modules")
 include(PythonMacros)
+include_directories(${PROJECT_BINARY_DIR})
 
 
 # determine Python interpreter, library path, site-packages path
@@ -26,6 +27,18 @@ add_subdirectory(dataStore)
 message("== Configuring PerfTrack Data Collection Scripts ==")
 add_subdirectory(data_collection)
 
-set(PERFTRACK_PYTHON_PATH_FILE perftrack.pth)
+# generate the perftrack .pth file
+configure_file (
+    "${PROJECT_SOURCE_DIR}/perftrack.pth.in"
+    "${PROJECT_BINARY_DIR}/perftrack.pth"
+)
+
+set(PERFTRACK_PYTHON_PATH_FILE ${PROJECT_BINARY_DIR}/perftrack.pth)
 install(FILES ${PERFTRACK_PYTHON_PATH_FILE}
 	DESTINATION ${PYTHON_SITE_PACKAGES_INSTALL_DIR})
+
+# also try to install it to the main site packages dir - needed to make
+# default install work on RHEL-based distributions
+install(FILES ${PERFTRACK_PYTHON_PATH_FILE}
+	DESTINATION ${PYTHON_SITE_PACKAGES_DIR})
+
