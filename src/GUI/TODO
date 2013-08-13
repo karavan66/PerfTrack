@@ -7,7 +7,6 @@ pt_main_window_base uses Q3MainWindow
 	This really needs to be redone using QMainWindow
 select_operator_dialog_base is named Dialog
 
-reorder db connection GUI
-	Should be in order host, user, pass, database
-create recent connections or at least save last connection
+db connection GUI
+	create recent connections or at least save last connection
 

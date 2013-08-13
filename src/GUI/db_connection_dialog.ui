@@ -1,371 +1,414 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0" stdsetdef="1">
-  <author></author>
-  <comment></comment>
-  <exportmacro></exportmacro>
-  <class>DBConnectionDialog</class>
-  <widget class="QDialog" name="DBConnectionDialog">
-    <property name="geometry">
-      <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>336</width>
-        <height>317</height>
-      </rect>
-    </property>
-    <property name="windowTitle">
-      <string>Open Database Connection</string>
-    </property>
-    <layout class="QVBoxLayout">
-      <property name="resizeMode">
-        <enum>Fixed</enum>
-      </property>
-      <item>
-        <widget class="Q3GroupBox" name="groupBox1">
-          <property name="title">
-            <string/>
-          </property>
-          <layout class="QGridLayout">
-            <item row="0" column="0">
-              <spacer name="spacer13">
-                <property name="sizeHint">
-                  <size>
-                    <width>40</width>
-                    <height>20</height>
-                  </size>
-                </property>
-                <property name="sizeType">
-                  <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                </property>
-              </spacer>
-            </item>
-            <item row="5" column="0">
-              <spacer name="spacer13_6">
-                <property name="sizeHint">
-                  <size>
-                    <width>40</width>
-                    <height>20</height>
-                  </size>
-                </property>
-                <property name="sizeType">
-                  <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                </property>
-              </spacer>
-            </item>
-            <item row="1" column="0">
-              <spacer name="spacer13_2">
-                <property name="sizeHint">
-                  <size>
-                    <width>40</width>
-                    <height>20</height>
-                  </size>
-                </property>
-                <property name="sizeType">
-                  <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                </property>
-              </spacer>
-            </item>
-            <item row="2" column="1">
-              <widget class="QLabel" name="textLabel1_3">
-                <property name="text">
-                  <string>Password:</string>
-                </property>
-                <property name="alignment">
-                  <set>Qt::AlignVCenter|Qt::AlignRight</set>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="1" column="1">
-              <widget class="QLabel" name="textLabel1_2">
-                <property name="text">
-                  <string>User name:</string>
-                </property>
-                <property name="alignment">
-                  <set>Qt::AlignVCenter|Qt::AlignRight</set>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="0" column="2">
-              <widget class="QLineEdit" name="dbNameLineEdit"/>
-            </item>
-            <item row="0" column="1">
-              <widget class="QLabel" name="textLabel1">
-                <property name="text">
-                  <string>Database name:</string>
-                </property>
-                <property name="alignment">
-                  <set>Qt::AlignVCenter|Qt::AlignRight</set>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="1" column="2">
-              <widget class="QLineEdit" name="userNameLineEdit"/>
-            </item>
-            <item row="2" column="2">
-              <widget class="QLineEdit" name="passwordLineEdit">
-                <property name="echoMode">
-                  <enum>QLineEdit::Password</enum>
-                </property>
-              </widget>
-            </item>
-            <item row="3" column="2">
-              <widget class="QLineEdit" name="hostNameLineEdit"/>
-            </item>
-            <item row="4" column="2">
-              <widget class="QComboBox" name="dbTypeComboBox"/>
-            </item>
-            <item row="5" column="2">
-              <widget class="QSpinBox" name="portSpinBox">
-                <property name="specialValueText">
-                  <string>Default</string>
-                </property>
-                <property name="maximum">
-                  <number>65535</number>
-                </property>
-                <property name="minimum">
-                  <number>-1</number>
-                </property>
-                <property name="value">
-                  <number>-1</number>
-                </property>
-              </widget>
-            </item>
-            <item row="5" column="1">
-              <widget class="QLabel" name="textLabel1_6">
-                <property name="text">
-                  <string>Connection port:</string>
-                </property>
-                <property name="alignment">
-                  <set>Qt::AlignVCenter|Qt::AlignRight</set>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="4" column="1">
-              <widget class="QLabel" name="textLabel1_5">
-                <property name="text">
-                  <string>Database type:</string>
-                </property>
-                <property name="alignment">
-                  <set>Qt::AlignVCenter|Qt::AlignRight</set>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="4" column="0">
-              <spacer name="spacer13_5">
-                <property name="sizeHint">
-                  <size>
-                    <width>40</width>
-                    <height>20</height>
-                  </size>
-                </property>
-                <property name="sizeType">
-                  <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                </property>
-              </spacer>
-            </item>
-            <item row="3" column="1">
-              <widget class="QLabel" name="textLabel1_4">
-                <property name="text">
-                  <string>Host name:</string>
-                </property>
-                <property name="alignment">
-                  <set>Qt::AlignVCenter|Qt::AlignRight</set>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="3" column="0">
-              <spacer name="spacer13_4">
-                <property name="sizeHint">
-                  <size>
-                    <width>40</width>
-                    <height>20</height>
-                  </size>
-                </property>
-                <property name="sizeType">
-                  <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                </property>
-              </spacer>
-            </item>
-            <item row="2" column="0">
-              <spacer name="spacer13_3">
-                <property name="sizeHint">
-                  <size>
-                    <width>40</width>
-                    <height>20</height>
-                  </size>
-                </property>
-                <property name="sizeType">
-                  <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                </property>
-              </spacer>
-            </item>
-          </layout>
-        </widget>
+<ui version="4.0">
+ <class>DBConnectionDialog</class>
+ <widget class="QDialog" name="DBConnectionDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>338</width>
+    <height>344</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Open Database Connection</string>
+  </property>
+  <layout class="QVBoxLayout">
+   <item>
+    <widget class="Q3GroupBox" name="groupBox1">
+     <property name="title">
+      <string/>
+     </property>
+     <layout class="QGridLayout">
+      <item row="2" column="0">
+       <spacer name="spacer13_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
-      <item>
-        <layout class="QHBoxLayout">
-          <item>
-            <spacer name="spacer12">
-              <property name="sizeHint">
-                <size>
-                  <width>40</width>
-                  <height>20</height>
-                </size>
-              </property>
-              <property name="sizeType">
-                <enum>QSizePolicy::Expanding</enum>
-              </property>
-              <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-              </property>
-            </spacer>
-          </item>
-          <item>
-            <widget class="QPushButton" name="remoteHostPushButton">
-              <property name="sizePolicy">
-                <sizepolicy>
-                  <hsizetype>1</hsizetype>
-                  <vsizetype>0</vsizetype>
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                </sizepolicy>
-              </property>
-              <property name="text">
-                <string>Remote host settings &gt;&gt;&gt;</string>
-              </property>
-            </widget>
-          </item>
-        </layout>
+      <item row="6" column="0">
+       <spacer name="spacer13_6">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
-      <item>
-        <widget class="QCheckBox" name="defaultSettingsCheckBox">
-          <property name="text">
-            <string>Save settings as defaults (except password)</string>
-          </property>
-        </widget>
+      <item row="3" column="1">
+       <widget class="QLabel" name="textLabel1_3">
+        <property name="text">
+         <string>Password:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
-      <item>
-        <layout class="QHBoxLayout">
-          <item>
-            <widget class="QPushButton" name="clearPushButton">
-              <property name="text">
-                <string>Clear</string>
-              </property>
-            </widget>
-          </item>
-          <item>
-            <spacer name="spacer7">
-              <property name="sizeHint">
-                <size>
-                  <width>44</width>
-                  <height>20</height>
-                </size>
-              </property>
-              <property name="sizeType">
-                <enum>QSizePolicy::Expanding</enum>
-              </property>
-              <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-              </property>
-            </spacer>
-          </item>
-          <item>
-            <widget class="QPushButton" name="cancelPushButton">
-              <property name="text">
-                <string>Cancel</string>
-              </property>
-            </widget>
-          </item>
-          <item>
-            <widget class="QPushButton" name="connectPushButton">
-              <property name="text">
-                <string>Connect</string>
-              </property>
-              <property name="default">
-                <bool>true</bool>
-              </property>
-            </widget>
-          </item>
-        </layout>
+      <item row="2" column="1">
+       <widget class="QLabel" name="textLabel1_2">
+        <property name="text">
+         <string>User name:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
+      <item row="2" column="2">
+       <widget class="QLineEdit" name="userNameLineEdit"/>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLineEdit" name="passwordLineEdit">
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="QComboBox" name="dbTypeComboBox"/>
+      </item>
+      <item row="6" column="2">
+       <widget class="QSpinBox" name="portSpinBox">
+        <property name="specialValueText">
+         <string>Default</string>
+        </property>
+        <property name="minimum">
+         <number>-1</number>
+        </property>
+        <property name="maximum">
+         <number>65535</number>
+        </property>
+        <property name="value">
+         <number>-1</number>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLabel" name="textLabel1_6">
+        <property name="text">
+         <string>Connection port:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLabel" name="textLabel1_5">
+        <property name="text">
+         <string>Database type:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <spacer name="spacer13_5">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="0">
+       <spacer name="spacer13_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="hostNameLineEdit"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="textLabel1_4">
+        <property name="text">
+         <string>Host name:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <spacer name="spacer13_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="4" column="2">
+       <widget class="QLineEdit" name="dbNameLineEdit"/>
+      </item>
+      <item row="4" column="0">
+       <spacer name="spacer13">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="textLabel1">
+        <property name="text">
+         <string>Database name:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout">
+     <item>
+      <spacer name="spacer12">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="remoteHostPushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Remote host settings &gt;&gt;&gt;</string>
+       </property>
+      </widget>
+     </item>
     </layout>
-  </widget>
-  <layoutdefault spacing="6" margin="11"/>
-  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
-  <tabstops>
-    <tabstop>dbNameLineEdit</tabstop>
-    <tabstop>userNameLineEdit</tabstop>
-    <tabstop>passwordLineEdit</tabstop>
-    <tabstop>hostNameLineEdit</tabstop>
-    <tabstop>dbTypeComboBox</tabstop>
-    <tabstop>defaultSettingsCheckBox</tabstop>
-    <tabstop>connectPushButton</tabstop>
-    <tabstop>clearPushButton</tabstop>
-    <tabstop>cancelPushButton</tabstop>
-  </tabstops>
-  <includes>
-    <include location="local">ui_remotehostextension.h</include>
-  </includes>
-  <connections>
-    <connection>
-      <sender>connectPushButton</sender>
-      <signal>clicked()</signal>
-      <receiver>DBConnectionDialog</receiver>
-      <slot>accept()</slot>
-    </connection>
-    <connection>
-      <sender>cancelPushButton</sender>
-      <signal>clicked()</signal>
-      <receiver>DBConnectionDialog</receiver>
-      <slot>reject()</slot>
-    </connection>
-    <connection>
-      <sender>remoteHostPushButton</sender>
-      <signal>clicked()</signal>
-      <receiver>DBConnectionDialog</receiver>
-      <slot>toggleEntension()</slot>
-    </connection>
-    <connection>
-      <sender>clearPushButton</sender>
-      <signal>clicked()</signal>
-      <receiver>DBConnectionDialog</receiver>
-      <slot>clearEntries()</slot>
-    </connection>
-  </connections>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="defaultSettingsCheckBox">
+     <property name="text">
+      <string>Save settings as defaults (except password)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout">
+     <item>
+      <widget class="QPushButton" name="clearPushButton">
+       <property name="text">
+        <string>Clear</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="spacer7">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>44</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancelPushButton">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="connectPushButton">
+       <property name="text">
+        <string>Connect</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>Q3GroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>Qt3Support/Q3GroupBox</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>hostNameLineEdit</tabstop>
+  <tabstop>userNameLineEdit</tabstop>
+  <tabstop>passwordLineEdit</tabstop>
+  <tabstop>dbNameLineEdit</tabstop>
+  <tabstop>dbTypeComboBox</tabstop>
+  <tabstop>portSpinBox</tabstop>
+  <tabstop>remoteHostPushButton</tabstop>
+  <tabstop>defaultSettingsCheckBox</tabstop>
+  <tabstop>clearPushButton</tabstop>
+  <tabstop>cancelPushButton</tabstop>
+  <tabstop>connectPushButton</tabstop>
+ </tabstops>
+ <includes>
+  <include location="local">ui_remotehostextension.h</include>
+ </includes>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>connectPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DBConnectionDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>263</x>
+     <y>327</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancelPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DBConnectionDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>172</x>
+     <y>327</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>remoteHostPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DBConnectionDialog</receiver>
+   <slot>toggleEntension()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>158</x>
+     <y>264</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DBConnectionDialog</receiver>
+   <slot>clearEntries()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>30</x>
+     <y>327</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
