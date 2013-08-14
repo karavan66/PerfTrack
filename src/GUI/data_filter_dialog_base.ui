@@ -1,215 +1,226 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0" stdsetdef="1">
-  <author></author>
-  <comment></comment>
-  <exportmacro></exportmacro>
-  <class>DataFilterDialogBase</class>
-  <widget class="QDialog" name="DataFilterDialogBase">
-    <property name="geometry">
-      <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>453</width>
-        <height>415</height>
-      </rect>
-    </property>
-    <property name="windowTitle">
-      <string>Data Filters</string>
-    </property>
-    <layout class="QVBoxLayout">
-      <item>
-        <layout class="QHBoxLayout">
-          <item>
-            <widget class="QLabel" name="pixmapLabel2">
-              <property name="sizePolicy">
-                <sizepolicy>
-                  <hsizetype>0</hsizetype>
-                  <vsizetype>0</vsizetype>
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                </sizepolicy>
-              </property>
-              <property name="pixmap">
-                <pixmap>image0</pixmap>
-              </property>
-              <property name="scaledContents">
-                <bool>false</bool>
-              </property>
-              <property name="wordWrap">
-                <bool>false</bool>
-              </property>
-            </widget>
-          </item>
-          <item>
-            <widget class="QLabel" name="textLabel6">
-              <property name="text">
-                <string>Hide selected lines in the data display</string>
-              </property>
-              <property name="alignment">
-                <set>Qt::AlignVCenter</set>
-              </property>
-              <property name="wordWrap">
-                <bool>true</bool>
-              </property>
-            </widget>
-          </item>
-        </layout>
-      </item>
-      <item>
-        <widget class="Q3GroupBox" name="groupBox2">
-          <property name="title">
-            <string>Define Filter</string>
-          </property>
-          <layout class="QGridLayout">
-            <item row="0" column="2">
-              <widget class="QLabel" name="textLabel3">
-                <property name="text">
-                  <string>Value</string>
-                </property>
-                <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="1" column="2">
-              <widget class="QLineEdit" name="valueLineEdit"/>
-            </item>
-            <item row="0" column="0">
-              <widget class="QLabel" name="textLabel1">
-                <property name="text">
-                  <string>Parameter</string>
-                </property>
-                <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="1" column="1">
-              <widget class="QComboBox" name="relationComboBox"/>
-            </item>
-            <item row="0" column="1">
-              <widget class="QLabel" name="textLabel2">
-                <property name="text">
-                  <string>Relation</string>
-                </property>
-                <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="1" column="0">
-              <widget class="QComboBox" name="parameterComboBox">
-                <property name="sizePolicy">
-                  <sizepolicy>
-                    <hsizetype>3</hsizetype>
-                    <vsizetype>0</vsizetype>
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                  </sizepolicy>
-                </property>
-                <item>
-                  <property name="text">
-                    <string/>
-                  </property>
-                </item>
-              </widget>
-            </item>
-            <item row="1" column="3">
-              <widget class="QPushButton" name="applyFilterPushButton">
-                <property name="enabled">
-                  <bool>false</bool>
-                </property>
-                <property name="text">
-                  <string>Apply</string>
-                </property>
-                <property name="default">
-                  <bool>true</bool>
-                </property>
-              </widget>
-            </item>
-          </layout>
-        </widget>
-      </item>
-      <item>
-        <widget class="Q3GroupBox" name="groupBox3">
-          <property name="title">
-            <string>Active Filters</string>
-          </property>
-          <layout class="QVBoxLayout">
-            <item>
-              <widget class="Q3ListBox" name="filterListBox">
-                <property name="selectionMode">
-                  <enum>Q3ListBox::Extended</enum>
-                </property>
-              </widget>
-            </item>
-            <item>
-              <layout class="QHBoxLayout">
-                <item>
-                  <spacer name="spacer1">
-                    <property name="sizeHint">
-                      <size>
-                        <width>40</width>
-                        <height>20</height>
-                      </size>
-                    </property>
-                    <property name="sizeType">
-                      <enum>QSizePolicy::Expanding</enum>
-                    </property>
-                    <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                    </property>
-                  </spacer>
-                </item>
-                <item>
-                  <widget class="QPushButton" name="removeFilterPushButton">
-                    <property name="enabled">
-                      <bool>false</bool>
-                    </property>
-                    <property name="text">
-                      <string>Remove</string>
-                    </property>
-                    <property name="autoDefault">
-                      <bool>false</bool>
-                    </property>
-                  </widget>
-                </item>
-                <item>
-                  <spacer name="spacer2">
-                    <property name="sizeHint">
-                      <size>
-                        <width>40</width>
-                        <height>20</height>
-                      </size>
-                    </property>
-                    <property name="sizeType">
-                      <enum>QSizePolicy::Expanding</enum>
-                    </property>
-                    <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                    </property>
-                  </spacer>
-                </item>
-              </layout>
-            </item>
-          </layout>
-        </widget>
-      </item>
+<ui version="4.0">
+ <class>DataFilterDialogBase</class>
+ <widget class="QDialog" name="DataFilterDialogBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>453</width>
+    <height>415</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Data Filters</string>
+  </property>
+  <layout class="QVBoxLayout">
+   <item>
+    <layout class="QHBoxLayout">
+     <item>
+      <widget class="QLabel" name="pixmapLabel2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="perftrack.qrc">:/filtericon32x32.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>false</bool>
+       </property>
+       <property name="wordWrap">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="textLabel6">
+       <property name="text">
+        <string>Hide selected lines in the data display</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignVCenter</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
     </layout>
-  </widget>
-  <layoutdefault spacing="6" margin="11"/>
-  <images>
-    <image name="image0">
-      <data format="PNG" length="471">89504e470d0a1a0a0000000d4948445200000020000000200806000000737a7af40000019e49444154789ced56a1b2db30105c773ae542e1f70b620541e646320a362b7670908c02ca82c384cc850cc2ee178e071d3209d123cf9eb84ee6a56ffa6ae26596e4bbbdbdd58db2cbe58225f16dd1ec00be3f5afcf9eb47fa8a6497dfb7eccfb56ce916ac0aac0aac0aac0a2c3e8a172730f340dff72984002282880000628c202218635e0eacaa101138e7a0aa2022a82af23c478c114551643302c7e3318908acb52022101100a0ae6b5cafd799813ec266b349cc3c7ec718d134cda4909902de7bc418c1cc30c6208480f7209fba19d6da890a799e238430ee4f6e41dbb6899961ad85b57612e45f28c0cc101110d1e31614459131731a0e0fc99919cc9c064fbc02221a8bb827a1aa6372e0c91cd8ed76898850551506430ec13e52e3be6a110133c33937f6fe70384cfe7d3809cfe773d6755d2acb12755da3aaaab18ad3e9041179ea877bb243efcbb284f71edbedf6ef2761d77569bfdf23cf73586b618c79186840dbb6e9debccf12bf4c6040dff78999a1aa689ae6e939ef3d5415ce39dc6ef3d9ff69025f85c547f1e204feeb7b0098bf09560f2c4e60f5c01be019fae9e8f8885b0000000049454e44ae426082</data>
-    </image>
-  </images>
+   </item>
+   <item>
+    <widget class="Q3GroupBox" name="groupBox2">
+     <property name="title">
+      <string>Define Filter</string>
+     </property>
+     <layout class="QGridLayout">
+      <item row="0" column="2">
+       <widget class="QLabel" name="textLabel3">
+        <property name="text">
+         <string>Value</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="valueLineEdit"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="textLabel1">
+        <property name="text">
+         <string>Parameter</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="relationComboBox"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="textLabel2">
+        <property name="text">
+         <string>Relation</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QComboBox" name="parameterComboBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <item>
+         <property name="text">
+          <string/>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QPushButton" name="applyFilterPushButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Apply</string>
+        </property>
+        <property name="default">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="Q3GroupBox" name="groupBox3">
+     <property name="title">
+      <string>Active Filters</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <widget class="Q3ListBox" name="filterListBox">
+        <property name="selectionMode">
+         <enum>Q3ListBox::Extended</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout">
+        <item>
+         <spacer name="spacer1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeFilterPushButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Remove</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacer2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>Q3GroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>Qt3Support/Q3GroupBox</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3Frame</class>
+   <extends>QFrame</extends>
+   <header>Qt3Support/Q3Frame</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3ListBox</class>
+   <extends>Q3Frame</extends>
+   <header>q3listbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="perftrack.qrc"/>
+ </resources>
+ <connections/>
 </ui>

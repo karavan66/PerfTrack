@@ -1,504 +1,538 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0" stdsetdef="1">
-  <author></author>
-  <comment></comment>
-  <exportmacro></exportmacro>
-  <class>PTMainWindowBase</class>
-  <widget class="Q3MainWindow" name="PTMainWindowBase">
-    <property name="geometry">
-      <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>718</width>
-        <height>729</height>
-      </rect>
-    </property>
-    <property name="windowTitle">
-      <string>Perf Track</string>
-    </property>
-    <property name="usesBigPixmaps">
-      <bool>true</bool>
-    </property>
-    <widget class="QWidget">
-      <layout class="QGridLayout">
-        <item row="0" column="0">
-          <layout class="QVBoxLayout">
-            <item>
-              <layout class="QHBoxLayout">
-                <item>
-                  <widget class="Q3GroupBox" name="groupBox4">
-                    <property name="sizePolicy">
-                      <sizepolicy>
-                        <hsizetype>5</hsizetype>
-                        <vsizetype>5</vsizetype>
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                      </sizepolicy>
-                    </property>
-                    <property name="title">
-                    <!-- Bhagya -->
-                      <string>Selection Parameters                                                                      </string>
-                    </property>
-                    <widget class="Q3ListView" name="parameterListView">
-                      <property name="geometry">
-                        <rect>
-                          <x>11</x>
-                          <y>18</y>
-                          <width>320</width>
-                          <height>85</height>
-                        </rect>
-                      </property>
-                      <property name="sizePolicy">
-                        <sizepolicy>
-                          <hsizetype>3</hsizetype>
-                          <vsizetype>3</vsizetype>
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                        </sizepolicy>
-                      </property>
-                      <property name="focusPolicy">
-                        <enum>Qt::NoFocus</enum>
-                      </property>
-                      <property name="lineWidth">
-                        <number>1</number>
-                      </property>
-                      <property name="resizePolicy">
-                        <enum>Q3ScrollView::Manual</enum>
-                      </property>
-                      <property name="vScrollBarMode">
-                        <enum>Q3ScrollView::AlwaysOff</enum>
-                      </property>
-                      <property name="hScrollBarMode">
-                        <enum>Q3ScrollView::Auto</enum>
-                      </property>
-                      <property name="selectionMode">
-                        <enum>Q3ListView::NoSelection</enum>
-                      </property>
-                      <property name="resizeMode">
-                        <enum>Q3ListView::LastColumn</enum>
-                      </property>
-                      <column>
-                        <property name="text">
-                          <string>Type</string>
-                        </property>
-                        <property name="clickable">
-                          <bool>false</bool>
-                        </property>
-                        <property name="resizable">
-                          <bool>true</bool><!-- Bhagya -->
-                        </property>
-                      </column>
-                      <column>
-                        <property name="text">
-                          <string>Value</string>
-                        </property>
-                        <property name="clickable">
-                          <bool>false</bool>
-                        </property>
-                        <property name="resizable">
-                          <bool>false</bool>
-                        </property>
-                      </column>
-                    </widget>
-                  </widget>
-                </item>
-                <item>
-                  <spacer name="spacer6">
-                    <property name="sizeHint">
-                      <size>
-                        <width>82</width>
-                        <height>16</height>
-                      </size>
-                    </property>
-                    <property name="sizeType">
-                      <enum>QSizePolicy::Expanding</enum>
-                    </property>
-                    <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                    </property>
-                  </spacer>
-                </item>
-                <item>
-                  <layout class="QVBoxLayout">
-                    <item>
-                      <layout class="QHBoxLayout">
-                        <item>
-                          <widget class="QPushButton" name="SaveToDBButton">
-                            <property name="text">
-                              <string>Save To Database</string>
-                            </property>
-                          </widget>
-                        </item>
-                        <item>
-                          <widget class="QPushButton" name="ClearRowButton">
-                            <property name="text">
-                              <string>Clear Row</string>
-                            </property>
-                          </widget>
-                        </item>
-                      </layout>
-                    </item>
-                    <item>
-                      <spacer name="spacer3">
-                        <property name="sizeHint">
-                          <size>
-                            <width>16</width>
-                            <height>78</height>
-                          </size>
-                        </property>
-                        <property name="sizeType">
-                          <enum>QSizePolicy::Expanding</enum>
-                        </property>
-                        <property name="orientation">
-                          <enum>Qt::Vertical</enum>
-                        </property>
-                      </spacer>
-                    </item>
-                  </layout>
-                </item>
-              </layout>
-            </item>
-            <item>
-              <spacer name="spacer7">
-                <property name="sizeHint">
-                  <size>
-                    <width>16</width>
-                    <height>16</height>
-                  </size>
-                </property>
-                <property name="sizeType">
-                  <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                </property>
-              </spacer>
-            </item>
-            <item>
-              <widget class="DataTable" name="dataTable">
-                <property name="sizePolicy">
-                  <sizepolicy>
-                    <hsizetype>1</hsizetype>
-                    <vsizetype>1</vsizetype>
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                  </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                  <size>
-                    <width>624</width>
-                    <height>505</height>
-                  </size>
-                </property>
-              </widget>
-            </item>
-          </layout>
+<ui version="4.0">
+ <class>PTMainWindowBase</class>
+ <widget class="Q3MainWindow" name="PTMainWindowBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>718</width>
+    <height>729</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Perf Track</string>
+  </property>
+  <property name="usesBigPixmaps">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="widget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>67</y>
+     <width>718</width>
+     <height>662</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout">
+    <item row="0" column="0">
+     <layout class="QVBoxLayout">
+      <item>
+       <layout class="QHBoxLayout">
+        <item>
+         <widget class="Q3GroupBox" name="groupBox4">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Selection Parameters                                                                      </string>
+          </property>
+          <widget class="Q3ListView" name="parameterListView">
+           <property name="geometry">
+            <rect>
+             <x>11</x>
+             <y>18</y>
+             <width>320</width>
+             <height>85</height>
+            </rect>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="lineWidth">
+            <number>1</number>
+           </property>
+           <property name="resizePolicy">
+            <enum>Q3ScrollView::Manual</enum>
+           </property>
+           <property name="vScrollBarMode">
+            <enum>Q3ScrollView::AlwaysOff</enum>
+           </property>
+           <property name="hScrollBarMode">
+            <enum>Q3ScrollView::Auto</enum>
+           </property>
+           <property name="selectionMode">
+            <enum>Q3ListView::NoSelection</enum>
+           </property>
+           <property name="resizeMode">
+            <enum>Q3ListView::LastColumn</enum>
+           </property>
+           <column>
+            <property name="text">
+             <string>Type</string>
+            </property>
+            <property name="clickable">
+             <bool>false</bool>
+            </property>
+            <property name="resizable">
+             <bool>true</bool>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Value</string>
+            </property>
+            <property name="clickable">
+             <bool>false</bool>
+            </property>
+            <property name="resizable">
+             <bool>false</bool>
+            </property>
+           </column>
+          </widget>
+         </widget>
         </item>
-      </layout>
-    </widget>
-    <widget class="Q3ToolBar" name="toolBar">
-      <property name="label">
-        <string>Tools</string>
-      </property>
-      <addaction name="newQueryAction"/>
-      <addaction name="fileOpenAction"/>
-      <addaction name="addDisplayParametersAction"/>
-      <addaction name="filterResultsAction"/>
-      <addaction name="plotDataAction"/>
-      <addaction name="combineAction"/>
-    </widget>
-    <widget class="QMenuBar" name="MenuBar">
-      <widget class="QMenu" name="fileMenu">
-        <property name="title">
-          <string>&amp;File</string>
+        <item>
+         <spacer name="spacer6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>82</width>
+            <height>16</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QVBoxLayout">
+          <item>
+           <layout class="QHBoxLayout">
+            <item>
+             <widget class="QPushButton" name="SaveToDBButton">
+              <property name="text">
+               <string>Save To Database</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="ClearRowButton">
+              <property name="text">
+               <string>Clear Row</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="spacer3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>16</width>
+              <height>78</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer name="spacer7">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
         </property>
-        <addaction name="newQueryAction"/>
-        <addaction name="connectDbAction"/>
-        <addaction name="separator"/>
-        <addaction name="fileOpenAction"/>
-        <addaction name="fileSaveAction"/>
-        <addaction name="fileSaveAsAction"/>
-        <addaction name="fileOptionsAction"/>
-        <addaction name="separator"/>
-        <addaction name="filePrintAction"/>
-        <addaction name="separator"/>
-        <addaction name="fileQuitAction"/>
-      </widget>
-      <widget class="QMenu" name="Data">
-        <property name="title">
-          <string>&amp;Data</string>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
         </property>
-        <addaction name="addDisplayParametersAction"/>
-        <addaction name="filterResultsAction"/>
-        <addaction name="plotDataAction"/>
-      </widget>
-      <addaction name="fileMenu"/>
-      <addaction name="Data"/>
-    </widget>
-    <action name="newQueryAction">
-      <property name="name">
-        <cstring>newQueryAction</cstring>
-      </property>
-      <property name="enabled">
-        <bool>false</bool>
-      </property>
-      <property name="icon">
-        <iconset>image1</iconset>
-      </property>
-      <property name="iconText">
-        <string>New query</string>
-      </property>
-      <property name="text">
-        <string>&amp;New query</string>
-      </property>
-      <property name="whatsThis">
-        <string/>
-      </property>
-      <property name="shortcut">
-        <string>Ctrl+N</string>
-      </property>
-    </action>
-    <action name="fileOpenAction">
-      <property name="name">
-        <cstring>fileOpenAction</cstring>
-      </property>
-      <property name="icon">
-        <iconset>image2</iconset>
-      </property>
-      <property name="iconText">
-        <string>Open...</string>
-      </property>
-      <property name="text">
-        <string>&amp;Open data file...</string>
-      </property>
-      <property name="toolTip">
-        <string>Open data file...</string>
-      </property>
-      <property name="statusTip">
-        <string>Open data file...</string>
-      </property>
-      <property name="shortcut">
-        <string>Ctrl+O</string>
-      </property>
-    </action>
-    <action name="fileSaveAction">
-      <property name="name">
-        <cstring>fileSaveAction</cstring>
-      </property>
-      <property name="icon">
-        <iconset>image3</iconset>
-      </property>
-      <property name="iconText">
-        <string>Save</string>
-      </property>
-      <property name="text">
-        <string>&amp;Save</string>
-      </property>
-      <property name="shortcut">
-        <string>Ctrl+S</string>
-      </property>
-    </action>
-    <action name="fileSaveAsAction">
-      <property name="name">
-        <cstring>fileSaveAsAction</cstring>
-      </property>
-      <property name="iconText">
-        <string>Save As</string>
-      </property>
-      <property name="text">
-        <string>Save &amp;As...</string>
-      </property>
-      <property name="shortcut">
-        <string/>
-      </property>
-    </action>
-    <action name="fileQuitAction">
-      <property name="name">
-        <cstring>fileQuitAction</cstring>
-      </property>
-      <property name="iconText">
-        <string>&amp;Quit</string>
-      </property>
-      <property name="text">
-        <string>&amp;Quit</string>
-      </property>
-      <property name="shortcut">
-        <string>Ctrl+Q</string>
-      </property>
-    </action>
-    <action name="addDisplayParametersAction">
-      <property name="name">
-        <cstring>addDisplayParametersAction</cstring>
-      </property>
-      <property name="checkable">
-        <bool>true</bool>
-      </property>
-      <property name="enabled">
-        <bool>false</bool>
-      </property>
-      <property name="icon">
-        <iconset>image4</iconset>
-      </property>
-      <property name="iconText">
-        <string>Add display parameters</string>
-      </property>
-      <property name="text">
-        <string>Add display parameters</string>
-      </property>
-    </action>
-    <action name="filterResultsAction">
-      <property name="name">
-        <cstring>filterResultsAction</cstring>
-      </property>
-      <property name="checkable">
-        <bool>true</bool>
-      </property>
-      <property name="enabled">
-        <bool>false</bool>
-      </property>
-      <property name="icon">
-        <iconset>image5</iconset>
-      </property>
-      <property name="iconText">
-        <string>Filter results</string>
-      </property>
-      <property name="text">
-        <string>Filter results</string>
-      </property>
-    </action>
-    <action name="plotDataAction">
-      <property name="name">
-        <cstring>plotDataAction</cstring>
-      </property>
-      <property name="checkable">
-        <bool>true</bool>
-      </property>
-      <property name="enabled">
-        <bool>false</bool>
-      </property>
-      <property name="icon">
-        <iconset>image6</iconset>
-      </property>
-      <property name="iconText">
-        <string>Plot data</string>
-      </property>
-      <property name="text">
-        <string>Plot data</string>
-      </property>
-    </action>
-    <action name="connectDbAction">
-      <property name="name">
-        <cstring>connectDbAction</cstring>
-      </property>
-      <property name="iconText">
-        <string>Connect to database...</string>
-      </property>
-      <property name="text">
-        <string>&amp;Connect to database...</string>
-      </property>
-    </action>
-    <action name="fileOptionsAction">
-      <property name="name">
-        <cstring>fileOptionsAction</cstring>
-      </property>
-      <property name="iconText">
-        <string>File options...</string>
-      </property>
-      <property name="text">
-        <string>&amp;File options...</string>
-      </property>
-    </action>
-    <action name="filePrintAction">
-      <property name="name">
-        <cstring>filePrintAction</cstring>
-      </property>
-      <property name="icon">
-        <iconset>image7</iconset>
-      </property>
-      <property name="iconText">
-        <string>Print</string>
-      </property>
-    </action>
-    <action name="combineAction">
-      <property name="name">
-        <cstring>combineAction</cstring>
-      </property>
-      <property name="enabled">
-        <bool>false</bool>
-      </property>
-      <property name="icon">
-        <iconset>image8</iconset>
-      </property>
-      <property name="iconText">
-        <string>Action</string>
-      </property>
-      <property name="toolTip">
-        <string>Combine performance results</string>
-      </property>
-    </action>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="DataTable" name="dataTable" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>624</width>
+          <height>505</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
-  <layoutdefault spacing="6" margin="11"/>
-  <customwidgets>
-    <customwidget>
-      <class>DataTable</class>
-      <extends>QWidget</extends>
-      <header location="local">data_table.h</header>
-      <sizehint>
-        <width>-1</width>
-        <height>-1</height>
-      </sizehint>
-      <container>0</container>
-      <sizepolicy>
-        <hordata>3</hordata>
-        <verdata>3</verdata>
-      </sizepolicy>
-      <pixmap>image0</pixmap>
-    </customwidget>
-  </customwidgets>
-  <images>
-    <image name="image0">
-      <data format="PNG" length="1002">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b000003b149444154789cad945f4c5b551cc73fe7dc4b7b4bcba0762d45c43114323599ee6192609c51d883892ce083f1718b3ebb185f8dc91e972cf39d2d2a2f1af664b6f1e0fe3863a0718969700eb0c52142da0242a1bd6d696f7bcff101585203ceb8fd9ece39f99dcff9fe7edf939f88c562ec465f5f9fe609442c161362173c3e3eae7b7a7ac8e7f36432196cdbfe4f907c3e4f2291201e8fe338cec3737357e9e8e828aded1e229d650e1f2d51754b082110124c13a4dc5ea341eb9dc284c0558a853f3ce8cb0677ef500fde7d39d2596679e326597b8e9abb85d7a770ab16ab6983ec5a05b487a70e36f0f4e10afe408d6a558310980108478dba4a1e8233990c5d474b64ed39aa3a8fe5f3317fbf81dbd70bccfeb205947632fd74f6589c1c6ea2f70d03a58ba0c1f2c9bdc1b66de3b8256a6e11cbe7e3ee1d181b590124fe2693aeee08d223c82c3a2c24b7b874bec8f26288774f7bd054504aef0dde6e99c0eb83f9fb266323cb80a27fb0958141836044605a2ee5523393371cc646fee2da37195aa35d0c0c5b4859ac03d7e91712dcaac5adab3650a3ff9d08ef7dd8404bb48869e5d958b5b87dadc4c9a1464e9f0d0326df7ebd86bd2e310cb1bf62d384d59441f2d70a070e1c60e09489929b988681bdd9cc97170bcc4c65595f71f8e0e3301337fc24a7732467831875a47f289652b0be5e4151e6d07316c1b0c0340d8ab92023e76d66a6b2840e36d2fb7a13fee632475e6edc367ea98a90fb98b7dd6310ca0328a44761582e1bab41befabcc0ec940d28bc5e93b68e064cab84e1d9beaeb48934eac1f53b01c1b000fca496aa54b61a99fcde61662a4b4b4b23d1680be9d426173e4df3602a48ea411989a4fd590f52a8fd156b05ed9d350e3defe3cfdf4b4c7ce770ea7d3fb9f520afbe1620daeee5c26735d20b9b9cfb6811a754a439e4e5c5639a4caa1e5caf586bfc0197b78702005cb9b4cae4cd3267ce8638fe964bd72b393e39d74928d242617303a756a37f284447770dcdbffc6384a05a85de1306e9a52057c7527c7131c3c42d3f475eb2303c82d4fc3276d6811db37efeb148723082d9b08f79f97c1e5729109a9a28307cc622d2d6cdf52b2b24efe548dedb00142009862cfa879ee1a71f6cec928353511472fbf4389148b0b0e0c108081412458dfe21c9f11351e67e7358595468246d1d1e5e38a6e9e851bc39d84ab502a669331dafec0d8ec7e3e8cb06e1a881d727d1ae40180a434a8c9db129a54126ad48a7358c2b4c5352c8c374bcccdab2bb37d8719cba79fab8211f9df218e0582c261e95f8bfc04f1a1e8bc5c4dfe0a19017a725d8c60000000049454e44ae426082</data>
-    </image>
-    <image name="image1">
-      <data format="PNG" length="546">89504e470d0a1a0a0000000d4948445200000020000000200806000000737a7af4000001e949444154789ced562b72c330145c753ae1be42af902203a3141ba94788b151820c8c2c246c5f41c838460242f5157c0571131564eca4fe4b49a7a43b23f2e4f776adb74f36514a618824494c9aa664b4e180b55a2f53c1344d499224e6b7c967053c43c4d65324532d582b24a5345a6b344dd3c7e238264b39ce028690529ae6d0a0d0451f3b7a4734e7062ebe996dc15672002874019d69b8b4cc4a80d6fa46fe71b700d4bab6e5b617108621a105053e00a514514a114a69bf5f55d5ef0a00ae66534a1100e09c1b71140080fc905b933b09e8c03937cde93a05b9972322113a6136781d06a68c34e7eeaeefd1fb34f9965ad663780fceb9114238bd7907e7164829affdbf00beef3bdf98ce029e056701411090033bf423e95ae7210f3c03a329b8c7d60f5187fb0fd25cfe10b32730975c96a56134fb198c6aa07e9f1d45eb1f92a5a4300c09659f408deb5a2007d6ff2b4602b61c5b1cc784569f40b14cbe45c44326f47ddf3c32010f0b780616a700b8b9def33c9ccfe74d45b32c4397130481fd14ec763b13451128a57da1466c23eff0466f228410c8f31c6ddb8ec44c0af07ddf1cf7567cab28eae91b73b20597cb058c31ecf77b789e07ad3574c5ac088727f0f595a36ddbd173ab262ccbd2742218db26e2743af5c2c330fcf700807f0fcce3cf6fc26f7ce976b96ecfbe310000000049454e44ae426082</data>
-    </image>
-    <image name="image2">
-      <data format="PNG" length="231">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b000000ae49444154789cb594510ec3200c436db45371b6691fd3cee66bb18f5135a219235af04f442b5e2c03a124ec50d942dd09be4537d45a9b5d4be2f85f1243e06393d748126d53661d9e854a624ac6633c40cff8576e51280010406b0d00dab104b9c69d19e887774201f64ebc7c8f342fc678b0ce553cc76b752e37e368d69edc8c2df4f58c01ef8f4f7533fe176a1e482ef4e2380b6ac0b9d0d36a57161430833e130aacdef62f9acd8ab4793cea0d051970cd5b32cc0a0000000049454e44ae426082</data>
-    </image>
-    <image name="image3">
-      <data format="PNG" length="230">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b000000ad49444154789cd595310e842010453f8686c482f3d0ccc58c85f16234731e0b922d770b3386150d62d084d7100cbe7cc6411433e309340038e7be35a5ccacb44ce6691d8711f0de178988687b878800005da590093abfe418132c3efdb2cd25a9904d6c82850936791e4b81b59452ce4be2bb644bb14f7695c712b7274e6a3c4f69ebe488bbe1547cb6b09477db6d18cb45fb5dde3ed2f18feae89bb4d76eed8995dc79b5ae2766567fe2dafc0045362bc8b49ae4470000000049454e44ae426082</data>
-    </image>
-    <image name="image4">
-      <data format="PNG" length="277">89504e470d0a1a0a0000000d4948445200000020000000200806000000737a7af4000000dc49444154789ced97b111c3200c454dce9bb0858aacc0680c42a51552a8cb080c4095ca35a9f0c51c1861ee0271fc2bce96c4137cc35910d1d453b7aeb38f0030870100f86f4e4c44620360ad65254a29d9b17b35825600e79c60e6fb8ad86c8d3018c7038858f480526aed9c135faab101885fd4163aaa71b6406bcd5ed29a58368031869d5413cb060807434988e85bf7ffd3c0dd3d703e0058c0c3837faf9c6f057e0e602e87ec0b96f47ec73ea07bfa336f06989e89672f7e7a3340dc59e89c14ef60ebee810ba0dd8491726ecfa9fb0a5c00dd01c4dfff1dbf01ac1c4774554c17100000000049454e44ae426082</data>
-    </image>
-    <image name="image5">
-      <data format="PNG" length="471">89504e470d0a1a0a0000000d4948445200000020000000200806000000737a7af40000019e49444154789ced56a1b2db30105c773ae542e1f70b620541e646320a362b7670908c02ca82c384cc850cc2ee178e071d3209d123cf9eb84ee6a56ffa6ae26596e4bbbdbdd58db2cbe58225f16dd1ec00be3f5afcf9eb47fa8a6497dfb7eccfb56ce916ac0aac0aac0aac0a2c3e8a172730f340dff72984002282880000628c202218635e0eacaa101138e7a0aa2022a82af23c478c114551643302c7e3318908acb52022101100a0ae6b5cafd799813ec266b349cc3c7ec718d134cda4909902de7bc418c1cc30c6208480f7209fba19d6da890a799e238430ee4f6e41dbb6899961ad85b57612e45f28c0cc101110d1e31614459131731a0e0fc99919cc9c064fbc02221a8bb827a1aa6372e0c91cd8ed76898850551506430ec13e52e3be6a110133c33937f6fe70384cfe7d3809cfe773d6755d2acb12755da3aaaab18ad3e9041179ea877bb243efcbb284f71edbedf6ef2761d77569bfdf23cf73586b618c79186840dbb6e9debccf12bf4c6040dff78999a1aa689ae6e939ef3d5415ce39dc6ef3d9ff69025f85c547f1e204feeb7b0098bf09560f2c4e60f5c01be019fae9e8f8885b0000000049454e44ae426082</data>
-    </image>
-    <image name="image6">
-      <data format="PNG" length="218">89504e470d0a1a0a0000000d4948445200000020000000200806000000737a7af4000000a149444154789cedd7d10d83300c04d03362817605b6f00acccb0ab745572823d09f562a8804d25adc8fef0f14e025388a6c24a14c27fdfa37c0dd172940950424a08f7ee158d84d1369970000e0b1b91e2a63e5bf20017240b5085b2b3a1c00d42bba040c051ce5b921dc1bd766058898516b56807f67f34be4bb200109484002e40023596ccb6e3bf7e613638e9e0100be8f74fb74c7eebe30f09c3f1b53b7e72fba9626bcfd769b020000000049454e44ae426082</data>
-    </image>
-    <image name="image7">
-      <data format="PNG" length="230">89504e470d0a1a0a0000000d49484452000000100000000e0806000000262f9c8a000000ad49444154789c95535b0ec2300cb311a78ab40f762de06ae363c81c2b7cb4097baf58aa12554d9c3a0925610933f3d5e502920800d7ad60f7e37892e9af126c3d0ab83b4826fb2ac194fdac8ac30a8ed88308283a5cf6d89727a05169cdcc51bbe02d47a3661680b35e34fdd73a2bcc13cb9ae92f04a1755644dcab60780de9f7b73e83b21a89bb730000f7e723fdcffb471249024d02624b4c09944a3b5a849c8958a791b14c2d0b14988ef2174eb39094b690ead90000000049454e44ae426082</data>
-    </image>
-    <image name="image8">
-      <data format="XPM.GZ" length="3456">789ca595496f9b501446f7fe1528eca2eac606db60555d649ee739551798217612679eabfef7beef1055959ac68ee164c1d183035c483235e91d6dad7b9353b5bbfbe4be9f7a692fb9f526b387c1e0e5fb8f6f3f6b1361e0b99f28f282892fb509eb7ba9e7d7d9f001de10f8331e08fc000f05be8837057e8d47026fe39990fb67782158df95379a8275c35b82f508ef087c15ef0abcc03381dfc98350e0d3784bd0e7f8a02d589fc13381afe185c08fe5211be777f144e0cc2fcc04c7dfe0b9c0cbe30b81afc89ba1c003bc2de8257847b01ee289c077f05ce0477821f054cef8caf7778987027fc06381cfe25dc1f53379bb2e58e77eda6cf8021e097c038f057e8b27023fc13341df97474dc1fab63c0e049ee34d81bfe2dc30be8f47029fc7538177e49db6c0cff158e08f7857e07c8f9d42707f5c3fa90bd6b7f040e04d9c1782d7f14ce0cc2fc905be2967bce5fddfe36cf8853cad0b3cc69b023fc5238133bf3411dc6f4fcee757bedf399c1bc2aff0aec09fe47c9ee5f12f784bd0e37a795bb0be8ec7025fc6bb02e7fa7926389f79e76cac37f042e087723ed7f2f996f058e02d9c17428fefb94805eb7b3841f936f32cd84aafc6671ae65b625d4b2d1bb761b915766a3deb3bcec669d8b93bf382bd81dbbbfc7cc3aeecda6edef66fedcec678167b70d77eac32537bb267d778a9d4787585e9ffaf8fd498718dd92a0d9be36dce8fd7b005cefe9b455bfa6463d94df3c956dcb9cfee6eb4ffee5c47789655d758fbe888610d5be719362a3536696c556a6cd3b8aad4d871855ddbabd4d044773e3a6258e36da2fb951ae5442f2a3534d1033bacd438728de38f0b431b9ae84995c6db44eb951a9bfca6362a3534d16058614823748d669586b5ac6dd17b7f7386352c76ffcf1a7fa6d1195ef8b7e19bf57d9fbdc4effae9380d9b760df73fd9cffdc23f1da5f0ce7df4fcbe7fe6a679e29f8f56708d5f5f6bbf01fb4016b8</data>
-    </image>
-  </images>
-  <includes>
-    <include location="local">data_table.h</include>
-  </includes>
-  <connections>
-    <connection>
-      <sender>SaveToDBButton</sender>
-      <signal>clicked()</signal>
-      <receiver>PTMainWindowBase</receiver>
-      <slot>saveResults()</slot>
-    </connection>
-    <connection>
-      <sender>ClearRowButton</sender>
-      <signal>clicked()</signal>
-      <receiver>PTMainWindowBase</receiver>
-      <slot>clearResults()</slot>
-    </connection>
-  </connections>
+  <widget class="Q3ToolBar" name="toolBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>251</width>
+     <height>42</height>
+    </rect>
+   </property>
+   <property name="label">
+    <string>Tools</string>
+   </property>
+   <addaction name="newQueryAction"/>
+   <addaction name="fileOpenAction"/>
+   <addaction name="addDisplayParametersAction"/>
+   <addaction name="filterResultsAction"/>
+   <addaction name="plotDataAction"/>
+   <addaction name="combineAction"/>
+  </widget>
+  <widget class="QMenuBar" name="MenuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>718</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="fileMenu">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="newQueryAction"/>
+    <addaction name="connectDbAction"/>
+    <addaction name="separator"/>
+    <addaction name="fileOpenAction"/>
+    <addaction name="fileSaveAction"/>
+    <addaction name="fileSaveAsAction"/>
+    <addaction name="fileOptionsAction"/>
+    <addaction name="separator"/>
+    <addaction name="filePrintAction"/>
+    <addaction name="separator"/>
+    <addaction name="fileQuitAction"/>
+   </widget>
+   <widget class="QMenu" name="Data">
+    <property name="title">
+     <string>&amp;Data</string>
+    </property>
+    <addaction name="addDisplayParametersAction"/>
+    <addaction name="filterResultsAction"/>
+    <addaction name="plotDataAction"/>
+   </widget>
+   <addaction name="fileMenu"/>
+   <addaction name="Data"/>
+  </widget>
+  <action name="newQueryAction">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="perftrack.qrc">
+     <normaloff>:/newqueryicon32x32.png</normaloff>:/newqueryicon32x32.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;New query</string>
+   </property>
+   <property name="iconText">
+    <string>New query</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+   <property name="name" stdset="0">
+    <cstring>newQueryAction</cstring>
+   </property>
+  </action>
+  <action name="fileOpenAction">
+   <property name="icon">
+    <iconset resource="perftrack.qrc">
+     <normaloff>:/openicon.png</normaloff>:/openicon.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open data file...</string>
+   </property>
+   <property name="iconText">
+    <string>Open...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open data file...</string>
+   </property>
+   <property name="statusTip">
+    <string>Open data file...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+   <property name="name" stdset="0">
+    <cstring>fileOpenAction</cstring>
+   </property>
+  </action>
+  <action name="fileSaveAction">
+   <property name="icon">
+    <iconset resource="perftrack.qrc">
+     <normaloff>:/saveicon.png</normaloff>:/saveicon.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+   <property name="iconText">
+    <string>Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+   <property name="name" stdset="0">
+    <cstring>fileSaveAction</cstring>
+   </property>
+  </action>
+  <action name="fileSaveAsAction">
+   <property name="text">
+    <string>Save &amp;As...</string>
+   </property>
+   <property name="iconText">
+    <string>Save As</string>
+   </property>
+   <property name="shortcut">
+    <string/>
+   </property>
+   <property name="name" stdset="0">
+    <cstring>fileSaveAsAction</cstring>
+   </property>
+  </action>
+  <action name="fileQuitAction">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="iconText">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+   <property name="name" stdset="0">
+    <cstring>fileQuitAction</cstring>
+   </property>
+  </action>
+  <action name="addDisplayParametersAction">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="perftrack.qrc">
+     <normaloff>:/addparam32x32.png</normaloff>:/addparam32x32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add display parameters</string>
+   </property>
+   <property name="iconText">
+    <string>Add display parameters</string>
+   </property>
+   <property name="name" stdset="0">
+    <cstring>addDisplayParametersAction</cstring>
+   </property>
+  </action>
+  <action name="filterResultsAction">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="perftrack.qrc">
+     <normaloff>:/filtericon32x32.png</normaloff>:/filtericon32x32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Filter results</string>
+   </property>
+   <property name="iconText">
+    <string>Filter results</string>
+   </property>
+   <property name="name" stdset="0">
+    <cstring>filterResultsAction</cstring>
+   </property>
+  </action>
+  <action name="plotDataAction">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="perftrack.qrc">
+     <normaloff>:/graphicon32x32.png</normaloff>:/graphicon32x32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Plot data</string>
+   </property>
+   <property name="iconText">
+    <string>Plot data</string>
+   </property>
+   <property name="name" stdset="0">
+    <cstring>plotDataAction</cstring>
+   </property>
+  </action>
+  <action name="connectDbAction">
+   <property name="text">
+    <string>&amp;Connect to database...</string>
+   </property>
+   <property name="iconText">
+    <string>Connect to database...</string>
+   </property>
+   <property name="name" stdset="0">
+    <cstring>connectDbAction</cstring>
+   </property>
+  </action>
+  <action name="fileOptionsAction">
+   <property name="text">
+    <string>&amp;File options...</string>
+   </property>
+   <property name="iconText">
+    <string>File options...</string>
+   </property>
+   <property name="name" stdset="0">
+    <cstring>fileOptionsAction</cstring>
+   </property>
+  </action>
+  <action name="filePrintAction">
+   <property name="icon">
+    <iconset resource="perftrack.qrc">
+     <normaloff>:/printicon.png</normaloff>:/printicon.png</iconset>
+   </property>
+   <property name="iconText">
+    <string>Print</string>
+   </property>
+   <property name="name" stdset="0">
+    <cstring>filePrintAction</cstring>
+   </property>
+  </action>
+  <action name="combineAction">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="perftrack.qrc">
+     <normaloff>:/f.gif</normaloff>:/f.gif</iconset>
+   </property>
+   <property name="iconText">
+    <string>Action</string>
+   </property>
+   <property name="toolTip">
+    <string>Combine performance results</string>
+   </property>
+   <property name="name" stdset="0">
+    <cstring>combineAction</cstring>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>Q3ToolBar</class>
+   <extends>Q3Frame</extends>
+   <header>q3listview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Q3GroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>Qt3Support/Q3GroupBox</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3Frame</class>
+   <extends>QFrame</extends>
+   <header>Qt3Support/Q3Frame</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3MainWindow</class>
+   <extends>QWidget</extends>
+   <header>q3mainwindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3ListView</class>
+   <extends>Q3Frame</extends>
+   <header>q3listview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DataTable</class>
+   <extends>QWidget</extends>
+   <header>data_table.h</header>
+  </customwidget>
+ </customwidgets>
+ <includes>
+  <include location="local">data_table.h</include>
+ </includes>
+ <resources>
+  <include location="perftrack.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>SaveToDBButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PTMainWindowBase</receiver>
+   <slot>saveResults()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ClearRowButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PTMainWindowBase</receiver>
+   <slot>clearResults()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
