@@ -108,6 +108,8 @@ set(PERFTRACK_GUI_UI
 	pt_main_window_base.ui
 	selection_dialog_base.ui)
 
+set(PERFTRACK_RESOURCES perftrack.qrc)
+
 set(PERFTRACK_PLUGINS
 	.ptoperators
 	baseOps.py
@@ -116,6 +118,7 @@ set(PERFTRACK_PLUGINS
 
 QT4_WRAP_UI(perftrack_gui_ui ${PERFTRACK_GUI_UI})
 QT4_AUTOMOC(${PERFTRACK_GUI_SRCS})
+QT4_ADD_RESOURCES(PERFTRACK_RESOURCES_RCC ${PERFTRACK_RESOURCES})
 
 # generate the header file that configures plugin locations
 configure_file (
@@ -131,7 +134,11 @@ include_directories(
 	${PYTHON_INCLUDE_PATH}
 )
 
-add_executable(perftrack ${PERFTRACK_GUI_SRCS} ${perftrack_gui_ui})
+add_executable(perftrack ${PERFTRACK_GUI_SRCS}
+	${perftrack_gui_ui}
+	${PERFTRACK_RESOURCES_RCC}
+)
+
 target_link_libraries(perftrack ${QT_LIBRARIES} ${PYTHON_LIBRARIES})
 
 # copy python plugins to the build directory
