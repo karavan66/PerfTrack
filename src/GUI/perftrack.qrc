@@ -1,10 +1,13 @@
 <RCC>
   <qresource prefix="/">
-    <file>filtericon32x32.xpm</file>
-    <file>graphicon32x32.xpm</file>
-    <file>newqueryicon32x32.xpm</file>
-    <file>addparam32x32.xpm</file>
-    <file>attributequeryicon16x16.xpm</file>
+    <file>newqueryicon32x32.png</file>
+    <file>attributequeryicon16x16.png</file>
+    <file>graphicon32x32.png</file>
+    <file>filtericon32x32.png</file>
+    <file>addparam32x32.png</file>
+    <file>openicon.png</file>
+    <file>printicon.png</file>
+    <file>saveicon.png</file>
     <file>f.gif</file>
   </qresource>
 </RCC>
