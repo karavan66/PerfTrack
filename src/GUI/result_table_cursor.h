@@ -28,9 +28,6 @@ class ResultTableCursor : public Q3SqlCursor {
 public:
 	//! Creates a QSqlCursor for the given \a table and \a db.
 	//! The fields are automatically populated.
-	// smithm 2008-6-25
-	// QSqlDatabase is now a "smart pointer."  So, just need to declare
-	// an object of that type.
 	ResultTableCursor( QString table, QSqlDatabase db );
 	~ResultTableCursor()
 	{ }

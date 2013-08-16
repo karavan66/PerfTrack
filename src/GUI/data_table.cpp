@@ -593,15 +593,9 @@ bool DataTable:: printTable( QPrinter * printer, const QFont& font )
 				// the top left corner of r to match the
 				// origin of the page.)
 				
-				// smithm 2008-6-26
-				// QPainter::saveWorldMatrix is obsolete
-				//painter.saveWorldMatrix();
 				painter.save();
 				painter.translate( -r.x(), -r.y() );
 				srt.draw( &painter, 0, 0, r, colorGroup() );
-				// smithm 2008-6-26
-				// QPainter::restoreWorldMatrix is obsolete
-				//painter.restoreWorldMatrix();
 				painter.restore();
 			}
 		}
@@ -678,8 +672,6 @@ void DataTable::paintCell( QPainter * painter, int row, int col,
 	}
 
 	// Paint the text in the cell
-	// smithm 2008-6-26
-	// Fixed scope for AlignAuto and AlignVCenter
 	painter->drawText( 0, 0, cr.width(), cr.height(),
 			Qt::AlignAuto | Qt::AlignVCenter, text( row, col ) );
 

@@ -29,7 +29,6 @@
 #include <qdatetime.h>
 //Added by qt3to4:
 #include <Q3ValueList>
-// smithm 2008-6-25
 // Added to get QSqlQuery::lastError to work
 #include <QSqlError>
 
@@ -84,8 +83,6 @@ static PortMapClass portMap;
 
 DataAccess::DataAccess( QObject * parent, const char * name )
 	: QObject( parent, name ), resultsUsingMetrics( 0 )
-	// smithm 2008-6-25
-	// Removed curDB from intitialization list because it is no longer a pointer
 {
 }
 
@@ -94,7 +91,6 @@ DataAccess::~DataAccess()
 	// Should be no need to close the database, and it can
 	// cause hangs.
 	
-	// smithmtest 2008-7-20
     // This is a hack for MySQL
     // Look for each temp table in the list (case-insensitively) and
 	// drop it if needed.
@@ -245,8 +241,6 @@ bool DataAccess::setupDBConnection()
 
 		// Now try to log in to the database
 		curDb = QSqlDatabase::addDatabase( dbtype );
-		// smithm 2008-6-25
-		// curDb no longer a pointer, changed -> to .
 		curDb.setDatabaseName( dbname );
 		curDb.setHostName( host );
 		if( user_port >= 0 ) {
@@ -266,21 +260,6 @@ bool DataAccess::setupDBConnection()
 
 			//QSqlDatabase::removeDatabase( curDb );
 
-			// smithm 2008-7-5
-			// void removeDatabase ( QSqlDatabase * db ) is no longer available
-			// in Qt 4.  In Qt 4, attempting to remove the database generates a
-			// warning that the connection is still in use and all queries will
-			// cease to work.  When the user re-enters the correct information
-			// the and the same database type is entered the new connection
-			// will not be added.  Thus, queries will not work.  However,
-			// if we do not remove the database on error and just have the user
-			// enter new database information the Qt database library will
-			// generate warning about a connection that is still in use, and
-			// that it has removed the old connection, but queries will work.
-
-			// smithm 2008-6-25
-			// curDb is no longer a pointer
-			//curDb = NULL;
 			if( hostConn != NULL ) delete hostConn;
 			if( whatNow == QMessageBox::Abort ) {
 				emit databaseConnected( false );
@@ -301,9 +280,6 @@ bool DataAccess::setupDBConnection()
 			settings.writeEntry( APP_KEY + DB_PORT, user_port );
 		}
 	
-	// smithm 2006-8-25
-	// curDb is no longer a pointer, check to see if it is valid instead.
-	//} while( curDb == NULL );
 	} while( !curDb.isOpen() );
 
 	// Shouldn't get here until we sucessfully open a connection;
@@ -367,7 +343,6 @@ void DataAccess::initDBCustomizations()
 		tempTableFlag = " GLOBAL TEMPORARY ";
 		tempTableSuffix = " ON COMMIT PRESERVE ROWS ";
 	} else if ( driver == "QPSQL7" || driver == "QPSQL") {
-		// smithm 2008-7-2
 		// Changed to setup the same database customizations for the QPSQL7
 		// and QPSQL driver.
 		tempTableFlag = " GLOBAL TEMPORARY ";
@@ -375,20 +350,10 @@ void DataAccess::initDBCustomizations()
 	} else if ( driver == "QSQLITE" ) {
 		tempTableFlag = " TEMPORARY ";
 		tempTableSuffix = "";
-	// smithm 2008-6-25
-	// It appears this should be a comparision and not an assignment.
-	//} else if ( driver = "QMYSQL3" ) {
-	// smithm 2008-7-8
-	// Changed to setup the same database customizations for the QMYSQL3
-	// and QMYSQL driver.
-    // smithmtest
-    // don't create temporary tables in MySQL
-	// switched back to temporary tables for now
 	} else if ( driver == "QMYSQL3" || driver == "QMYSQL" ) {
 		// MySQL Not tested yet!
 		tempTableFlag = " TEMPORARY ";
 		tempTableSuffix = " ";
-	// smithm 2008-7-2
 	// Set default customization for all other databases.
 	} else {
 		tempTableFlag = " TEMPORARY ";
@@ -1136,30 +1101,6 @@ QMap<QString,QPair<QString,QString> > DataAccess::buildResultMap( QSqlQuery& que
 		key = truncate ? fullName.section( QString(PTRESDELIM), -1 ) : fullName;
 		id = query.value(1).toString();
 
-		// Try to insert a new item; if it already exists,
-		// use the returned iterator to update.  (This approach
-		// should be faster than checking for the item and
-		// inserting if not found, because we traverse the map
-		// only once.)
-		//QPair<QMapIterator<QString,QPair<QString,QString> >,bool>
-//			result = map.insert( QPair<const QString,
-//					QPair<QString,QString> >
-//					( key,
-//					  QPair<QString,QString>( id,
-//						  fullName ) ) );
-
-		// Append the id if the string was already in the list
-		//if( ! result.second ) {
-//			(*result.first).first = (*result.first).first
-//				+ "," + id;
-//			(*result.first).second = (*result.first).second
-//				+ "," + fullName;
-//		}
-		
-		// 2008-6-28 smithm
-		// The previous insertion optimization does not work in Qt 4.
-		// This method works with Qt 4, but is slower because it iterates
-		// over the map twice.
 		QMap<QString,QPair<QString,QString> >::iterator result;
 		QPair<QString,QString> pair = QPair<QString,QString>(id,fullName);
 		result = map.begin();
@@ -1199,9 +1140,6 @@ QMap<QString,int> DataAccess::buildResultMap( QSqlQuery& query )
 		// Insert the new item.  Nothing happens if it
 		// already exists.  We don't put any meaningful data in
 		// the map; we just want a sorted unique list of keys.
-		//2008-6-28 smithm
-		// This insertion call doesn't work in Qt 4, updated.
-		//map.insert( QPair<const QString, int>( key, 0 ) );
 		map.insert(key, 0);
 	}
 
@@ -1649,9 +1587,6 @@ bool DataAccess::addCombinedResultToDataSheet(perfResult * pr){
            queryText = "select seq_performance_result.nextval from dual";
        }
        else if ( driver == "QPSQL7" || driver == "QPSQL") {
-			// smithm 2008-7-2
-			// Updated so that queryText is the same for the QPSQL7 and
-			// QPSQL driver.
            queryText = "select nextval('seq_performance_result')";
        }
        else if ( driver == "QMYSQL3" || driver == "QMYSQL" ) {
@@ -2255,7 +2190,6 @@ void DataAccess::getResultAttributes( QStringList prIds, QString attrName )
 
 void DataAccess::getResultResources( QString resType )
 {
-	// smithm 2008-7-28
 	// There is a bug in MySQL that prevents using a temp table
 	// multiple times in a querry.  The solution used here is to
 	// duplicate the temp table, use the original and duplicate
@@ -2332,7 +2266,6 @@ void DataAccess::getResultResources( QString resType )
 
 void DataAccess::getResultAttributes( QString attrName )
 {
-	// smithm 2008-7-28
 	// There is a bug in MySQL that prevents using a temp table
 	// multiple times in a querry.  The solution used here is to
 	// duplicate the temp table, use the original and duplicate
@@ -2673,8 +2606,6 @@ int DataAccess::insertResource(QString resName, QString resType){
         queryText = "select seq_resource_item.nextval from dual";
     } 
     else if ( driver == "QPSQL7" || driver == "QPSQL" ) {
-		// smithm 2008-7-2
-		// Updated so that queryText is the same for the QPSQL7 and QPSQL driver.
 	queryText = "select nextval('seq_resource_item')";
     } else if ( driver == "QMYSQL3" || driver == "QMYSQL" ) {
 		QString updateText = "UPDATE sequence SET prev_value = @ri_value := prev_value + 1 where name = 'seq_resource_item'";
@@ -2783,9 +2714,6 @@ int DataAccess::createContext(Context c){
         if( driver == "QOCI8" ) {
             queryText = "select seq_focus.nextval from dual";
         } else if ( driver == "QPSQL7" || driver == "QPSQL" ) {
-			// smithm 2008-7-2
-			// Updated so that queryText is the same for the QPSQL7 and
-			// QPSQL driver.
             queryText = "select nextval('seq_focus')";
         } else if ( driver == "QMYSQL3" || driver == "QMYSQL" ) {
 			QString updateText = "UPDATE sequence SET prev_value = @f_value := prev_value + 1 where name = 'seq_focus'";
@@ -2940,9 +2868,6 @@ bool DataAccess::savePerformanceResult(perfResult * pr, bool combined){
             queryText = "select seq_performance_result.nextval from dual";
         }
         else if ( driver == "QPSQL7" || "QPSQL" ) {
-			// smithm 2008-7-2
-			// Updated so that queryText is the same for the QPSQL7 and
-			// QPSQL driver.
             queryText = "select nextval('seq_performance_result')";
         }
         else{

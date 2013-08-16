@@ -422,12 +422,6 @@ void SelectionDialog:: setItemCount( Q3ListViewItem * item, int col )
 	bool descendants = ( relatives == 'B' || relatives == 'D' );
 	QString resources = it->resources( ancestors, descendants );
 
-    // 2008-6-25 smithm
-    // This conditional operator appears to be attempting to set resList to a
-    // new QStringList if resources is empty else set resList to resources.
-    // However, resList is of type QStringList and resources is of type
-    // QString.  Changed so that resources is added to the resList instead.
-    // QStringList resList = resources.isEmpty() ? QStringList() : resources;
     QStringList resList;
     if (resources.isEmpty())
         resList = QStringList();

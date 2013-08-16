@@ -23,12 +23,6 @@
 
 
 typedef QPair<QString,QString> ResourceTypeAndName;
-// 2008-6-28 smithm
-// qt3to4 changed the class from QValueList to Q3ValueList.
-// This caused errors in qalgorithms.h due to undefined overloaded
-// operators.  Changed to a QList which is supported in Qt 4, and
-// allowed the program to compile.
-//typedef Q3ValueList<ResourceTypeAndName> Context;
 typedef QList<ResourceTypeAndName> Context;
 typedef Q3ValueList<Context> ContextList;
 

@@ -42,8 +42,6 @@ FileOptionsDialog:: FileOptionsDialog( QWidget * parent, const char * name )
 
 QString FileOptionsDialog:: rowSep() const
 {   
-	// smithm 2008-6-25
-	// selected() now return a pointer to a QAbstractButton
 	QAbstractButton * b = rowSepButtonGroup->selected();
 	
 	if( b == nlRowRadioButton )
@@ -54,8 +52,6 @@ QString FileOptionsDialog:: rowSep() const
         
 QString FileOptionsDialog:: colSep() const
 {       
-	// smithm 2008-6-25
-	// selected() now return a pointer to a QAbstractButton
 	QAbstractButton * b = colSepButtonGroup->selected();
 	if( b == commaColRadioButton ) 
         	return QString( "," );
@@ -121,8 +117,6 @@ void FileOptionsDialog:: setDefaultExtension( int )
 	} else {
 		// Row separator is newlines; set extension based on
 		// column separator
-		// smithm 2008-6-25
-		// selected() now return a pointer to a QAbstractButton
 		QAbstractButton * b = colSepButtonGroup->selected();
 		if( b == commaColRadioButton ) {
 			fileExtensionLineEdit->setText( ".csv" );
