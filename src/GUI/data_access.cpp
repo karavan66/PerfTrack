@@ -1441,38 +1441,6 @@ void DataAccess::getResults( QStringList resources, QString metricIds, QString f
 		return;
 	}
 
-#if 0
-	// This version of the query works but is somewhat slower
-	// (in limited testing) than the other version.  However,
-	// this form, using subqueries, is faster than the version
-	// with extra joins for getting only the number of results,
-	// so we didn't change getResultCount
-	QString queryText = 
-	       	"SELECT pr.id result_id, pr.start_time start_time, "
-		"pr.end_time end_time, "
-		"pr.value value, pr.units units, riA.name metric, "
-		"riB.name tool, riC.name application_name "
-		"FROM performance_result pr,performance_result_has_focus prhf, "
-		"resource_item riA, resource_item riB, resource_item riC "
-		"WHERE pr.metric_id = riA.id "
-		"AND pr.performance_tool_id = riB.id "
-		"AND pr.application_id = riC.id "
-		"AND pr.id = prhf.performance_result_id "
-		"AND prfh.focus_id = fhr.focus_id "
-		"AND prhf.focus_id IN "
-		"( ( SELECT focus_id FROM focus_has_resource "
-		"WHERE resource_id IN (" + resources.first() + ") ) ";
-	// Start from the second item in the list, since we've
-	// already seen the first one.
-	QStringList::ConstIterator rit = resources.begin();
-	for( ++rit; rit != resources.end(); ++rit ) {
-		queryText += "INTERSECT ( SELECT focus_id FROM "
-			"focus_has_resource WHERE resource_id IN "
-			"( " + *rit + ") ) ";
-	}
-
-	queryText += ")";
-#endif
 #ifdef USE_OLD_TABLES
 	QString queryText =
 	       	"SELECT pr.id AS result_id, pr.start_time AS start_time, "
@@ -2375,27 +2343,6 @@ void DataAccess::getResultResources( QStringList prIds, QString resType )
 	// The UNION operator gives us both cases; trying to form a
 	// single query was difficult without using DISTINCT, and that
 	// seemed to make things very slow.
-#if 0
-	// Replaced by newer version below that doesn't use prhf
-	QString queryText =
-		"SELECT prhf.performance_result_id, ri.name "
-		"FROM performance_result_has_focus prhf, "
-			"focus_has_resource fhr, resource_item ri "
-		"WHERE prhf.performance_result_id IN (" + idList + ") "
-		"AND prhf.focus_id = fhr.focus_id "
-		"AND fhr.resource_id = ri.id  "
-		"AND ri.type = '" + resType + "' "
-		"UNION "
-		"SELECT prhf.performance_result_id, ri.name "
-		"FROM performance_result_has_focus prhf, "
-			"focus_has_resource fhr, resource_item ri, "
-			"resource_has_ancestor rha "
-		"WHERE prhf.performance_result_id IN (" + idList + ") "
-		"AND prhf.focus_id = fhr.focus_id "
-		"AND fhr.resource_id = rha.rid AND rha.aid = ri.id "
-		"AND ri.type = '" + resType + "' "
-		;
-#endif
 	QString queryText =
 		"SELECT pr.id, ri.name "
 		"FROM performance_result pr, "
@@ -2436,26 +2383,6 @@ void DataAccess::getResultAttributes( QStringList prIds, QString attrName )
 {
 
 	QString idList = prIds.join(",");
-#if 0
-	// Replaced by a version that doesn't use prhf
-	QString queryText =
-		"SELECT prhf.performance_result_id, ra.value "
-		"FROM performance_result_has_focus prhf, "
-			"focus_has_resource fhr, resource_attribute ra "
-		"WHERE prhf.performance_result_id IN (" + idList + ") "
-		"AND prhf.focus_id = fhr.focus_id "
-		"AND fhr.resource_id = ra.resource_id " 
-		"AND ra.name = '" + attrName + "' "
-		"UNION "
-		"SELECT prhf.performance_result_id, ra.value "
-		"FROM performance_result_has_focus prhf, "
-			"focus_has_resource fhr, resource_attribute ra, "
-			"resource_has_ancestor rha "
-		"WHERE prhf.performance_result_id IN (" + idList + ") "
-		"AND prhf.focus_id = fhr.focus_id "
-		"AND fhr.resource_id = rha.rid AND rha.aid = ra.resource_id "
-		"AND ra.name = '" + attrName + "'";
-#endif
 	QString queryText =
 		"SELECT pr.id, ra.value "
 		"FROM performance_result pr, "
