@@ -898,7 +898,6 @@ int DataAccess::addResourcesByName( QString type, QString name )
         qDebug("executing: %s\n", qPrintable(queryText));
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 
@@ -1060,7 +1059,6 @@ void DataAccess::deleteResourcesByName( QString type, QString name )
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -1109,7 +1107,6 @@ void DataAccess::deleteResourcesByAttribute( QString type, QString attr, QString
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -1296,7 +1293,6 @@ int DataAccess::getResultCount( int typeCount, QString /*metricIds*/, QStringLis
 	// results are actually requested.
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( "DELETE FROM " + focusTableName ) ) {
@@ -1427,7 +1423,6 @@ void DataAccess::getResults( int typeCount, QString /*metricIds*/, QString filte
 	// Clear out the results table
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( "DELETE FROM " + resultTableName ) ) {
@@ -1609,7 +1604,6 @@ perfResultList * DataAccess::getResultsForCombining(int typeCount, QString metri
 	// Submit the query to get the result list
 	QSqlQuery query;
 
-       // Bhagya Y:
        query.setForwardOnly( true );	// optimize for simple traversal
 
 	qDebug("executing: %s\n", qPrintable(queryText));
@@ -1671,14 +1665,10 @@ bool DataAccess::addCombinedResultToDataSheet(perfResult * pr){
             return false;
        }
    
-       // Bhagya Y:
-       //QSqlQuery query(queryText);
        QSqlQuery query;
 
-       // Bhagya Y:
        query.setForwardOnly( true );	// optimize for simple traversal
 
-       // Bhagya Y:
        query.exec( queryText );
 
        if (query.next()){
@@ -1725,7 +1715,6 @@ bool DataAccess::addCombinedResultToDataSheet(perfResult * pr){
     qDebug("add to data sheet query: %s\n", qPrintable(queryText));
     QSqlQuery query;
 
-     // Bhagya Y:
      query.setForwardOnly( true );	// optimize for simple traversal
 
     if (!query.exec(queryText)){
@@ -1757,7 +1746,6 @@ bool DataAccess::removeResultFromSheet(perfResult * pr, int sheet){
     QString queryText = "delete from " + resultTableName + " where result_id=" + QString::number(resId);
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
     if(!query.exec(queryText)){
@@ -1867,7 +1855,6 @@ int DataAccess::addAncestorsByName( QString type, QString name )
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 
@@ -1915,7 +1902,6 @@ int DataAccess::addDescendantsByName( QString type, QString name )
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -1968,7 +1954,6 @@ int DataAccess::addAncestorsByAttribute( QString type, QString attr, QString val
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
     	qDebug("executing: %s\n", qPrintable(queryText));
@@ -2021,7 +2006,6 @@ int DataAccess::addDescendantsByAttribute( QString type, QString attr, QString v
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
     	qDebug("executing: %s\n", qPrintable(queryText));
@@ -2071,7 +2055,6 @@ void DataAccess::deleteAncestorsByName( QString type, QString name )
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -2094,7 +2077,6 @@ void DataAccess::deleteDescendantsByName( QString type, QString name )
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -2120,7 +2102,6 @@ void DataAccess::deleteAncestorsByAttribute( QString type, QString attr, QString
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -2147,7 +2128,6 @@ void DataAccess::deleteDescendantsByAttribute( QString type, QString attr, QStri
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -2454,7 +2434,6 @@ void DataAccess::deleteAllResources()
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( queryText ) ) {
@@ -2490,14 +2469,10 @@ QStringList DataAccess::getAllMetricNames(){
 
 	qDebug("query to get metric names: %s\n", qPrintable(queryText));
 
-        // Bhagya Y:
-	//QSqlQuery query( queryText );
         QSqlQuery query;
 
-        // Bhagya Y:
         query.setForwardOnly( true );	// optimize for simple traversal
 
-        // Bhagya Y:
         query.exec( queryText );
 	while (query.next()){
             QString name = query.value(0).toString();
@@ -2510,14 +2485,10 @@ QStringList DataAccess::getAllLabelNames(){
     //get all the label names from the database for display in GUI lists
         QStringList labelNames;
         QString queryText = "select distinct label from performance_result where label != ''";
-        // Bhagya Y:
-	//QSqlQuery query( queryText );
         QSqlQuery query;
 
-        // Bhagya Y:
         query.setForwardOnly( true );	// optimize for simple traversal
 
-        // Bhagya Y:
         query.exec( queryText );
 	while (query.next()){
             QString name = query.value(0).toString();
@@ -2532,14 +2503,10 @@ QStringList DataAccess::getAllUnitsNames(){
     //get all the units names from the database for display in GUI lists
         QStringList unitsNames;
         QString queryText = "select distinct units from performance_result  where units != ''";
-        // Bhagya Y:
-	//QSqlQuery query( queryText );
         QSqlQuery query;
 
-        // Bhagya Y:
         query.setForwardOnly( true );	// optimize for simple traversal
 
-        // Bhagya Y:
         query.exec( queryText );
 	while (query.next()){
             QString name = query.value(0).toString();
@@ -2563,7 +2530,6 @@ Context DataAccess::getContextFromResultId(int resId){
 
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
     query.exec(queryText);
@@ -2639,14 +2605,10 @@ int DataAccess::findResourceByName(QString resName){
     if (resName == QString::null)
 	return -1;
     QString queryText = "select id from resource_item where name='" + resName + "'";
-    // Bhagya Y:
-    // QSqlQuery query(queryText);
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
-    // Bhagya Y:
     query.exec( queryText );
     if (query.next()){
        resId = query.value(0).toInt();
@@ -2664,14 +2626,10 @@ int DataAccess::getFocusFrameworkId(QString type){
     int fid = -1;
 
     QString queryText = "select id from focus_framework where type_string='" + type + "'";
-    // Bhagya Y:
-    // QSqlQuery query(queryText);
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
-    // Bhagya Y:
     query.exec( queryText );
     if (query.next())
        fid = query.value(0).toInt();
@@ -2730,7 +2688,6 @@ int DataAccess::insertResource(QString resName, QString resType){
     }
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
     query.exec( queryText );
@@ -2777,13 +2734,10 @@ int DataAccess::findContextByName(Context c){
         fname += (*it).second;
     }
     QString queryText = "select id from focus where focusName = '" + fname + "'";
-     // Bhagya Y:
     QSqlQuery query;
 
-     // Bhagya Y:
      query.setForwardOnly( true );	// optimize for simple traversal
 
-     // Bhagya Y:
      query.exec( queryText );
     if (query.next()){
 	contextid = query.value(0).toInt();
@@ -2842,14 +2796,10 @@ int DataAccess::createContext(Context c){
              QMessageBox::information(NULL, "Unknown database", msg);
              return -1;
         }
-        //QSqlQuery query(queryText);
-        // Bhagya Y:
         QSqlQuery query;
 
-        // Bhagya Y:
         query.setForwardOnly( true );	// optimize for simple traversal
 
-        // Bhagya Y:
         query.exec( queryText );
         if (query.next()){
            contextId = query.value(0).toInt();
@@ -2904,7 +2854,6 @@ void DataAccess::resultSaved(int sheet, perfResult * pr){
     QString queryText = "update " + resultTableName + " set saved=1 where result_id=" + QString::number(resid);
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
     qDebug("resultSaved query:%s\n", qPrintable(queryText));
@@ -2933,7 +2882,6 @@ bool DataAccess::savePerformanceResult(perfResult * pr, bool combined){
     QString queryText;
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
     //a safety check. if it's  a combined result, check to make sure its parent results
@@ -3078,7 +3026,6 @@ QStringList DataAccess::getResultLabels(){
     QString queryText = "select distinct label from performance_result";
     QSqlQuery query( curDb );
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
     query.exec(queryText);
@@ -3107,7 +3054,6 @@ void DataAccess::dropTempTable( QString& name )
 		"DROP TABLE " + name;
 	QSqlQuery query;
 
-       // Bhagya Y:
        query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( queryText ) ) {
@@ -3123,7 +3069,6 @@ bool DataAccess::duplicateTable (QString orig, QString dup)
 	queryText = "CREATE TEMPORARY TABLE " + dup + " SELECT * FROM " + orig;
 	QSqlQuery query;
 
-       // Bhagya Y:
        query.setForwardOnly( true );	// optimize for simple traversal
 
 	if (!query.exec(queryText)) {
