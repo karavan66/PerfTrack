@@ -35,9 +35,6 @@
 // For cout
 #include <iostream>
 
-// Work around the fact that metric ids are not stored in the focus
-//#define METRIC_HACK
-
 // For buildFocusList
 //QStringList SelectionDialog:: focusTypes;
 
@@ -193,23 +190,14 @@ void SelectionDialog:: deleteConstraints()
 	dataSource->beginAdd();
 	while( ( selItem = (ConstraintListItem*)(items.current()) ) != 0 ) {
 		++items;
-#ifdef METRIC_HACK
-		if( selItem->text( TypeCol ) == "metric" ) {
-			metricIds = QString();
+		// It's a resource-type entry (not a specific set 
+		// of resources)
+		if( selItem->text( ValueCol ) == "ANY" ) {
+			dataSource->deleteResourcesByName(
+				selItem->text( TypeCol ) , QString() );
+		} else {
+			deleteItemRelatives( selItem, Self | FromItem );
 		}
-		else {
-#endif
-			// It's a resource-type entry (not a specific set 
-			// of resources)
-			if( selItem->text( ValueCol ) == "ANY" ) {
-				dataSource->deleteResourcesByName(
-					selItem->text( TypeCol ) , QString() );
-			} else {
-				deleteItemRelatives( selItem, Self | FromItem );
-			}
-#ifdef METRIC_HACK
-		}
-#endif
 
 		delete selItem;
 	}
@@ -327,17 +315,6 @@ void SelectionDialog:: addConstraint( QString type, QString value,
 	ConstraintListItem * item = new ConstraintListItem( constraintListView,
 			"D", type, value, "---", resourceType, resources );
 	
-
-#ifdef METRIC_HACK 
-	// Ugly hack to handle metrics specially
-	if( type == "metric" ) {
-		item->setResources( QString() );	// Blank out res list
-		item->setText( RelCol, "N" );
-		item->setRenameEnabled( RelCol, false );
-		metricIds = resources;
-		return;
-	}
-#endif
 
 	// Allow user to set the value in RelCol (types of relatives to get)
 	item->setRenameEnabled( RelCol, true );
@@ -459,19 +436,10 @@ void SelectionDialog:: setItemCount( Q3ListViewItem * item, int col )
 
 	// Get data for just the metric or just the resource list
 	QString resultCount;
-#ifdef METRIC_HACK
-	if( it->text( TypeCol ) == "metric" ) {
-		resultCount = QString::number( dataSource->getResultCount(
-					QStringList(), metricIds ) );
-		it->setText( CountCol, resultCount );
-	} else {
-#endif
-		resultCount = QString::number( dataSource->getResultCount(
-					1, QString(), labelList() ) );
-		it->setText( CountCol, resultCount );
-#ifdef METRIC_HACK
-	}
-#endif
+	resultCount = QString::number( dataSource->getResultCount(
+				1, QString(), labelList() ) );
+	it->setText( CountCol, resultCount );
+
 	// If this is the only item, the total count will be the
 	// same as resultCount, which we just computed; otherwise,
 	// we need to get the overall count now.
@@ -542,11 +510,6 @@ QStringList SelectionDialog:: buildResourceIdList()
 	ConstraintListItem * cur;
 	while( ( cur = (ConstraintListItem*)(items.current()) ) != 0 ) {
 		++items;
-
-#ifdef METRIC_HACK
-		// Skip if this resource type is "metric"
-		if( cur->text( TypeCol ) == "metric" ) continue;
-#endif
 
 		// Get the set of resources, including the requested
 		// relatives
