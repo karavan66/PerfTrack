@@ -39,6 +39,5 @@ ON focus_framework, resource_item, resource_attribute, resource_constraint,
    seq_focus_framework, seq_resource_item, seq_focus, seq_performance_result, 
    seq_resource_name, seq_build_name
 TO GROUP pperftrac;
--- TO tspencer, ewilson, knappr, karavan, kathryn, bpugh;
 
 
