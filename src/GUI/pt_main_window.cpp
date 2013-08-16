@@ -251,20 +251,12 @@ void PTMainWindow::doNewQuery()
 		// should be unneccesary)
 		qApp->processEvents();
 
-#ifdef USE_OLD_TABLES
-		// Probably should emit a signal instead of making a direct call
-		dataSource->getResults( selectionDialog->buildResourceIdList(),
-				selectionDialog->metricIdList(),
-				selectionDialog->selectionFilterLineEdit
-					->text() );
-#else
 		dataSource->getResults( selectionDialog->typeCount(),
 				selectionDialog->metricIdList(),
 				//selectionDialog->selectionFilterLineEdit
 				//	->text(),
                                 QString::null,
                                 selectionDialog->labelList());
-#endif
 		statusBar()->clear();
 	}
 }

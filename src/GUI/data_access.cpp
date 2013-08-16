@@ -11,8 +11,6 @@
 *
 *****************************************************************/
 
-#define USE_GROUP_BY 1
-
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qlineedit.h>
@@ -580,23 +578,13 @@ void DataAccess::findResourcesByType( QString resourceType, QString filter,void 
 	if( ! query.exec( queryText ) )
 		return;
 
-#ifdef USE_OLD_TABLES
 	// Create a merged list of names, using either the full name
 	// or just the last part (after the final '/'), depending on
 	// the compiled value of USE_FULL_RESOURCE_NAMES
-	QMap<QString,QPair<QString,QString> > map = buildResultMap( query,
-			! USE_FULL_RESOURCE_NAMES );
-
-	if( map.count() > 0 ) {
-		emit foundResourcesByType( resourceType, map, requester );
-	}
-#else
 	QMap<QString,int> map = buildResultMap( query );
 	if( map.count() > 0 ) {
 		emit foundResourcesByType( resourceType, map, requester );
 	}
-#endif
-
 }
 
 void DataAccess::findAttributesByName( QString attribute, QString filter, SelectionListItem * parentListItem )
@@ -609,25 +597,6 @@ void DataAccess::findAttributesByName( QString attribute, QString filter, Select
 	QSqlQuery query;
 	query.setForwardOnly( true );	// optimize for simple traversal
 
-#ifdef USE_OLD_TABLES
-	QString queryText = "SELECT value, resource_id "
-			"FROM resource_attribute "
-			"WHERE name = '" + attribute + "' ";
-
-	if( ! filter.isEmpty() )
-		queryText += " AND " + filter;
-
-        qDebug("executing: %s\n", qPrintable(queryText));
-	if( ! query.exec( queryText ) )
-		return;
-
-	QMap<QString,QPair<QString,QString> > map
-		= buildResultMap( query, false );
-
-	if( map.count() > 0 ) {
-		emit foundAttributesByName( attribute, map, parentListItem );
-	}
-#else
 	QString queryText = "SELECT DISTINCT value "
 			"FROM resource_attribute "
 			"WHERE name = '" + attribute + "' ";
@@ -642,7 +611,6 @@ void DataAccess::findAttributesByName( QString attribute, QString filter, Select
 	if( list.count() > 0 ) {
 		emit foundAttributesByName( attribute, list, parentListItem );
 	}
-#endif
 }
 
 void DataAccess::findResourcesByParent( QString idList, QString filter, SelectionListItem * parentListItem )
@@ -1249,46 +1217,6 @@ int DataAccess::getResultCount( QStringList resources, QString metricIds )
 	// Nothing specified, so there are no matching results
 	if( resources.count() == 0 && metricIds.isEmpty() ) return 0;
 
-#ifdef USE_OLD_TABLES
-	QString queryText 
-	"SELECT COUNT(*) FROM performance_result ";
-	if( resources.count() != 0 ) {
-#ifdef USE_GROUP_BY
-		queryText +=
-			"WHERE focus_id IN "
-			"( SELECT focus_id FROM focus_has_resource "
-			"  WHERE resource_id IN ( " + resources.join(",") + ") "
-			"  GROUP BY focus_id "
-			"  HAVING COUNT(resource_id) = "
-			+ QString::number( resources.count() ) + ")";
-#else
-		queryText +=
-			"WHERE focus_id IN "
-			"( (SELECT focus_id FROM focus_has_resource "
-				"WHERE resource_id IN ("
-				+ resources.first() + ") ) ";
-
-		// Start from the second item in the list, since we've
-		// already seen the first one.
-		QStringList::ConstIterator rit = resources.begin();
-		for( ++rit; rit != resources.end(); ++rit ) {
-			queryText += "INTERSECT ( SELECT focus_id FROM "
-				"focus_has_resource WHERE resource_id IN "
-				"( " + *rit + ") ) ";
-		}
-
-		queryText += ")";
-#endif
-
-		// Both metric id and resource ids were given
-		if( ! metricIds.isEmpty() )
-			queryText += " AND metric_id IN (" + metricIds + ")";
-	} else {
-		// Only the metric ids were given...
-		queryText +=
-			"WHERE metric_id IN (" + metricIds + ")";
-	}
-#else
 	QString queryText =
 		"SELECT COUNT(*) FROM performance_result_has_focus "
 		"WHERE focus_id IN "
@@ -1299,8 +1227,7 @@ int DataAccess::getResultCount( QStringList resources, QString metricIds )
 		"  WHERE t.name = fhrn.resource_name "
 		"  GROUP BY fhrn.focus_id HAVING COUNT(resource_name) = "
 		   + QString::number( resources.count() ) + ")";
-	// FIX!! Need to handle metric ids 
-#endif
+	// FIXME Need to handle metric ids 
 
 	printf( "DataAccess::getResultCount query:\n%s\n", qPrintable(queryText) );
 	
@@ -1441,76 +1368,6 @@ void DataAccess::getResults( QStringList resources, QString metricIds, QString f
 		return;
 	}
 
-#ifdef USE_OLD_TABLES
-	QString queryText =
-	       	"SELECT pr.id AS result_id, pr.start_time AS start_time, "
-		"pr.end_time AS end_time, "
-		"pr.value AS value, pr.units AS units, riA.name AS metric, "
-		"riB.name AS tool, riC.name AS application_name "
-		"FROM performance_result pr, "
-		"resource_item riA, resource_item riB, resource_item riC ";
-#ifndef USE_GROUP_BY
-	// Add a join on focus_has_resource for each resource
-	unsigned i;
-	for( i = 0; i < resources.count(); ++i ) {
-		queryText += ", focus_has_resource fhr" + QString::number( i )
-			+ " ";
-	}
-#endif
-
-	// Now some more of the query...
-	queryText +=
-		"WHERE pr.metric_id = riA.id "
-		"AND pr.performance_tool_id = riB.id "
-		"AND pr.application_id = riC.id ";
-
-	// See if we're selecting on metric ids
-	if( ! metricIds.isEmpty() ) {
-		queryText += "AND pr.metric_id IN (" + metricIds + ") ";
-	}
-	
-#ifdef USE_GROUP_BY
-	// Get the set of matching foci and the corresponding results
-	queryText +=
-		"AND pr.focus_id IN "
-		"( SELECT focus_id FROM focus_has_resource "
-		"  WHERE resource_id IN ( " + resources.join(",") + ") "
-		"  GROUP BY focus_id "
-		"  HAVING COUNT(resource_id) = "
-		+ QString::number( resources.count() ) + ")";
-#else
-	// Now the join condition for each resource
-	QStringList::ConstIterator rit;
-	for( i = 0, rit = resources.begin(); rit != resources.end();
-			++rit, ++i ) {
-		queryText += "AND pr.focus_id = fhr" + QString::number(i)
-			+ ".focus_id AND fhr" + QString::number(i)
-			+ ".resource_id IN (" + *rit + ") ";
-	}
-#endif
-#else
-/* the original query before table changes for combined performance results */
-/*	QString queryText =
-	       	"SELECT pr.id AS result_id, pr.start_time AS start_time, "
-		"pr.end_time AS end_time, "
-		"pr.value AS value, pr.units AS units, riA.name AS metric, "
-		"riB.name AS tool, riC.name AS application_name "
-		"FROM performance_result pr, "
-		"performance_result_has_focus prhf, "
-		"resource_item riA, resource_item riB, resource_item riC "
-		"WHERE pr.metric_id = riA.id "
-		"AND pr.performance_tool_id = riB.id "
-		"AND pr.application_id = riC.id "
-		"AND pr.id = prhf.performance_result_id "
-		"AND prhf.focus_id IN "
-		"( SELECT "
-		+ ociOrderedHint +
-		" focus_id FROM "
-		+ resourceTableName + " t, focus_has_resource_name fhrn "
-		"  WHERE t.name = fhrn.resource_name "
-		"  GROUP BY fhrn.focus_id HAVING COUNT(resource_name) = "
-		   + QString::number( resources.count() ) + ")";
-*/
 	QString queryText =
 	       	"SELECT pr.id AS result_id, pr.start_time AS start_time, "
 		"pr.end_time AS end_time, "
@@ -1528,7 +1385,6 @@ void DataAccess::getResults( QStringList resources, QString metricIds, QString f
 		"  WHERE t.name = fhrn.resource_name "
 		"  GROUP BY fhrn.focus_id HAVING COUNT(resource_name) = "
 		   + QString::number( resources.count() ) + ")";
-#endif
 
 
 	if( ! filter.isEmpty() ) {

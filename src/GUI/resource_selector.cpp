@@ -230,15 +230,10 @@ void ResourceSelector:: itemExpanded( Q3ListViewItem * item )
 	// Get the data and insert it as a child of this item,
 	// according to the requested view
 	if( sli->listView() == resourceListView ) {
-#ifdef USE_OLD_TABLES
-		emit needResourcesByParent( sli->resourceList(),
-				QString(), sli );
-#else
 		emit needResourcesByParent(
 				sli->text( SelectionListItem::ResTypeCol ),
 				qualifiedResourceName( sli ),
 				QString(), sli );
-#endif
 	} else {
 		emit needAttributesByName(
 				sli->text( SelectionListItem::AttrNameCol ),
@@ -393,8 +388,7 @@ void ResourceSelector:: setAttributeValues( QString name,
 	}
 }
 
-#ifndef USE_OLD_TABLES
-// This vesrion used when info is requested by attribute name
+// This version used when info is requested by attribute name
 void ResourceSelector:: requestItemInfo( Q3ListViewItem * lvi )
 {
 	// Show info on the current item, if the "Show Info" button
@@ -447,66 +441,7 @@ void ResourceSelector:: requestItemInfo( Q3ListViewItem * lvi )
 		showItemInfo( resList.first() );
 	}
 }
-#else
-// This version was used when we stored resource ids explicitly
-void ResourceSelector:: requestItemInfo( Q3ListViewItem * lvi )
-{
-	// Show info on the current item, if the "Show Info" button
-	// is pressed.
-	if( ! showInfoButton->isOn() ) return;
 
-	// We know this is really a selection list item
-	SelectionListItem * sli = (SelectionListItem *)lvi;
-
-	// Be sure it's valid
-	if( sli == NULL ) return;
-
-	// See if this is a single item or mutlples.
-	QStringList resourceIds = QStringList::split( QChar(','),
-			sli->resourceList() );
-	QStringList fullNames = QStringList::split( QChar(','),
-			sli->resourceNameList() );
-	QString resName = fullNames.first();
-
-	// Single item: display its name and show the list immediately
-	if( resourceIds.count() == 1 ) {
-		attributeDialog->labelStack->raiseWidget(
-				attributeDialog->labelPage );
-		attributeDialog->itemLabel->setText( resName );
-		resNameToId.clear();
-		resNameToId[ resName ] = resourceIds.first();
-		displayedSLI = sli;
-		showItemInfo( resName );
-	} else if( resourceIds.count() > 1 ) {
-	// Multiple items; put the names in a combo box, creat a map of
-	// names to ides, and show the data for the first resource right away
-		attributeDialog->labelStack->raiseWidget(
-				attributeDialog->comboBoxPage );
-
-		// Populate the combo box with the new set of resource
-		// names, and keep a mapping of resource names to ids.
-		attributeDialog->itemComboBox->clear();
-		resNameToId.clear();
-		QStringList::const_iterator rit;
-		QStringList::const_iterator nit;
-		for( rit = resourceIds.begin(), nit = fullNames.begin();
-				rit != resourceIds.end()
-				&& nit != fullNames.end();
-				++rit, ++nit ) {
-			attributeDialog->itemComboBox->insertItem( *nit );
-			resNameToId[ *nit ] = *rit;
-		}
-		displayedSLI = sli;
-		showItemInfo( resName );
-	} else {
-		// No resource ids in the list! This shouldn't happen!
-		qWarning( "Empty resource id list for item "
-				+ qualifiedResourceName( sli );
-	}
-}
-#endif
-
-#ifndef USE_OLD_TABLES
 // This version used when we request attributes by resource name
 void ResourceSelector:: showItemInfo( const QString& name )
 {
@@ -543,51 +478,6 @@ void ResourceSelector:: showItemInfo( const QString& name )
 		attributeDialog->showExecutionExtension( false );
 	}
 }
-#else
-// This version used when we stored explicit lists of resource ids
-void ResourceSelector:: showItemInfo( const QString& name )
-{
-
-	// See which resources we're looking at.
-	SelectionListItem * sli = displayedSLI;
-
-	if( sli == NULL ) return;
-
-	// Get the corresponding resource id to the given name
-	QString id = resNameToId[ name ];
-	if( id.isEmpty() ) return;
-
-	// Be sure the window is open (user could have closed it w/o
-	// changing the showInfoButton state)
-	attributeDialog->show();
-
-	if( sli->attributesFetched() ) {
-		showItemAttributes( sli->attributeList( id ) );
-	} else {
-		emit needAttributesById( id, sli );
-	}
-
-	// For the special case that this is an execution resource,
-	// also look up and display the resources associated with this
-	// execution.
-	
-	if( sli->text( SelectionListItem::ResTypeCol ) == "execution" ) {
-		// First, be sure the extension is open
-		attributeDialog->showExecutionExtension( true );
-
-		// Now get the data, either cached or from the database
-		if( sli->executionResourcesFetched() ) {
-			showItemExecutionResources(
-					sli->executionResourcesList() );
-		} else {
-			emit needExecutionResourcesById( id, sli );
-		}
-	} else {
-		// Not the special case; be sure the extension is closed
-		attributeDialog->showExecutionExtension( false );
-	}
-}
-#endif
 
 // This version used when we ask for attributes based on resource string
 void ResourceSelector:: setItemAttributesMap(
@@ -616,11 +506,6 @@ void ResourceSelector:: setItemExecutionResources(
 {
 	sli->setExecutionResourceList( res );
 
-#ifdef USE_OLD_TABLES
-	// Assume this data is coming in as a result of a pending request
-	// to pop up a window, so go ahead and do that.
-	showItemExecutionResources( res );
-#endif
 	sli->setExecutionResourcesFetched( true );
 
 }
