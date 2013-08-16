@@ -324,8 +324,6 @@ bool DataAccess::setupDBConnection()
 	if( tables.grep( resourceTableName, FALSE ).isEmpty() )
 		createTempTable( resultTableName,
 			"saved SMALLINT, "
-//S sharma -- made changes to add 'chk' column to GUI for showing High, Low, Expected and Unknown values of performance result
-//			"value FLOAT, units VARCHAR(255), "
 			"value FLOAT, chk VARCHAR(4000), units VARCHAR(255), "
 			"metric VARCHAR(255), label VARCHAR(4000), combined SMALLINT, start_time VARCHAR(256), end_time VARCHAR(256), result_id INTEGER " );
 
@@ -1383,12 +1381,8 @@ void DataAccess::getResults( int typeCount, QString /*metricIds*/, QString filte
         */
 	QString queryText =
 		"INSERT INTO " + resultTableName +
-//S sharma -- made changes to add 'chk' column to GUI for showing High, Low, Expected and Unknown values of performance result
-//		"(saved, result_id, start_time, end_time, value, units, metric, label, combined) "
 		"(saved, result_id, start_time, end_time, value, chk, units, metric, label, combined) "		
-	       	//"SELECT pr.id, pr.start_time, pr.end_time, "
 	       	"SELECT 1, pr.id, pr.start_time, pr.end_time, "
-//		"pr.value, pr.units, riA.name, pr.label, pr.combined "
 		"pr.value, pr.chk, pr.units, riA.name, pr.label, pr.combined "
 		"FROM performance_result pr, resource_item riA ";
 	if( typeCount > 0 ) {
