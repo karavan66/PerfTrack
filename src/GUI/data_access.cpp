@@ -3275,8 +3275,7 @@ bool DataAccess::savePerformanceResult(perfResult * pr, bool combined){
     // add parent res ids to  combined_perf_result_has_member table
          Q3ValueList<int> pRIds = pr->getParentResultIds();
 	 for (Q3ValueList<int>::iterator it = pRIds.begin(); it != pRIds.end(); ++it){
-             //queryText = "insert into combined_perf_result_members (c_pr_id, pr_id) values (" + QString::number(resId) + "," + QString::number((*it)) + ")";
-             queryText = "insert into combined_perf_result__gen_members (c_pr_id, pr_id) values (" + QString::number(resId) + "," + QString::number((*it)) + ")";
+             queryText = "insert into combined_perf_result_members (c_pr_id, pr_id) values (" + QString::number(resId) + "," + QString::number((*it)) + ")";
 	     if(!query.exec(queryText)){
                 QString msg = "Entering parent results for combined performance result failed. The query was: " + queryText;
 		QMessageBox::information(NULL, "Performance Result Error", msg);
