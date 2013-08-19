@@ -60,22 +60,6 @@ void DataTable:: populateTable( Q3SqlCursor cursor )
 	qDebug( "starting to read data %s\n",
 		qPrintable(QTime::currentTime().toString("hh:mm:ss.zzz")) );
 
-#if 0
-	// Add the data, row by row.
-	int row = 0;
-	while( cursor.next() ) {
-//		insertRows( row, 1 );
-		for( unsigned field = 0; field < cursor.count(); ++field ) {
-			QString text = cursor.value( field ).toString();
-//			setText( row, field, text );
-			// Save the key value in the map
-//			if( field == index_col ) {
-//				indexRow[text] = row;
-//			}
-		}
-		++row;
-	}
-#endif
 	// Populate the internal table
 	int row = 0;
 	while( cursor.next() ) {
@@ -110,15 +94,6 @@ void DataTable:: populateTable( Q3SqlCursor cursor )
 
 	qDebug( "done reading data %s\n",
 		qPrintable(QTime::currentTime().toString("hh:mm:ss.zzz")) );
-
-#if 0
-	for( unsigned i = 0; i < cursor.count(); i++ ) {
-		printf( "Column %d (%s) is a %s\n",
-				i, cursor.fieldName( i ).latin1(),
-				(colType[i] == TwoDTable<QString>::String)
-				? "String" : "Number" );
-	}
-#endif
 
 	// Apply any existing filters to the table
 	Filter * f;
@@ -270,37 +245,6 @@ void DataTable:: removeColumn( int col )
 
 	updateContents();
 }
-#if 0
-void DataTable:: deleteColumns( QStringList dropnames )
-{
-	// Loop over the headers and then each column in the table.
-	// Since we're likely to get the headers in order, optimize
-	// this case by looking for the next column right after
-	// the last one we found, instead of starting over at column
-	// 0 each time we find a new header.  If no matching column
-	// is found among those that remain, start again at column 0.
-	QStringList::iterator nit;
-	Q3Header * head = horizontalHeader();
-	int c = 0;
-	for( nit = dropnames.begin(); nit != dropnames.end(); ++nit ) {
-		for( cols_not_checked = numCols(); cols_not_checked > 0;
-				--cols_not_checked ) {
-			// Found a match; remove it and get ready to 
-			// look at the next column for the next name to drop.
-			if( head->label( c ) == *nit ) {
-				removeColumn( c );
-				// No need to advance c, since this column will
-				// be removed, but don't let it point past end
-				if( c >= numCols() ) c = 0;
-				break;
-			}
-			// No match, look at next column
-			if( ++c == numCols() ) c = 0;
-		}
-	}
-	// I THINK THIS IS DONE BUT I HAVEN'T CREATED CALLS TO IT OR TESTED
-}
-#endif
 
 void DataTable:: clearAll()
 {
@@ -498,15 +442,6 @@ void DataTable:: sortColumn( int col, bool ascending, bool )
 	// of the sort, resulting in the wrong rows being hiddend.
 	// done, the wrong rows will be hidden.  
 	
-#if 0
-	// Unhide all the rows
-	QMap<unsigned,unsigned>::iterator it;
-	for( it = activeFilterCount.begin(); it != activeFilterCount.end();
-			++it ) {
-		showRow( it.key() );
-	}
-#endif
-	
 	// Clear the list of hidden rows
 	activeFilterCount.clear();
 
@@ -658,15 +593,9 @@ bool DataTable:: printTable( QPrinter * printer, const QFont& font )
 				// the top left corner of r to match the
 				// origin of the page.)
 				
-				// smithm 2008-6-26
-				// QPainter::saveWorldMatrix is obsolete
-				//painter.saveWorldMatrix();
 				painter.save();
 				painter.translate( -r.x(), -r.y() );
 				srt.draw( &painter, 0, 0, r, colorGroup() );
-				// smithm 2008-6-26
-				// QPainter::restoreWorldMatrix is obsolete
-				//painter.restoreWorldMatrix();
 				painter.restore();
 			}
 		}
@@ -743,8 +672,6 @@ void DataTable::paintCell( QPainter * painter, int row, int col,
 	}
 
 	// Paint the text in the cell
-	// smithm 2008-6-26
-	// Fixed scope for AlignAuto and AlignVCenter
 	painter->drawText( 0, 0, cr.width(), cr.height(),
 			Qt::AlignAuto | Qt::AlignVCenter, text( row, col ) );
 

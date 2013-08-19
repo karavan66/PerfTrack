@@ -22,7 +22,7 @@ DROP INDEX resItemLookup;
 DROP INDEX focusNameSearch;
 DROP INDEX resourceFindEid;
 
--- Added by Sweta Sharma for 'value_in_range' and 'complex_perf_result' tables
+-- Added 'value_in_range' and 'complex_perf_result' tables
 
 DROP TRIGGER IF EXISTS value_chk ON value_in_range;
 DROP TABLE value_in_range;

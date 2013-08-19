@@ -45,12 +45,6 @@ bool operator>( const DataPoint& a, const DataPoint& b );
 bool operator==( const DataPoint& a, const DataPoint& b );
 
 //! Represents a set of datapoints in a graph.
-// 2008-6-27 smithm
-// qt3to4 changed the class from QValueList to Q3ValueList.
-// This caused errors in qalgorithms.h due to undefined overloaded
-// operators.  Changed to a QList which is supported in Qt 4, and
-// allowed the program to compile.
-//typedef Q3ValueList<DataPoint> Dataset;
 typedef QList<DataPoint> Dataset;
 
 #endif

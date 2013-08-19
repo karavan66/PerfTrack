@@ -78,10 +78,6 @@ public:
 	//! Returns true if there is a valid database connection, false 
 	//! if not.
 	bool isConnected() const;
-	// smithm 2006-8-25
-	// Since curDb is now a smart pointer to a QSqlDatabase it can no longer
-	// be compared with NULL.  Moved implementation to DataAccess.cpp.
-	//{	return curDb != NULL; }
 	
 	// Creates a duplicate of the orig table and names it dup
 	bool duplicateTable(QString orig, QString dup);
@@ -479,11 +475,6 @@ protected:
 	//! Remove the temporary table
 	void dropTempTable( QString& tablename );
 
-	// smithm 2008-6-25
-	// According to the Qt documenation QSqlDatabase is now a smart pointer.
-	// So, it should be passed by value.
-	// See: http://doc.trolltech.com/4.4/porting4.html#qsqldatabase
-	//QSqlDatabase * curDb;
 	QSqlDatabase curDb;
 
 	QString resourceTableName;

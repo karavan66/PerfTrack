@@ -83,8 +83,6 @@ TGBarChart::TGBarChart( QWidget * parent, const char * name, Qt::WFlags f )
 
 	// Use the text background color instead of the regular
 	// widget background for better contrast
-	// 2008-6-28 smithm
-	// Added scope to PaletteBase
 	setBackgroundMode( Qt::PaletteBase );
 }
 
@@ -816,13 +814,6 @@ void ChartGrid::drawGrid( QPainter * paint, QRect& boundary )
 		// may not appear at the far left of the chart if
 		// x_min is negative.
 
-		// 2008-6-28 smithm
-		// x_labels is of type QStringList.  In Qt 3 QStringList inherits from
-		// QValueList, in Qt 4 QStringList inherits from QList.  QValueList.at()
-		// returns an iterator, but QList.at returns a value of the type of
-		// the list.
-		// int first_label = QMAX( int( floor( x_min ) ), 0 );
-		//sit = x_labels.at( first_label );
 		sit = x_labels.begin();
 		while ((*sit).toDouble() < 0.0 && sit != x_labels.end()) {
 			sit++;

@@ -251,20 +251,12 @@ void PTMainWindow::doNewQuery()
 		// should be unneccesary)
 		qApp->processEvents();
 
-#ifdef USE_OLD_TABLES
-		// Probably should emit a signal instead of making a direct call
-		dataSource->getResults( selectionDialog->buildResourceIdList(),
-				selectionDialog->metricIdList(),
-				selectionDialog->selectionFilterLineEdit
-					->text() );
-#else
 		dataSource->getResults( selectionDialog->typeCount(),
 				selectionDialog->metricIdList(),
 				//selectionDialog->selectionFilterLineEdit
 				//	->text(),
                                 QString::null,
                                 selectionDialog->labelList());
-#endif
 		statusBar()->clear();
 	}
 }
@@ -644,13 +636,6 @@ void PTMainWindow::dbConnectionDone( bool success )
 	// an active connection, since that's normally first thing
 	// to do after we connect to a database.
 
-	// smithm 2008-6-26
-	// In Qt 4 activate now takes a QAction::ActionEvent as a parameter.
-	// I'm guessing that it should be QAction::Trigger
-	// smithm 2008-7-1
-	// This appears to be okay after running the program and looking through
-	// the code becasue what this function emits is not connected to a slot.
-	//if( success ) newQueryAction->activate();
 	if( success )
 		newQueryAction->activate(QAction::Trigger);
 }
@@ -1169,8 +1154,6 @@ bool PTMainWindow::plotData( TGBarChart * bar_chart, QString xAxis,
 
 	bar_chart->setYScale( QMIN( minValue, bar_chart->ymin() ),
 			QMAX( maxValue, bar_chart->ymax() ) );
-	// 2008-6-25 smithm
-	// xmax() returns a double, explicitly casting to an int
 	bar_chart->setXScale( 0, QMAX( maxItems, (int)bar_chart->xmax() ) );
 	return true;
 }

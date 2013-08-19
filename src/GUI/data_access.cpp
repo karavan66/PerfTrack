@@ -11,8 +11,6 @@
 *
 *****************************************************************/
 
-#define USE_GROUP_BY 1
-
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qlineedit.h>
@@ -31,7 +29,6 @@
 #include <qdatetime.h>
 //Added by qt3to4:
 #include <Q3ValueList>
-// smithm 2008-6-25
 // Added to get QSqlQuery::lastError to work
 #include <QSqlError>
 
@@ -86,8 +83,6 @@ static PortMapClass portMap;
 
 DataAccess::DataAccess( QObject * parent, const char * name )
 	: QObject( parent, name ), resultsUsingMetrics( 0 )
-	// smithm 2008-6-25
-	// Removed curDB from intitialization list because it is no longer a pointer
 {
 }
 
@@ -96,7 +91,6 @@ DataAccess::~DataAccess()
 	// Should be no need to close the database, and it can
 	// cause hangs.
 	
-	// smithmtest 2008-7-20
     // This is a hack for MySQL
     // Look for each temp table in the list (case-insensitively) and
 	// drop it if needed.
@@ -247,8 +241,6 @@ bool DataAccess::setupDBConnection()
 
 		// Now try to log in to the database
 		curDb = QSqlDatabase::addDatabase( dbtype );
-		// smithm 2008-6-25
-		// curDb no longer a pointer, changed -> to .
 		curDb.setDatabaseName( dbname );
 		curDb.setHostName( host );
 		if( user_port >= 0 ) {
@@ -268,21 +260,6 @@ bool DataAccess::setupDBConnection()
 
 			//QSqlDatabase::removeDatabase( curDb );
 
-			// smithm 2008-7-5
-			// void removeDatabase ( QSqlDatabase * db ) is no longer available
-			// in Qt 4.  In Qt 4, attempting to remove the database generates a
-			// warning that the connection is still in use and all queries will
-			// cease to work.  When the user re-enters the correct information
-			// the and the same database type is entered the new connection
-			// will not be added.  Thus, queries will not work.  However,
-			// if we do not remove the database on error and just have the user
-			// enter new database information the Qt database library will
-			// generate warning about a connection that is still in use, and
-			// that it has removed the old connection, but queries will work.
-
-			// smithm 2008-6-25
-			// curDb is no longer a pointer
-			//curDb = NULL;
 			if( hostConn != NULL ) delete hostConn;
 			if( whatNow == QMessageBox::Abort ) {
 				emit databaseConnected( false );
@@ -303,9 +280,6 @@ bool DataAccess::setupDBConnection()
 			settings.writeEntry( APP_KEY + DB_PORT, user_port );
 		}
 	
-	// smithm 2006-8-25
-	// curDb is no longer a pointer, check to see if it is valid instead.
-	//} while( curDb == NULL );
 	} while( !curDb.isOpen() );
 
 	// Shouldn't get here until we sucessfully open a connection;
@@ -350,8 +324,6 @@ bool DataAccess::setupDBConnection()
 	if( tables.grep( resourceTableName, FALSE ).isEmpty() )
 		createTempTable( resultTableName,
 			"saved SMALLINT, "
-//S sharma -- made changes to add 'chk' column to GUI for showing High, Low, Expected and Unknown values of performance result
-//			"value FLOAT, units VARCHAR(255), "
 			"value FLOAT, chk VARCHAR(4000), units VARCHAR(255), "
 			"metric VARCHAR(255), label VARCHAR(4000), combined SMALLINT, start_time VARCHAR(256), end_time VARCHAR(256), result_id INTEGER " );
 
@@ -369,7 +341,6 @@ void DataAccess::initDBCustomizations()
 		tempTableFlag = " GLOBAL TEMPORARY ";
 		tempTableSuffix = " ON COMMIT PRESERVE ROWS ";
 	} else if ( driver == "QPSQL7" || driver == "QPSQL") {
-		// smithm 2008-7-2
 		// Changed to setup the same database customizations for the QPSQL7
 		// and QPSQL driver.
 		tempTableFlag = " GLOBAL TEMPORARY ";
@@ -377,20 +348,10 @@ void DataAccess::initDBCustomizations()
 	} else if ( driver == "QSQLITE" ) {
 		tempTableFlag = " TEMPORARY ";
 		tempTableSuffix = "";
-	// smithm 2008-6-25
-	// It appears this should be a comparision and not an assignment.
-	//} else if ( driver = "QMYSQL3" ) {
-	// smithm 2008-7-8
-	// Changed to setup the same database customizations for the QMYSQL3
-	// and QMYSQL driver.
-    // smithmtest
-    // don't create temporary tables in MySQL
-	// switched back to temporary tables for now
 	} else if ( driver == "QMYSQL3" || driver == "QMYSQL" ) {
 		// MySQL Not tested yet!
 		tempTableFlag = " TEMPORARY ";
 		tempTableSuffix = " ";
-	// smithm 2008-7-2
 	// Set default customization for all other databases.
 	} else {
 		tempTableFlag = " TEMPORARY ";
@@ -580,23 +541,13 @@ void DataAccess::findResourcesByType( QString resourceType, QString filter,void 
 	if( ! query.exec( queryText ) )
 		return;
 
-#ifdef USE_OLD_TABLES
 	// Create a merged list of names, using either the full name
 	// or just the last part (after the final '/'), depending on
 	// the compiled value of USE_FULL_RESOURCE_NAMES
-	QMap<QString,QPair<QString,QString> > map = buildResultMap( query,
-			! USE_FULL_RESOURCE_NAMES );
-
-	if( map.count() > 0 ) {
-		emit foundResourcesByType( resourceType, map, requester );
-	}
-#else
 	QMap<QString,int> map = buildResultMap( query );
 	if( map.count() > 0 ) {
 		emit foundResourcesByType( resourceType, map, requester );
 	}
-#endif
-
 }
 
 void DataAccess::findAttributesByName( QString attribute, QString filter, SelectionListItem * parentListItem )
@@ -609,25 +560,6 @@ void DataAccess::findAttributesByName( QString attribute, QString filter, Select
 	QSqlQuery query;
 	query.setForwardOnly( true );	// optimize for simple traversal
 
-#ifdef USE_OLD_TABLES
-	QString queryText = "SELECT value, resource_id "
-			"FROM resource_attribute "
-			"WHERE name = '" + attribute + "' ";
-
-	if( ! filter.isEmpty() )
-		queryText += " AND " + filter;
-
-        qDebug("executing: %s\n", qPrintable(queryText));
-	if( ! query.exec( queryText ) )
-		return;
-
-	QMap<QString,QPair<QString,QString> > map
-		= buildResultMap( query, false );
-
-	if( map.count() > 0 ) {
-		emit foundAttributesByName( attribute, map, parentListItem );
-	}
-#else
 	QString queryText = "SELECT DISTINCT value "
 			"FROM resource_attribute "
 			"WHERE name = '" + attribute + "' ";
@@ -642,7 +574,6 @@ void DataAccess::findAttributesByName( QString attribute, QString filter, Select
 	if( list.count() > 0 ) {
 		emit foundAttributesByName( attribute, list, parentListItem );
 	}
-#endif
 }
 
 void DataAccess::findResourcesByParent( QString idList, QString filter, SelectionListItem * parentListItem )
@@ -930,7 +861,6 @@ int DataAccess::addResourcesByName( QString type, QString name )
         qDebug("executing: %s\n", qPrintable(queryText));
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 
@@ -1092,7 +1022,6 @@ void DataAccess::deleteResourcesByName( QString type, QString name )
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -1141,7 +1070,6 @@ void DataAccess::deleteResourcesByAttribute( QString type, QString attr, QString
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -1171,30 +1099,6 @@ QMap<QString,QPair<QString,QString> > DataAccess::buildResultMap( QSqlQuery& que
 		key = truncate ? fullName.section( QString(PTRESDELIM), -1 ) : fullName;
 		id = query.value(1).toString();
 
-		// Try to insert a new item; if it already exists,
-		// use the returned iterator to update.  (This approach
-		// should be faster than checking for the item and
-		// inserting if not found, because we traverse the map
-		// only once.)
-		//QPair<QMapIterator<QString,QPair<QString,QString> >,bool>
-//			result = map.insert( QPair<const QString,
-//					QPair<QString,QString> >
-//					( key,
-//					  QPair<QString,QString>( id,
-//						  fullName ) ) );
-
-		// Append the id if the string was already in the list
-		//if( ! result.second ) {
-//			(*result.first).first = (*result.first).first
-//				+ "," + id;
-//			(*result.first).second = (*result.first).second
-//				+ "," + fullName;
-//		}
-		
-		// 2008-6-28 smithm
-		// The previous insertion optimization does not work in Qt 4.
-		// This method works with Qt 4, but is slower because it iterates
-		// over the map twice.
 		QMap<QString,QPair<QString,QString> >::iterator result;
 		QPair<QString,QString> pair = QPair<QString,QString>(id,fullName);
 		result = map.begin();
@@ -1234,9 +1138,6 @@ QMap<QString,int> DataAccess::buildResultMap( QSqlQuery& query )
 		// Insert the new item.  Nothing happens if it
 		// already exists.  We don't put any meaningful data in
 		// the map; we just want a sorted unique list of keys.
-		//2008-6-28 smithm
-		// This insertion call doesn't work in Qt 4, updated.
-		//map.insert( QPair<const QString, int>( key, 0 ) );
 		map.insert(key, 0);
 	}
 
@@ -1249,46 +1150,6 @@ int DataAccess::getResultCount( QStringList resources, QString metricIds )
 	// Nothing specified, so there are no matching results
 	if( resources.count() == 0 && metricIds.isEmpty() ) return 0;
 
-#ifdef USE_OLD_TABLES
-	QString queryText 
-	"SELECT COUNT(*) FROM performance_result ";
-	if( resources.count() != 0 ) {
-#ifdef USE_GROUP_BY
-		queryText +=
-			"WHERE focus_id IN "
-			"( SELECT focus_id FROM focus_has_resource "
-			"  WHERE resource_id IN ( " + resources.join(",") + ") "
-			"  GROUP BY focus_id "
-			"  HAVING COUNT(resource_id) = "
-			+ QString::number( resources.count() ) + ")";
-#else
-		queryText +=
-			"WHERE focus_id IN "
-			"( (SELECT focus_id FROM focus_has_resource "
-				"WHERE resource_id IN ("
-				+ resources.first() + ") ) ";
-
-		// Start from the second item in the list, since we've
-		// already seen the first one.
-		QStringList::ConstIterator rit = resources.begin();
-		for( ++rit; rit != resources.end(); ++rit ) {
-			queryText += "INTERSECT ( SELECT focus_id FROM "
-				"focus_has_resource WHERE resource_id IN "
-				"( " + *rit + ") ) ";
-		}
-
-		queryText += ")";
-#endif
-
-		// Both metric id and resource ids were given
-		if( ! metricIds.isEmpty() )
-			queryText += " AND metric_id IN (" + metricIds + ")";
-	} else {
-		// Only the metric ids were given...
-		queryText +=
-			"WHERE metric_id IN (" + metricIds + ")";
-	}
-#else
 	QString queryText =
 		"SELECT COUNT(*) FROM performance_result_has_focus "
 		"WHERE focus_id IN "
@@ -1299,8 +1160,7 @@ int DataAccess::getResultCount( QStringList resources, QString metricIds )
 		"  WHERE t.name = fhrn.resource_name "
 		"  GROUP BY fhrn.focus_id HAVING COUNT(resource_name) = "
 		   + QString::number( resources.count() ) + ")";
-	// FIX!! Need to handle metric ids 
-#endif
+	// FIXME Need to handle metric ids 
 
 	printf( "DataAccess::getResultCount query:\n%s\n", qPrintable(queryText) );
 	
@@ -1369,7 +1229,6 @@ int DataAccess::getResultCount( int typeCount, QString /*metricIds*/, QStringLis
 	// results are actually requested.
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( "DELETE FROM " + focusTableName ) ) {
@@ -1441,108 +1300,6 @@ void DataAccess::getResults( QStringList resources, QString metricIds, QString f
 		return;
 	}
 
-#if 0
-	// This version of the query works but is somewhat slower
-	// (in limited testing) than the other version.  However,
-	// this form, using subqueries, is faster than the version
-	// with extra joins for getting only the number of results,
-	// so we didn't change getResultCount
-	QString queryText = 
-	       	"SELECT pr.id result_id, pr.start_time start_time, "
-		"pr.end_time end_time, "
-		"pr.value value, pr.units units, riA.name metric, "
-		"riB.name tool, riC.name application_name "
-		"FROM performance_result pr,performance_result_has_focus prhf, "
-		"resource_item riA, resource_item riB, resource_item riC "
-		"WHERE pr.metric_id = riA.id "
-		"AND pr.performance_tool_id = riB.id "
-		"AND pr.application_id = riC.id "
-		"AND pr.id = prhf.performance_result_id "
-		"AND prfh.focus_id = fhr.focus_id "
-		"AND prhf.focus_id IN "
-		"( ( SELECT focus_id FROM focus_has_resource "
-		"WHERE resource_id IN (" + resources.first() + ") ) ";
-	// Start from the second item in the list, since we've
-	// already seen the first one.
-	QStringList::ConstIterator rit = resources.begin();
-	for( ++rit; rit != resources.end(); ++rit ) {
-		queryText += "INTERSECT ( SELECT focus_id FROM "
-			"focus_has_resource WHERE resource_id IN "
-			"( " + *rit + ") ) ";
-	}
-
-	queryText += ")";
-#endif
-#ifdef USE_OLD_TABLES
-	QString queryText =
-	       	"SELECT pr.id AS result_id, pr.start_time AS start_time, "
-		"pr.end_time AS end_time, "
-		"pr.value AS value, pr.units AS units, riA.name AS metric, "
-		"riB.name AS tool, riC.name AS application_name "
-		"FROM performance_result pr, "
-		"resource_item riA, resource_item riB, resource_item riC ";
-#ifndef USE_GROUP_BY
-	// Add a join on focus_has_resource for each resource
-	unsigned i;
-	for( i = 0; i < resources.count(); ++i ) {
-		queryText += ", focus_has_resource fhr" + QString::number( i )
-			+ " ";
-	}
-#endif
-
-	// Now some more of the query...
-	queryText +=
-		"WHERE pr.metric_id = riA.id "
-		"AND pr.performance_tool_id = riB.id "
-		"AND pr.application_id = riC.id ";
-
-	// See if we're selecting on metric ids
-	if( ! metricIds.isEmpty() ) {
-		queryText += "AND pr.metric_id IN (" + metricIds + ") ";
-	}
-	
-#ifdef USE_GROUP_BY
-	// Get the set of matching foci and the corresponding results
-	queryText +=
-		"AND pr.focus_id IN "
-		"( SELECT focus_id FROM focus_has_resource "
-		"  WHERE resource_id IN ( " + resources.join(",") + ") "
-		"  GROUP BY focus_id "
-		"  HAVING COUNT(resource_id) = "
-		+ QString::number( resources.count() ) + ")";
-#else
-	// Now the join condition for each resource
-	QStringList::ConstIterator rit;
-	for( i = 0, rit = resources.begin(); rit != resources.end();
-			++rit, ++i ) {
-		queryText += "AND pr.focus_id = fhr" + QString::number(i)
-			+ ".focus_id AND fhr" + QString::number(i)
-			+ ".resource_id IN (" + *rit + ") ";
-	}
-#endif
-#else
-/* the original query before table changes for combined performance results */
-/*	QString queryText =
-	       	"SELECT pr.id AS result_id, pr.start_time AS start_time, "
-		"pr.end_time AS end_time, "
-		"pr.value AS value, pr.units AS units, riA.name AS metric, "
-		"riB.name AS tool, riC.name AS application_name "
-		"FROM performance_result pr, "
-		"performance_result_has_focus prhf, "
-		"resource_item riA, resource_item riB, resource_item riC "
-		"WHERE pr.metric_id = riA.id "
-		"AND pr.performance_tool_id = riB.id "
-		"AND pr.application_id = riC.id "
-		"AND pr.id = prhf.performance_result_id "
-		"AND prhf.focus_id IN "
-		"( SELECT "
-		+ ociOrderedHint +
-		" focus_id FROM "
-		+ resourceTableName + " t, focus_has_resource_name fhrn "
-		"  WHERE t.name = fhrn.resource_name "
-		"  GROUP BY fhrn.focus_id HAVING COUNT(resource_name) = "
-		   + QString::number( resources.count() ) + ")";
-*/
 	QString queryText =
 	       	"SELECT pr.id AS result_id, pr.start_time AS start_time, "
 		"pr.end_time AS end_time, "
@@ -1560,7 +1317,6 @@ void DataAccess::getResults( QStringList resources, QString metricIds, QString f
 		"  WHERE t.name = fhrn.resource_name "
 		"  GROUP BY fhrn.focus_id HAVING COUNT(resource_name) = "
 		   + QString::number( resources.count() ) + ")";
-#endif
 
 
 	if( ! filter.isEmpty() ) {
@@ -1603,7 +1359,6 @@ void DataAccess::getResults( int typeCount, QString /*metricIds*/, QString filte
 	// Clear out the results table
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( "DELETE FROM " + resultTableName ) ) {
@@ -1626,12 +1381,8 @@ void DataAccess::getResults( int typeCount, QString /*metricIds*/, QString filte
         */
 	QString queryText =
 		"INSERT INTO " + resultTableName +
-//S sharma -- made changes to add 'chk' column to GUI for showing High, Low, Expected and Unknown values of performance result
-//		"(saved, result_id, start_time, end_time, value, units, metric, label, combined) "
 		"(saved, result_id, start_time, end_time, value, chk, units, metric, label, combined) "		
-	       	//"SELECT pr.id, pr.start_time, pr.end_time, "
 	       	"SELECT 1, pr.id, pr.start_time, pr.end_time, "
-//		"pr.value, pr.units, riA.name, pr.label, pr.combined "
 		"pr.value, pr.chk, pr.units, riA.name, pr.label, pr.combined "
 		"FROM performance_result pr, resource_item riA ";
 	if( typeCount > 0 ) {
@@ -1785,7 +1536,6 @@ perfResultList * DataAccess::getResultsForCombining(int typeCount, QString metri
 	// Submit the query to get the result list
 	QSqlQuery query;
 
-       // Bhagya Y:
        query.setForwardOnly( true );	// optimize for simple traversal
 
 	qDebug("executing: %s\n", qPrintable(queryText));
@@ -1831,9 +1581,6 @@ bool DataAccess::addCombinedResultToDataSheet(perfResult * pr){
            queryText = "select seq_performance_result.nextval from dual";
        }
        else if ( driver == "QPSQL7" || driver == "QPSQL") {
-			// smithm 2008-7-2
-			// Updated so that queryText is the same for the QPSQL7 and
-			// QPSQL driver.
            queryText = "select nextval('seq_performance_result')";
        }
        else if ( driver == "QMYSQL3" || driver == "QMYSQL" ) {
@@ -1847,14 +1594,10 @@ bool DataAccess::addCombinedResultToDataSheet(perfResult * pr){
             return false;
        }
    
-       // Bhagya Y:
-       //QSqlQuery query(queryText);
        QSqlQuery query;
 
-       // Bhagya Y:
        query.setForwardOnly( true );	// optimize for simple traversal
 
-       // Bhagya Y:
        query.exec( queryText );
 
        if (query.next()){
@@ -1901,7 +1644,6 @@ bool DataAccess::addCombinedResultToDataSheet(perfResult * pr){
     qDebug("add to data sheet query: %s\n", qPrintable(queryText));
     QSqlQuery query;
 
-     // Bhagya Y:
      query.setForwardOnly( true );	// optimize for simple traversal
 
     if (!query.exec(queryText)){
@@ -1933,7 +1675,6 @@ bool DataAccess::removeResultFromSheet(perfResult * pr, int sheet){
     QString queryText = "delete from " + resultTableName + " where result_id=" + QString::number(resId);
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
     if(!query.exec(queryText)){
@@ -2043,7 +1784,6 @@ int DataAccess::addAncestorsByName( QString type, QString name )
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 
@@ -2091,7 +1831,6 @@ int DataAccess::addDescendantsByName( QString type, QString name )
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -2144,7 +1883,6 @@ int DataAccess::addAncestorsByAttribute( QString type, QString attr, QString val
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
     	qDebug("executing: %s\n", qPrintable(queryText));
@@ -2197,7 +1935,6 @@ int DataAccess::addDescendantsByAttribute( QString type, QString attr, QString v
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
     	qDebug("executing: %s\n", qPrintable(queryText));
@@ -2247,7 +1984,6 @@ void DataAccess::deleteAncestorsByName( QString type, QString name )
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -2270,7 +2006,6 @@ void DataAccess::deleteDescendantsByName( QString type, QString name )
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -2296,7 +2031,6 @@ void DataAccess::deleteAncestorsByAttribute( QString type, QString attr, QString
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -2323,7 +2057,6 @@ void DataAccess::deleteDescendantsByAttribute( QString type, QString attr, QStri
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
         qDebug("executing: %s\n", qPrintable(queryText));
@@ -2375,27 +2108,6 @@ void DataAccess::getResultResources( QStringList prIds, QString resType )
 	// The UNION operator gives us both cases; trying to form a
 	// single query was difficult without using DISTINCT, and that
 	// seemed to make things very slow.
-#if 0
-	// Replaced by newer version below that doesn't use prhf
-	QString queryText =
-		"SELECT prhf.performance_result_id, ri.name "
-		"FROM performance_result_has_focus prhf, "
-			"focus_has_resource fhr, resource_item ri "
-		"WHERE prhf.performance_result_id IN (" + idList + ") "
-		"AND prhf.focus_id = fhr.focus_id "
-		"AND fhr.resource_id = ri.id  "
-		"AND ri.type = '" + resType + "' "
-		"UNION "
-		"SELECT prhf.performance_result_id, ri.name "
-		"FROM performance_result_has_focus prhf, "
-			"focus_has_resource fhr, resource_item ri, "
-			"resource_has_ancestor rha "
-		"WHERE prhf.performance_result_id IN (" + idList + ") "
-		"AND prhf.focus_id = fhr.focus_id "
-		"AND fhr.resource_id = rha.rid AND rha.aid = ri.id "
-		"AND ri.type = '" + resType + "' "
-		;
-#endif
 	QString queryText =
 		"SELECT pr.id, ri.name "
 		"FROM performance_result pr, "
@@ -2436,26 +2148,6 @@ void DataAccess::getResultAttributes( QStringList prIds, QString attrName )
 {
 
 	QString idList = prIds.join(",");
-#if 0
-	// Replaced by a version that doesn't use prhf
-	QString queryText =
-		"SELECT prhf.performance_result_id, ra.value "
-		"FROM performance_result_has_focus prhf, "
-			"focus_has_resource fhr, resource_attribute ra "
-		"WHERE prhf.performance_result_id IN (" + idList + ") "
-		"AND prhf.focus_id = fhr.focus_id "
-		"AND fhr.resource_id = ra.resource_id " 
-		"AND ra.name = '" + attrName + "' "
-		"UNION "
-		"SELECT prhf.performance_result_id, ra.value "
-		"FROM performance_result_has_focus prhf, "
-			"focus_has_resource fhr, resource_attribute ra, "
-			"resource_has_ancestor rha "
-		"WHERE prhf.performance_result_id IN (" + idList + ") "
-		"AND prhf.focus_id = fhr.focus_id "
-		"AND fhr.resource_id = rha.rid AND rha.aid = ra.resource_id "
-		"AND ra.name = '" + attrName + "'";
-#endif
 	QString queryText =
 		"SELECT pr.id, ra.value "
 		"FROM performance_result pr, "
@@ -2492,7 +2184,6 @@ void DataAccess::getResultAttributes( QStringList prIds, QString attrName )
 
 void DataAccess::getResultResources( QString resType )
 {
-	// smithm 2008-7-28
 	// There is a bug in MySQL that prevents using a temp table
 	// multiple times in a querry.  The solution used here is to
 	// duplicate the temp table, use the original and duplicate
@@ -2569,7 +2260,6 @@ void DataAccess::getResultResources( QString resType )
 
 void DataAccess::getResultAttributes( QString attrName )
 {
-	// smithm 2008-7-28
 	// There is a bug in MySQL that prevents using a temp table
 	// multiple times in a querry.  The solution used here is to
 	// duplicate the temp table, use the original and duplicate
@@ -2671,7 +2361,6 @@ void DataAccess::deleteAllResources()
 
 	QSqlQuery query;
 
-        // Bhagya Y:
 	query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( queryText ) ) {
@@ -2707,14 +2396,10 @@ QStringList DataAccess::getAllMetricNames(){
 
 	qDebug("query to get metric names: %s\n", qPrintable(queryText));
 
-        // Bhagya Y:
-	//QSqlQuery query( queryText );
         QSqlQuery query;
 
-        // Bhagya Y:
         query.setForwardOnly( true );	// optimize for simple traversal
 
-        // Bhagya Y:
         query.exec( queryText );
 	while (query.next()){
             QString name = query.value(0).toString();
@@ -2727,14 +2412,10 @@ QStringList DataAccess::getAllLabelNames(){
     //get all the label names from the database for display in GUI lists
         QStringList labelNames;
         QString queryText = "select distinct label from performance_result where label != ''";
-        // Bhagya Y:
-	//QSqlQuery query( queryText );
         QSqlQuery query;
 
-        // Bhagya Y:
         query.setForwardOnly( true );	// optimize for simple traversal
 
-        // Bhagya Y:
         query.exec( queryText );
 	while (query.next()){
             QString name = query.value(0).toString();
@@ -2749,14 +2430,10 @@ QStringList DataAccess::getAllUnitsNames(){
     //get all the units names from the database for display in GUI lists
         QStringList unitsNames;
         QString queryText = "select distinct units from performance_result  where units != ''";
-        // Bhagya Y:
-	//QSqlQuery query( queryText );
         QSqlQuery query;
 
-        // Bhagya Y:
         query.setForwardOnly( true );	// optimize for simple traversal
 
-        // Bhagya Y:
         query.exec( queryText );
 	while (query.next()){
             QString name = query.value(0).toString();
@@ -2780,7 +2457,6 @@ Context DataAccess::getContextFromResultId(int resId){
 
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
     query.exec(queryText);
@@ -2856,14 +2532,10 @@ int DataAccess::findResourceByName(QString resName){
     if (resName == QString::null)
 	return -1;
     QString queryText = "select id from resource_item where name='" + resName + "'";
-    // Bhagya Y:
-    // QSqlQuery query(queryText);
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
-    // Bhagya Y:
     query.exec( queryText );
     if (query.next()){
        resId = query.value(0).toInt();
@@ -2881,14 +2553,10 @@ int DataAccess::getFocusFrameworkId(QString type){
     int fid = -1;
 
     QString queryText = "select id from focus_framework where type_string='" + type + "'";
-    // Bhagya Y:
-    // QSqlQuery query(queryText);
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
-    // Bhagya Y:
     query.exec( queryText );
     if (query.next())
        fid = query.value(0).toInt();
@@ -2932,8 +2600,6 @@ int DataAccess::insertResource(QString resName, QString resType){
         queryText = "select seq_resource_item.nextval from dual";
     } 
     else if ( driver == "QPSQL7" || driver == "QPSQL" ) {
-		// smithm 2008-7-2
-		// Updated so that queryText is the same for the QPSQL7 and QPSQL driver.
 	queryText = "select nextval('seq_resource_item')";
     } else if ( driver == "QMYSQL3" || driver == "QMYSQL" ) {
 		QString updateText = "UPDATE sequence SET prev_value = @ri_value := prev_value + 1 where name = 'seq_resource_item'";
@@ -2947,7 +2613,6 @@ int DataAccess::insertResource(QString resName, QString resType){
     }
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
     query.exec( queryText );
@@ -2994,13 +2659,10 @@ int DataAccess::findContextByName(Context c){
         fname += (*it).second;
     }
     QString queryText = "select id from focus where focusName = '" + fname + "'";
-     // Bhagya Y:
     QSqlQuery query;
 
-     // Bhagya Y:
      query.setForwardOnly( true );	// optimize for simple traversal
 
-     // Bhagya Y:
      query.exec( queryText );
     if (query.next()){
 	contextid = query.value(0).toInt();
@@ -3046,9 +2708,6 @@ int DataAccess::createContext(Context c){
         if( driver == "QOCI8" ) {
             queryText = "select seq_focus.nextval from dual";
         } else if ( driver == "QPSQL7" || driver == "QPSQL" ) {
-			// smithm 2008-7-2
-			// Updated so that queryText is the same for the QPSQL7 and
-			// QPSQL driver.
             queryText = "select nextval('seq_focus')";
         } else if ( driver == "QMYSQL3" || driver == "QMYSQL" ) {
 			QString updateText = "UPDATE sequence SET prev_value = @f_value := prev_value + 1 where name = 'seq_focus'";
@@ -3059,14 +2718,10 @@ int DataAccess::createContext(Context c){
              QMessageBox::information(NULL, "Unknown database", msg);
              return -1;
         }
-        //QSqlQuery query(queryText);
-        // Bhagya Y:
         QSqlQuery query;
 
-        // Bhagya Y:
         query.setForwardOnly( true );	// optimize for simple traversal
 
-        // Bhagya Y:
         query.exec( queryText );
         if (query.next()){
            contextId = query.value(0).toInt();
@@ -3121,7 +2776,6 @@ void DataAccess::resultSaved(int sheet, perfResult * pr){
     QString queryText = "update " + resultTableName + " set saved=1 where result_id=" + QString::number(resid);
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
     qDebug("resultSaved query:%s\n", qPrintable(queryText));
@@ -3150,7 +2804,6 @@ bool DataAccess::savePerformanceResult(perfResult * pr, bool combined){
     QString queryText;
     QSqlQuery query;
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
     //a safety check. if it's  a combined result, check to make sure its parent results
@@ -3209,9 +2862,6 @@ bool DataAccess::savePerformanceResult(perfResult * pr, bool combined){
             queryText = "select seq_performance_result.nextval from dual";
         }
         else if ( driver == "QPSQL7" || "QPSQL" ) {
-			// smithm 2008-7-2
-			// Updated so that queryText is the same for the QPSQL7 and
-			// QPSQL driver.
             queryText = "select nextval('seq_performance_result')";
         }
         else{
@@ -3275,8 +2925,7 @@ bool DataAccess::savePerformanceResult(perfResult * pr, bool combined){
     // add parent res ids to  combined_perf_result_has_member table
          Q3ValueList<int> pRIds = pr->getParentResultIds();
 	 for (Q3ValueList<int>::iterator it = pRIds.begin(); it != pRIds.end(); ++it){
-             //queryText = "insert into combined_perf_result_members (c_pr_id, pr_id) values (" + QString::number(resId) + "," + QString::number((*it)) + ")";
-             queryText = "insert into combined_perf_result__gen_members (c_pr_id, pr_id) values (" + QString::number(resId) + "," + QString::number((*it)) + ")";
+             queryText = "insert into combined_perf_result_members (c_pr_id, pr_id) values (" + QString::number(resId) + "," + QString::number((*it)) + ")";
 	     if(!query.exec(queryText)){
                 QString msg = "Entering parent results for combined performance result failed. The query was: " + queryText;
 		QMessageBox::information(NULL, "Performance Result Error", msg);
@@ -3296,7 +2945,6 @@ QStringList DataAccess::getResultLabels(){
     QString queryText = "select distinct label from performance_result";
     QSqlQuery query( curDb );
 
-    // Bhagya Y:
     query.setForwardOnly( true );	// optimize for simple traversal
 
     query.exec(queryText);
@@ -3325,7 +2973,6 @@ void DataAccess::dropTempTable( QString& name )
 		"DROP TABLE " + name;
 	QSqlQuery query;
 
-       // Bhagya Y:
        query.setForwardOnly( true );	// optimize for simple traversal
 
 	if( ! query.exec( queryText ) ) {
@@ -3341,7 +2988,6 @@ bool DataAccess::duplicateTable (QString orig, QString dup)
 	queryText = "CREATE TEMPORARY TABLE " + dup + " SELECT * FROM " + orig;
 	QSqlQuery query;
 
-       // Bhagya Y:
        query.setForwardOnly( true );	// optimize for simple traversal
 
 	if (!query.exec(queryText)) {

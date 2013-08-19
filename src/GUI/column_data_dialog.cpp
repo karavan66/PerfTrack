@@ -126,20 +126,6 @@ void ColumnDataDialog:: handleAddAttributes()
 
 void ColumnDataDialog:: handleRemoveColumns()
 {
-#if 0
-	// Should only issue this warning if there are checked items
-	// (i.e., data has already been retrieved)
-	int reply =
-		QMessageBox:: question( this, "Remove Columns",
-			"Removing these columns will also remove them from "
-			"the data table, along with any data they contain. "
-			"Are you sure you want to do this?",
-			QMessageBox::Cancel | QMessageBox::Escape,
-			QMessageBox::Ok | QMessageBox::Default );
-
-	if( reply == QMessageBox::Cancel ) return;
-#endif
-	
 	// Remove each selected item from the two lists.
 	QStringList columns;
 	Q3ListViewItemIterator itr( selectedResourceListView,

@@ -107,10 +107,6 @@ public:
 	//! Calls the std::stable_sort() algorithm,
 	//! so equivalent rows aren't moved.
 	
-	// smithm 2008-6-26
-	// Undo a change made by qt3to4.  qt3to4 misidentified this as belonging
-	// to the Qt library.
-	//void sortBy( unsigned col, Qt::Orientation d = Qt::AscendingOrder,
 	void sortBy( unsigned col, Direction d = Ascending,
 		CompareType c = String )
 	{

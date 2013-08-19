@@ -1,7 +1,7 @@
 Filename: GUItest-instructions.txt
 Date Created: July 15, 2008
 Purpose: Instructions for manual test of PerfTrack GUI
-Last Updated: July 15, 2008
+Last Updated: August 15, 2013
 
 IMPORTANT FILES
 1.   GUItest-slides.pdf        -- This file shows screenshots of the GUI tests.
@@ -14,7 +14,8 @@ directory for each database that PerfTrack supports:
     Database Directory:   Files:
     Oracle                The test files have not been created
 
-    PostgreSQL            SC07_milcdemodata_partialCPRs.dmp
+    PostgreSQL            SC07_milcdemodata_partialCPRs-2013-08-15.dmp
+                          SC07_milcdemodata_partialCPRs.dmp
                           SC07_milcdemodata.dmp
 
     MySQL                 SC07_milcdemodata_partialCPRs.sql
@@ -31,7 +32,7 @@ INSTRUCTIONS
      PostgreSQL Restore:
         pg_restore -d databaseName --clean -v restoreFileName
         example: 
-           pg_restore -d ptrac_test --clean -v SC07_milcdemodata_partialCPRs.dmp 
+           pg_restore -d ptrac_test --clean -v SC07_milcdemodata_partialCPRs-2013-08-15.dmp 
      MySQL Restore:    
         mysql -D databaseName < SC07_milcdemodata_partialCPRs.sql
 		example:

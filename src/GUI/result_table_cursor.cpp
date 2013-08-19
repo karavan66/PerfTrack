@@ -15,9 +15,6 @@
 #include <Q3SqlCursor>
 #include <result_table_cursor.h>
 
-// smithm 2008-6-26
-// QSqlDatabase is now a "smart pointer."  So just need to declare an
-// object of that class.
 ResultTableCursor:: ResultTableCursor( QString table, QSqlDatabase db )
 	: Q3SqlCursor( table, TRUE, db )
 {
@@ -36,8 +33,6 @@ QVariant ResultTableCursor:: calculateField( const QString & type )
 		"WHERE id IN "
 		"(SELECT resource_id FROM focus_has_resource "
 			"WHERE focus_id = "
-			// smithm 2008-6-26
-			// QSqlField is now and object and not a pointer.
 			+ field( "focus_id" ).value().toString()
 			+ ") "
 		"AND type = '" + type + "'";

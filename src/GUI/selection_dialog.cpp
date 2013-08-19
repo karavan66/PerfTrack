@@ -35,9 +35,6 @@
 // For cout
 #include <iostream>
 
-// Work around the fact that metric ids are not stored in the focus
-//#define METRIC_HACK
-
 // For buildFocusList
 //QStringList SelectionDialog:: focusTypes;
 
@@ -125,36 +122,18 @@ void SelectionDialog:: initSelectors()
 			dataSource, SLOT( findAttributesByType( QString,
 					QString, void * ) ) );
 	
-#ifdef USE_OLD_TABLES
-	connect( resourceSelector, SIGNAL( needResourcesByParent( QString,
-					QString, SelectionListItem * ) ),
-			dataSource, SLOT( findResourcesByParent( QString,
-					QString, SelectionListItem * ) ) );
-#else
 	connect( resourceSelector, SIGNAL( needResourcesByParent( QString,
 					QString, QString,
 					SelectionListItem * ) ),
 			dataSource, SLOT( findResourcesByParent( QString,
 					QString, QString,
 					SelectionListItem * ) ) );
-#endif
 	
 	connect( resourceSelector, SIGNAL( needAttributesByName( QString,
 					QString, SelectionListItem * ) ),
 			dataSource, SLOT( findAttributesByName( QString,
 					QString, SelectionListItem * ) ) );
 
-#ifdef USE_OLD_TABLES
-	connect( resourceSelector, SIGNAL( needAttributesById( QString,
-					SelectionListItem * ) ),
-			dataSource, SLOT( findAttributesById( QString,
-					SelectionListItem * ) ) );
-	
-	connect( resourceSelector, SIGNAL( needExecutionResourcesById( QString,
-					SelectionListItem * ) ),
-			dataSource, SLOT( findExecutionResourcesById( QString,
-					SelectionListItem * ) ) );
-#else
 	connect( resourceSelector, SIGNAL( needAttributesByResourceName(
 					QString, SelectionListItem * ) ),
 			dataSource, SLOT( findAttributesByResourceName(
@@ -164,7 +143,6 @@ void SelectionDialog:: initSelectors()
 					QString, SelectionListItem * ) ),
 			dataSource, SLOT( findExecutionResourcesByName(
 					QString, SelectionListItem * ) ) );
-#endif
 	
 	// Connect the data coming from the data server to the selector
 	connect( dataSource, SIGNAL( foundAttributesByType( QString,
@@ -172,28 +150,6 @@ void SelectionDialog:: initSelectors()
 			resourceSelector, SLOT( setAttributeList( QString,
 					QStringList, void * ) ) );
 
-#ifdef USE_OLD_TABLES
-	connect( dataSource, SIGNAL( foundResourcesByType( QString,
-					QMap<QString,QPair<QString,QString> >,
-					void * ) ),
-			resourceSelector, SLOT( setTopLevelResources( QString,
-					QMap<QString,QPair<QString,QString> >,
-					void * ) ) );
-
-	connect( dataSource, SIGNAL( foundResourcesByParent( QString,
-					QMap<QString,QPair<QString,QString> >,
-					SelectionListItem * ) ),
-			resourceSelector, SLOT( setChildResources( QString,
-					QMap<QString,QPair<QString,QString> >,
-					SelectionListItem * ) ) );
-
-	connect( dataSource, SIGNAL( foundAttributesByName( QString,
-					QMap<QString,QPair<QString,QString> >,
-					SelectionListItem * ) ),
-			resourceSelector, SLOT( setAttributeValues( QString,
-					QMap<QString,QPair<QString,QString> >,
-					SelectionListItem * ) ) );
-#else
 	connect( dataSource, SIGNAL( foundResourcesByType( QString,
 					QMap<QString,int>, void * ) ),
 			resourceSelector, SLOT( setTopLevelResources( QString,
@@ -210,23 +166,7 @@ void SelectionDialog:: initSelectors()
 					QStringList, SelectionListItem * ) ),
 			resourceSelector, SLOT( setAttributeValues( QString,
 					QStringList, SelectionListItem * ) ) );
-#endif
 
-#ifdef USE_OLD_TABLES
-	connect( dataSource, SIGNAL( foundAttributesById( QString,
-					Q3ValueList<QPair<QString,QString> >,
-					SelectionListItem * ) ),
-			resourceSelector, SLOT( setItemAttributes( QString,
-					Q3ValueList<QPair<QString,QString> >,
-					SelectionListItem * ) ) );
-
-	connect( dataSource, SIGNAL( foundExecutionResources(
-					Q3ValueList<QPair<QString,QString> >,
-					SelectionListItem * ) ),
-			resourceSelector, SLOT( setItemExecutionResources(
-					Q3ValueList<QPair<QString,QString> >,
-					SelectionListItem * ) ) );
-#else
 	connect( dataSource, SIGNAL( foundAttributesByResourceName( 
 					AttrListMap, SelectionListItem * ) ),
 			resourceSelector, SLOT( setItemAttributesMap( 
@@ -238,8 +178,6 @@ void SelectionDialog:: initSelectors()
 			resourceSelector, SLOT( setItemExecutionResources(
 					Q3ValueList<QPair<QString,QString> >,
 					SelectionListItem * ) ) );
-#endif
-
 }
 
 void SelectionDialog:: deleteConstraints()
@@ -252,23 +190,14 @@ void SelectionDialog:: deleteConstraints()
 	dataSource->beginAdd();
 	while( ( selItem = (ConstraintListItem*)(items.current()) ) != 0 ) {
 		++items;
-#ifdef METRIC_HACK
-		if( selItem->text( TypeCol ) == "metric" ) {
-			metricIds = QString();
+		// It's a resource-type entry (not a specific set 
+		// of resources)
+		if( selItem->text( ValueCol ) == "ANY" ) {
+			dataSource->deleteResourcesByName(
+				selItem->text( TypeCol ) , QString() );
+		} else {
+			deleteItemRelatives( selItem, Self | FromItem );
 		}
-		else {
-#endif
-			// It's a resource-type entry (not a specific set 
-			// of resources)
-			if( selItem->text( ValueCol ) == "ANY" ) {
-				dataSource->deleteResourcesByName(
-					selItem->text( TypeCol ) , QString() );
-			} else {
-				deleteItemRelatives( selItem, Self | FromItem );
-			}
-#ifdef METRIC_HACK
-		}
-#endif
 
 		delete selItem;
 	}
@@ -277,17 +206,10 @@ void SelectionDialog:: deleteConstraints()
 	matchCountLabel->setText( "---" );
 	qApp->processEvents();	// Keep things looking responsive while
 				// we recompute the count
-#ifdef USE_OLD_TABLES
-	matchCountLabel->setText( QString::number(
-				dataSource->getResultCount(
-					buildResourceIdList(),
-					metricIds ) ) );
-#else
 	matchCountLabel->setText( QString::number(
 				dataSource->getResultCount(
 					typeCount(),
 					metricIds, labelList() ) ) );
-#endif
 }
 
 // Convenience function to delete ancestors and descendants from
@@ -394,31 +316,8 @@ void SelectionDialog:: addConstraint( QString type, QString value,
 			"D", type, value, "---", resourceType, resources );
 	
 
-#ifdef METRIC_HACK 
-	// Ugly hack to handle metrics specially
-	if( type == "metric" ) {
-		item->setResources( QString() );	// Blank out res list
-		item->setText( RelCol, "N" );
-		item->setRenameEnabled( RelCol, false );
-		metricIds = resources;
-#ifdef USE_OLD_TABLES
-		setItemCount( item, RelCol );
-#endif
-		return;
-	}
-#endif
-
 	// Allow user to set the value in RelCol (types of relatives to get)
 	item->setRenameEnabled( RelCol, true );
-
-#ifdef USE_OLD_TABLES
-	// Get the ancestor and descendant ids for these items
-	item->setAncestors( dataSource->getAncestorIds( resources ) );
-	item->setDescendants( dataSource->getDescendantIds( resources ) );
-
-	// Get the count for this item
-	setItemCount( item, RelCol );
-#else
 
 	// Put resources in the db list according to the specifications in
 	// this item. 
@@ -433,7 +332,6 @@ void SelectionDialog:: addConstraint( QString type, QString value,
 		dataSource->endAdd();
 		setCounts( item, results );
 	}
-#endif
 
 }
 
@@ -442,11 +340,7 @@ void SelectionDialog:: addResourceType( QString type )
 	// Add the new constraint to the list; value is "any", and no
 	// relatives are included by default.  First, look up all the
 	// resource ids for this type.
-#ifdef USE_OLD_TABLES
-	QString resources = dataSource->findResourceIdsByType( type );
-#else
 	QString resources;
-#endif
 
 	ConstraintListItem * item = new ConstraintListItem( constraintListView,
 			"N", type, "ANY", "---", type, resources );
@@ -458,10 +352,6 @@ void SelectionDialog:: addResourceType( QString type )
 	// constraints) would be expensive.
 	item->setRenameEnabled( RelCol, false );
 
-#ifdef USE_OLD_TABLES
-	// Get the count for this one item (and its relatives, if requested)
-	setItemCount( item, RelCol );
-#else
 	// Put all resources of this type in the database's temporary table
 	// The blank value string means "find all values"
 	dataSource->beginAdd();
@@ -473,7 +363,6 @@ void SelectionDialog:: addResourceType( QString type )
 		setCounts( item, results );
 		dataSource->endAdd();
 	}
-#endif
 
 }	
 
@@ -533,12 +422,6 @@ void SelectionDialog:: setItemCount( Q3ListViewItem * item, int col )
 	bool descendants = ( relatives == 'B' || relatives == 'D' );
 	QString resources = it->resources( ancestors, descendants );
 
-    // 2008-6-25 smithm
-    // This conditional operator appears to be attempting to set resList to a
-    // new QStringList if resources is empty else set resList to resources.
-    // However, resList is of type QStringList and resources is of type
-    // QString.  Changed so that resources is added to the resList instead.
-    // QStringList resList = resources.isEmpty() ? QStringList() : resources;
     QStringList resList;
     if (resources.isEmpty())
         resList = QStringList();
@@ -547,24 +430,10 @@ void SelectionDialog:: setItemCount( Q3ListViewItem * item, int col )
 
 	// Get data for just the metric or just the resource list
 	QString resultCount;
-#ifdef METRIC_HACK
-	if( it->text( TypeCol ) == "metric" ) {
-		resultCount = QString::number( dataSource->getResultCount(
-					QStringList(), metricIds ) );
-		it->setText( CountCol, resultCount );
-	} else {
-#endif
-#ifdef USE_OLD_TABLES
-		resultCount = QString::number( dataSource->getResultCount(
-					resList, QString() ) );
-#else
-		resultCount = QString::number( dataSource->getResultCount(
-					1, QString(), labelList() ) );
-#endif
-		it->setText( CountCol, resultCount );
-#ifdef METRIC_HACK
-	}
-#endif
+	resultCount = QString::number( dataSource->getResultCount(
+				1, QString(), labelList() ) );
+	it->setText( CountCol, resultCount );
+
 	// If this is the only item, the total count will be the
 	// same as resultCount, which we just computed; otherwise,
 	// we need to get the overall count now.
@@ -575,15 +444,9 @@ void SelectionDialog:: setItemCount( Q3ListViewItem * item, int col )
 		// before we do the next query.
 		qApp->processEvents();
 
-#ifdef USE_OLD_TABLES
-		// Get the overall count
-		resultCount = QString::number( dataSource->getResultCount(
-					buildResourceIdList(), metricIds ) );
-#else
 		// Get the overall count
 		resultCount = QString::number( dataSource->getResultCount(
 					typeCount(), metricIds, labelList() ) );
-#endif
 	}
 
 	// Update the overall count
@@ -641,11 +504,6 @@ QStringList SelectionDialog:: buildResourceIdList()
 	ConstraintListItem * cur;
 	while( ( cur = (ConstraintListItem*)(items.current()) ) != 0 ) {
 		++items;
-
-#ifdef METRIC_HACK
-		// Skip if this resource type is "metric"
-		if( cur->text( TypeCol ) == "metric" ) continue;
-#endif
 
 		// Get the set of resources, including the requested
 		// relatives
